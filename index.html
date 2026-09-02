@@ -1,0 +1,1843 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#E4E5E2;
+    --sheet:#F4F4F2;
+    --ink:#23282D;
+    --ink-soft:#5C646A;
+    --line:#9BA1A4;
+    --hair:#C9CCC9;
+    --fill:#DCDEDB;
+    --fill-2:#CFD2CE;
+    --mark:#2B4C9B;
+    --mark-soft:#7A93C4;
+    --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+
+  *{box-sizing:border-box}
+
+  .wf{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.5;
+    padding:0 0 5rem;
+    margin:0;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- document header ---------- */
+  .wf-head{
+    border-bottom:1px solid var(--line);
+    padding:1.6rem 1.5rem 1.1rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:.4rem 1.6rem;
+    background:var(--paper);
+  }
+
+  .wf-nav{
+    position:sticky;top:0;z-index:60;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    display:flex;gap:0;overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .wf-nav::-webkit-scrollbar{display:none}
+  .wf-nav a{
+    flex:none;
+    font-family:var(--mono);font-size:.71rem;
+    color:var(--ink-soft);text-decoration:none;
+    padding:.62rem .8rem;white-space:nowrap;
+    border-bottom:2px solid transparent;
+  }
+  .wf-nav a:hover{color:var(--ink)}
+  .wf-nav a.on{color:var(--ink);border-bottom-color:var(--ink)}
+  .wf-nav a:focus-visible{outline:2px solid var(--mark);outline-offset:-2px}
+  .wf-nav a b{font-weight:500;color:inherit}
+
+  .blk{scroll-margin-top:3rem}
+
+  /* ---------- designer hints ---------- */
+  .hints-btn{
+    margin-left:auto;
+    font-family:var(--mono);font-size:.7rem;
+    background:none;border:1px solid var(--line);color:var(--ink);
+    padding:.3rem .6rem;border-radius:2px;cursor:pointer;
+  }
+  .hints-btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+  .mk{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:15px;height:15px;flex:none;
+    border:1px solid var(--mark);color:var(--mark);
+    border-radius:50%;
+    font-family:var(--mono);font-size:.6rem;font-style:normal;font-weight:500;
+    vertical-align:super;margin:0 .12rem;line-height:1;
+  }
+
+  .notes-h{
+    font-family:var(--mono);font-size:.66rem;color:var(--mark-soft);
+    margin:0 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--mark-soft);
+  }
+  .build-block{margin-top:1.3rem}
+  ol.build{list-style:none;margin:0;padding:0}
+  ol.build li{
+    font-size:.76rem;line-height:1.5;color:var(--mark);
+    margin:0 0 .75rem;padding-left:1.4rem;position:relative;
+  }
+  ol.build li b{
+    position:absolute;left:0;top:.05rem;
+    display:inline-flex;align-items:center;justify-content:center;
+    width:15px;height:15px;border:1px solid var(--mark);border-radius:50%;
+    font-family:var(--mono);font-size:.6rem;font-weight:500;
+  }
+  ol.build li em{font-style:normal;font-weight:600}
+
+  .brief{
+    border-bottom:1px solid var(--hair);
+    padding:1.3rem 1.5rem 1.5rem;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+    gap:1.1rem 1.6rem;
+  }
+  .brief h2{
+    grid-column:1/-1;margin:0;
+    font-family:var(--mono);font-size:.72rem;font-weight:400;color:var(--ink-soft);
+  }
+  .brief section{margin:0}
+  .brief h3{margin:0 0 .3rem;font-size:.82rem;font-weight:600}
+  .brief p{margin:0;font-size:.79rem;line-height:1.5;color:var(--ink-soft)}
+
+  .notes,.brief{
+    background-image:repeating-linear-gradient(
+      45deg,
+      rgba(122,147,196,.16) 0 1px,
+      transparent 1px 8px
+    );
+  }
+  .brief section,.note,ol.build li,.notes-h{position:relative}
+
+  .wf.no-hints .mk{display:none}
+  .wf.no-hints .build-block{display:none}
+  .wf.no-hints .brief{display:none}
+  .wf.no-hints .notes{display:none}
+  .wf.no-hints .blk{grid-template-columns:2.6rem minmax(0,1fr)}
+  .wf.no-hints .doc-open{display:none}
+  .wf.no-hints .seq{display:none}
+
+  /* ---------- process / motion panel ---------- */
+  .seq{
+    margin:0 1.5rem;
+    border:1px solid var(--mark-soft);
+    background-image:repeating-linear-gradient(
+      45deg,rgba(122,147,196,.16) 0 1px,transparent 1px 8px);
+    padding:1.3rem 1.4rem 1.5rem;
+  }
+  .seq > h2{
+    margin:0 0 .9rem;font-family:var(--mono);font-size:.72rem;
+    font-weight:400;color:var(--mark-soft);
+    padding-bottom:.4rem;border-bottom:1px solid var(--mark-soft);
+  }
+  .seq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem 1.7rem}
+  .seq-grid section{margin:0}
+  .seq-grid h3{margin:0 0 .35rem;font-size:.84rem;font-weight:600;color:var(--mark)}
+  .seq-grid p{margin:0 0 .5rem;font-size:.78rem;line-height:1.5;color:var(--mark)}
+  .seq-grid ul{margin:0;padding-left:1rem;font-size:.78rem;line-height:1.6;color:var(--mark)}
+  .seq-grid li{margin-bottom:.2rem}
+  .seq-grid em{font-style:normal;font-weight:600}
+  .budget{
+    grid-column:1/-1;border-top:1px solid var(--mark-soft);padding-top:1rem;margin-top:.2rem;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem 1.7rem;
+  }
+  @media (max-width:660px){ .seq{margin:0 1.1rem} }
+
+  /* ---------- footer ---------- */
+  .ftr{border:1px solid var(--line);background:var(--sheet);padding:1.4rem 1.3rem}
+  .ftr-top{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:1.4rem}
+  .ftr-brand .logo{margin-bottom:.6rem}
+  .ftr-brand p{margin:0;font-size:.83rem;color:var(--ink-soft);max-width:30ch}
+  .ftr-col h4{margin:0 0 .55rem;font-size:.8rem;font-weight:600}
+  .ftr-col ul{list-style:none;margin:0;padding:0;font-size:.81rem;color:var(--ink-soft);line-height:1.9}
+  .ftr-hound{
+    margin-top:1.2rem;border-top:1px solid var(--hair);padding-top:1.1rem;
+    display:flex;align-items:center;gap:1rem;
+  }
+  .hound-slot{
+    width:104px;height:72px;flex:none;
+    background:var(--fill);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);text-align:center;
+  }
+  .ftr-legal{
+    margin-top:1.1rem;border-top:1px solid var(--hair);padding-top:.9rem;
+    font-size:.76rem;color:var(--ink-soft);line-height:1.7;
+  }
+  .ftr-legal p{margin:0 0 .2rem}
+  @media (max-width:660px){ .ftr-top{grid-template-columns:1fr 1fr} }
+  .wf-head h1{
+    font-size:1.22rem;
+    font-weight:600;
+    letter-spacing:-.015em;
+    margin:0;
+  }
+  .wf-meta{
+    font-family:var(--mono);
+    font-size:.7rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .wf-legend{
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.35rem 1.3rem;
+    margin-top:.85rem;
+    font-family:var(--mono);
+    font-size:.68rem;
+    color:var(--ink-soft);
+  }
+  .wf-legend span{display:flex;align-items:center;gap:.4rem}
+  .swatch{width:15px;height:9px;border:1px solid var(--line);display:inline-block}
+  .swatch.f{background:var(--fill)}
+  .swatch.i{background:var(--ink);border-color:var(--ink)}
+  .swatch.m{background:transparent;border:1px dashed var(--mark)}
+
+  /* ---------- three-column block grid ---------- */
+  .blk{
+    display:grid;
+    grid-template-columns:2.6rem minmax(0,1fr) 15.5rem;
+    border-bottom:1px solid var(--hair);
+    align-items:start;
+  }
+  .rail{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--ink-soft);
+    padding:1.5rem 0 0;
+    text-align:center;
+    border-right:1px solid var(--hair);
+    align-self:stretch;
+  }
+  .frame{padding:1.5rem 1.6rem 2.4rem;min-width:0;container-type:inline-size}
+  .notes{
+    padding:1.5rem 1.4rem 2.4rem 0;
+    border-left:1px solid var(--hair);
+    padding-left:1.2rem;
+    align-self:stretch;
+  }
+
+  .sec-label{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--ink-soft);
+    margin:0 0 1.2rem;
+    padding-bottom:.45rem;
+    border-bottom:1px solid var(--hair);
+  }
+  .sec-label b{color:var(--ink);font-weight:600}
+
+  /* ---------- annotations ---------- */
+  .note{
+    font-size:.78rem;
+    line-height:1.5;
+    color:var(--mark);
+    margin:0 0 1.05rem;
+    padding-left:.85rem;
+    border-left:2px solid var(--mark-soft);
+  }
+  .note b{font-weight:600}
+  .note.warn{border-left-style:dashed}
+
+  /* ---------- generic wireframe primitives ---------- */
+  .box{background:var(--fill);border:1px solid var(--line)}
+  .bar{background:var(--fill-2);height:9px;border-radius:1px;display:block;margin:.42rem 0}
+  .bar.w90{width:90%} .bar.w75{width:75%} .bar.w60{width:60%} .bar.w45{width:45%} .bar.w30{width:30%}
+  .ph{
+    background:var(--fill);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);
+    text-align:center;padding:.5rem;
+  }
+  .btn{
+    background:var(--ink);color:var(--sheet);
+    border:1px solid var(--ink);
+    font-family:var(--sans);font-size:.83rem;font-weight:500;
+    padding:.62rem 1.1rem;border-radius:2px;cursor:pointer;
+    display:inline-block;
+  }
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn:focus-visible,.kw-field:focus-visible,.kw-opt:focus-visible,.reveal:focus-visible{
+    outline:2px solid var(--mark);outline-offset:2px;
+  }
+  .hint{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft)}
+
+  h2.hl{
+    font-size:1.9rem;line-height:1.12;letter-spacing:-.025em;
+    font-weight:600;margin:0 0 .6rem;max-width:16ch;
+  }
+  p.sub{font-size:.95rem;color:var(--ink-soft);margin:0;max-width:52ch}
+
+  /* ---------- nav strip ---------- */
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--line);background:var(--sheet);
+    padding:.6rem .85rem;margin-bottom:1.6rem;
+  }
+  .nav-l{display:flex;align-items:center;gap:.7rem}
+  .logo{width:74px;height:16px;background:var(--fill-2);border:1px solid var(--line)}
+  .nav-r{display:flex;align-items:center;gap:.7rem}
+
+  /* ---------- headline variant switcher (review tool, not page furniture) ---------- */
+  .variants{
+    border:1px dashed var(--mark-soft);
+    background-image:repeating-linear-gradient(45deg,rgba(122,147,196,.16) 0 1px,transparent 1px 8px);
+    padding:.6rem .75rem;margin-bottom:.6rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .7rem;
+  }
+  .variants > span{font-family:var(--mono);font-size:.66rem;color:var(--mark)}
+  .vbtn{
+    font-family:var(--mono);font-size:.68rem;
+    background:var(--paper);border:1px solid var(--mark-soft);color:var(--mark);
+    padding:.28rem .55rem;border-radius:2px;cursor:pointer;
+  }
+  .vbtn:hover{border-color:var(--mark)}
+  .vbtn[aria-pressed="true"]{background:var(--mark);border-color:var(--mark);color:var(--sheet)}
+  .vbtn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .vnote{
+    width:100%;margin:.15rem 0 0;
+    font-size:.73rem;line-height:1.45;color:var(--mark);
+  }
+
+  /* ---------- hero demo ---------- */
+  .hero{background:var(--sheet);border:1px solid var(--line);padding:1.7rem 1.5rem}
+  .hero-top{max-width:60ch}
+
+  .live{
+    display:flex;align-items:center;gap:.45rem;
+    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+    margin-bottom:1rem;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ink);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+
+  .scanner{margin:1.5rem 0 0}
+  .kw-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+  .kw-label{font-size:1.02rem;font-weight:500;color:var(--ink)}
+  .kw-tail{font-size:1.02rem;font-weight:500;color:var(--ink)}
+
+  .kw-pop{
+    display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .4rem;
+    margin-top:.6rem;
+  }
+  .kw-pop > span{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);margin-right:.15rem}
+  .chip{
+    font-family:var(--sans);font-size:.78rem;color:var(--ink);
+    background:var(--paper);border:1px solid var(--hair);
+    padding:.22rem .55rem;border-radius:999px;cursor:pointer;
+  }
+  .chip:hover{border-color:var(--line);background:var(--sheet)}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--sheet)}
+  .chip:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .kw-wrap{position:relative}
+  .kw-field{
+    display:flex;align-items:center;gap:.6rem;
+    border:1px solid var(--ink);background:var(--paper);
+    padding:.5rem .7rem;min-width:190px;cursor:text;border-radius:2px;
+    font-family:var(--sans);font-size:.92rem;font-weight:500;color:var(--ink);
+  }
+  #kwText{flex:1}
+  #kwText.cycling{color:var(--ink-soft)}
+  .caret{width:1px;height:15px;background:var(--ink);animation:blink 1.1s step-end infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  .chev{font-size:.62rem;color:var(--ink-soft)}
+
+  .kw-menu{
+    position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;
+    background:var(--paper);border:1px solid var(--ink);
+    padding:.3rem;display:none;
+  }
+  .kw-menu.open{display:block}
+  .kw-opt{
+    display:flex;justify-content:space-between;gap:1rem;width:100%;
+    background:none;border:0;text-align:left;cursor:pointer;
+    font-family:var(--sans);font-size:.86rem;color:var(--ink);
+    padding:.38rem .5rem;border-radius:2px;
+  }
+  .kw-opt:hover{background:var(--fill)}
+  .kw-opt em{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);font-style:normal}
+  .kw-custom{border-top:1px solid var(--hair);margin-top:.3rem;padding:.45rem .5rem .2rem}
+  .kw-custom input{
+    width:100%;border:1px solid var(--line);background:var(--sheet);
+    font-family:var(--sans);font-size:.84rem;padding:.35rem .45rem;color:var(--ink);
+  }
+
+  .feed{margin-top:1.2rem;display:flex;flex-direction:column;gap:.6rem}
+  .feed-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+    padding-bottom:.45rem;border-bottom:1px solid var(--hair);
+  }
+
+  .card{border:1px solid var(--line);background:var(--paper);padding:.85rem .9rem}
+  .card.fresh{animation:drop .5s ease-out}
+  @keyframes drop{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+  .card-top{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+  .card-sum{font-size:.9rem;font-weight:500;margin:0;line-height:1.35}
+  .card-time{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);white-space:nowrap}
+  .card-facts{display:flex;flex-wrap:wrap;gap:.35rem .55rem;margin:.55rem 0 .7rem}
+  .fact{
+    font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);
+    border:1px solid var(--hair);padding:.1rem .4rem;background:var(--sheet);
+  }
+  .fact.b{color:var(--ink);border-color:var(--line)}
+
+  .who{display:flex;align-items:center;gap:.7rem;border-top:1px solid var(--hair);padding-top:.7rem}
+  .av{
+    width:34px;height:34px;border-radius:50%;flex:none;
+    background:var(--fill);border:1px solid var(--line);
+  }
+  .who-txt{flex:1;min-width:0}
+  .who-name{font-size:.86rem;font-weight:500;margin:0;line-height:1.3}
+  .who-role{font-size:.76rem;color:var(--ink-soft);margin:.1rem 0 0;line-height:1.3}
+  .masked .who-name,.masked .who-role{filter:blur(4.5px);user-select:none}
+  .reveal{
+    background:var(--ink);color:var(--sheet);border:1px solid var(--ink);
+    font-family:var(--sans);font-size:.78rem;font-weight:500;
+    padding:.42rem .8rem;border-radius:2px;cursor:pointer;white-space:nowrap;
+  }
+  .reveal[data-state="done"]{background:transparent;color:var(--ink-soft);border-color:var(--hair);cursor:default}
+
+  .more{
+    margin-top:.7rem;width:100%;
+    background:none;border:1px dashed var(--line);
+    font-family:var(--sans);font-size:.83rem;color:var(--ink);
+    padding:.6rem 1rem;border-radius:2px;cursor:pointer;
+  }
+  .more:hover:not(:disabled){border-style:solid;background:var(--sheet)}
+  .more:disabled{color:var(--ink-soft);cursor:default;border-color:var(--hair);font-size:.78rem}
+  .more:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+  .who.partial .who-name,.who.partial .who-role{filter:none}
+  .who.partial .who-name{font-family:var(--mono);letter-spacing:.02em}
+  .who.partial .av{
+    background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px);
+  }
+  .reveal.is-locked{background:transparent;color:var(--ink-soft);border-color:var(--hair);cursor:default}
+  .prow .pname{font-family:var(--mono);font-size:.78rem}
+  .prow .av{background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px)}
+  .gate p b{font-weight:600}
+
+  .profiles{margin:.7rem 0 0;padding:.65rem .7rem;border:1px dashed var(--line);background:var(--sheet)}
+  .profiles p{margin:0 0 .5rem;font-family:var(--mono);font-size:.68rem;color:var(--ink-soft)}
+  .prow{display:flex;align-items:center;gap:.55rem;padding:.3rem 0}
+  .prow .av{width:24px;height:24px}
+  .prow span{font-size:.8rem}
+  .prow em{font-size:.75rem;color:var(--ink-soft);font-style:normal}
+  .gate{
+    margin-top:.7rem;border:1px solid var(--ink);background:var(--sheet);
+    padding:.75rem .8rem;display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:space-between;gap:.6rem;
+  }
+  .gate p{margin:0;font-size:.84rem;max-width:38ch}
+
+  .hero-foot{
+    margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--hair);
+    display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;
+    justify-content:space-between;
+  }
+
+  /* ---------- section 2: contrast ---------- */
+  .split{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch}
+  .col{border:1px solid var(--line);background:var(--sheet);padding:1rem}
+  .col h3{margin:0 0 .7rem;font-size:.9rem;font-weight:600}
+  .col ul{margin:0;padding-left:1.05rem;font-size:.85rem;color:var(--ink-soft);line-height:1.65}
+  .arrow{align-self:center;font-family:var(--mono);color:var(--line);font-size:1.1rem}
+
+  /* ---------- section 3: steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+  .step{border:1px solid var(--line);background:var(--sheet);padding:.95rem}
+  .step-n{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin:0 0 .5rem}
+  .step h3{margin:0 0 .4rem;font-size:.92rem;font-weight:600}
+  .step p{margin:0;font-size:.83rem;color:var(--ink-soft)}
+
+  /* ---------- section 4: doors ---------- */
+  .door{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;margin-bottom:.9rem}
+  .door.primary{border-width:2px}
+  .door-h{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.5rem}
+  .door-h h3{margin:0;font-size:1rem;font-weight:600}
+  .door p{margin:0 0 .8rem;font-size:.86rem;color:var(--ink-soft);max-width:56ch}
+  .door-vis{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.8rem}
+  .minor{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;align-items:stretch}
+  .minor .door{display:flex;flex-direction:column}
+  .minor .door p{flex:1}
+  .minor .door .ph,.minor .door .paste-line{margin-top:auto}
+  .paste-line{
+    display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;
+    border-top:1px solid var(--hair);padding-top:.9rem;
+  }
+  .paste-in{flex:1;min-width:160px;height:32px;background:var(--fill);border:1px solid var(--line)}
+
+  /* ---------- section 5: objections ---------- */
+  .faq{border-top:1px solid var(--hair)}
+  .faq-row{border-bottom:1px solid var(--hair);padding:.8rem 0}
+  .faq-row h3{margin:0 0 .35rem;font-size:.9rem;font-weight:600}
+  .faq-row p{margin:0;font-size:.85rem;color:var(--ink-soft);max-width:64ch}
+
+  /* ---------- section 6: pricing ---------- */
+  .free-band{
+    border:1px solid var(--line);background:var(--sheet);
+    padding:.95rem 1.1rem;display:flex;flex-wrap:wrap;gap:.7rem 1.2rem;
+    align-items:center;justify-content:space-between;margin-bottom:1rem;
+  }
+  .free-band h3{margin:0 0 .2rem;font-size:.95rem;font-weight:600}
+  .free-band p{margin:0;font-size:.85rem;color:var(--ink-soft)}
+
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;align-items:start}
+  .plan{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;position:relative}
+  .plan.pop{border:2px solid var(--ink);padding:1.05rem}
+  .plan-flag{
+    font-family:var(--mono);font-size:.66rem;color:var(--ink);
+    margin:0 0 .5rem;padding-bottom:.4rem;border-bottom:1px solid var(--hair);
+  }
+  .plan-name{margin:0 0 .35rem;font-size:.9rem;font-weight:600}
+  .plan-price{font-size:1.55rem;font-weight:600;letter-spacing:-.025em;margin:0;line-height:1.1}
+  .plan-price em{font-style:normal;font-size:.82rem;font-weight:400;color:var(--ink-soft)}
+  .plan-unit{
+    font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);
+    margin:.3rem 0 .9rem;padding-bottom:.75rem;border-bottom:1px solid var(--hair);
+  }
+  .plan ul{margin:0 0 1rem;padding-left:1.05rem;font-size:.83rem;color:var(--ink-soft);line-height:1.65}
+  .plan .btn{width:100%;text-align:center}
+
+  .cmp{
+    margin:1rem 0 0;background:none;border:1px solid var(--line);
+    font-family:var(--sans);font-size:.83rem;color:var(--ink);
+    padding:.55rem 1rem;border-radius:2px;cursor:pointer;
+  }
+  .cmp:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+  .matrix-wrap{margin-top:.9rem;overflow-x:auto;border:1px solid var(--line);background:var(--sheet)}
+  .matrix-wrap[hidden]{display:none}
+  table.matrix{border-collapse:collapse;width:100%;min-width:640px;font-size:.8rem}
+  table.matrix th,table.matrix td{
+    border-bottom:1px solid var(--hair);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  }
+  table.matrix thead th{
+    font-weight:600;font-size:.85rem;border-bottom:1px solid var(--line);
+    background:var(--fill);white-space:nowrap;
+  }
+  table.matrix tbody th{font-weight:400;color:var(--ink-soft);white-space:nowrap}
+  table.matrix .col-pop{background:var(--fill);font-weight:500;color:var(--ink)}
+  table.matrix .rowhead td,table.matrix .rowhead th{
+    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+    background:var(--paper);border-bottom:1px solid var(--hair);
+  }
+  table.matrix .money{font-family:var(--mono)}
+  table.matrix tr:last-child th,table.matrix tr:last-child td{border-bottom:0}
+
+  .always{
+    margin-top:.9rem;border:1px solid var(--ink);background:var(--sheet);padding:.85rem 1rem;
+    display:flex;flex-wrap:wrap;gap:.45rem 1.6rem;font-size:.84rem;font-weight:500;
+  }
+  .refresh-line{margin:.9rem 0 0;font-size:.85rem;color:var(--ink-soft)}
+
+  .math{border:1px dashed var(--line);background:var(--sheet);padding:1.2rem;margin-top:1.4rem;max-width:34rem}
+  .math-row{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;font-size:.87rem;border-bottom:1px solid var(--hair)}
+  .math-row:last-child{border:0;font-weight:600;padding-top:.7rem}
+  .math-row span:last-child{font-family:var(--mono)}
+
+  .guarantee{
+    margin-top:.9rem;border:1px solid var(--ink);padding:.7rem .85rem;
+    font-size:.88rem;font-weight:500;background:var(--sheet);
+  }
+
+  /* ---------- closing ---------- */
+  .close-cta{border:1px solid var(--line);background:var(--sheet);padding:1.6rem 1.5rem;text-align:center}
+  .close-cta h2{margin:0 auto .5rem;max-width:20ch;font-size:1.5rem;letter-spacing:-.02em;font-weight:600}
+  .close-cta p{margin:0 auto 1.1rem;max-width:46ch;font-size:.9rem;color:var(--ink-soft)}
+  .mini-feed{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem}
+  .mini{border:1px solid var(--line);background:var(--paper);padding:.55rem .7rem;display:flex;justify-content:space-between;gap:.8rem;align-items:center;text-align:left}
+  .mini span{font-size:.82rem}
+  .footer-note{padding:1.6rem 1.6rem 0 4.2rem}
+
+  /* ---------- mobile view toggle ---------- */
+  .wf.mobile .frame{
+    width:100%;
+    max-width:392px;
+    margin-inline:auto;
+    padding:1.4rem 0 2.2rem;
+  }
+  .burger{
+    display:none;
+    width:22px;height:16px;border:1px solid var(--line);background:var(--fill);
+  }
+
+  /* frame-scoped mobile layout — fires from the toggle and from a real phone */
+  @container (max-width: 520px){
+    .nav{padding:.5rem .6rem}
+    .nav-l .hint{display:none}
+    .burger{display:block}
+    .nav-r .hint{display:none}
+
+    .hero{padding:1.1rem .8rem}
+    .plan,.plan.pop,.door,.col,.step{padding:.9rem .8rem}
+    .price-card{padding:1rem .8rem}
+    h2.hl{font-size:1.32rem;max-width:100%}
+    p.sub{font-size:.87rem}
+    .live{margin-bottom:.8rem}
+
+    .kw-row{gap:.4rem}
+    .kw-label{width:100%}
+    .kw-wrap{width:100%}
+    .kw-field{width:100%;padding:.62rem .7rem}
+
+    .card-top{flex-direction:column;align-items:flex-start;gap:.15rem}
+    .card-sum{width:100%}
+    .card-time{order:-1}
+    .who{flex-wrap:wrap;align-items:flex-start;row-gap:.6rem}
+    .who-txt{flex:1 1 calc(100% - 3rem)}
+    .reveal{flex:1 0 100%;width:100%;padding:.6rem;text-align:center}
+    .gate{flex-direction:column;align-items:stretch;padding:.7rem}
+    .profiles{padding:.6rem}
+    .prow{flex-wrap:wrap;row-gap:.15rem}
+    .gate .btn{text-align:center}
+    .hero-foot{flex-direction:column;align-items:flex-start;gap:.4rem}
+
+    .split{grid-template-columns:1fr}
+    .arrow{justify-self:center;transform:rotate(90deg);padding:.2rem 0}
+    .steps{grid-template-columns:1fr}
+    .door-vis{grid-template-columns:1fr}
+    .minor{grid-template-columns:1fr}
+
+    .free-band{flex-direction:column;align-items:stretch}
+    .free-band .btn{text-align:center}
+    .plans{grid-template-columns:1fr}
+    .plan.pop{order:-1}
+    .always{flex-direction:column;gap:.4rem}
+    .math{max-width:100%}
+    table.matrix{min-width:560px}
+    table.matrix thead th:first-child,
+    table.matrix tbody th{
+      position:sticky;left:0;z-index:2;
+      background:var(--sheet);border-right:1px solid var(--hair);
+    }
+    table.matrix thead th:first-child{background:var(--fill)}
+
+    .close-cta{padding:1.2rem .9rem}
+    .close-cta h2{font-size:1.22rem}
+    .mini{flex-direction:column;align-items:stretch;gap:.5rem}
+    .mini .btn{text-align:center}
+
+    .ftr{padding:1.1rem .8rem}
+    .ftr-top{grid-template-columns:1fr 1fr;gap:1rem}
+    .ftr-brand{grid-column:1/-1}
+    .ftr-hound{flex-direction:column;align-items:flex-start}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1040px){
+    .blk{grid-template-columns:2.2rem minmax(0,1fr)}
+    .notes{grid-column:2;border-left:0;border-top:1px dashed var(--mark-soft);padding:1rem 1.6rem 2rem 0;margin-left:1.6rem}
+  }
+  @media (max-width:660px){
+    .wf{font-size:14px}
+    .blk{grid-template-columns:1fr}
+    .rail{text-align:left;padding:1.2rem 1.2rem 0;border-right:0}
+    .frame{padding:.8rem 1.1rem 1.6rem}
+    .notes{grid-column:1;margin-left:1.1rem;padding-right:1.1rem}
+    .footer-note{padding:1.6rem 1.1rem 0}
+    h2.hl{font-size:1.5rem}
+    .split,.steps,.price,.minor,.door-vis,.plans{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+
+<div class="wf">
+
+  <header class="wf-head">
+    <h1>leadhoundy.com — landing page wireframe</h1>
+    <p class="wf-meta">v2 · structure only · not visual design</p>
+    <div class="wf-legend">
+      <span><i class="swatch f"></i> placeholder content</span>
+      <span><i class="swatch i"></i> primary action</span>
+      <span><i class="swatch m"></i> hatched = annotation, not design</span>
+      <span>hero demo is interactive — try it</span>
+      <span>toggles at right →</span>
+      <button class="hints-btn" id="viewBtn" type="button" aria-pressed="false" style="margin-left:auto">view: desktop</button>
+      <button class="hints-btn" id="hintsBtn" type="button" aria-pressed="true" style="margin-left:0">annotations: on</button>
+    </div>
+  </header>
+
+  <div class="brief">
+    <h2>Before you start</h2>
+    <section>
+      <h3>What this is</h3>
+      <p>Structure and hierarchy only. Nothing here is a colour, type or spacing decision — grey means "content goes here", not "make it grey".</p>
+    </section>
+    <section>
+      <h3>Copy status</h3>
+      <p>The headline, the pricing lines and "no result, no credit spent" are settled wording — they were argued over and each one covers a specific edge case. Grey bars mark copy still unwritten. Everything else is directional.</p>
+    </section>
+    <section>
+      <h3>Two hard rules</h3>
+      <p>The hero demo works on mobile with one thumb. And the page loads fast on mobile data — no video, no Lottie, no scroll libraries. Where polish and load time conflict, take the load time.</p>
+    </section>
+    <section>
+      <h3>Motion budget</h3>
+      <p>Three moving things on the whole page, no more. Motion is welcome and it's a polish pass, not a design pass — full direction in the panel at the end of this document.</p>
+    </section>
+    <section>
+      <h3>States to design</h3>
+      <p>Every data-driven block needs four: loading, populated, empty, failed. The feed and the reveal are the two that will actually hit all four in production.</p>
+    </section>
+    <section>
+      <h3>Hardest object</h3>
+      <p>The lead card. It appears in the hero, in Slack, in research results and in the closing CTA. Design it once, properly, and the rest of the page follows.</p>
+    </section>
+    <section>
+      <h3>The hound</h3>
+      <p>Leadhoundy — the mascot is a tracking dog, and the metaphor is already exact: it picks up a scent and finds who's there. It belongs in the mark, in empty and loading states, as the Slack bot avatar, and in the footer. It does not belong in the hero, on a lead card, or anywhere in pricing.</p>
+    </section>
+    <section>
+      <h3>Tone</h3>
+      <p>Personality in the margins, plain language in the machinery. "Reveal" stays "Reveal" — never "Fetch". Agencies are spending $99 a week here; the dog should feel like a good logo, not like a mascot doing bits.</p>
+    </section>
+  </div>
+
+  <nav class="wf-nav" id="wfNav" aria-label="Sections">
+    <a href="#s1"><b>1</b> Hero</a>
+    <a href="#s2"><b>2</b> Contrast</a>
+    <a href="#s3"><b>3</b> How it works</a>
+    <a href="#s4"><b>4</b> Ways in</a>
+    <a href="#s5"><b>5</b> Objections</a>
+    <a href="#s6"><b>6</b> Pricing</a>
+    <a href="#s7"><b>7</b> Close</a>
+    <a href="#s8"><b>8</b> Footer</a>
+  </nav>
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="blk" id="s1">
+    <div class="rail">1</div>
+    <div class="frame">
+      <p class="sec-label"><b>Hero</b> — live scanner demo</p>
+
+      <div class="nav">
+        <div class="nav-l">
+          <div class="logo"></div><i class="mk">0</i>
+          <span class="hint">how it works · pricing</span>
+        </div>
+        <div class="nav-r">
+          <span class="hint">log in</span>
+          <span class="btn">Start free</span><i class="mk">1</i>
+          <span class="burger"></span><i class="mk">11</i>
+        </div>
+      </div>
+
+      <div class="variants">
+        <span>headline</span>
+        <button class="vbtn" type="button" data-v="0" aria-pressed="true">A · supply</button>
+        <button class="vbtn" type="button" data-v="1" aria-pressed="false">B · outcome</button>
+        <p class="vnote" id="vNote"></p>
+      </div>
+
+      <div class="hero">
+        <div class="hero-top">
+          <p class="live"><i class="dot"></i> <span id="scanCount">3,412</span> postings scanned today <i class="mk">2</i></p>
+          <h2 class="hl">See who's behind the posting.<i class="mk">3</i></h2>
+          <p class="sub">Job posts are anonymous. We trace each one back to the person or company that wrote it, and the profiles to message. No proposals, no queue, no platform in between.</p>
+        </div>
+
+        <div class="scanner">
+          <div class="kw-row">
+            <span class="kw-label">Show me clients looking for</span><i class="mk">4</i>
+            <div class="kw-wrap">
+              <div class="kw-field" id="kwField" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+                <span id="kwText" class="cycling">Webflow</span>
+                <i class="caret" id="kwCaret"></i>
+                <span class="chev">▼</span>
+              </div>
+              <div class="kw-menu" id="kwMenu" role="listbox">
+                <button class="kw-opt" data-kw="Webflow" role="option">Webflow <em>31/day</em></button>
+                <button class="kw-opt" data-kw="React" role="option">React <em>64/day</em></button>
+                <button class="kw-opt" data-kw="Shopify" role="option">Shopify <em>48/day</em></button>
+                <button class="kw-opt" data-kw="Figma" role="option">Figma <em>22/day</em></button>
+                <button class="kw-opt" data-kw="SEO" role="option">SEO <em>39/day</em></button>
+                <div class="kw-custom">
+                  <input id="kwInput" type="text" placeholder="or type your own…" aria-label="Custom keyword">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kw-pop" id="kwPop">
+            <span>most popular</span>
+            <button class="chip" type="button" data-kw="Webflow">Webflow</button>
+            <button class="chip" type="button" data-kw="React">React</button>
+            <button class="chip" type="button" data-kw="Shopify">Shopify</button>
+            <button class="chip" type="button" data-kw="Figma">Figma</button>
+            <button class="chip" type="button" data-kw="SEO">SEO</button>
+            <i class="mk">12</i>
+          </div>
+
+          <div class="feed">
+            <div class="feed-head">
+              <span id="feedLabel">Live now</span><i class="mk">5</i>
+              <span id="feedMeta">last 24h</span>
+            </div>
+            <div id="cards"></div>
+            <button class="more" id="moreBtn" type="button">Load more postings</button><i class="mk">10</i>
+          </div>
+        </div>
+
+        <div class="hero-foot">
+          <span class="hint">Reveal any posting. 15 free reveals when you sign up.</span><i class="mk">8</i>
+          <span class="hint">Have a job link? Paste it instead</span><i class="mk">9</i>
+        </div>
+      </div>
+    </div>
+
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note"><b>The whole page rests here.</b> They see the product working on their own niche before reading a word. Everything below is support.</p>
+      <p class="note">Keyword cycles on load so the feed is never blank. Cycling stops permanently on first click or keypress — typing into a moving field feels broken.</p>
+      <p class="note">Dropdown is curated to keywords with real daily volume. Volume shown next to each: it doubles as proof the pipeline is full.</p>
+      <p class="note"><b>Cards are mixed on purpose.</b> The default three cover a person, a company and a third of either kind. No badge, no label. The demo sets expectations so the first paid reveal can't feel like a bait-and-switch — which means the ordering of those first three is a real decision, not a query result. Pin it.</p>
+      <p class="note"><b>Reveal is a partial, not a giveaway.</b> Any card can be revealed, any number of times. The blur comes off and the answer's shape appears — individual or company, how many profiles matched, their job titles — but the names stay masked. They learn the answer exists and that it's specific. The 15 free reveals are the reward for signing up, not something spent on the landing page.</p>
+      <p class="note">Currency is USD throughout, since that's what the source platforms quote regardless of where the client sits. Don't convert to local currency — it adds a rounding artifact and makes the number look calculated rather than copied.</p>
+      <p class="note">Job titles are the part worth showing. "Head of Growth" and "Operations Lead" prove the match is real in a way a blurred name never could, and they're the reason someone believes the next reveal is worth an account.</p>
+      <p class="note warn">Custom keywords fall back to historical postings — and the label changes to "Recent matches". Never label stale results "Live now".</p>
+      <p class="note">Paste-a-link demoted to a quiet line. Kept for the Upwork user with a tab already open.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>0</b> <em>Wordmark plus hound mark.</em> This is the mascot's most important placement — it has to work at 24px in a browser tab and as a Slack bot avatar, so the dog needs to survive being tiny. Design the avatar crop first and let the full mark follow.</li>
+          <li><b>1</b> <em>Only filled button above the fold.</em> Nav is otherwise quiet — every unit of attention above the feed belongs to the keyword field.</li>
+          <li><b>2</b> <em>Live, or gone.</em> Ticks upward on a real number. If the count fails to load, hide the whole line — a frozen counter is worse than no counter. Never round to a fake milestone.</li>
+          <li><b>3</b> <em>Copy is locked.</em> "Who's behind" is true whether the reveal returns a person or a company. Don't rewrite to "get their email" or "find the decision maker" — both break on half our results.</li>
+          <li><b>12</b> <em>Popular tags are the one-tap path.</em> The dropdown costs two clicks — open, then choose. These cost one, and they double as proof that real volume exists across services. The active tag stays in sync with the field, including while it cycles, so a visitor always sees which keyword the feed belongs to.</li>
+          <li><b>4</b> <em>Label is a sentence, not a field name.</em> "Show me clients looking for [Webflow]" explains the input and the output in one read, so no separate instruction is needed. Never the word "niche" — half your audience would read that as an industry (dental, legal) and type something with no volume behind it. The nouns are services and technologies.</li>
+          <li><b>4</b> <em>Mobile breaks the sentence.</em> An inline field inside a sentence wraps badly on a phone. The label stacks above the field at narrow widths — check it in the mobile toggle.</li>
+          <li><b>4</b> <em>Must read as editable, not as a dropdown.</em> It's a text field with suggestions. Cycling keyword stops permanently on first click or keypress, and the caret disappears with it. On mobile this is the one thing a thumb has to find instantly.</li>
+          <li><b>5</b> <em>Two label states.</em> "Live now / last 24h" for curated keywords; "Recent matches for X / from the archive" for custom ones. Design both — the second is not an error state, it's normal.</li>
+          <li><b>6</b> <em>Budget is the credibility anchor.</em> A real number does more than any copy, and it stays sharp in every state — give it visual weight above the tags.</li>
+          <li><b>6</b> <em>Two budget formats only.</em> Fixed price ($4,500) or hourly rate ($55/h) — nothing else. Fixed runs to five digits, hourly to two, so the slot must hold both without the row reflowing. Postings with no budget will still happen: decide now whether the card says "budget not stated" or drops the chip, because an empty slot breaks the row.</li>
+          <li><b>7</b> <em>Three button states.</em> Reveal → Revealed (quiet, done) → Locked (gated). Plus a loading state; the lookup isn't instant in production.</li>
+          <li><b>8</b> <em>Reveal opens in place.</em> Never a modal, never a new page. Card grows, content below shifts down. Company reveals expand taller than person reveals — design for the tall one.</li>
+          <li><b>8</b> <em>Three visual states, deliberately different.</em> Blurred (nothing known yet) → masked characters (found, not legible) → full (after login). The switch from blur to character-masking matters: blur reads as "still loading", masking reads as "deliberately withheld". Don't use the same treatment for both.</li>
+          <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts.</li>
+          <li><b>—</b> <em>Mobile: keyword field goes full width</em>, directly under the subheadline. Reveal buttons go full width too. Every tap target is at least 44px and spans the card, because on a phone the demo is the entire page.</li>
+          <li><b>10</b> <em>Three cards by default, three per click.</em> The hero has to stay above the fold on a laptop, and three is enough to show the mix — person, company, different budgets — without pushing the rest of the page below the screen. Anyone who wants more is engaged enough to ask.</li>
+          <li><b>10</b> <em>Load more, not infinite scroll.</em> Each click is a deliberate act; infinite scroll on a landing page fights the scroll down to pricing. The end state names Research, which turns running out into a pitch for the tier above.</li>
+          <li><b>9</b> <em>Deliberately quiet.</em> This is a shortcut for people who arrive with a link, not a second front door. If it starts competing with the keyword field, shrink it.</li>
+          <li><b>—</b> <em>No hound above the fold.</em> The hero has one job and a mascot competing with the feed costs conversions. The exception is the loading state while a reveal resolves — a dog on a scent is exactly the right thing to look at while you wait, and it's the moment the metaphor pays off.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 2. CONTRAST ============ -->
+  <section class="blk" id="s2">
+    <div class="rail">2</div>
+    <div class="frame">
+      <p class="sec-label"><b>Contrast</b> — one strip, no prose</p>
+      <div class="split">
+        <div class="col">
+          <h3>Applying on the platform<i class="mk">1</i></h3>
+          <ul>
+            <li>40 proposals sent</li>
+            <li>Connects spent to be seen</li>
+            <li>You're candidate #37</li>
+            <li>Client never opens it</li>
+          </ul>
+        </div>
+        <div class="arrow">→<i class="mk">2</i></div>
+        <div class="col">
+          <h3>Reaching out directly</h3>
+          <ul>
+            <li>One message, one person</li>
+            <li>Sent before the post cools</li>
+            <li>Your pitch, your channel</li>
+            <li>They know who you are</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note">Four seconds, then move on. Reads correctly for both audiences: the Upwork agency recognises the left column, the newcomer just reads it as "cold outreach beats queuing".</p>
+      <p class="note warn">Resist expanding this into a problem/solution section. It's a strip.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>Don't make the left side ugly.</em> Grey it, don't villainise it — many visitors still work that way and a sneering panel insults them. The asymmetry should come from the content, not from red crosses and green ticks.</li>
+          <li><b>2</b> <em>The arrow carries the whole idea.</em> On mobile the columns stack and the arrow disappears; find a vertical equivalent or the section loses its logic and reads as two unrelated lists.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 3. STEPS ============ -->
+  <section class="blk" id="s3">
+    <div class="rail">3</div>
+    <div class="frame">
+      <p class="sec-label"><b>How it works</b> — three steps</p>
+      <div class="steps">
+        <div class="step">
+          <p class="step-n">01</p><i class="mk">1</i>
+          <h3>Set a keyword</h3>
+          <p>Tell us what you do. We watch every new posting that matches.</p>
+        </div>
+        <div class="step">
+          <p class="step-n">02</p>
+          <h3>Reveal who posted</h3>
+          <p>One credit turns an anonymous post into a name and profiles to message.</p>
+        </div>
+        <div class="step">
+          <p class="step-n">03</p>
+          <h3>Message them yourself<i class="mk">2</i></h3>
+          <p>Straight to the person. No proposal queue, no platform fee, no bidding.</p>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note">Numbering earns its place here — this is an actual sequence.</p>
+      <p class="note"><b>Step 3 is the payoff.</b> Say plainly that outreach happens on their terms. Visitors don't assume it, and it's the thing that makes the product worth paying for.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>Numbers stay small.</em> They mark sequence, they aren't the design. If the numerals start competing with the step titles, they're too big.</li>
+          <li><b>2</b> <em>Give step 3 slightly more weight</em> than 1 and 2. It's the one carrying the promise the other two set up. Equal thirds is the safe layout and the wrong one.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 4. DOORS ============ -->
+  <section class="blk" id="s4">
+    <div class="rail">4</div>
+    <div class="frame">
+      <p class="sec-label"><b>Ways in</b> — ordered by time to value</p>
+
+      <div class="door primary">
+        <div class="door-h">
+          <h3>Scanner<i class="mk">1</i></h3>
+          <span class="hint">the one that keeps the subscription</span>
+        </div>
+        <p>An AI reads every new posting and decides whether it's worth your team's time. Qualified leads land in Slack or email with the contact already attached.</p>
+        <div class="door-vis">
+          <div class="ph" style="height:120px">filter config<br>keyword · budget · region</div>
+          <div class="ph" style="height:120px">Slack message mock<br>lead card + contact attached<i class="mk">2</i></div>
+        </div>
+      </div>
+
+      <div class="minor">
+        <div class="door">
+          <div class="door-h"><h3>Research<i class="mk">3</i></h3></div>
+          <p>Search postings from the last months. Reveal only the ones you want.</p>
+          <div class="ph" style="height:76px;margin-top:.6rem">results table</div>
+        </div>
+        <div class="door">
+          <div class="door-h"><h3>Single link</h3></div>
+          <p>Already have a posting open? Drop the URL, get the name back.</p>
+          <div class="paste-line">
+            <div class="paste-in"></div>
+            <span class="btn ghost">Reveal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note"><b>Scanner gets the weight.</b> Don't sell it as filters — everyone has filters. Sell the AI deciding what's worth your team's time.</p>
+      <p class="note">Show the end state concretely: a lead card in Slack. Your ICP already has someone writing proposals, so the promise is "qualified leads arrive where the team works", not "we write outreach for you".</p>
+      <p class="note warn"><b>Browser extension deliberately omitted.</b> It's still in development. A section that leads nowhere costs more trust than the feature earns. Add it as a fourth door on ship day.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>Scanner gets roughly double the height</em> of the two below it. The hierarchy here is the argument: this is the product, the others are conveniences.</li>
+          <li><b>2</b> <em>Draw the real Slack message.</em> Not a generic chat bubble — actual Slack chrome, real channel name, the lead card as it will actually arrive. This mock is doing the job a demo video would, so it has to survive being looked at closely.</li>
+          <li><b>3</b> <em>These two stay visually equal and quiet.</em> They exist to close the "but what if I want X" loop, not to be chosen. When the extension ships it joins this row and the row becomes three.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 5. OBJECTIONS ============ -->
+  <section class="blk" id="s5">
+    <div class="rail">5</div>
+    <div class="frame">
+      <p class="sec-label"><b>Objections</b> — five, flat, unbothered</p>
+      <div class="faq">
+        <div class="faq-row">
+          <h3>What exactly do I get for a credit?<i class="mk">1</i></h3>
+          <p>The person or company behind the posting, plus matching LinkedIn profiles. Sometimes we can name the individual directly, sometimes the company and the people to talk to there.</p>
+        </div>
+        <div class="faq-row">
+          <h3>Where does this data come from?<i class="mk">2</i></h3>
+          <p><span class="bar w90"></span><span class="bar w60"></span></p>
+        </div>
+        <div class="faq-row">
+          <h3>Can I get banned for contacting people directly?</h3>
+          <p><span class="bar w75"></span><span class="bar w45"></span></p>
+        </div>
+        <div class="faq-row">
+          <h3>What if a reveal finds nothing?<i class="mk">3</i></h3>
+          <p>The credit isn't taken. You only spend one when we return a result.</p>
+        </div>
+        <div class="faq-row">
+          <h3>Does cold outreach actually work on these clients?</h3>
+          <p><span class="bar w90"></span><span class="bar w30"></span></p>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
+      <p class="note">Row 4 is a conversion lever, not an FAQ answer. It also appears next to pricing.</p>
+      <p class="note">Grey bars = copy you still need to write. The compliance answer is the one that needs a lawyer's eye, not a copywriter's.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>Answers open by default.</em> No accordions. A collapsed objection is an unanswered one, and the whole point is that these are read without being clicked.</li>
+          <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
+          <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 6. PRICING ============ -->
+  <section class="blk" id="s6">
+    <div class="rail">6</div>
+    <div class="frame">
+      <p class="sec-label"><b>Pricing</b> — three shown, five available</p>
+
+      <div class="free-band">
+        <div>
+          <h3>Start free<i class="mk">1</i></h3>
+          <p>15 reveals and one live scanner. The reveals run out. The scanner doesn't.</p>
+        </div>
+        <span class="btn">Create a scanner free</span>
+      </div>
+
+      <div class="plans">
+        <div class="plan">
+          <p class="plan-name">Starter</p>
+          <p class="plan-price">$39<em>/week</em></p>
+          <p class="plan-unit">30 reveals — $1.30 each</p>
+          <ul>
+            <li>2 scanners</li>
+            <li>Instant Slack or Telegram alerts</li>
+            <li>1 destination</li>
+            <li>Research: last 7 days</li>
+          </ul>
+          <span class="btn ghost">Choose Starter</span>
+        </div>
+
+        <div class="plan pop">
+          <p class="plan-flag">most agencies land here<i class="mk">2</i></p>
+          <p class="plan-name">Advanced</p>
+          <p class="plan-price">$99<em>/week</em></p>
+          <p class="plan-unit">150 reveals — $0.66 each<i class="mk">3</i></p>
+          <ul>
+            <li>15 scanners</li>
+            <li>Instant Slack and Telegram alerts</li>
+            <li>5 destinations — route by team or service</li>
+            <li>Research: full archive</li>
+          </ul>
+          <span class="btn">Choose Advanced</span>
+        </div>
+
+        <div class="plan">
+          <p class="plan-name">Agency</p>
+          <p class="plan-price">Talk to us<i class="mk">4</i></p>
+          <p class="plan-unit">from 400 reveals — $0.50 each</p>
+          <ul>
+            <li>Unlimited scanners and destinations</li>
+            <li>Webhook — push into your CRM</li>
+            <li>CSV export</li>
+            <li>Priority support and a setup call</li>
+          </ul>
+          <span class="btn ghost">Book a call</span>
+        </div>
+      </div>
+
+      <button class="cmp" id="cmpBtn" type="button" aria-expanded="false" aria-controls="matrix">Compare all plans</button><i class="mk">5</i>
+
+      <div class="matrix-wrap" id="matrix" hidden>
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th scope="col">&nbsp;</th>
+              <th scope="col">Free</th>
+              <th scope="col">Starter</th>
+              <th scope="col">Pro</th>
+              <th scope="col" class="col-pop">Advanced</th>
+              <th scope="col">Agency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Price</th>
+              <td class="money">$0</td>
+              <td class="money">$39/wk</td>
+              <td class="money">$79/wk</td>
+              <td class="money col-pop">$99/wk</td>
+              <td class="money">Talk to us</td>
+            </tr>
+            <tr>
+              <th scope="row">Per reveal</th>
+              <td class="money">—</td>
+              <td class="money">$1.30</td>
+              <td class="money">$0.79</td>
+              <td class="money col-pop">$0.66</td>
+              <td class="money">$0.50</td>
+            </tr>
+
+            <tr class="rowhead"><th scope="row" colspan="6">Reveals</th></tr>
+            <tr>
+              <th scope="row">Included</th>
+              <td>15 total, once</td>
+              <td>30/week</td>
+              <td>100/week</td>
+              <td class="col-pop">150/week</td>
+              <td>400/week</td>
+            </tr>
+            <tr>
+              <th scope="row">Extra reveals</th>
+              <td class="money">—</td>
+              <td class="money">$2.00</td>
+              <td class="money">$1.20</td>
+              <td class="money col-pop">$0.90</td>
+              <td class="money">$0.60</td>
+            </tr>
+
+            <tr class="rowhead"><th scope="row" colspan="6">Scanner</th></tr>
+            <tr>
+              <th scope="row">Scanners</th>
+              <td>1</td><td>2</td><td>5</td>
+              <td class="col-pop">15</td><td>unlimited</td>
+            </tr>
+            <tr>
+              <th scope="row">Alert speed</th>
+              <td>24h delayed</td><td>instant</td><td>instant</td>
+              <td class="col-pop">instant</td><td>instant</td>
+            </tr>
+            <tr>
+              <th scope="row">Alerts per day</th>
+              <td>3 max</td><td>unlimited</td><td>unlimited</td>
+              <td class="col-pop">unlimited</td><td>unlimited</td>
+            </tr>
+            <tr>
+              <th scope="row">Contact in alert</th>
+              <td>hidden</td><td>full</td><td>full</td>
+              <td class="col-pop">full</td><td>full</td>
+            </tr>
+
+            <tr class="rowhead"><th scope="row" colspan="6">Delivery</th></tr>
+            <tr>
+              <th scope="row">Slack / Telegram</th>
+              <td>✓</td><td>✓</td><td>✓</td>
+              <td class="col-pop">✓</td><td>✓</td>
+            </tr>
+            <tr>
+              <th scope="row">Destinations</th>
+              <td>1</td><td>1</td><td>2</td>
+              <td class="col-pop">5</td><td>unlimited</td>
+            </tr>
+            <tr>
+              <th scope="row">Webhook</th>
+              <td>—</td><td>—</td><td>—</td>
+              <td class="col-pop">—</td><td>✓</td>
+            </tr>
+
+            <tr class="rowhead"><th scope="row" colspan="6">Research and tools</th></tr>
+            <tr>
+              <th scope="row">Archive depth</th>
+              <td>—</td><td>7 days</td><td>45 days</td>
+              <td class="col-pop">full archive</td><td>full archive</td>
+            </tr>
+            <tr>
+              <th scope="row">Single-link reveal</th>
+              <td>✓</td><td>✓</td><td>✓</td>
+              <td class="col-pop">✓</td><td>✓</td>
+            </tr>
+            <tr>
+              <th scope="row">CSV export</th>
+              <td>—</td><td>—</td><td>—</td>
+              <td class="col-pop">—</td><td>✓</td>
+            </tr>
+            <tr>
+              <th scope="row">Support</th>
+              <td>—</td><td>email</td><td>email</td>
+              <td class="col-pop">email</td><td>priority + setup call</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="always">
+        <span>No result, no credit spent.<i class="mk">6</i></span>
+        <span>Person or company, plus matching LinkedIn profiles.</span>
+        <span>Unlimited users during beta.</span>
+      </div>
+      <p class="refresh-line">Credits refresh every Monday. They don't roll over — a three-week-old posting is already dead.</p>
+
+      <div class="math">
+        <p class="hint" style="margin:0 0 .7rem">What a month on Advanced returns</p>
+        <div class="math-row"><span>Reveals used</span><span>~600</span></div>
+        <div class="math-row"><span>Replies</span><span>__</span></div>
+        <div class="math-row"><span>Projects won</span><span>__</span></div>
+        <div class="math-row"><span>Typical project value</span><span>$__</span></div>
+        <div class="math-row"><span>Cost of the month</span><span>$396</span></div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note"><b>Advanced is the target, Pro is the decoy.</b> $20 more than Pro buys 50% more reveals, 3× the scanners and the full archive. Both your current customers took that jump. Pro stays hidden behind the compare table so the default view is three columns, not five.</p>
+      <p class="note">Free sits above the paid tiers, not beside them. It's the primary CTA now, not a lesser plan competing for the same click.</p>
+      <p class="note"><b>The per-reveal line does the saving argument.</b> $1.30 → $0.79 → $0.66 → $0.50 reads left to right on its own. No percentage badges, no "save 24%" — nobody converts on a percentage.</p>
+      <p class="note">Overage always costs more than the next tier's included rate. Starter overage is $2.00; on Advanced those reveals are $0.66. Run out twice and upgrading is arithmetic, not persuasion.</p>
+      <p class="note">"1 reveal", never "1 contact". At a 50/50 person-to-company split, "contact" is a promise you'd break every second time.</p>
+      <p class="note">Weekly refresh stated in plain sight and framed as freshness. Hiding it in fine print turns into refund requests.</p>
+      <p class="note warn"><b>Two blockers before this goes live.</b> Pull both customers' actual weekly usage — Advanced was unlimited when they bought it, and capping it at 150 is a change to a live plan. Grandfather them on unlimited permanently; it costs nothing you currently collect and buys two references with no reason to be annoyed.</p>
+      <p class="note warn">Funnel numbers are placeholders. They're the most persuasive thing on the page once they're real.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>A band, not a fourth card.</em> Free is the primary CTA, so it must not sit in the row competing for the same glance as the paid plans. Full width above them, visually distinct, still clearly part of the ladder.</li>
+          <li><b>2</b> <em>One marked plan only.</em> Advanced carries the border and the flag. Resist marking a second — two highlights is no highlight, and this whole section is built so one plan wins.</li>
+          <li><b>3</b> <em>The per-reveal line is the savings argument.</em> It has to be readable at a glance across all three cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-through prices.</li>
+          <li><b>4</b> <em>Sits in the price slot, same size as a number.</em> "Talk to us" replaces a price, so it takes the price's position and weight. Don't shrink it into a link or the column stops reading as a tier.</li>
+          <li><b>—</b> <em>Mobile reorders the plans.</em> Advanced moves to the top of the stack, above Starter. On desktop the eye scans left to right and settles on the middle column; on mobile it reads top-down and the first card takes the attention. Source order would hand that to Starter — the one plan you don't want chosen.</li>
+          <li><b>5</b> <em>Closed by default.</em> Opening it reveals Pro, which exists to lose. Expands in place, no scroll jump — and on mobile the matrix scrolls horizontally with the first column pinned, or it's unusable.</li>
+          <li><b>6</b> <em>Highest-contrast element in the section.</em> This single line removes the biggest objection to a credit model. It outranks every feature bullet around it.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 7. CLOSE ============ -->
+  <section class="blk" id="s7">
+    <div class="rail">7</div>
+    <div class="frame">
+      <p class="sec-label"><b>Close</b> — the hero demo again</p>
+      <div class="close-cta">
+        <h2>Someone posted your next project this morning.<i class="mk">1</i></h2>
+        <p>Pick a keyword and see who wrote it. First reveal is free.</p>
+        <div class="mini-feed"><i class="mk">2</i>
+          <div class="mini"><span>Webflow rebuild · $4,500 · 12 min ago</span><span class="btn">Reveal</span></div>
+          <div class="mini"><span>Shopify migration · $55/h · 41 min ago</span><span class="btn ghost">Reveal</span></div>
+        </div>
+      </div>
+    </div>
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note">Same interaction as the hero, not a generic button. Anyone who scrolled this far is ready — don't send them back to the top.</p>
+      <p class="note warn"><b>No testimonials section.</b> Two customers who won't be named can't fill a logo wall, and an empty one reads worse than none. Proof is the live demo, the scan counter, and — if either says yes — one unnamed line: "a 12-person Webflow agency in Berlin".</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>Only centred block on the page.</em> Everything above is left-aligned; the switch signals an ending. Don't centre anything else or the signal stops working.</li>
+          <li><b>2</b> <em>Live cards, not a picture.</em> Same component and same reveal behaviour as the hero, just fewer of them. If the visitor already burned their free reveal, these open the signup gate directly — design that as the normal path, not an error.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+
+  <!-- ============ 8. FOOTER ============ -->
+  <section class="blk" id="s8">
+    <div class="rail">8</div>
+    <div class="frame">
+      <p class="sec-label"><b>Footer</b> — trust, law, and the dog</p>
+
+      <div class="ftr">
+        <div class="ftr-top">
+          <div class="ftr-brand">
+            <div class="logo"></div>
+            <p>Find out who posted the job. Then talk to them.</p>
+          </div>
+          <div class="ftr-col">
+            <h4>Product</h4>
+            <ul>
+              <li>Scanner</li>
+              <li>Research</li>
+              <li>Single-link reveal</li>
+              <li>Pricing</li>
+            </ul>
+          </div>
+          <div class="ftr-col">
+            <h4>Company</h4>
+            <ul>
+              <li>About</li>
+              <li>Contact</li>
+              <li>Changelog</li>
+            </ul>
+          </div>
+          <div class="ftr-col">
+            <h4>Legal<i class="mk">2</i></h4>
+            <ul>
+              <li>Privacy policy</li>
+              <li>Terms of service</li>
+              <li>How we source data</li>
+              <li>Request removal</li>
+              <li>Billing and cancellation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ftr-hound">
+          <div class="hound-slot">hound<br>illustration</div>
+          <div>
+            <p style="margin:0;font-size:.88rem;font-weight:500">Good dog. Gets the name every time.<i class="mk">1</i></p>
+            <p style="margin:.2rem 0 0;font-size:.82rem;color:var(--ink-soft)">The only place on the page where the mascot gets room.</p>
+          </div>
+        </div>
+
+        <div class="ftr-legal">
+          <p>Not affiliated with, endorsed by, or connected to Upwork or any job platform.<i class="mk">3</i></p>
+          <p>We surface publicly available information about who published a posting.<i class="mk">4</i></p>
+          <p>© 2026 Leadhoundy · Setúbal, Portugal · <span class="hint">VAT / company no.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <aside class="notes">
+      <p class="notes-h">Why</p>
+      <p class="note"><b>This footer does compliance work, not navigation work.</b> Nobody browses a footer. But "where does this data come from" is one of the top objections, and a visible, honest answer down here is worth more than a paragraph of reassurance up there.</p>
+      <p class="note">You're operating from Portugal on personal data, so a findable removal route and a plain data-sourcing page aren't decoration — they're the thing you point at when someone asks, and the thing a regulator looks for first.</p>
+      <p class="note warn"><b>No newsletter signup.</b> It competes with the only conversion that matters and gives visitors a way to feel like they took action without taking it.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>The hound's one full appearance.</em> Nothing is being sold here, so the mascot can finally have space and personality. This is also the illustration that will be lifted for social cards, the 404 page and the empty dashboard — draw it to survive being reused.</li>
+          <li><b>2</b> <em>Legal column is not smaller than the others.</em> Standard practice is to shrink it to 10px grey; here it's a feature. Same size, same weight as Product and Company.</li>
+          <li><b>3</b> <em>Keep this line.</em> Naming a platform in marketing invites a trademark complaint; the disclaimer is cheap insurance and takes one line. Have a lawyer confirm the wording before launch.</li>
+          <li><b>4</b> <em>Links to a real page, not a modal.</em> A one-screen plain-language explanation of where reveals come from. It answers the objection, and it's the URL you send when someone emails to ask.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+
+  <div class="seq">
+    <h2>Last step — motion, feel, and the speed ceiling</h2>
+    <div class="seq-grid">
+
+      <section>
+        <h3>Sequence: motion is a polish pass</h3>
+        <p>Design the static page and all four states first — card, type scale, spacing system. Only then spend the motion budget.</p>
+        <p>If the static page needs animation to feel good, the animation is compensating for something, and the page will feel expensive for two seconds and thin afterwards.</p>
+      </section>
+
+      <section>
+        <h3>The speed ceiling comes first</h3>
+        <p>This page has to load fast on a phone on mobile data. Speed is not a constraint on the premium feel — for an infrastructure product it <em>is</em> the premium feel.</p>
+        <ul>
+          <li>No video, no Lottie, no WebGL, no scroll libraries</li>
+          <li>Hound as SVG, not a raster illustration</li>
+          <li>Two font weights maximum, self-hosted and subset</li>
+          <li>Animate transform and opacity only — nothing that triggers layout</li>
+          <li>If a decision trades load time for polish, take the load time</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Where premium actually comes from</h3>
+        <p>Not from effects. From typography with real weight range, a two-colour palette used confidently, a strict spacing scale, and craft in the small things — designed focus rings, optical alignment, tabular figures so the counter doesn't jitter.</p>
+        <p>Density done calmly. Cheap B2B is sparse and shouty; expensive B2B is dense and quiet. One elevated surface — the lead card — and everything else flat.</p>
+      </section>
+
+      <section>
+        <h3>The hound has to be a crest, not a cartoon</h3>
+        <p>A mascot and a $99/week price pull against each other. Draw it like a heraldic mark or an old hunting-club emblem: confident line, no big eyes, no smile, no speech bubbles. If it reads as a sticker, it costs more credibility than it buys warmth.</p>
+      </section>
+
+      <div class="budget">
+        <section>
+          <h3>Motion budget — three things, total</h3>
+          <ul>
+            <li><em>Keyword cycle.</em> Mechanical and confident. Hard swap or fast crossfade, never a slide-up. Stops permanently on first interaction.</li>
+            <li><em>The reveal.</em> The product's whole thesis in one interaction — this gets the craft. Mask lifts, card expands, content below moves aside. Under 400ms end to end. The hound-on-a-scent loading state lives here and nowhere else.</li>
+            <li><em>New lead arriving.</em> One card slides in at the top while they watch. Proves "live" better than any label. Rate-limit hard — one arrival per ~20s, not a stream.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Explicitly ruled out</h3>
+          <ul>
+            <li>Scroll-triggered section entrances</li>
+            <li>Counters that animate up on scroll</li>
+            <li>Parallax of any kind</li>
+            <li>Card hover lifts and shadow transitions</li>
+            <li>Animated gradient backgrounds, cursor followers</li>
+          </ul>
+          <p>Each of these ships in every template. Using them is how a page announces where it came from. And all of them cost load time for nothing.</p>
+        </section>
+        <section>
+          <h3>Non-negotiables</h3>
+          <ul>
+            <li>Everything respects <em>prefers-reduced-motion</em></li>
+            <li>Nothing loops forever except the keyword cycle, which stops on interaction</li>
+            <li>No animation blocks the demo — a visitor can type a keyword and hit Reveal before any of it finishes</li>
+            <li>The page is usable and legible before JavaScript runs</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="budget">
+        <section>
+          <h3>Still needed from you</h3>
+          <p>Name three products whose feel you want — not competitors, anything. Designers calibrate off references far faster than off adjectives, and "premium" means five different things to five people. One line, saves a round of revisions.</p>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="footer-note hint doc-open">Open before build: small vs large company split in your postings · both customers' actual weekly reveal usage before capping Advanced at 150 · 10 min on the phone with each of them · whether the keyword carries through signup (changes the CTA from "Sign up to reveal" to "Create my Webflow scanner") · whether the hound gets a name, since a named dog can front the Slack alerts and an unnamed one can't</p>
+
+</div>
+
+<script>
+(function(){
+  // ---- job lines per keyword ----
+  var JOBS = {
+    Webflow: [
+      ["Marketing site rebuild in Webflow, 12 pages, CMS blog","$4,500",["fixed price","EU"]],
+      ["Migrate Framer site to Webflow, keep the animations","$55/h",["hourly","US"]],
+      ["Ongoing Webflow retainer for a B2B SaaS product site","$50/h",["hourly","UK"]],
+      ["Webflow build with e-commerce and multi-language","$9,000",["fixed price","DE"]],
+      ["Landing page sprint, 4 pages, needed in two weeks","$1,900",["urgent","CA"]],
+      ["Rebuild WordPress marketing site on Webflow","$6,200",["fixed price","NL"]],
+      ["Webflow developer for a design agency overflow queue","$55/h",["hourly","remote"]],
+      ["Client-first refactor of an inherited Webflow project","$2,100",["fixed price","US"]],
+      ["Webflow CMS setup for a 200-article knowledge base","$3,800",["fixed price","AU"]],
+      ["Memberstack + Webflow gated portal","$7,400",["fixed price","UK"]],
+      ["Accessibility pass on an existing Webflow site","$45/h",["hourly","EU"]],
+      ["Webflow to Shopify hybrid store front","$8,900",["fixed price","US"]]
+    ],
+    React: [
+      ["React dashboard rebuild, charts and role-based access","$12,000",["fixed price","US"]],
+      ["Next.js migration from legacy CRA, 30k lines","$80/h",["hourly","EU"]],
+      ["React Native app, iOS and Android, designs ready","$22,000",["fixed price","UK"]],
+      ["Frontend contractor, React + TypeScript, 6 months","$60/h",["hourly","remote"]],
+      ["Rewrite an internal admin tool in React","$9,500",["fixed price","DE"]],
+      ["Component library build, Storybook and docs","$14,000",["fixed price","US"]],
+      ["Performance audit on a slow React app","$4,200",["fixed price","EU"]],
+      ["Add offline mode to an existing React PWA","$7,800",["fixed price","CA"]],
+      ["React front end for a fintech onboarding flow","$16,500",["fixed price","UK"]],
+      ["Maintain and extend a React marketplace","$65/h",["hourly","remote"]],
+      ["Migrate Redux to Zustand across a large app","$65/h",["hourly","NL"]],
+      ["Build a React embeddable widget for partners","$11,200",["fixed price","US"]]
+    ],
+    Shopify: [
+      ["Shopify Plus theme build for a skincare brand","$7,500",["fixed price","US"]],
+      ["Migrate 800 SKUs from WooCommerce to Shopify","$5,200",["fixed price","EU"]],
+      ["Shopify speed optimisation, currently 34 on mobile","$50/h",["hourly","AU"]],
+      ["Custom checkout extension for a Plus store","$9,800",["fixed price","UK"]],
+      ["Subscription flow with Recharge, 3 product lines","$6,400",["fixed price","US"]],
+      ["Headless Shopify with Hydrogen, phase one","$21,000",["fixed price","DE"]],
+      ["Ongoing Shopify support retainer, 20h a month","$45/h",["hourly","EU"]],
+      ["B2B wholesale portal on Shopify","$12,500",["fixed price","NL"]],
+      ["Redesign PDP and cart for a fashion store","$4,700",["fixed price","IT"]],
+      ["Shopify app integration audit, 14 apps installed","$50/h",["hourly","US"]],
+      ["Multi-currency and multi-region rollout","$8,300",["fixed price","UK"]],
+      ["Klaviyo and Shopify data cleanup","$3,100",["fixed price","remote"]]
+    ],
+    Figma: [
+      ["Design system in Figma for a fintech app, 40 components","$8,000",["fixed price","UK"]],
+      ["Figma to Webflow handoff, 20 screens ready","$3,600",["fixed price","EU"]],
+      ["Redesign the onboarding flow, research already done","$4,800",["fixed price","US"]],
+      ["Audit and tidy an inherited Figma library","$55/h",["hourly","DE"]],
+      ["Product designer for a 3-month engagement","$70/h",["hourly","remote"]],
+      ["Mobile app screens, 25 states, iOS and Android","$9,200",["fixed price","CA"]],
+      ["Marketing site design, 8 pages, brand exists","$5,400",["fixed price","NL"]],
+      ["Design tokens and Figma variables migration","$3,900",["fixed price","US"]],
+      ["Dashboard UX overhaul, data-heavy tables","$11,000",["fixed price","UK"]],
+      ["Pitch deck and one-pager design system","$2,700",["fixed price","EU"]],
+      ["Accessibility review of an existing Figma file","$50/h",["hourly","AU"]],
+      ["Design ops setup for a 6-designer team","$6,800",["fixed price","DE"]]
+    ],
+    SEO: [
+      ["Technical SEO audit plus a 6-month content plan","$6,000",["fixed price","US"]],
+      ["Local SEO for 30 clinic locations, needs schema work","$70/h",["hourly","DE"]],
+      ["Recover from a traffic drop after a site migration","$3,300",["fixed price","UK"]],
+      ["Programmatic SEO build, 5,000 pages","$14,000",["fixed price","US"]],
+      ["Link building retainer for a SaaS product","$60/h",["hourly","remote"]],
+      ["International SEO, hreflang across 9 markets","$7,600",["fixed price","EU"]],
+      ["Content refresh on 120 existing blog posts","$5,100",["fixed price","CA"]],
+      ["E-commerce category page SEO overhaul","$4,400",["fixed price","NL"]],
+      ["Core Web Vitals fixes on a large WordPress site","$60/h",["hourly","UK"]],
+      ["SEO strategist, 2 days a week, ongoing","$65/h",["hourly","remote"]],
+      ["Competitor gap analysis and keyword map","$2,400",["fixed price","US"]],
+      ["Migrate to a new domain without losing rankings","$5,800",["fixed price","IT"]]
+    ]
+  };
+
+  // ---- identity pool: what a reveal returns ----
+  var IDS = [
+    {type:"person", name:"Friza Kaloframberg", role:"Head of Growth", org:"Reimburse GmbH",
+     extra:[["Friza Kaloframberg","Head of Growth"],["F. Kaloframberg","Growth (second profile)"]]},
+    {type:"company", name:"Nordvale Studios", role:"18 people", org:"Amsterdam",
+     extra:[["Marta Ilves","Operations Lead"],["Sem de Boer","Founder"],["Kaia Lund","Marketing"]]},
+    {type:"person", name:"Dominic Hale-Whitcombe", role:"Marketing Director", org:"Paxlyn",
+     extra:[["Dominic Hale-Whitcombe","Marketing Director"]]},
+    {type:"company", name:"Baumgart Handel AG", role:"40 people", org:"Hamburg",
+     extra:[["Ines Roth","Head of Digital"],["Tobias Kern","E-commerce Manager"]]},
+    {type:"person", name:"Priya Ramanathan", role:"Co-founder", org:"Klipwork",
+     extra:[["Priya Ramanathan","Co-founder"],["P. Ramanathan","Founder (older profile)"]]},
+    {type:"company", name:"Quill & Marrow LLC", role:"30 people", org:"Chicago",
+     extra:[["Devon Hartley","Director"],["Nia Ferreira","Marketing Manager"]]},
+    {type:"person", name:"Anders Voegelin", role:"CTO", org:"Marnix Systems",
+     extra:[["Anders Voegelin","CTO"]]},
+    {type:"company", name:"Corvid Data BV", role:"60 people", org:"Utrecht",
+     extra:[["Lieke Smit","VP Engineering"],["Ravi Menon","Product Lead"],["Jonas Beck","Head of Platform"]]},
+    {type:"person", name:"Chinaza Okonkwo-Bell", role:"Founder", org:"Steadyhand",
+     extra:[["Chinaza Okonkwo-Bell","Founder"],["C. Okonkwo-Bell","Director (second profile)"]]},
+    {type:"company", name:"Steinlicht Media GmbH", role:"12 people", org:"Berlin",
+     extra:[["Nora Vogt","Creative Director"],["Felix Amberg","Managing Partner"]]},
+    {type:"person", name:"Marguerite Dassonville", role:"CMO", org:"Havenbrook",
+     extra:[["Marguerite Dassonville","CMO"]]},
+    {type:"company", name:"Medipfad Gruppe", role:"200 people", org:"Munich",
+     extra:[["Anja Weiler","Head of Marketing"],["Stefan Bruck","Digital Manager"]]}
+  ];
+
+  var TIMES = ["4 min ago","12 min ago","41 min ago","1 h ago","2 h ago","3 h ago",
+               "5 h ago","7 h ago","9 h ago","12 h ago","16 h ago","21 h ago"];
+
+  var GENERIC_JOBS = [
+    ["Project matching your keyword, scope and timeline attached","$3,400",["fixed price","EU"]],
+    ["Second matching posting from the archive","$6,100",["fixed price","US"]],
+    ["Third matching posting from the archive","$50/h",["hourly","remote"]],
+    ["Fourth matching posting from the archive","$4,900",["fixed price","UK"]],
+    ["Fifth matching posting from the archive","$75/h",["hourly","DE"]],
+    ["Sixth matching posting from the archive","$1,700",["fixed price","NL"]]
+  ];
+  var OLD_TIMES = ["2 days ago","4 days ago","6 days ago","9 days ago","12 days ago","15 days ago"];
+
+  function buildList(kw){
+    var known = Object.prototype.hasOwnProperty.call(JOBS, kw);
+    var jobs  = known ? JOBS[kw] : GENERIC_JOBS;
+    var times = known ? TIMES : OLD_TIMES;
+    return jobs.map(function(j, i){
+      var id = IDS[i % IDS.length];
+      return {
+        sum:j[0], bud:j[1], tags:j[2],
+        time:times[i % times.length],
+        type:id.type, name:id.name, role:id.role, org:id.org, extra:id.extra
+      };
+    });
+  }
+
+  // mask a name: keep the initial, hide the rest
+  function mask(str){
+    return str.split(' ').map(function(w){
+      return w.charAt(0) + Array(Math.max(w.length, 2)).join('\u2022');
+    }).join(' ');
+  }
+
+  var cardsEl = document.getElementById('cards');
+  var moreBtn = document.getElementById('moreBtn');
+  var kwField = document.getElementById('kwField');
+  var kwText  = document.getElementById('kwText');
+  var kwMenu  = document.getElementById('kwMenu');
+  var kwInput = document.getElementById('kwInput');
+  var kwCaret = document.getElementById('kwCaret');
+  var feedLabel = document.getElementById('feedLabel');
+  var feedMeta  = document.getElementById('feedMeta');
+  var scanCount = document.getElementById('scanCount');
+
+  var mkOn = true;
+  function MK(n){ return mkOn ? '<i class="mk">'+n+'</i>' : ''; }
+
+  var CYCLE = ['Webflow','React','Shopify','Figma','SEO'];
+  var ci = 0, timer = null, cycling = true;
+
+  function stopCycle(){
+    if(!cycling) return;
+    cycling = false;
+    clearInterval(timer);
+    kwText.classList.remove('cycling');
+    kwCaret.style.display = 'none';
+  }
+
+  var PAGE = 3;
+  var curList = [], curShown = 0, curKnown = true;
+
+  function render(kw, animate){
+    curKnown = Object.prototype.hasOwnProperty.call(JOBS, kw);
+    curList  = buildList(kw);
+    curShown = 0;
+
+    feedLabel.textContent = curKnown ? 'Live now' : 'Recent matches for "' + kw + '"';
+    feedMeta.textContent  = curKnown ? 'last 24h' : 'from the archive';
+
+    cardsEl.innerHTML = '';
+    moreBtn.disabled = false;
+    moreBtn.textContent = 'Load more postings';
+    addPage(animate, 3);
+  }
+
+  function addPage(animate, n){
+    var take = Math.min(n || PAGE, curList.length - curShown);
+    for(var k = 0; k < take; k++){
+      cardsEl.appendChild(buildCard(curList[curShown], curShown, animate && curShown === 0));
+      curShown++;
+    }
+    if(curShown >= curList.length){
+      moreBtn.disabled = true;
+      moreBtn.textContent = curKnown
+        ? "That's everything from the last 24h — Research goes back further"
+        : "End of the archive for this keyword";
+    }
+  }
+
+  function buildCard(item, idx, fresh){
+    mkOn = (idx === 0);
+    var c = document.createElement('div');
+    c.className = 'card' + (fresh ? ' fresh' : '');
+
+    var facts = item.tags.map(function(t){ return '<span class="fact">'+t+'</span>'; }).join('');
+
+    c.innerHTML =
+      '<div class="card-top">'+
+        '<p class="card-sum">'+item.sum+'</p>'+
+        '<span class="card-time">'+item.time+'</span>'+
+      '</div>'+
+      '<div class="card-facts"><span class="fact b">'+item.bud+'</span>'+facts+MK(6)+'</div>'+
+      '<div class="who masked">'+
+        '<div class="av"></div>'+
+        '<div class="who-txt">'+
+          '<p class="who-name">'+item.name+'</p>'+
+          '<p class="who-role">'+item.role+' \u00b7 '+item.org+'</p>'+
+        '</div>'+
+        MK(7)+'<button class="reveal" type="button">Reveal</button>'+
+      '</div>';
+
+    c.querySelector('.reveal').addEventListener('click', function(){
+      doReveal(c, item, this);
+    });
+    return c;
+  }
+
+  function doReveal(card, item, btn){
+    if(btn.dataset.state) return;
+    btn.dataset.state = 'partial';
+    btn.textContent = 'Locked';
+    btn.classList.add('is-locked');
+
+    // blur comes off, masking goes on: the answer exists, it just isn't legible yet
+    var who = card.querySelector('.who');
+    who.classList.remove('masked');
+    who.classList.add('partial');
+    who.querySelector('.who-name').textContent = mask(item.name);
+    who.querySelector('.who-role').textContent =
+      item.type === 'person'
+        ? item.role + ' \u00b7 ' + mask(item.org)
+        : item.role + ' \u00b7 ' + item.org;
+
+    var found = document.createElement('div');
+    found.className = 'profiles';
+    found.innerHTML =
+      '<p>' + (item.type === 'person'
+        ? '1 individual identified \u00b7 ' + item.extra.length + ' LinkedIn profile' + (item.extra.length>1?'s':'') + ' matched'
+        : 'Company identified \u00b7 ' + item.extra.length + ' people to message') + '</p>' +
+      item.extra.map(function(x){
+        return '<div class="prow"><div class="av"></div>' +
+               '<span class="pname">' + mask(x[0]) + '</span>' +
+               '<em>' + x[1] + '</em></div>';
+      }).join('');
+    card.appendChild(found);
+
+    var g = document.createElement('div');
+    g.className = 'gate';
+    g.innerHTML =
+      '<p><b>We found them.</b> Create a free account to see the names and open the profiles \u2014 15 reveals included.</p>' +
+      '<span class="btn">Create free account</span>';
+    card.appendChild(g);
+  }
+
+  function setKeyword(kw){
+    stopCycle();
+    kwText.textContent = kw;
+    syncChips(kw);
+    kwMenu.classList.remove('open');
+    kwField.setAttribute('aria-expanded','false');
+    render(kw, true);
+  }
+
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  chips.forEach(function(b){
+    b.addEventListener('click', function(){ setKeyword(b.dataset.kw); });
+  });
+  function syncChips(kw){
+    chips.forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.kw === kw ? 'true' : 'false');
+    });
+  }
+
+  moreBtn.addEventListener('click', function(){ addPage(true); });
+
+  // cycling default
+  render(CYCLE[0], false);
+  syncChips(CYCLE[0]);
+  timer = setInterval(function(){
+    ci = (ci + 1) % CYCLE.length;
+    kwText.textContent = CYCLE[ci];
+    syncChips(CYCLE[ci]);
+    render(CYCLE[ci], false);
+  }, 2600);
+
+  kwField.addEventListener('click', function(){
+    stopCycle();
+    var open = kwMenu.classList.toggle('open');
+    kwField.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open) setTimeout(function(){ kwInput.focus(); }, 30);
+  });
+  kwField.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); kwField.click(); }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.kw-opt'), function(b){
+    b.addEventListener('click', function(){ setKeyword(b.dataset.kw); });
+  });
+
+
+  kwInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && kwInput.value.trim()){
+      setKeyword(kwInput.value.trim());
+      kwInput.value = '';
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if(!kwMenu.contains(e.target) && !kwField.contains(e.target)){
+      kwMenu.classList.remove('open');
+      kwField.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // live counter
+  var n = 3412;
+  setInterval(function(){
+    n += Math.floor(Math.random() * 3) + 1;
+    scanCount.textContent = n.toLocaleString('en-US');
+    if(hlNumEl) hlNumEl.textContent = n.toLocaleString('en-US');
+  }, 4000);
+
+  // compare-all-plans toggle
+  var cmpBtn = document.getElementById('cmpBtn');
+  var matrix = document.getElementById('matrix');
+  cmpBtn.addEventListener('click', function(){
+    var open = matrix.hasAttribute('hidden');
+    if(open){ matrix.removeAttribute('hidden'); } else { matrix.setAttribute('hidden',''); }
+    cmpBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    cmpBtn.textContent = open ? 'Hide comparison' : 'Compare all plans';
+  });
+
+  // ---- headline variants ----
+  var VARIANTS = [
+    {
+      h1: 'Today <span id="hlNum">3,412</span> companies posted work. See who posted them.',
+      sub: 'Job boards don\u2019t show you who\u2019s hiring. We do.',
+      hideCounter: true,
+      note: 'Leads on volume \u2014 works for the half of your ICP who\u2019ve never used a job board, because it proves demand exists before explaining the product. Number is bound to the live counter, so the counter line is suppressed: two totals in one viewport reads as sloppiness. \u201cSee who posted them\u201d keeps the page\u2019s vocabulary consistent \u2014 never \u201ccontacts\u201d, which the 50/50 person-company split would break.'
+    },
+    {
+      h1: 'Every job posting is a client. We give you their name.',
+      sub: 'Job boards don\u2019t show you who\u2019s hiring. We do.',
+      hideCounter: false,
+      note: 'Shortest and most quotable. Two flat statements, no hedging. Weakness: \u201cclient\u201d is doing a lot of work \u2014 it asserts intent to buy, which not every posting has.'
+    },
+  ];
+
+  var hlEl = document.querySelector('h2.hl');
+  var subEl = document.querySelector('p.sub');
+  var liveEl = document.querySelector('.live');
+  var vNote = document.getElementById('vNote');
+  var vBtns = Array.prototype.slice.call(document.querySelectorAll('.vbtn'));
+  var hlNumEl = null;
+
+  function setVariant(i){
+    var v = VARIANTS[i];
+    hlEl.innerHTML = v.h1 + '<i class="mk">3</i>';
+    subEl.textContent = v.sub;
+    liveEl.style.visibility = v.hideCounter ? 'hidden' : '';
+    vNote.textContent = v.note;
+    hlNumEl = document.getElementById('hlNum');
+    if(hlNumEl) hlNumEl.textContent = n.toLocaleString('en-US');
+    vBtns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+  }
+  vBtns.forEach(function(b){
+    b.addEventListener('click', function(){ setVariant(parseInt(b.dataset.v, 10)); });
+  });
+  setVariant(0);
+
+  // designer notes toggle
+  var hintsBtn = document.getElementById('hintsBtn');
+  var root = document.querySelector('.wf');
+  hintsBtn.addEventListener('click', function(){
+    var off = root.classList.toggle('no-hints');
+    hintsBtn.textContent = 'annotations: ' + (off ? 'off' : 'on');
+    hintsBtn.setAttribute('aria-pressed', off ? 'false' : 'true');
+  });
+
+  // desktop / mobile view toggle
+  var viewBtn = document.getElementById('viewBtn');
+  viewBtn.addEventListener('click', function(){
+    var m = root.classList.toggle('mobile');
+    viewBtn.textContent = 'view: ' + (m ? 'mobile' : 'desktop');
+    viewBtn.setAttribute('aria-pressed', m ? 'true' : 'false');
+  });
+
+  // section index: scroll spy + smooth jump
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('#wfNav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  navLinks.forEach(function(a, i){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = sections[i];
+      if(!t) return;
+      var y = t.getBoundingClientRect().top + window.pageYOffset - 44;
+      window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
+  function spy(){
+    var best = 0;
+    for(var i = 0; i < sections.length; i++){
+      if(sections[i] && sections[i].getBoundingClientRect().top <= 90) best = i;
+    }
+    navLinks.forEach(function(a, i){ a.classList.toggle('on', i === best); });
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){ spy(); ticking = false; });
+  }, { passive:true });
+  spy();
+})();
+</script>
