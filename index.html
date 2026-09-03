@@ -736,9 +736,18 @@
   .close-cta{border:1px solid var(--line);background:var(--sheet);padding:1.6rem 1.5rem;text-align:center}
   .close-cta h2{margin:0 auto .5rem;max-width:20ch;font-size:1.5rem;letter-spacing:-.02em;font-weight:600}
   .close-cta p{margin:0 auto 1.1rem;max-width:46ch;font-size:.9rem;color:var(--ink-soft)}
-  .mini-feed{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem}
-  .mini{border:1px solid var(--line);background:var(--paper);padding:.55rem .7rem;display:flex;justify-content:space-between;gap:.8rem;align-items:center;text-align:left}
-  .mini span{font-size:.82rem}
+  /* one button; the objection under it and the Agency route below stay quiet,
+     because two equal buttons at the close is a decision and decisions cost */
+  .no-card{
+    margin:.5rem auto 0!important;font-family:var(--mono);font-size:.68rem;
+    color:var(--ink-soft);
+  }
+  .close-alt .nowrap{white-space:nowrap}
+  .close-alt{
+    margin:1.2rem auto 0!important;padding-top:1rem;
+    border-top:1px solid var(--hair);max-width:38ch!important;
+    font-size:.82rem;color:var(--ink-soft);
+  }
   .footer-note{padding:1.6rem 1.6rem 0 4.2rem}
 
   /* ---------- breakpoints ----------
@@ -837,8 +846,7 @@
 
     .close-cta{padding:1.2rem .9rem}
     .close-cta h2{font-size:1.22rem}
-    .mini{flex-direction:column;align-items:stretch;gap:.5rem}
-    .mini .btn{text-align:center}
+    .close-cta .btn{display:block;width:100%;text-align:center}
 
     .ftr{padding:1.1rem .8rem}
     .ftr-top{grid-template-columns:1fr 1fr;gap:1rem}
@@ -1713,26 +1721,31 @@
   <section class="blk" id="s6">
     <div class="rail">6</div>
     <div class="frame">
-      <p class="sec-label"><b>Close</b> — the hero demo again</p>
+      <p class="sec-label"><b>Close</b> — one bounded offer</p>
       <div class="close-cta">
-        <h2>Someone posted your next project this morning.<i class="mk">1</i></h2>
-        <p>Pick a keyword and see who wrote it. First reveal is free.</p>
-        <div class="mini-feed"><i class="mk">2</i>
-          <div class="mini"><span>Webflow rebuild · $4,500 · 12 min ago</span><span class="btn">Get the name</span></div>
-          <div class="mini"><span>Shopify migration · $55/h · 41 min ago</span><span class="btn ghost">Get the name</span></div>
-        </div>
+        <h2>You'll know if this works in a week.<i class="mk">1</i></h2>
+        <p>Seven free names, seven messages. If nobody bites, you've spent nothing and you know.<i class="mk">2</i></p>
+        <span class="btn">Start free — 7 names</span><i class="mk">3</i>
+        <p class="no-card">no card required</p>
+        <p class="close-alt">Running a bigger team? <u class="nowrap">Talk to us</u><i class="mk">4</i></p>
       </div>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note">Same interaction as the hero, not a generic button. Anyone who scrolled this far is ready — don't send them back to the top.</p>
+      <p class="note"><b>Repeating the hero assumed the hero failed.</b> A weaker copy of it at the bottom doesn't fix that — and the mini cards carried no keyword context, so they were less compelling than the feed the visitor had already scrolled past. What has actually changed by this point is that they have seen the price, so the closer answers <em>is this worth trying</em> rather than re-proving the product.</p>
+      <p class="note"><b>A deadline is what moves someone who is interested but not acting.</b> "In a week" reframes a subscription decision as a cheap, bounded experiment: seven names, seven messages, one week, and you know. Nobody has to believe a forecast to accept that.</p>
+      <p class="note">The Agency link stays because someone for whom $199 a week was the interesting number rather than the scary one is exactly who should be on a call — and those calls are still an open item in the context doc.</p>
       <p class="note warn"><b>No testimonials section.</b> Two customers who won't be named can't fill a logo wall, and an empty one reads worse than none. Proof is the live demo, the live number in the headline, and — if either says yes — one unnamed line: "a 12-person Webflow agency in Berlin".</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
           <li><b>1</b> <em>Only centred block on the page.</em> Everything above is left-aligned; the switch signals an ending. Don't centre anything else or the signal stops working.</li>
-          <li><b>2</b> <em>Live cards, not a picture.</em> Same component and same reveal behaviour as the hero, just fewer of them. If the visitor already burned their free reveal, these open the signup gate directly — design that as the normal path, not an error.</li>
+          <li><b>2</b> <em>"If nobody bites, you've spent nothing and you know" is the first line on the page that invites the reader to picture failing.</em> That is deliberate: naming the downside is what makes the offer credible to an audience that has been burned by lead-gen tools. If it tests badly, keep the structure and cut the second half — don't soften the whole sentence, because the concession is the part doing the work.</li>
+          <li><b>3</b> <em>The button repeats the number on purpose.</em> Headline says a week, subhead says seven, button closes the loop. Don't shorten it to a generic "Start free" — by this point the visitor is deciding on a specific offer, and a generic button makes them re-derive what they are agreeing to.</li>
+          <li><b>3</b> <em>"no card required" sits under the button, never inside it.</em> It is the live objection at this point — free until when? — but folding it into the label makes the button long and hedged. Small, quiet, directly beneath, where it is read as a fact rather than as a sales line.</li>
+          <li><b>4</b> <em>A text link, not a second button.</em> Two equal buttons is a decision, and a decision at the close costs conversions. It sits below a rule so it reads as a different route for a different reader, not as an alternative to the thing above it.</li>
+          <li><b>—</b> <em>The free-name count appears in three places: the hero footer, the pricing free band, and this button.</em> If it ever changes, all three change together. A mismatch here is a bait-and-switch at the exact moment of conversion, and it is the copy most likely to be updated in only two of the three.</li>
         </ol>
       </div>
     </aside>
