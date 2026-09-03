@@ -285,7 +285,7 @@
     display:inline-block;
   }
   .btn.ghost{background:transparent;color:var(--ink)}
-  .btn:focus-visible,.kw-field:focus-visible,.kw-opt:focus-visible,.reveal:focus-visible{
+  .btn:focus-visible,.kw-field:focus-visible,.kw-opt:focus-visible,.getname:focus-visible{
     outline:2px solid var(--mark);outline-offset:2px;
   }
   .hint{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft)}
@@ -375,7 +375,8 @@
     padding-bottom:.45rem;border-bottom:1px solid var(--hair);
   }
 
-  .card{border:1px solid var(--line);background:var(--paper);padding:.85rem .9rem}
+  .card{border:1px solid var(--line);background:var(--paper);padding:.85rem .9rem;transition:border-color .2s ease}
+  .card:hover{border-color:var(--ink-soft)}
   .card.fresh{animation:drop .5s ease-out}
   @keyframes drop{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
   .card-top{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
@@ -394,15 +395,33 @@
     background:var(--fill);border:1px solid var(--line);
   }
   .who-txt{flex:1;min-width:0}
-  .who-name{font-size:.86rem;font-weight:500;margin:0;line-height:1.3}
-  .who-role{font-size:.76rem;color:var(--ink-soft);margin:.1rem 0 0;line-height:1.3}
-  .masked .who-name,.masked .who-role{filter:blur(4.5px);user-select:none}
-  .reveal{
+  /* Name and role are always the masked strings, always monospace, always one line.
+     Nothing but the blur changes between the two states, so the height cannot move. */
+  .who-name,.who-role{
+    margin:0;line-height:1.3;
+    font-family:var(--mono);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .who-name{font-size:.82rem;font-weight:500;letter-spacing:.02em}
+  .who-role{font-size:.73rem;color:var(--ink-soft);margin-top:.1rem}
+  .who-count{
+    margin:.25rem 0 0;font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .who-id{filter:blur(4.5px);user-select:none;transition:filter .2s ease}
+  .card:hover .who-id,
+  .who.partial .who-id{filter:none;user-select:auto}
+  .who .av{transition:background-image .2s ease}
+  .card:hover .who .av,
+  .who.partial .av{
+    background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px);
+  }
+  .getname{
     background:var(--ink);color:var(--sheet);border:1px solid var(--ink);
     font-family:var(--sans);font-size:.78rem;font-weight:500;
     padding:.42rem .8rem;border-radius:2px;cursor:pointer;white-space:nowrap;
   }
-  .reveal[data-state="done"]{background:transparent;color:var(--ink-soft);border-color:var(--hair);cursor:default}
+  .getname:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 
   .more{
     margin-top:.7rem;width:100%;
@@ -414,28 +433,24 @@
   .more:disabled{color:var(--ink-soft);cursor:default;border-color:var(--hair);font-size:.78rem}
   .more:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 
-  .who.partial .who-name,.who.partial .who-role{filter:none}
-  .who.partial .who-name{font-family:var(--mono);letter-spacing:.02em}
-  .who.partial .av{
-    background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px);
+  /* the account ask — a real dialog, not a block appended to the card */
+  .modal[hidden]{display:none}
+  .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1.2rem}
+  .modal-back{position:absolute;inset:0;background:rgba(35,40,45,.55)}
+  .modal-box{
+    position:relative;width:100%;max-width:29rem;
+    background:var(--sheet);border:1px solid var(--ink);padding:1.4rem 1.4rem 1.2rem;
   }
-  .reveal.is-locked{background:transparent;color:var(--ink-soft);border-color:var(--hair);cursor:default}
-  .prow .pname{font-family:var(--mono);font-size:.78rem}
-  .prow .av{background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px)}
-  .gate p b{font-weight:600}
-
-  .profiles{margin:.7rem 0 0;padding:.65rem .7rem;border:1px dashed var(--line);background:var(--sheet)}
-  .profiles p{margin:0 0 .5rem;font-family:var(--mono);font-size:.68rem;color:var(--ink-soft)}
-  .prow{display:flex;align-items:center;gap:.55rem;padding:.3rem 0}
-  .prow .av{width:24px;height:24px}
-  .prow span{font-size:.8rem}
-  .prow em{font-size:.75rem;color:var(--ink-soft);font-style:normal}
-  .gate{
-    margin-top:.7rem;border:1px solid var(--ink);background:var(--sheet);
-    padding:.75rem .8rem;display:flex;flex-wrap:wrap;
-    align-items:center;justify-content:space-between;gap:.6rem;
+  .modal-x{
+    position:absolute;top:.5rem;right:.6rem;
+    background:none;border:0;cursor:pointer;
+    font-size:1.1rem;line-height:1;color:var(--ink-soft);padding:.25rem .35rem;
   }
-  .gate p{margin:0;font-size:.84rem;max-width:38ch}
+  .modal-x:focus-visible,.modal-box .btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .modal-h{margin:0 1.4rem .5rem 0;font-size:1rem;font-weight:600;line-height:1.35}
+  .modal-p{margin:0 0 1.1rem;font-size:.86rem;color:var(--ink-soft)}
+  .modal-act{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem}
+  .modal-act .btn{border:1px solid var(--ink)}
 
   .hero-foot{
     margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--hair);
@@ -683,11 +698,19 @@
     .card-time{order:-1}
     .who{flex-wrap:wrap;align-items:flex-start;row-gap:.6rem}
     .who-txt{flex:1 1 calc(100% - 3rem)}
-    .reveal{flex:1 0 100%;width:100%;padding:.6rem;text-align:center}
-    .gate{flex-direction:column;align-items:stretch;padding:.7rem}
-    .profiles{padding:.6rem}
-    .prow{flex-wrap:wrap;row-gap:.15rem}
-    .gate .btn{text-align:center}
+    .getname{flex:1 0 100%;width:100%;padding:.6rem;text-align:center}
+    /* No hover on a phone, so the compelling state is simply the default one.
+       Nothing transitions — there is no "before" for it to transition from. */
+    .who-id{filter:none;user-select:auto;transition:none}
+    .who .av{
+      background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px);
+      transition:none;
+    }
+    .card,.card:hover{transition:none;border-color:var(--line)}
+    .modal{padding:.9rem}
+    .modal-box{padding:1.1rem 1rem 1rem}
+    .modal-act{flex-direction:column;align-items:stretch}
+    .modal-act .btn{text-align:center}
     .hero-foot{flex-direction:column;align-items:flex-start;gap:.4rem}
 
     .split{grid-template-columns:1fr}
@@ -873,6 +896,19 @@
           <span class="hint">Have a job link? Paste it instead</span><i class="mk">9</i>
         </div>
       </div>
+
+      <div class="modal" id="gateModal" hidden>
+        <div class="modal-back" data-close></div>
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+          <button class="modal-x" type="button" data-close aria-label="Close">&times;</button>
+          <p class="modal-h" id="gateTitle"></p><i class="mk">15</i>
+          <p class="modal-p">This one's on us — free accounts include 15 names.</p>
+          <div class="modal-act">
+            <button class="btn" type="button">Create free account</button>
+            <span class="hint">already have an account? <u>log in</u></span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <aside class="notes">
@@ -889,6 +925,13 @@
       <p class="note">The caret carries all three states, so nothing new had to be invented: blinking means cycling, still means held while you read, gone means stopped for good. It's already the element a visitor reads for "is this thing moving", and it costs no extra furniture.</p>
       <p class="note">Dropdown is curated to keywords with real daily volume. Volume shown next to each: it doubles as proof the pipeline is full.</p>
       <p class="note"><b>Cards are mixed on purpose.</b> The default three cover a person, a company and a third of either kind. No badge, no label. The demo sets expectations so the first paid reveal can't feel like a bait-and-switch — which means the ordering of those first three is a real decision, not a query result. Pin it.</p>
+      <p class="note"><b>Hover and click do different jobs, on purpose.</b> Hover proves an answer exists; the click asks for the account. They used to be one gesture: a single click appended a profiles block and a signup gate, so the visitor hit a wall in the same beat they got their first piece of proof — and the card grew, shoving everything below it down the page. Splitting the two means the proof arrives free and the ask arrives when they reach for it.</p>
+      <p class="note"><b>The masked slot is reserved in the collapsed card.</b> Same rows, same spacing, same strings in both states — the only thing that changes between default and hover is a blur filter. Layout stability is the entire reason for this structure, and it is measurable: the card and the feed are identical to the pixel in both states. Any future addition to a card has to be present in both states or it breaks the whole idea.</p>
+      <p class="note"><b>Three visual treatments, and they must stay distinct.</b> Blur means nothing is known yet. Character masking means found and deliberately withheld. Full text means logged in. Blur reads as "still loading" and masking reads as "withheld" — using one treatment for both loses the difference, and the difference is what makes the second state feel like proof rather than a spinner.</p>
+      <p class="note warn"><b>Only the masked string is ever rendered.</b> The real name is not in the card's markup at any point, so it can't be read out of devtools, and a blurred screenshot can't be sharpened back into it. CSS blur is a visual effect, not a redaction — if production ever sends the real name and blurs it, the paywall is decorative. Mask on the server, not in the stylesheet.</p>
+      <p class="note">Mobile starts masked and never transitions. There is no hover on a phone and roughly half your traffic taps, so the compelling state is simply the default one there — a transition needs a "before", and on mobile there isn't one.</p>
+      <p class="note"><b>The modal names the posting the visitor was already looking at.</b> "Create free account" on its own is a form; "get the name behind <em>Migrate Framer site to Webflow</em>" is the continuation of a task already in progress. This is also the strongest argument for making the keyword carry through signup — if it does, the account they land in is already the one they were imagining.</p>
+      <p class="note">The button says "Get the name" now, not "Reveal". It matches what the headline promises two lines above it. "Reveal" stays everywhere it means the billing unit — 15 free reveals, 150 reveals a week — because that is a unit of account, not a description of what the visitor receives.</p>
       <p class="note"><b>Reveal is a partial, not a giveaway.</b> Any card can be revealed, any number of times. The blur comes off and the answer's shape appears — individual or company, how many profiles matched, their job titles — but the names stay masked. They learn the answer exists and that it's specific. The 15 free reveals are the reward for signing up, not something spent on the landing page.</p>
       <p class="note">Currency is USD throughout, since that's what the source platforms quote regardless of where the client sits. Don't convert to local currency — it adds a rounding artifact and makes the number look calculated rather than copied.</p>
       <p class="note">Job titles are the part worth showing. "Head of Growth" and "Operations Lead" prove the match is real in a way a blurred name never could, and they're the reason someone believes the next reveal is worth an account.</p>
@@ -911,13 +954,19 @@
           <li><b>5</b> <em>The hold is deliberately silent.</em> No "paused" badge, no overlay, no icon. A visitor who hovers a card to read it has not asked for a status report, and a carousel that announces its own pausing draws attention to the fact that it was moving. The caret going still is the entire cue, and most people will never consciously notice it — which is the point.</li>
           <li><b>5</b> <em>Hover is bound only where hovering is real.</em> Behind a <code>(hover: hover)</code> check, because on a touch screen <code>mouseenter</code> fires on tap and no leave arrives until the visitor taps somewhere else — the cycle would look dead. Touch doesn't need it anyway: a tap on Reveal is a click, and a click stops the cycle outright.</li>
           <li><b>5</b> <em>Keyboard gets the same courtesy.</em> Tabbing onto a Reveal button holds the cycle exactly as hovering does; the field is the same intent expressed with a different device. Without it, a keyboard visitor reading the feed watches it re-render underneath their focus ring.</li>
-          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Reveal, Load more, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
+          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Get the name, Load more, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
           <li><b>5</b> <em>Two label states.</em> "Live now / last 24h" for curated keywords; "Recent matches for X / from the archive" for custom ones. Design both — the second is not an error state, it's normal.</li>
           <li><b>6</b> <em>Budget is the credibility anchor.</em> A real number does more than any copy, and it stays sharp in every state — give it visual weight above the tags.</li>
           <li><b>6</b> <em>Two budget formats only.</em> Fixed price ($4,500) or hourly rate ($55/h) — nothing else. Fixed runs to five digits, hourly to two, so the slot must hold both without the row reflowing. Postings with no budget will still happen: decide now whether the card says "budget not stated" or drops the chip, because an empty slot breaks the row.</li>
-          <li><b>7</b> <em>Three button states.</em> Reveal → Revealed (quiet, done) → Locked (gated). Plus a loading state; the lookup isn't instant in production.</li>
-          <li><b>8</b> <em>Reveal opens in place.</em> Never a modal, never a new page. Card grows, content below shifts down. Company reveals expand taller than person reveals — design for the tall one.</li>
-          <li><b>8</b> <em>Three visual states, deliberately different.</em> Blurred (nothing known yet) → masked characters (found, not legible) → full (after login). The switch from blur to character-masking matters: blur reads as "still loading", masking reads as "deliberately withheld". Don't use the same treatment for both.</li>
+          <li><b>7</b> <em>One button, one job: ask for the account.</em> It no longer changes the card, so it needs no done or locked state — it opens the dialog every time it's pressed. It does still need a loading state for the moment the dialog is fetching, because the lookup isn't instant in production.</li>
+          <li><b>14</b> <em>Nothing may change height between the two states.</em> Name and role are single-line with overflow hidden, and both hold the masked string in both states, so only the blur changes. Verify this every time the card gains anything: hover a card and watch the cards below it — if they move a pixel, the change is wrong.</li>
+          <li><b>14</b> <em>Three treatments, never interchangeable.</em> Blur = nothing known yet. Character mask = found and withheld. Full = logged in. Design all three; the middle one is the one that sells.</li>
+          <li><b>14</b> <em>Job titles stay unmasked at every stage.</em> "Head of Growth" is what proves the match is real — a blurred name proves nothing. The company is masked on a person result and left readable on a company one, because on a company result the organisation is the answer, not the secret.</li>
+          <li><b>14</b> <em>The transition is ~200ms and only on the blur.</em> Fast enough to read as caused, slow enough not to look like a glitch. The card border shifts colour on the same curve so the content change has a visible cause; the border <em>width</em> must never change or the layout moves.</li>
+          <li><b>14</b> <em>The profile count is plain text and never blurs.</em> "2 profiles matched" is the one piece of the answer given away for free in every state, and it's what makes the blurred rows above it read as withheld rather than empty. It also carries the person-versus-company split without a badge.</li>
+          <li><b>15</b> <em>Design the dialog as a real dialog.</em> Dismissible three ways — Escape, backdrop, close button — focus trapped while open, focus returned to the button that opened it. It is built that way here; keep it that way. A gate that traps someone with no way out converts worse than no gate.</li>
+          <li><b>15</b> <em>The posting title is the whole point of the dialog.</em> It can be long, so let it wrap to two or three lines rather than truncating — the specificity is the argument, and an ellipsis throws it away.</li>
+          <li><b>8</b> <em>This line and the dialog have to agree.</em> The foot promises "15 free reveals", the dialog says "15 names". Same number, two nouns — pick one before this ships, and if the answer is that reveals are the unit and names are the outcome, then say so consistently everywhere rather than alternating.</li>
           <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts. With four links rather than two, the burger is now carrying real content: it needs a designed open state, not just an icon.</li>
           <li><b>—</b> <em>Mobile: keyword field goes full width</em>, directly under the subheadline. Reveal buttons go full width too. Every tap target is at least 44px and spans the card, because on a phone the demo is the entire page.</li>
           <li><b>10</b> <em>Three cards by default, three per click.</em> The hero has to stay above the fold on a laptop, and three is enough to show the mix — person, company, different budgets — without pushing the rest of the page below the screen. Anyone who wants more is engaged enough to ask.</li>
@@ -1418,8 +1467,8 @@
         <h2>Someone posted your next project this morning.<i class="mk">1</i></h2>
         <p>Pick a keyword and see who wrote it. First reveal is free.</p>
         <div class="mini-feed"><i class="mk">2</i>
-          <div class="mini"><span>Webflow rebuild · $4,500 · 12 min ago</span><span class="btn">Reveal</span></div>
-          <div class="mini"><span>Shopify migration · $55/h · 41 min ago</span><span class="btn ghost">Reveal</span></div>
+          <div class="mini"><span>Webflow rebuild · $4,500 · 12 min ago</span><span class="btn">Get the name</span></div>
+          <div class="mini"><span>Shopify migration · $55/h · 41 min ago</span><span class="btn ghost">Get the name</span></div>
         </div>
       </div>
     </div>
@@ -1831,55 +1880,76 @@
       '<div class="who masked">'+
         '<div class="av"></div>'+
         '<div class="who-txt">'+
-          '<p class="who-name">'+item.name+'</p>'+
-          '<p class="who-role">'+item.role+' \u00b7 '+item.org+'</p>'+
+          // Only the masked strings are ever rendered. Blurring the real name would
+          // leave it readable in devtools and recoverable from a screenshot.
+          '<div class="who-id">'+MK(14)+
+            '<p class="who-name">'+mask(item.name)+'</p>'+
+            '<p class="who-role">'+item.role+' \u00b7 '+
+              (item.type === 'person' ? mask(item.org) : item.org)+'</p>'+
+          '</div>'+
+          '<p class="who-count">'+countLine(item)+'</p>'+
         '</div>'+
-        MK(7)+'<button class="reveal" type="button">Reveal</button>'+
+        MK(7)+'<button class="getname" type="button">Get the name</button>'+
       '</div>';
 
-    c.querySelector('.reveal').addEventListener('click', function(){
-      doReveal(c, item, this);
+    c.querySelector('.getname').addEventListener('click', function(){
+      openGate(item, this);
     });
     return c;
   }
 
-  function doReveal(card, item, btn){
-    if(btn.dataset.state) return;
-    stopCycle();   // without this the next tick wipes the card they just opened, gate included
-    btn.dataset.state = 'partial';
-    btn.textContent = 'Locked';
-    btn.classList.add('is-locked');
-
-    // blur comes off, masking goes on: the answer exists, it just isn't legible yet
-    var who = card.querySelector('.who');
-    who.classList.remove('masked');
-    who.classList.add('partial');
-    who.querySelector('.who-name').textContent = mask(item.name);
-    who.querySelector('.who-role').textContent =
-      item.type === 'person'
-        ? item.role + ' \u00b7 ' + mask(item.org)
-        : item.role + ' \u00b7 ' + item.org;
-
-    var found = document.createElement('div');
-    found.className = 'profiles';
-    found.innerHTML =
-      '<p>' + (item.type === 'person'
-        ? '1 individual identified \u00b7 ' + item.extra.length + ' LinkedIn profile' + (item.extra.length>1?'s':'') + ' matched'
-        : 'Company identified \u00b7 ' + item.extra.length + ' people to message') + '</p>' +
-      item.extra.map(function(x){
-        return '<div class="prow"><div class="av"></div>' +
-               '<span class="pname">' + mask(x[0]) + '</span>' +
-               '<em>' + x[1] + '</em></div>';
-      }).join('');
-    card.appendChild(found);
-
-    var g = document.createElement('div');
-    g.className = 'gate';
-    g.innerHTML =
-      '<p><b>We found them.</b> Create a free account to see the names and open the profiles \u2014 15 reveals included.</p>' +
-      '<span class="btn">Create free account</span>';
-    card.appendChild(g);
+  function countLine(item){
+    var n = item.extra.length;
+    return item.type === 'person'
+      ? n + ' profile' + (n > 1 ? 's' : '') + ' matched'
+      : n + ' people to message';
   }
+
+  // Hover proves an answer exists; the click asks for the account. Keeping those
+  // two jobs apart is the whole point of this structure — one click doing both put
+  // a wall in the same beat as the visitor's first piece of proof.
+  var gate      = document.getElementById('gateModal');
+  var gateTitle = document.getElementById('gateTitle');
+  var gateOpener = null;
+
+  function gateFocusables(){
+    return Array.prototype.slice.call(
+      gate.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])')
+    ).filter(function(el){ return el.offsetParent !== null; });
+  }
+
+  function onGateKey(e){
+    if(e.key === 'Escape'){ closeGate(); return; }
+    if(e.key !== 'Tab') return;
+    var f = gateFocusables();
+    if(!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+
+  function openGate(item, btn){
+    stopCycle();   // the modal names this posting; a tick behind it would delete the card
+    gateOpener = btn || null;
+    gateTitle.textContent =
+      'Sign up free to get the name behind \u201c' + item.sum + '\u201d';
+    gate.hidden = false;
+    document.addEventListener('keydown', onGateKey);
+    var f = gateFocusables();
+    if(f.length) f[0].focus();
+  }
+
+  function closeGate(){
+    if(gate.hidden) return;
+    gate.hidden = true;
+    document.removeEventListener('keydown', onGateKey);
+    if(gateOpener) gateOpener.focus();
+    gateOpener = null;
+  }
+
+  Array.prototype.slice.call(gate.querySelectorAll('[data-close]')).forEach(function(el){
+    el.addEventListener('click', closeGate);
+  });
 
   function setKeyword(kw){
     stopCycle();
