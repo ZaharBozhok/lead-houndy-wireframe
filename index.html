@@ -478,11 +478,34 @@
   .arrow{align-self:center;font-family:var(--mono);color:var(--line);font-size:1.1rem}
 
   /* ---------- section 3: steps ---------- */
-  .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+  .steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
   .step{border:1px solid var(--line);background:var(--sheet);padding:.95rem}
   .step-n{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin:0 0 .5rem}
   .step h3{margin:0 0 .4rem;font-size:.92rem;font-weight:600}
   .step p{margin:0;font-size:.83rem;color:var(--ink-soft)}
+
+  /* the payoff: what actually lands in Slack */
+  .payoff-h,.also-h{
+    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+    margin:1.3rem 0 .5rem;
+  }
+  .also-h{margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid var(--hair)}
+  .slack-ph{flex-direction:column;gap:.45rem;line-height:1.5}
+  .slack-ph b{font-weight:600;color:var(--ink)}
+
+  /* media placeholder — dashed grey reads as "video goes here", never as annotation */
+  .ph.vid{
+    flex-direction:column;gap:.5rem;
+    border:1px dashed var(--line);background:var(--paper);
+    aspect-ratio:16/9;width:100%;max-width:300px;align-self:flex-start;
+  }
+  .vid-play{
+    width:26px;height:26px;flex:none;
+    border:1px solid var(--ink-soft);color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;font-size:.62rem;
+  }
+  .frames3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin-top:auto}
+  .frames3 .ph{height:100px;font-size:.62rem;margin-top:0}
 
   /* ---------- section 4: doors ---------- */
   .door{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;margin-bottom:.9rem}
@@ -491,7 +514,7 @@
   .door-h h3{margin:0;font-size:1rem;font-weight:600}
   .door p{margin:0 0 .8rem;font-size:.86rem;color:var(--ink-soft);max-width:56ch}
   .door-vis{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.8rem}
-  .minor{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;align-items:stretch}
+  .minor{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;align-items:start}
   .minor .door{display:flex;flex-direction:column}
   .minor .door p{flex:1}
   .minor .door .ph,.minor .door .paste-line{margin-top:auto}
@@ -716,7 +739,7 @@
 
   <header class="wf-head">
     <h1>leadhoundy.com — landing page wireframe</h1>
-    <p class="wf-meta">v3 · structure only · not visual design</p>
+    <p class="wf-meta">v4 · structure only · not visual design</p>
     <div class="wf-legend">
       <span><i class="swatch f"></i> placeholder content</span>
       <span><i class="swatch i"></i> primary action</span>
@@ -743,7 +766,7 @@
     </section>
     <section>
       <h3>Copy status</h3>
-      <p>The headline, the pricing lines and "no result, no credit spent" are settled wording — they were argued over and each one covers a specific edge case. There are no grey bars left: every line on the page is now written. Two answers in §5 are still waiting on legal, which is marked in that margin.</p>
+      <p>The headline, the pricing lines and "no result, no credit spent" are settled wording — they were argued over and each one covers a specific edge case. There are no grey bars left: every line on the page is now written. Two answers in §4 are still waiting on legal, which is marked in that margin.</p>
     </section>
     <section>
       <h3>Two layouts</h3>
@@ -779,11 +802,10 @@
     <a href="#s1"><b>1</b> Hero</a>
     <a href="#s2"><b>2</b> Contrast</a>
     <a href="#s3"><b>3</b> How it works</a>
-    <a href="#s4"><b>4</b> Ways in</a>
-    <a href="#s5"><b>5</b> Objections</a>
-    <a href="#s6"><b>6</b> Pricing</a>
-    <a href="#s7"><b>7</b> Close</a>
-    <a href="#s8"><b>8</b> Footer</a>
+    <a href="#s4"><b>4</b> Objections</a>
+    <a href="#s5"><b>5</b> Pricing</a>
+    <a href="#s6"><b>6</b> Close</a>
+    <a href="#s7"><b>7</b> Footer</a>
   </nav>
 
   <!-- ============ 1. HERO ============ -->
@@ -797,7 +819,6 @@
           <div class="logo"></div><i class="mk">0</i>
           <nav class="nav-links" aria-label="Page sections">
             <span class="hint">How it works</span>
-            <span class="hint">Ways to use it</span>
             <span class="hint">Pricing</span>
             <span class="hint">FAQ</span>
           </nav><i class="mk">13</i>
@@ -882,7 +903,7 @@
         <ol class="build">
           <li><b>0</b> <em>Wordmark plus hound mark.</em> This is the mascot's most important placement — it has to work at 24px in a browser tab and as a Slack bot avatar, so the dog needs to survive being tiny. Design the avatar crop first and let the full mark follow.</li>
           <li><b>1</b> <em>Only filled button above the fold.</em> Nav is otherwise quiet — every unit of attention above the feed belongs to the keyword field.</li>
-          <li><b>13</b> <em>Four nav links, and four is the ceiling.</em> How it works · Ways to use it · Pricing · FAQ — one per section a visitor might jump to, in page order. Deliberately not a link per section: Hero, Contrast and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fifth ever gets proposed, something else comes out.</li>
+          <li><b>13</b> <em>Three nav links, and four is the ceiling.</em> How it works · Pricing · FAQ — one per section a visitor might actually jump to, in page order. It was four until Ways in was folded into How it works; a link for it now would land on the same section, and two labels pointing at one destination is worse than one label. Deliberately not a link per section either: Hero, Contrast and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fourth gets proposed, it has to earn its place.</li>
           <li><b>2</b> <em>Live, or gone.</em> Ticks upward on a real number. If the count fails to load, hide the whole line — a frozen counter is worse than no counter. Never round to a fake milestone.</li>
           <li><b>3</b> <em>Copy is locked.</em> "Who's behind" is true whether the reveal returns a person or a company. Don't rewrite to "get their email" or "find the decision maker" — both break on half our results.</li>
           <li><b>12</b> <em>Popular tags are the one-tap path.</em> The dropdown costs two clicks — open, then choose. These cost one, and they double as proof that real volume exists across services. The active tag stays in sync with the field, including while it cycles, so a visitor always sees which keyword the feed belongs to.</li>
@@ -940,7 +961,7 @@
       <p class="note">Reads correctly for both audiences: the Upwork agency recognises every line on the left, and the half who've never touched a job board still understand "waiting to be picked" — it's a feeling they've had somewhere else. The left column now names a behaviour rather than a venue; the venue moved down to the kicker, where it belongs, because the hero subhead already established it.</p>
       <p class="note"><b>Each row is a matched pair, and the mirror is the mechanism.</b> What your money buys, whether you're in a queue, what's left when the job closes, whether a new agency can win. Read across, not down. If a line is ever rewritten, its opposite number gets rewritten with it or the row stops working.</p>
       <p class="note"><b>Left side is described, not attacked.</b> "Waiting to be picked" is the one line here with any edge on it, and a good share of your visitors work that way today. It stays because it's accurate, not because it's cutting — and every answer on the right is warm rather than triumphant. No red crosses, no green ticks.</p>
-      <p class="note warn"><b>This strip got longer, deliberately.</b> Roughly four seconds became seven or eight. The old version listed symptoms ("40 proposals sent"); this one makes four arguments, which is worth the extra beats. It is now at its ceiling — if anything else needs saying, it goes in §5, and if the budget has to be held, row 2 is the one to cut because row 1 already implies it.</p>
+      <p class="note warn"><b>This strip got longer, deliberately.</b> Roughly four seconds became seven or eight. The old version listed symptoms ("40 proposals sent"); this one makes four arguments, which is worth the extra beats. It is now at its ceiling — if anything else needs saying, it goes in §4, and if the budget has to be held, row 2 is the one to cut because row 1 already implies it.</p>
       <p class="note warn">Resist expanding this into a problem/solution section. It's still a strip.</p>
       <p class="note">"Connects" is gone. It's Upwork's word and invisible to half the audience; "pay more to move up" says the same thing to everyone.</p>
 
@@ -958,110 +979,102 @@
     </aside>
   </section>
 
-  <!-- ============ 3. STEPS ============ -->
+  <!-- ============ 3. HOW IT WORKS ============ -->
   <section class="blk" id="s3">
     <div class="rail">3</div>
     <div class="frame">
-      <p class="sec-label"><b>How it works</b> — four steps</p>
+      <p class="sec-label"><b>How it works</b> — steps, then the payoff</p>
+
       <div class="steps">
         <div class="step">
           <p class="step-n">01</p><i class="mk">1</i>
           <h3>Tell it what you want</h3>
-          <p>Keywords, budget or hourly rate, location — the same filters you'd use to search, just saved.</p>
+          <p>Keywords, budget or hourly rate, location.</p>
         </div>
         <div class="step">
           <p class="step-n">02</p>
-          <h3>Pick where alerts land<i class="mk">4</i></h3>
-          <p>Slack or Telegram. Takes about a minute, and you never open it again.</p>
+          <h3>Pick where alerts land<i class="mk">2</i></h3>
+          <p>Slack or Telegram. About a minute, then you never open it again.</p>
         </div>
         <div class="step">
           <p class="step-n">03</p>
-          <h3>Leads arrive with the name attached<i class="mk">3</i></h3>
-          <p>An AI reads every new posting, drops the ones that don't fit, and sends the rest with who posted it and the profiles to message.</p>
+          <h3>Leads arrive with the name attached</h3>
+          <p>An AI reads every new posting and drops the ones that don't fit.</p>
         </div>
         <div class="step">
           <p class="step-n">04</p>
-          <h3>Pitch them<i class="mk">2</i></h3>
+          <h3>Pitch them<i class="mk">3</i></h3>
           <p>Straight to the person. No proposal queue, no bidding, no cut.</p>
         </div>
       </div>
-    </div>
-    <aside class="notes">
-      <p class="notes-h">Why</p>
-      <p class="note">Numbering earns its place here — this is an actual sequence.</p>
-      <p class="note"><b>Step 4 is the payoff.</b> Say plainly that outreach happens on their terms. Visitors don't assume it, and it's the thing that makes the product worth paying for.</p>
-      <p class="note"><b>The four steps are two pairs, and that's the argument.</b> 1 and 2 are setup you do once — step 2 says so out loud, "you never open it again". 3 and 4 are what happens every day afterwards. A visitor scanning this should come away with "a minute of work, then it runs", which is a stronger claim than any of the four steps makes alone. Design the row so that split is visible without a label on it.</p>
-      <p class="note">"No cut" is back. The hero subhead dropped "no proposals, no bidding, no cut" when it was shortened, and this is where it returns — which is exactly what the original decision assumed would happen. If hero bounce turns out to be high, that phrase going back above the fold is still the first thing to try.</p>
-      <p class="note warn"><b>The credit disappeared from the flow.</b> The old step 2 said "one credit turns an anonymous post into a name" — the only place the sequence connected the product to the thing pricing sells. Now the name simply arrives attached, and nothing here says it costs anything. Two consequences: a visitor meets "150 reveals a week" in §6 as a unit this section never introduced, and, worse, they can reasonably read step 3 as saying alerts are free. Decide whether a delivered alert spends a credit and put the answer in step 3 — this is exactly the expectation the mixed demo feed exists to protect.</p>
 
-      <div class="build-block">
-        <p class="notes-h">Build notes</p>
-        <ol class="build">
-          <li><b>1</b> <em>Numbers stay small.</em> They mark sequence, they aren't the design. If the numerals start competing with the step titles, they're too big.</li>
-          <li><b>2</b> <em>Give step 4 slightly more weight</em> than the three before it. It's the one carrying the promise the others set up, and it's the shortest — which makes it easy to under-weight by accident. Equal quarters is the safe layout and the wrong one.</li>
-          <li><b>3</b> <em>Longest copy in the row sets the row's height.</em> Step 3 is roughly twice the length of step 4, so at four across every card inherits its height and the short ones float in empty space. Either cut step 3 to two lines at the narrow end of the web layout, or design the cards to sit top-aligned with visible unequal heights — deliberately ragged beats accidentally padded.</li>
-          <li><b>3</b> <em>"An AI reads every new posting" is the product claim, not decoration.</em> It's the difference between this and a saved search, and it's the sentence that justifies the subscription. It needs to survive being shortened; if the step has to lose words, lose "and the profiles to message" before losing the AI.</li>
-          <li><b>4</b> <em>"You never open it again" is a promise about the whole product.</em> It says the dashboard is not where the value lives — Slack is. Everything downstream has to hold it up: if the alert is missing something a visitor then has to log in to see, this line is the one they'll remember. It's also the strongest argument for the Slack bot avatar being the mascot's most valuable placement.</li>
-          <li><b>—</b> <em>Four across gets tight at 720–900px.</em> Same squeeze as the pricing row, same answer: don't add a breakpoint, shorten the copy. If it can't be shortened, 2×2 is the fallback — but only as a last resort, because a numbered sequence in a grid makes the reading order ambiguous in a way one row never does.</li>
-        </ol>
-      </div>
-    </aside>
-  </section>
-
-  <!-- ============ 4. DOORS ============ -->
-  <section class="blk" id="s4">
-    <div class="rail">4</div>
-    <div class="frame">
-      <p class="sec-label"><b>Ways in</b> — ordered by time to value</p>
-
-      <div class="door primary">
-        <div class="door-h">
-          <h3>Scanner<i class="mk">1</i></h3>
-          <span class="hint">the one that keeps the subscription</span>
-        </div>
-        <p>An AI reads every new posting and decides whether it's worth your team's time. Qualified leads land in Slack or email with the contact already attached.</p>
-        <div class="door-vis">
-          <div class="ph" style="height:120px">filter config<br>keyword · budget · region</div>
-          <div class="ph" style="height:120px">Slack message mock<br>lead card + contact attached<i class="mk">2</i></div>
-        </div>
+      <p class="payoff-h">What actually shows up<i class="mk">4</i></p>
+      <div class="ph slack-ph" style="height:260px">
+        <span>real Slack chrome — not a generic chat bubble</span>
+        <span>channel <b>#webflow-leads</b> · hound as the bot avatar<i class="mk">5</i></span>
+        <span>one lead card: AI summary · <b>$4,500</b> · posted 12 min ago</span>
+        <span>the revealed name · two profiles to message</span>
       </div>
 
+      <p class="also-h">Also included<i class="mk">6</i></p>
       <div class="minor">
         <div class="door">
-          <div class="door-h"><h3>Research<i class="mk">3</i></h3></div>
-          <p>Search postings from the last months. Reveal only the ones you want.</p>
-          <div class="ph" style="height:76px;margin-top:.6rem">results table</div>
+          <div class="door-h"><h3>Research</h3></div>
+          <p>Search months of past postings and reveal on demand.</p>
+          <div class="ph vid">
+            <span class="vid-play" aria-hidden="true">▶</span>
+            <span>video · ~6s · filter → scroll results → reveal a name<i class="mk">7</i></span>
+          </div>
         </div>
         <div class="door">
-          <div class="door-h"><h3>Single link</h3></div>
-          <p>Already have a posting open? Drop the URL, get the name back.</p>
-          <div class="paste-line">
-            <div class="paste-in"></div>
-            <span class="btn ghost">Reveal</span>
+          <div class="door-h"><h3>Single link<i class="mk">8</i></h3></div>
+          <p>Paste a job URL, get the name back.</p>
+          <div class="frames3">
+            <div class="ph">1 · paste URL</div>
+            <div class="ph">2 · resolving</div>
+            <div class="ph">3 · name back</div>
           </div>
         </div>
       </div>
     </div>
+
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note"><b>Scanner gets the weight.</b> Don't sell it as filters — everyone has filters. Sell the AI deciding what's worth your team's time.</p>
-      <p class="note">Show the end state concretely: a lead card in Slack. Your ICP already has someone writing proposals, so the promise is "qualified leads arrive where the team works", not "we write outreach for you".</p>
-      <p class="note warn"><b>Browser extension deliberately omitted.</b> It's still in development. A section that leads nowhere costs more trust than the feature earns. Add it as a fourth door on ship day.</p>
+      <p class="note"><b>Scanner is the spine of the page</b> — the hero demo and these steps — not one of several equal features. The old "ways in, ordered by time to value" framing died the moment the steps section became a Scanner explainer: two sections back to back were describing the same thing, and the Slack mock sat a full scroll after the words that set it up. Now the picture arrives exactly where the reader asks "okay, what actually shows up?"</p>
+      <p class="note"><b>Step 4 keeps "no proposal queue, no bidding, no cut".</b> That line was dropped from the hero subhead when it was shortened. If it isn't here it is nowhere on the page, and it is the sentence that explains why this is worth $99 a week.</p>
+      <p class="note">Steps 1 and 2 are both configuration, which risks reading as more setup than the one-tap hero implied. "About a minute" defuses that, and it is the only reason the pair survives being adjacent.</p>
+      <p class="note">Research can't be cut. Archive depth — 7 days, 45 days, full — is a row in the pricing table, and an unexplained pricing row is worse than a small section.</p>
+      <p class="note warn"><b>Browser extension stays off the page until it ships.</b> A section that leads nowhere costs more trust than the feature earns.</p>
+      <p class="note warn"><b>The credit is still invisible in this flow.</b> Nothing in the four steps says a delivered alert costs anything, so a visitor can read step 3 as "alerts are free" and then meet "150 reveals a week" in §5 as a unit this section never introduced. Decide whether an alert spends a credit and put the answer in step 3 — this is the expectation the mixed demo feed exists to protect.</p>
+      <p class="note">One thing this merge fixed on its own: the old Scanner copy said alerts land in "Slack or email", which the pricing matrix has never offered. Everything now says Slack or Telegram.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
-          <li><b>1</b> <em>Scanner gets roughly double the height</em> of the two below it. The hierarchy here is the argument: this is the product, the others are conveniences.</li>
-          <li><b>2</b> <em>Draw the real Slack message.</em> Not a generic chat bubble — actual Slack chrome, real channel name, the lead card as it will actually arrive. This mock is doing the job a demo video would, so it has to survive being looked at closely.</li>
-          <li><b>3</b> <em>These two stay visually equal and quiet.</em> They exist to close the "but what if I want X" loop, not to be chosen. When the extension ships it joins this row and the row becomes three.</li>
+          <li><b>1</b> <em>Numbers mark sequence, they aren't the design.</em> If the numerals start competing with the step titles they're too big. Two by two rather than a row of four: the pairs are real — 1 and 2 are setup done once, 3 and 4 are what happens every day after — and a 2×2 reads as two phases where four across reads as a long list.</li>
+          <li><b>1</b> <em>One short line per step, and hold that line.</em> The Slack mock below does the explaining, so the text stays light. As built these sit on one line at full width and wrap to two at the narrow end of the web layout — that's the ceiling. Any step reaching three lines is taking work the picture already does.</li>
+          <li><b>2</b> <em>"About a minute, then you never open it again" is a promise about the whole product.</em> It says the dashboard isn't where the value lives — Slack is. Everything downstream has to hold it up: if the alert is missing something the visitor then has to log in to see, this is the line they'll remember.</li>
+          <li><b>3</b> <em>Give step 4 slightly more weight</em> than the three before it. It carries the promise the others set up, and it's the shortest, which makes it easy to under-weight by accident.</li>
+          <li><b>4</b> <em>The Slack mock is doing a demo video's job.</em> Draw real Slack chrome — actual channel header, avatar, timestamp, message layout — not a generic chat bubble. It is the largest single object in this section and the one people will look at closely, so it has to survive close inspection.</li>
+          <li><b>4</b> <em>No Scanner explainer video.</em> It would only repeat these four steps, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time — which is exactly what companies make videos to fake.</li>
+          <li><b>5</b> <em>The hound's highest-value placement.</em> The bot avatar is daily brand contact for paying customers — they will see this dog more often than they see the website. Design the 24px crop first and build the full mark out from it, not the other way round.</li>
+          <li><b>6</b> <em>The strip stays quiet and the two stay equal.</em> They exist to close the "but what if I want X" loop, not to be chosen. If either starts competing with the Slack mock above, shrink it.</li>
+          <li><b>7</b> <em>Video, not GIF, ever.</em> MP4 and WebM, muted, looping, <code>playsinline</code>, <code>preload="none"</code> with a poster. A fifteen-second screen recording as a GIF is 5–15MB and would break the load-time rule this page is built around.</li>
+          <li><b>7</b> <em>Prefetch on <code>mouseenter</code> of the surrounding section.</em> By the time someone reaches the video they've already signalled interest, so playback should start instantly rather than spinning at the exact moment they showed it.</li>
+          <li><b>7</b> <em>Hover doesn't exist on a phone.</em> Autoplay on scroll-into-view or show a real play affordance. A poster frame that does nothing when tapped reads as broken, and mobile is where most of this section gets read.</li>
+          <li><b>7</b> <em>The poster frame is the real asset.</em> Most visitors never hover, so the still has to explain the feature on its own. Use the end state — results visible, a name revealed — never a mid-scroll frame.</li>
+          <li><b>7</b> <em>Ship screenshots first.</em> Three static frames with arrows costs an hour; the video costs a day. Upgrade only once this section proves it converts.</li>
+          <li><b>8</b> <em>Three frames, no video.</em> Single link is three states — empty, resolving, resolved — and three stills say that faster than six seconds of footage. Resist making it a second video for symmetry with Research; the asymmetry is the point, because these two features are not the same size.</li>
+          <li><b>—</b> <em>Watch the section height on mobile.</em> Four steps plus a large image plus a two-column strip is a lot for one block. Steps stack to one column, so keeping each to one line is what stops this becoming the longest scroll on the page.</li>
+          <li><b>—</b> <em>Dashed grey border means "media placeholder", not annotation.</em> Annotation in this document is blue and hatched; grey dashed is already used for the pricing arithmetic block. Don't let the video frame drift toward the annotation palette or it will read as a margin note that wandered into the page.</li>
         </ol>
       </div>
     </aside>
   </section>
 
-  <!-- ============ 5. OBJECTIONS ============ -->
-  <section class="blk" id="s5">
-    <div class="rail">5</div>
+  <!-- ============ 4. OBJECTIONS ============ -->
+  <section class="blk" id="s4">
+    <div class="rail">4</div>
     <div class="frame">
       <p class="sec-label"><b>Objections</b> — five, flat, unbothered</p>
       <div class="faq">
@@ -1094,7 +1107,7 @@
       <p class="note">Row 4 is a conversion lever, not an FAQ answer. It also appears next to pricing.</p>
       <p class="note">All five answers are now written — these were the last grey bars on the page. Rows 2 and 3 still need the lawyer before publishing, though; being written is not the same as being cleared.</p>
       <p class="note"><b>Rows 2 and 3 are the two that get screenshotted.</b> One says where the data comes from, the other says whether using it is safe. They're the reason a careful buyer either signs up or closes the tab, and they're the two most likely to be quoted back at you — so they stay plain, specific and short. No hedging language, no legal register, no "we take privacy seriously".</p>
-      <p class="note warn"><b>"Published openly" is not the same as "lawful to process".</b> Under GDPR, personal data that someone published is still personal data, and row 2 doesn't settle the posture — it describes the sourcing honestly, which is the right thing for a landing page to do and not a substitute for the §9 review. If counsel needs a sentence added, it goes here rather than into a policy nobody opens.</p>
+      <p class="note warn"><b>"Published openly" is not the same as "lawful to process".</b> Under GDPR, personal data that someone published is still personal data, and row 2 doesn't settle the posture — it describes the sourcing honestly, which is the right thing for a landing page to do and not a substitute for the legal review. If counsel needs a sentence added, it goes here rather than into a policy nobody opens.</p>
       <p class="note warn"><b>"Reply rates are far better than untargeted cold email" is a performance claim.</b> Not comparative against a named company, so it doesn't carry the exposure the headline rules were guarding against — but it's still a claim you'd need to stand behind. Either get a number from the two customers and say it, or soften "far" before this ships.</p>
       <p class="note">Row 3's real defence is its last clause — the outreach happens somewhere else entirely. That's the load-bearing sentence in the answer, and it should survive any edit.</p>
 
@@ -1106,15 +1119,15 @@
           <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
           <li><b>5</b> <em>Two paragraphs, and the second one is the useful half.</em> The first sets expectations — leads, not clients. The second tells them how to actually win, which is the paragraph that earns trust, because a page that admits a generic pitch will fail is a page that isn't selling magic. Keep them as separate paragraphs; run together, the qualification swallows the advice.</li>
-          <li><b>—</b> <em>No section is longer than this one now, and that's correct.</em> Objections is the only place on the page where prose is allowed to run — everywhere else is fragments and structure. Don't let that leak upward into §2 or §4.</li>
+          <li><b>—</b> <em>No section is longer than this one now, and that's correct.</em> Objections is the only place on the page where prose is allowed to run — everywhere else is fragments and structure. Don't let that leak upward into §2 or §3.</li>
         </ol>
       </div>
     </aside>
   </section>
 
-  <!-- ============ 6. PRICING ============ -->
-  <section class="blk" id="s6">
-    <div class="rail">6</div>
+  <!-- ============ 5. PRICING ============ -->
+  <section class="blk" id="s5">
+    <div class="rail">5</div>
     <div class="frame">
       <p class="sec-label"><b>Pricing</b> — four shown, five available</p>
 
@@ -1369,9 +1382,9 @@
     </aside>
   </section>
 
-  <!-- ============ 7. CLOSE ============ -->
-  <section class="blk" id="s7">
-    <div class="rail">7</div>
+  <!-- ============ 6. CLOSE ============ -->
+  <section class="blk" id="s6">
+    <div class="rail">6</div>
     <div class="frame">
       <p class="sec-label"><b>Close</b> — the hero demo again</p>
       <div class="close-cta">
@@ -1399,9 +1412,9 @@
   </section>
 
 
-  <!-- ============ 8. FOOTER ============ -->
-  <section class="blk" id="s8">
-    <div class="rail">8</div>
+  <!-- ============ 7. FOOTER ============ -->
+  <section class="blk" id="s7">
+    <div class="rail">7</div>
     <div class="frame">
       <p class="sec-label"><b>Footer</b> — trust, law, and the dog</p>
 
