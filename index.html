@@ -423,34 +423,45 @@
   }
   .getname:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 
-  .more{
-    margin-top:.7rem;width:100%;
-    background:none;border:1px dashed var(--line);
-    font-family:var(--sans);font-size:.83rem;color:var(--ink);
-    padding:.6rem 1rem;border-radius:2px;cursor:pointer;
+  /* delivered: the one name they get for free, in full */
+  .who.full .who-id{filter:none;user-select:auto}
+  .who.full .who-name{font-family:var(--sans);font-size:.86rem;letter-spacing:0}
+  .who.full .who-role{font-family:var(--sans);font-size:.76rem}
+  .who.full .av{background-image:none;background:var(--fill-2)}
+  .getname.is-done{
+    background:transparent;color:var(--ink-soft);border-color:var(--hair);
+    cursor:default;font-weight:400;
   }
-  .more:hover:not(:disabled){border-style:solid;background:var(--sheet)}
-  .more:disabled{color:var(--ink-soft);cursor:default;border-color:var(--hair);font-size:.78rem}
-  .more:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .onus{
+    margin:.7rem 0 0;padding-top:.6rem;border-top:1px solid var(--hair);
+    font-size:.8rem;color:var(--ink-soft);
+  }
 
-  /* the account ask — a real dialog, not a block appended to the card */
-  .modal[hidden]{display:none}
-  .modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1.2rem}
-  .modal-back{position:absolute;inset:0;background:rgba(35,40,45,.55)}
-  .modal-box{
-    position:relative;width:100%;max-width:29rem;
-    background:var(--sheet);border:1px solid var(--ink);padding:1.4rem 1.4rem 1.2rem;
+  /* the ask — inline, under the card it belongs to. Never a modal: the dismissal
+     reflex is about the container, not the contents. */
+  .panel{
+    position:relative;margin:.7rem 0 0;
+    border:1px solid var(--ink);background:var(--sheet);padding:.9rem 1rem .95rem;
   }
-  .modal-x{
-    position:absolute;top:.5rem;right:.6rem;
+  .panel-x{
+    position:absolute;top:.3rem;right:.4rem;
     background:none;border:0;cursor:pointer;
-    font-size:1.1rem;line-height:1;color:var(--ink-soft);padding:.25rem .35rem;
+    font-size:1rem;line-height:1;color:var(--ink-soft);padding:.25rem .35rem;
   }
-  .modal-x:focus-visible,.modal-box .btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
-  .modal-h{margin:0 1.4rem .5rem 0;font-size:1rem;font-weight:600;line-height:1.35}
-  .modal-p{margin:0 0 1.1rem;font-size:.86rem;color:var(--ink-soft)}
-  .modal-act{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem}
-  .modal-act .btn{border:1px solid var(--ink)}
+  .panel-x:focus-visible,.panel .btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .panel-h{margin:0 1.2rem .15rem 0;font-size:.88rem;font-weight:600;line-height:1.4}
+  .panel-job{display:block;font-weight:500;color:var(--ink-soft)}
+  .panel-p{margin:.45rem 0 .8rem;font-size:.82rem;color:var(--ink-soft)}
+  .panel-act{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+  .panel-act .btn{border:1px solid var(--ink)}
+
+  /* two quiet lines under the feed — neither is a control, so neither gets a
+     border, a background or a hover state */
+  .free-line,.supply-line{
+    margin:.7rem 0 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+  }
+  .supply-line{margin-top:.35rem}
+  .free-line[hidden]{display:none}
 
   .hero-foot{
     margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--hair);
@@ -707,10 +718,10 @@
       transition:none;
     }
     .card,.card:hover{transition:none;border-color:var(--line)}
-    .modal{padding:.9rem}
-    .modal-box{padding:1.1rem 1rem 1rem}
-    .modal-act{flex-direction:column;align-items:stretch}
-    .modal-act .btn{text-align:center}
+    .panel{padding:.8rem .8rem .85rem}
+    .panel-act{flex-direction:column;align-items:stretch}
+    .panel-act .btn{text-align:center}
+    .panel-act .hint{text-align:center}
     .hero-foot{flex-direction:column;align-items:flex-start;gap:.4rem}
 
     .split{grid-template-columns:1fr}
@@ -887,7 +898,8 @@
               <span id="feedMeta">last 24h</span>
             </div>
             <div id="cards"></div>
-            <button class="more" id="moreBtn" type="button">Load more postings</button><i class="mk">10</i>
+            <p class="free-line" id="freeLine">Your first name is free.<i class="mk">16</i></p>
+            <p class="supply-line" id="supplyLine"></p><i class="mk">10</i>
           </div>
         </div>
 
@@ -897,18 +909,6 @@
         </div>
       </div>
 
-      <div class="modal" id="gateModal" hidden>
-        <div class="modal-back" data-close></div>
-        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-          <button class="modal-x" type="button" data-close aria-label="Close">&times;</button>
-          <p class="modal-h" id="gateTitle"></p><i class="mk">15</i>
-          <p class="modal-p">This one's on us — free accounts include 15 names.</p>
-          <div class="modal-act">
-            <button class="btn" type="button">Create free account</button>
-            <span class="hint">already have an account? <u>log in</u></span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <aside class="notes">
@@ -921,17 +921,26 @@
       <p class="note"><b>The whole page rests here.</b> They see the product working on their own niche before reading a word. Everything below is support.</p>
       <p class="note">Keyword cycles on load so the feed is never blank. Cycling stops permanently on first click or keypress — typing into a moving field feels broken.</p>
       <p class="note"><b>Three states, not two: cycling, held, stopped.</b> Hovering the feed <em>holds</em> the cycle and leaving it resumes; clicking anything <em>stops</em> it for good. Reading a card is not the same act as choosing a keyword, so it shouldn't have the same consequence — a visitor who leans in to read one posting and then loses interest should get the rotation back, not a frozen field.</p>
-      <p class="note warn"><b>Reveal and Load more used to be silently undone.</b> Neither stopped the cycle, so 2.6 seconds after a visitor revealed a card the next tick re-rendered the feed and took the masked name, the matched profiles and the signup gate with it — the conversion moment on this page, deleted by a timer. Load more had the same problem: six cards dropped back to three. Both now stop the cycle, which is what "stops on first interaction" always meant.</p>
+      <p class="note warn"><b>Anything a visitor does to the feed has to stop the cycle.</b> It once didn't: 2.6 seconds after someone revealed a card, the next tick re-rendered the feed and took the result and the signup gate with it — the conversion moment on this page, deleted by a timer. That is the failure mode to watch for whenever a control is added to a card, and it is silent, so it only shows up if someone waits three seconds after clicking.</p>
       <p class="note">The caret carries all three states, so nothing new had to be invented: blinking means cycling, still means held while you read, gone means stopped for good. It's already the element a visitor reads for "is this thing moving", and it costs no extra furniture.</p>
       <p class="note">Dropdown is curated to keywords with real daily volume. Volume shown next to each: it doubles as proof the pipeline is full.</p>
       <p class="note"><b>Cards are mixed on purpose.</b> The default three cover a person, a company and a third of either kind. No badge, no label. The demo sets expectations so the first paid reveal can't feel like a bait-and-switch — which means the ordering of those first three is a real decision, not a query result. Pin it.</p>
-      <p class="note"><b>Hover and click do different jobs, on purpose.</b> Hover proves an answer exists; the click asks for the account. They used to be one gesture: a single click appended a profiles block and a signup gate, so the visitor hit a wall in the same beat they got their first piece of proof — and the card grew, shoving everything below it down the page. Splitting the two means the proof arrives free and the ask arrives when they reach for it.</p>
+      <p class="note"><b>Hover and click do different jobs, on purpose.</b> Hover proves an answer exists — that's curiosity, and it costs nothing. The click asks for the account. They used to be one gesture: a single click appended a profiles block and a signup gate, so the visitor hit a wall in the same beat they got their first piece of proof, and the card grew and shoved the page down as it did it.</p>
+      <p class="note"><b>The first name is free, and that reorders the whole pitch.</b> Reveals cost essentially nothing to perform, so one of them is cheap advertising — and it means the visitor is holding a real result before anything is asked of them. The ask then lands on someone who already believes the product works, instead of on someone still deciding whether it's real. That is a different conversation.</p>
+      <p class="note"><b>One free name per visitor, not per card.</b> Tracked on the session and never on the button — per-card scarcity means a feed of twelve cards is twelve free names, which is the whole product given away. The scarcity has to belong to the person.</p>
+      <p class="note warn"><b>The free-name counter has to live on the server.</b> It's a variable here because this is a wireframe; in production a client-side flag is a free-name faucet that resets on reload, in a private window, or in devtools. Anyone who notices gets the entire feed for nothing, and the people most likely to notice are the ones you least want reading it for free.</p>
+      <p class="note"><b>An inline panel, never a modal.</b> The dismissal reflex is about the container, not the contents — people close modals before reading them, and this one has something worth reading. Sitting under the card, it reads as the next step in what they were doing rather than as an interruption of it.</p>
+      <p class="note"><b>Shown once, then never again.</b> Dismiss it and later clicks just sharpen cards silently. Showing the same panel five times is nagging, and nagging costs more than the fifth impression earns; the persistent ask lives in the hero footer, where it isn't in anyone's way.</p>
+      <p class="note"><b>Google is the primary button and email is a link.</b> Two equal buttons is a decision, and a decision is friction at the exact moment you've earned the least right to ask for one.</p>
+      <p class="note"><b>Sharpening is one-way.</b> Once a card is sharp it stays sharp. Re-blurring something the visitor already looked at takes the proof back and reads as the page fighting them — the state is called "found", and found doesn't get un-found.</p>
+      <p class="note"><b>Mobile skips the curiosity beat entirely.</b> No hover, so cards start masked and the very next act is a click. That's a materially different funnel from desktop's hover-then-click, and averaging the two will hide whichever one is broken. Watch them separately.</p>
       <p class="note"><b>The masked slot is reserved in the collapsed card.</b> Same rows, same spacing, same strings in both states — the only thing that changes between default and hover is a blur filter. Layout stability is the entire reason for this structure, and it is measurable: the card and the feed are identical to the pixel in both states. Any future addition to a card has to be present in both states or it breaks the whole idea.</p>
       <p class="note"><b>Three visual treatments, and they must stay distinct.</b> Blur means nothing is known yet. Character masking means found and deliberately withheld. Full text means logged in. Blur reads as "still loading" and masking reads as "withheld" — using one treatment for both loses the difference, and the difference is what makes the second state feel like proof rather than a spinner.</p>
       <p class="note warn"><b>Only the masked string is ever rendered.</b> The real name is not in the card's markup at any point, so it can't be read out of devtools, and a blurred screenshot can't be sharpened back into it. CSS blur is a visual effect, not a redaction — if production ever sends the real name and blurs it, the paywall is decorative. Mask on the server, not in the stylesheet.</p>
       <p class="note">Mobile starts masked and never transitions. There is no hover on a phone and roughly half your traffic taps, so the compelling state is simply the default one there — a transition needs a "before", and on mobile there isn't one.</p>
-      <p class="note"><b>The modal names the posting the visitor was already looking at.</b> "Create free account" on its own is a form; "get the name behind <em>Migrate Framer site to Webflow</em>" is the continuation of a task already in progress. This is also the strongest argument for making the keyword carry through signup — if it does, the account they land in is already the one they were imagining.</p>
+      <p class="note"><b>The panel names the posting the visitor was already looking at.</b> A generic signup form is an interruption; "get the name behind <em>Migrate Framer site to Webflow</em>" is the continuation of a task already in progress. This is also the strongest argument for making the keyword carry through signup — if it does, the account they land in is already the one they were imagining.</p>
       <p class="note">The button says "Get the name" now, not "Reveal". It matches what the headline promises two lines above it. "Reveal" stays everywhere it means the billing unit — 15 free reveals, 150 reveals a week — because that is a unit of account, not a description of what the visitor receives.</p>
+      <p class="note warn"><b>"The 15 free reveals are the reward for signing up, not something spent on the landing page" — that rule now has one exception, deliberately.</b> Exactly one name is spent before signup. The 15 still belong to the account; this is a sample, not a draw against them, which is why the card says "on us" rather than counting down.</p>
       <p class="note"><b>Reveal is a partial, not a giveaway.</b> Any card can be revealed, any number of times. The blur comes off and the answer's shape appears — individual or company, how many profiles matched, their job titles — but the names stay masked. They learn the answer exists and that it's specific. The 15 free reveals are the reward for signing up, not something spent on the landing page.</p>
       <p class="note">Currency is USD throughout, since that's what the source platforms quote regardless of where the client sits. Don't convert to local currency — it adds a rounding artifact and makes the number look calculated rather than copied.</p>
       <p class="note">Job titles are the part worth showing. "Head of Growth" and "Operations Lead" prove the match is real in a way a blurred name never could, and they're the reason someone believes the next reveal is worth an account.</p>
@@ -954,23 +963,33 @@
           <li><b>5</b> <em>The hold is deliberately silent.</em> No "paused" badge, no overlay, no icon. A visitor who hovers a card to read it has not asked for a status report, and a carousel that announces its own pausing draws attention to the fact that it was moving. The caret going still is the entire cue, and most people will never consciously notice it — which is the point.</li>
           <li><b>5</b> <em>Hover is bound only where hovering is real.</em> Behind a <code>(hover: hover)</code> check, because on a touch screen <code>mouseenter</code> fires on tap and no leave arrives until the visitor taps somewhere else — the cycle would look dead. Touch doesn't need it anyway: a tap on Reveal is a click, and a click stops the cycle outright.</li>
           <li><b>5</b> <em>Keyboard gets the same courtesy.</em> Tabbing onto a Reveal button holds the cycle exactly as hovering does; the field is the same intent expressed with a different device. Without it, a keyboard visitor reading the feed watches it re-render underneath their focus ring.</li>
-          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Get the name, Load more, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
+          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Get the name, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
           <li><b>5</b> <em>Two label states.</em> "Live now / last 24h" for curated keywords; "Recent matches for X / from the archive" for custom ones. Design both — the second is not an error state, it's normal.</li>
           <li><b>6</b> <em>Budget is the credibility anchor.</em> A real number does more than any copy, and it stays sharp in every state — give it visual weight above the tags.</li>
           <li><b>6</b> <em>Two budget formats only.</em> Fixed price ($4,500) or hourly rate ($55/h) — nothing else. Fixed runs to five digits, hourly to two, so the slot must hold both without the row reflowing. Postings with no budget will still happen: decide now whether the card says "budget not stated" or drops the chip, because an empty slot breaks the row.</li>
-          <li><b>7</b> <em>One button, one job: ask for the account.</em> It no longer changes the card, so it needs no done or locked state — it opens the dialog every time it's pressed. It does still need a loading state for the moment the dialog is fetching, because the lookup isn't instant in production.</li>
+          <li><b>7</b> <em>Two button states, and the second one is quiet.</em> "Get the name" is the only interactive state; after the free name lands the button becomes "Got it" — non-interactive, low contrast, still occupying the same slot so nothing moves. It also needs a loading state, because the lookup isn't instant in production and this is the one press where the visitor is waiting on a real answer.</li>
+          <li><b>7</b> <em>A gated click is never a dead press.</em> Even after the panel has been dismissed, clicking still pins the card to the masked state. A button that visibly does nothing reads as broken; a button that does something small reads as a boundary.</li>
           <li><b>14</b> <em>Nothing may change height between the two states.</em> Name and role are single-line with overflow hidden, and both hold the masked string in both states, so only the blur changes. Verify this every time the card gains anything: hover a card and watch the cards below it — if they move a pixel, the change is wrong.</li>
-          <li><b>14</b> <em>Three treatments, never interchangeable.</em> Blur = nothing known yet. Character mask = found and withheld. Full = logged in. Design all three; the middle one is the one that sells.</li>
+          <li><b>14</b> <em>Three treatments, never interchangeable.</em> Blur = nothing is known yet. Character mask = found and withheld. Full = delivered. Blur reads as "still loading" and masking reads as "deliberately withheld" — one treatment for both loses the difference, and the difference is what makes the middle state feel like proof instead of a spinner. Design all three; the middle one is the one that sells.</li>
+          <li><b>14</b> <em>The full state has to look like a different kind of thing.</em> Back to the sans face, no hatch on the avatar, no monospace. If the delivered name still carries any of the withheld state's styling, the visitor won't be sure they actually got it — and this is the single moment the whole page is built to produce.</li>
+          <li><b>14</b> <em>Sharpening is one-way, and it's JavaScript that makes it stick.</em> CSS drives the first hover so the response is instant and survives the script not having run; a listener then pins the state so it never reverts. Don't collapse this into CSS alone — <code>:hover</code> by itself takes the proof back the moment the pointer leaves.</li>
           <li><b>14</b> <em>Job titles stay unmasked at every stage.</em> "Head of Growth" is what proves the match is real — a blurred name proves nothing. The company is masked on a person result and left readable on a company one, because on a company result the organisation is the answer, not the secret.</li>
           <li><b>14</b> <em>The transition is ~200ms and only on the blur.</em> Fast enough to read as caused, slow enough not to look like a glitch. The card border shifts colour on the same curve so the content change has a visible cause; the border <em>width</em> must never change or the layout moves.</li>
           <li><b>14</b> <em>The profile count is plain text and never blurs.</em> "2 profiles matched" is the one piece of the answer given away for free in every state, and it's what makes the blurred rows above it read as withheld rather than empty. It also carries the person-versus-company split without a badge.</li>
-          <li><b>15</b> <em>Design the dialog as a real dialog.</em> Dismissible three ways — Escape, backdrop, close button — focus trapped while open, focus returned to the button that opened it. It is built that way here; keep it that way. A gate that traps someone with no way out converts worse than no gate.</li>
-          <li><b>15</b> <em>The posting title is the whole point of the dialog.</em> It can be long, so let it wrap to two or three lines rather than truncating — the specificity is the argument, and an ellipsis throws it away.</li>
-          <li><b>8</b> <em>This line and the dialog have to agree.</em> The foot promises "15 free reveals", the dialog says "15 names". Same number, two nouns — pick one before this ships, and if the answer is that reveals are the unit and names are the outcome, then say so consistently everywhere rather than alternating.</li>
+          <li><b>15</b> <em>The panel expands below the card, and it is the only thing on this card allowed to add height.</em> Everything above it holds still, so the page grows downward from a fixed point rather than rearranging around the visitor. Never a modal — see the margin.</li>
+          <li><b>15</b> <em>The posting title is the whole point of the panel.</em> It can be long, so let it wrap to two or three lines rather than truncating; the specificity is the argument and an ellipsis throws it away. It gets its own line under the sentence for the same reason.</li>
+          <li><b>15</b> <em>One button and one link, not two buttons.</em> Google carries the weight; email is a quiet text link that reads as an escape hatch rather than an alternative. If email ever becomes a second filled button, the panel has stopped being an invitation and started being a form.</li>
+          <li><b>15</b> <em>Dismissal is permanent and needs no confirmation.</em> One close control, top right, and the panel never comes back in that session. Design the dismissed state as the normal path — most people will take it, and the ones who don't were always going to sign up.</li>
+          <li><b>16</b> <em>This line has to be read before the first click, or it does nothing.</em> Its job is to make the click feel free and the later gate feel fair rather than sudden. Test its placement — under three cards it may sit below where people stop scanning, and if it does, it belongs above them instead. It disappears once the free name is spent, because it stops being true.</li>
+          <li><b>8</b> <em>Three phrasings of the same promise now sit within one screen.</em> This foot line says "15 free reveals", the card says "15 more", the panel says "15 names included". Same number, three nouns. Reveals are the billing unit and names are what the visitor receives, so the visitor-facing copy should say names everywhere and leave "reveals" to pricing — which would make this line "15 free names when you sign up". Worth settling before the page ships; it is the kind of drift nobody notices until a customer quotes it back.</li>
           <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts. With four links rather than two, the burger is now carrying real content: it needs a designed open state, not just an icon.</li>
           <li><b>—</b> <em>Mobile: keyword field goes full width</em>, directly under the subheadline. Reveal buttons go full width too. Every tap target is at least 44px and spans the card, because on a phone the demo is the entire page.</li>
-          <li><b>10</b> <em>Three cards by default, three per click.</em> The hero has to stay above the fold on a laptop, and three is enough to show the mix — person, company, different budgets — without pushing the rest of the page below the screen. Anyone who wants more is engaged enough to ask.</li>
-          <li><b>10</b> <em>Load more, not infinite scroll.</em> Each click is a deliberate act; infinite scroll on a landing page fights the scroll down to pricing. The end state names Research, which turns running out into a pitch for the tier above.</li>
+          <li><b>10</b> <em>The Load more button was cut deliberately.</em> It put a second control next to "Get the name" and competed with it, it pushed pricing further down the page, and it answered a question nobody was asking — a visitor's next thought after three cards is <em>what's the name?</em>, not <em>are there more?</em></li>
+          <li><b>10</b> <em>The line argues better than more cards would.</em> It says the supply is bigger than what's shown without costing a scroll or an interaction, which is the same claim the button was making at a much higher price.</li>
+          <li><b>10</b> <em>Three cards also protect the free name.</em> One free out of three reads as generous; one free out of twelve reads as stingy. The size of the feed sets how big the gift feels, so growing it costs something that isn't obvious from the feed alone.</li>
+          <li><b>10</b> <em>Quiet line, not a control.</em> Same weight as the hint text around it, no border, no background, no hover state. The moment it acquires an affordance it becomes the button again, and people will click it and find nothing happens.</li>
+          <li><b>10</b> <em>The number is real arithmetic, not decoration.</em> Daily volume minus the three on screen, and it moves with the keyword — including mid-cycle. Volumes are read off the dropdown rather than kept in a second list, so the two can't drift; if a volume changes there, this line follows it. A keyword with no known volume never gets an invented number, it gets the archive sentence instead.</li>
+          <li><b>10</b> <em>If analytics later show people scrolling past the hero untouched, this is where a low-commitment control goes back in.</em> Clicking anything makes the next click likelier. Don't add it pre-emptively — the point of removing it was to find out whether the demo can carry the section on its own.</li>
           <li><b>9</b> <em>Deliberately quiet.</em> This is a shortcut for people who arrive with a link, not a second front door. If it starts competing with the keyword field, shrink it.</li>
           <li><b>—</b> <em>No hound above the fold.</em> The hero has one job and a mascot competing with the feed costs conversions. The exception is the loading state while a reveal resolves — a dog on a scent is exactly the right thing to look at while you wait, and it's the moment the metaphor pays off.</li>
         </ol>
@@ -1783,7 +1802,7 @@
   var scanner = document.querySelector('.scanner');
   var feed    = document.querySelector('.feed');
   var cardsEl = document.getElementById('cards');
-  var moreBtn = document.getElementById('moreBtn');
+  var supplyLine = document.getElementById('supplyLine');
   var kwField = document.getElementById('kwField');
   var kwText  = document.getElementById('kwText');
   var kwMenu  = document.getElementById('kwMenu');
@@ -1792,6 +1811,7 @@
   var feedLabel = document.getElementById('feedLabel');
   var feedMeta  = document.getElementById('feedMeta');
   var hlNumEl = document.getElementById('hlNum');
+  var freeLineEl = document.getElementById('freeLine');
 
   var mkOn = true;
   function MK(n){ return mkOn ? '<i class="mk">'+n+'</i>' : ''; }
@@ -1833,34 +1853,42 @@
     runCycle();
   }
 
-  var PAGE = 3;
-  var curList = [], curShown = 0, curKnown = true;
+  var SHOWN = 3;
+  var curList = [], curKnown = true;
+
+  // Daily volumes are read off the dropdown rather than duplicated here, so the
+  // two can never drift apart — the menu is the single source of truth.
+  var VOLUME = (function(){
+    var v = {};
+    Array.prototype.slice.call(document.querySelectorAll('.kw-opt')).forEach(function(o){
+      var m = (o.textContent || '').match(/(\d+)\s*\/\s*day/);
+      if(o.dataset.kw && m) v[o.dataset.kw] = parseInt(m[1], 10);
+    });
+    return v;
+  })();
+
+  // Never invent a number for a keyword whose volume we don't know.
+  function supplyText(kw){
+    var vol = VOLUME[kw];
+    if(!curKnown || typeof vol !== 'number'){
+      return 'More matches for \u201c' + kw + '\u201d are in the archive.';
+    }
+    var rest = Math.max(vol - SHOWN, 0);
+    return 'Around ' + rest + ' more came in for ' + kw + ' today.';
+  }
 
   function render(kw, animate){
     curKnown = Object.prototype.hasOwnProperty.call(JOBS, kw);
     curList  = buildList(kw);
-    curShown = 0;
 
     feedLabel.textContent = curKnown ? 'Live now' : 'Recent matches for "' + kw + '"';
     feedMeta.textContent  = curKnown ? 'last 24h' : 'from the archive';
+    supplyLine.textContent = supplyText(kw);
 
     cardsEl.innerHTML = '';
-    moreBtn.disabled = false;
-    moreBtn.textContent = 'Load more postings';
-    addPage(animate, 3);
-  }
-
-  function addPage(animate, n){
-    var take = Math.min(n || PAGE, curList.length - curShown);
+    var take = Math.min(SHOWN, curList.length);
     for(var k = 0; k < take; k++){
-      cardsEl.appendChild(buildCard(curList[curShown], curShown, animate && curShown === 0));
-      curShown++;
-    }
-    if(curShown >= curList.length){
-      moreBtn.disabled = true;
-      moreBtn.textContent = curKnown
-        ? "That's everything from the last 24h — Research goes back further"
-        : "End of the archive for this keyword";
+      cardsEl.appendChild(buildCard(curList[k], k, animate && k === 0));
     }
   }
 
@@ -1893,8 +1921,17 @@
       '</div>';
 
     c.querySelector('.getname').addEventListener('click', function(){
-      openGate(item, this);
+      onGetName(c, item, this);
     });
+
+    // Sharpening is one-way. Re-blurring a card the visitor already looked at
+    // takes the proof back and reads as the page fighting them, so .partial goes
+    // on once and never comes off. CSS still drives the first hover, so the
+    // response is instant and survives JS not having run.
+    function pin(){ c.querySelector('.who').classList.add('partial'); }
+    c.addEventListener('mouseenter', pin);
+    c.addEventListener('focusin', pin);
+
     return c;
   }
 
@@ -1905,51 +1942,69 @@
       : n + ' people to message';
   }
 
-  // Hover proves an answer exists; the click asks for the account. Keeping those
-  // two jobs apart is the whole point of this structure — one click doing both put
-  // a wall in the same beat as the visitor's first piece of proof.
-  var gate      = document.getElementById('gateModal');
-  var gateTitle = document.getElementById('gateTitle');
-  var gateOpener = null;
+  // Hover proves an answer exists (curiosity). The first click delivers a real
+  // name, free. Only the second click asks for anything — so the ask lands on
+  // someone already holding a result rather than on someone still deciding.
+  //
+  // Scarcity is the VISITOR'S, not the card's: one free name per session, tracked
+  // here and never on the button. In production this belongs on the server —
+  // a client-side flag is a free-name faucet for anyone who reloads.
+  var freeUsed = false, panelDismissed = false, freeLine = freeLineEl;
 
-  function gateFocusables(){
-    return Array.prototype.slice.call(
-      gate.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])')
-    ).filter(function(el){ return el.offsetParent !== null; });
+  function onGetName(card, item, btn){
+    stopCycle();   // the visitor acted on the feed; a tick behind them would wipe it
+
+    if(!freeUsed){
+      freeUsed = true;
+      deliver(card, item, btn);
+      if(freeLine) freeLine.hidden = true;
+      return;
+    }
+
+    // Every later click still sharpens the card and pins it there, so the click
+    // is never a dead press — the panel is the only thing that stops appearing.
+    var who = card.querySelector('.who');
+    who.classList.add('partial');
+    if(!panelDismissed && !card.querySelector('.panel')) showPanel(card, item);
   }
 
-  function onGateKey(e){
-    if(e.key === 'Escape'){ closeGate(); return; }
-    if(e.key !== 'Tab') return;
-    var f = gateFocusables();
-    if(!f.length) return;
-    var first = f[0], last = f[f.length - 1];
-    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  // The real name only enters the DOM once it has actually been earned.
+  function deliver(card, item, btn){
+    var who = card.querySelector('.who');
+    who.classList.remove('masked');
+    who.classList.add('full');
+    who.querySelector('.who-name').textContent = item.name;
+    who.querySelector('.who-role').textContent = item.role + ' \u00b7 ' + item.org;
+
+    btn.textContent = 'Got it';
+    btn.disabled = true;
+    btn.classList.add('is-done');
+
+    var p = document.createElement('p');
+    p.className = 'onus';
+    p.textContent = 'That one was on us. Sign up free for 15 more.';
+    card.appendChild(p);
   }
 
-  function openGate(item, btn){
-    stopCycle();   // the modal names this posting; a tick behind it would delete the card
-    gateOpener = btn || null;
-    gateTitle.textContent =
-      'Sign up free to get the name behind \u201c' + item.sum + '\u201d';
-    gate.hidden = false;
-    document.addEventListener('keydown', onGateKey);
-    var f = gateFocusables();
-    if(f.length) f[0].focus();
+  function showPanel(card, item){
+    var el = document.createElement('div');
+    el.className = 'panel';
+    el.innerHTML =
+      '<button class="panel-x" type="button" aria-label="Dismiss">\u00d7</button>' +
+      '<i class="mk">15</i>' +
+      '<p class="panel-h">Sign up free to get the name behind' +
+        '<span class="panel-job">\u201c' + item.sum + '\u201d</span></p>' +
+      '<p class="panel-p">15 names included.</p>' +
+      '<div class="panel-act">' +
+        '<button class="btn" type="button">Continue with Google</button>' +
+        '<span class="hint">or use email \u2192</span>' +
+      '</div>';
+    el.querySelector('.panel-x').addEventListener('click', function(){
+      panelDismissed = true;              // shown once, then never again
+      if(el.parentNode) el.parentNode.removeChild(el);
+    });
+    card.appendChild(el);
   }
-
-  function closeGate(){
-    if(gate.hidden) return;
-    gate.hidden = true;
-    document.removeEventListener('keydown', onGateKey);
-    if(gateOpener) gateOpener.focus();
-    gateOpener = null;
-  }
-
-  Array.prototype.slice.call(gate.querySelectorAll('[data-close]')).forEach(function(el){
-    el.addEventListener('click', closeGate);
-  });
 
   function setKeyword(kw){
     stopCycle();
@@ -1970,7 +2025,6 @@
     });
   }
 
-  moreBtn.addEventListener('click', function(){ stopCycle(); addPage(true); });
 
   // cycling default
   render(CYCLE[0], false);
