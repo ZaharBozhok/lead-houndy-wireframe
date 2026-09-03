@@ -373,6 +373,8 @@
   #kwText{flex:1}
   #kwText.cycling{color:var(--ink-soft)}
   .caret{width:1px;height:15px;background:var(--ink);animation:blink 1.1s step-end infinite}
+  /* blinking = cycling · still = held while you read · gone = stopped for good */
+  .scanner.held .caret{animation:none}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
   .chev{font-size:.62rem;color:var(--ink-soft)}
 
@@ -917,6 +919,9 @@
       <p class="notes-h">Why</p>
       <p class="note"><b>The whole page rests here.</b> They see the product working on their own niche before reading a word. Everything below is support.</p>
       <p class="note">Keyword cycles on load so the feed is never blank. Cycling stops permanently on first click or keypress — typing into a moving field feels broken.</p>
+      <p class="note"><b>Three states, not two: cycling, held, stopped.</b> Hovering the feed <em>holds</em> the cycle and leaving it resumes; clicking anything <em>stops</em> it for good. Reading a card is not the same act as choosing a keyword, so it shouldn't have the same consequence — a visitor who leans in to read one posting and then loses interest should get the rotation back, not a frozen field.</p>
+      <p class="note warn"><b>Reveal and Load more used to be silently undone.</b> Neither stopped the cycle, so 2.6 seconds after a visitor revealed a card the next tick re-rendered the feed and took the masked name, the matched profiles and the signup gate with it — the conversion moment on this page, deleted by a timer. Load more had the same problem: six cards dropped back to three. Both now stop the cycle, which is what "stops on first interaction" always meant.</p>
+      <p class="note">The caret carries all three states, so nothing new had to be invented: blinking means cycling, still means held while you read, gone means stopped for good. It's already the element a visitor reads for "is this thing moving", and it costs no extra furniture.</p>
       <p class="note">Dropdown is curated to keywords with real daily volume. Volume shown next to each: it doubles as proof the pipeline is full.</p>
       <p class="note"><b>Cards are mixed on purpose.</b> The default three cover a person, a company and a third of either kind. No badge, no label. The demo sets expectations so the first paid reveal can't feel like a bait-and-switch — which means the ordering of those first three is a real decision, not a query result. Pin it.</p>
       <p class="note"><b>Reveal is a partial, not a giveaway.</b> Any card can be revealed, any number of times. The blur comes off and the answer's shape appears — individual or company, how many profiles matched, their job titles — but the names stay masked. They learn the answer exists and that it's specific. The 15 free reveals are the reward for signing up, not something spent on the landing page.</p>
@@ -937,6 +942,10 @@
           <li><b>4</b> <em>Label is a sentence, not a field name.</em> "Show me clients looking for [Webflow]" explains the input and the output in one read, so no separate instruction is needed. Never the word "niche" — half your audience would read that as an industry (dental, legal) and type something with no volume behind it. The nouns are services and technologies.</li>
           <li><b>4</b> <em>Mobile breaks the sentence.</em> An inline field inside a sentence wraps badly on a phone. The label stacks above the field at narrow widths — narrow the window past 720px to check it.</li>
           <li><b>4</b> <em>Must read as editable, not as a dropdown.</em> It's a text field with suggestions. Cycling keyword stops permanently on first click or keypress, and the caret disappears with it. On mobile this is the one thing a thumb has to find instantly.</li>
+          <li><b>5</b> <em>The hold is deliberately silent.</em> No "paused" badge, no overlay, no icon. A visitor who hovers a card to read it has not asked for a status report, and a carousel that announces its own pausing draws attention to the fact that it was moving. The caret going still is the entire cue, and most people will never consciously notice it — which is the point.</li>
+          <li><b>5</b> <em>Hover is bound only where hovering is real.</em> Behind a <code>(hover: hover)</code> check, because on a touch screen <code>mouseenter</code> fires on tap and no leave arrives until the visitor taps somewhere else — the cycle would look dead. Touch doesn't need it anyway: a tap on Reveal is a click, and a click stops the cycle outright.</li>
+          <li><b>5</b> <em>Keyboard gets the same courtesy.</em> Tabbing onto a Reveal button holds the cycle exactly as hovering does; the field is the same intent expressed with a different device. Without it, a keyboard visitor reading the feed watches it re-render underneath their focus ring.</li>
+          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Reveal, Load more, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
           <li><b>5</b> <em>Two label states.</em> "Live now / last 24h" for curated keywords; "Recent matches for X / from the archive" for custom ones. Design both — the second is not an error state, it's normal.</li>
           <li><b>6</b> <em>Budget is the credibility anchor.</em> A real number does more than any copy, and it stays sharp in every state — give it visual weight above the tags.</li>
           <li><b>6</b> <em>Two budget formats only.</em> Fixed price ($4,500) or hourly rate ($55/h) — nothing else. Fixed runs to five digits, hourly to two, so the slot must hold both without the row reflowing. Postings with no budget will still happen: decide now whether the card says "budget not stated" or drops the chip, because an empty slot breaks the row.</li>
@@ -1577,7 +1586,7 @@
         <section>
           <h3>Motion budget — three things, total</h3>
           <ul>
-            <li><em>Keyword cycle.</em> Mechanical and confident. Hard swap or fast crossfade, never a slide-up. Stops permanently on first interaction.</li>
+            <li><em>Keyword cycle.</em> Mechanical and confident. Hard swap or fast crossfade, never a slide-up. Holds while the pointer or focus is in the feed, and stops permanently on first interaction.</li>
             <li><em>The reveal.</em> The product's whole thesis in one interaction — this gets the craft. Mask lifts, card expands, content below moves aside. Under 400ms end to end. The hound-on-a-scent loading state lives here and nowhere else.</li>
             <li><em>New lead arriving.</em> One card slides in at the top while they watch. Proves "live" better than any label. Rate-limit hard — one arrival per ~20s, not a stream.</li>
           </ul>
@@ -1597,7 +1606,7 @@
           <h3>Non-negotiables</h3>
           <ul>
             <li>Everything respects <em>prefers-reduced-motion</em></li>
-            <li>Nothing loops forever except the keyword cycle, which stops on interaction</li>
+            <li>Nothing loops forever except the keyword cycle, which holds on hover and stops on interaction</li>
             <li>No animation blocks the demo — a visitor can type a keyword and hit Reveal before any of it finishes</li>
             <li>The page is usable and legible before JavaScript runs</li>
           </ul>
@@ -1756,6 +1765,8 @@
     }).join(' ');
   }
 
+  var scanner = document.querySelector('.scanner');
+  var feed    = document.querySelector('.feed');
   var cardsEl = document.getElementById('cards');
   var moreBtn = document.getElementById('moreBtn');
   var kwField = document.getElementById('kwField');
@@ -1771,14 +1782,40 @@
   function MK(n){ return mkOn ? '<i class="mk">'+n+'</i>' : ''; }
 
   var CYCLE = ['Webflow','React','Shopify','Figma','SEO'];
-  var ci = 0, timer = null, cycling = true;
+  var CYCLE_MS = 2600;
+  var ci = 0, timer = null, cycling = true, held = false;
 
+  function tick(){
+    ci = (ci + 1) % CYCLE.length;
+    kwText.textContent = CYCLE[ci];
+    syncChips(CYCLE[ci]);
+    render(CYCLE[ci], false);
+  }
+
+  // the timer only runs while cycling is alive AND nothing is holding it
+  function runCycle(){
+    clearInterval(timer);
+    timer = null;
+    if(cycling && !held) timer = setInterval(tick, CYCLE_MS);
+  }
+
+  // permanent: the visitor acted, so the field is theirs now
   function stopCycle(){
     if(!cycling) return;
     cycling = false;
     clearInterval(timer);
+    timer = null;
     kwText.classList.remove('cycling');
     kwCaret.style.display = 'none';
+    scanner.classList.remove('held');
+  }
+
+  // temporary: the visitor is reading, so wait for them
+  function holdCycle(on){
+    if(held === on) return;
+    held = on;
+    scanner.classList.toggle('held', on && cycling);
+    runCycle();
   }
 
   var PAGE = 3;
@@ -1842,6 +1879,7 @@
 
   function doReveal(card, item, btn){
     if(btn.dataset.state) return;
+    stopCycle();   // without this the next tick wipes the card they just opened, gate included
     btn.dataset.state = 'partial';
     btn.textContent = 'Locked';
     btn.classList.add('is-locked');
@@ -1896,17 +1934,24 @@
     });
   }
 
-  moreBtn.addEventListener('click', function(){ addPage(true); });
+  moreBtn.addEventListener('click', function(){ stopCycle(); addPage(true); });
 
   // cycling default
   render(CYCLE[0], false);
   syncChips(CYCLE[0]);
-  timer = setInterval(function(){
-    ci = (ci + 1) % CYCLE.length;
-    kwText.textContent = CYCLE[ci];
-    syncChips(CYCLE[ci]);
-    render(CYCLE[ci], false);
-  }, 2600);
+  runCycle();
+
+  // Reading the feed holds the cycle; leaving it lets the cycle carry on.
+  // Only bind hover where hovering is real — on a touch screen mouseenter
+  // fires on tap and there is no leave until they tap somewhere else, which
+  // would look like the cycle had died.
+  if(window.matchMedia('(hover: hover)').matches){
+    feed.addEventListener('mouseenter', function(){ holdCycle(true); });
+    feed.addEventListener('mouseleave', function(){ holdCycle(false); });
+  }
+  // keyboard parity: tabbing onto a Reveal button is the same intent as hovering
+  feed.addEventListener('focusin',  function(){ holdCycle(true); });
+  feed.addEventListener('focusout', function(){ holdCycle(false); });
 
   kwField.addEventListener('click', function(){
     stopCycle();
