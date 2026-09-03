@@ -423,16 +423,6 @@
   }
   .getname:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
 
-  .more{
-    margin-top:.7rem;width:100%;
-    background:none;border:1px dashed var(--line);
-    font-family:var(--sans);font-size:.83rem;color:var(--ink);
-    padding:.6rem 1rem;border-radius:2px;cursor:pointer;
-  }
-  .more:hover:not(:disabled){border-style:solid;background:var(--sheet)}
-  .more:disabled{color:var(--ink-soft);cursor:default;border-color:var(--hair);font-size:.78rem}
-  .more:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
-
   /* delivered: the one name they get for free, in full */
   .who.full .who-id{filter:none;user-select:auto}
   .who.full .who-name{font-family:var(--sans);font-size:.86rem;letter-spacing:0}
@@ -465,9 +455,12 @@
   .panel-act{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
   .panel-act .btn{border:1px solid var(--ink)}
 
-  .free-line{
+  /* two quiet lines under the feed — neither is a control, so neither gets a
+     border, a background or a hover state */
+  .free-line,.supply-line{
     margin:.7rem 0 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
   }
+  .supply-line{margin-top:.35rem}
   .free-line[hidden]{display:none}
 
   .hero-foot{
@@ -906,7 +899,7 @@
             </div>
             <div id="cards"></div>
             <p class="free-line" id="freeLine">Your first name is free.<i class="mk">16</i></p>
-            <button class="more" id="moreBtn" type="button">Load more postings</button><i class="mk">10</i>
+            <p class="supply-line" id="supplyLine"></p><i class="mk">10</i>
           </div>
         </div>
 
@@ -928,7 +921,7 @@
       <p class="note"><b>The whole page rests here.</b> They see the product working on their own niche before reading a word. Everything below is support.</p>
       <p class="note">Keyword cycles on load so the feed is never blank. Cycling stops permanently on first click or keypress — typing into a moving field feels broken.</p>
       <p class="note"><b>Three states, not two: cycling, held, stopped.</b> Hovering the feed <em>holds</em> the cycle and leaving it resumes; clicking anything <em>stops</em> it for good. Reading a card is not the same act as choosing a keyword, so it shouldn't have the same consequence — a visitor who leans in to read one posting and then loses interest should get the rotation back, not a frozen field.</p>
-      <p class="note warn"><b>Reveal and Load more used to be silently undone.</b> Neither stopped the cycle, so 2.6 seconds after a visitor revealed a card the next tick re-rendered the feed and took the masked name, the matched profiles and the signup gate with it — the conversion moment on this page, deleted by a timer. Load more had the same problem: six cards dropped back to three. Both now stop the cycle, which is what "stops on first interaction" always meant.</p>
+      <p class="note warn"><b>Anything a visitor does to the feed has to stop the cycle.</b> It once didn't: 2.6 seconds after someone revealed a card, the next tick re-rendered the feed and took the result and the signup gate with it — the conversion moment on this page, deleted by a timer. That is the failure mode to watch for whenever a control is added to a card, and it is silent, so it only shows up if someone waits three seconds after clicking.</p>
       <p class="note">The caret carries all three states, so nothing new had to be invented: blinking means cycling, still means held while you read, gone means stopped for good. It's already the element a visitor reads for "is this thing moving", and it costs no extra furniture.</p>
       <p class="note">Dropdown is curated to keywords with real daily volume. Volume shown next to each: it doubles as proof the pipeline is full.</p>
       <p class="note"><b>Cards are mixed on purpose.</b> The default three cover a person, a company and a third of either kind. No badge, no label. The demo sets expectations so the first paid reveal can't feel like a bait-and-switch — which means the ordering of those first three is a real decision, not a query result. Pin it.</p>
@@ -970,7 +963,7 @@
           <li><b>5</b> <em>The hold is deliberately silent.</em> No "paused" badge, no overlay, no icon. A visitor who hovers a card to read it has not asked for a status report, and a carousel that announces its own pausing draws attention to the fact that it was moving. The caret going still is the entire cue, and most people will never consciously notice it — which is the point.</li>
           <li><b>5</b> <em>Hover is bound only where hovering is real.</em> Behind a <code>(hover: hover)</code> check, because on a touch screen <code>mouseenter</code> fires on tap and no leave arrives until the visitor taps somewhere else — the cycle would look dead. Touch doesn't need it anyway: a tap on Reveal is a click, and a click stops the cycle outright.</li>
           <li><b>5</b> <em>Keyboard gets the same courtesy.</em> Tabbing onto a Reveal button holds the cycle exactly as hovering does; the field is the same intent expressed with a different device. Without it, a keyboard visitor reading the feed watches it re-render underneath their focus ring.</li>
-          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Get the name, Load more, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
+          <li><b>7</b> <em>Any action on a card ends the cycle, not just the keyword field.</em> Get the name, and anything added to a card later. The rule to hold on to: if a visitor changed the state of the feed, the feed is theirs and a timer must never take it back.</li>
           <li><b>5</b> <em>Two label states.</em> "Live now / last 24h" for curated keywords; "Recent matches for X / from the archive" for custom ones. Design both — the second is not an error state, it's normal.</li>
           <li><b>6</b> <em>Budget is the credibility anchor.</em> A real number does more than any copy, and it stays sharp in every state — give it visual weight above the tags.</li>
           <li><b>6</b> <em>Two budget formats only.</em> Fixed price ($4,500) or hourly rate ($55/h) — nothing else. Fixed runs to five digits, hourly to two, so the slot must hold both without the row reflowing. Postings with no budget will still happen: decide now whether the card says "budget not stated" or drops the chip, because an empty slot breaks the row.</li>
@@ -991,8 +984,12 @@
           <li><b>8</b> <em>Three phrasings of the same promise now sit within one screen.</em> This foot line says "15 free reveals", the card says "15 more", the panel says "15 names included". Same number, three nouns. Reveals are the billing unit and names are what the visitor receives, so the visitor-facing copy should say names everywhere and leave "reveals" to pricing — which would make this line "15 free names when you sign up". Worth settling before the page ships; it is the kind of drift nobody notices until a customer quotes it back.</li>
           <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts. With four links rather than two, the burger is now carrying real content: it needs a designed open state, not just an icon.</li>
           <li><b>—</b> <em>Mobile: keyword field goes full width</em>, directly under the subheadline. Reveal buttons go full width too. Every tap target is at least 44px and spans the card, because on a phone the demo is the entire page.</li>
-          <li><b>10</b> <em>Three cards by default, three per click.</em> The hero has to stay above the fold on a laptop, and three is enough to show the mix — person, company, different budgets — without pushing the rest of the page below the screen. Anyone who wants more is engaged enough to ask.</li>
-          <li><b>10</b> <em>Load more, not infinite scroll.</em> Each click is a deliberate act; infinite scroll on a landing page fights the scroll down to pricing. The end state names Research, which turns running out into a pitch for the tier above.</li>
+          <li><b>10</b> <em>The Load more button was cut deliberately.</em> It put a second control next to "Get the name" and competed with it, it pushed pricing further down the page, and it answered a question nobody was asking — a visitor's next thought after three cards is <em>what's the name?</em>, not <em>are there more?</em></li>
+          <li><b>10</b> <em>The line argues better than more cards would.</em> It says the supply is bigger than what's shown without costing a scroll or an interaction, which is the same claim the button was making at a much higher price.</li>
+          <li><b>10</b> <em>Three cards also protect the free name.</em> One free out of three reads as generous; one free out of twelve reads as stingy. The size of the feed sets how big the gift feels, so growing it costs something that isn't obvious from the feed alone.</li>
+          <li><b>10</b> <em>Quiet line, not a control.</em> Same weight as the hint text around it, no border, no background, no hover state. The moment it acquires an affordance it becomes the button again, and people will click it and find nothing happens.</li>
+          <li><b>10</b> <em>The number is real arithmetic, not decoration.</em> Daily volume minus the three on screen, and it moves with the keyword — including mid-cycle. Volumes are read off the dropdown rather than kept in a second list, so the two can't drift; if a volume changes there, this line follows it. A keyword with no known volume never gets an invented number, it gets the archive sentence instead.</li>
+          <li><b>10</b> <em>If analytics later show people scrolling past the hero untouched, this is where a low-commitment control goes back in.</em> Clicking anything makes the next click likelier. Don't add it pre-emptively — the point of removing it was to find out whether the demo can carry the section on its own.</li>
           <li><b>9</b> <em>Deliberately quiet.</em> This is a shortcut for people who arrive with a link, not a second front door. If it starts competing with the keyword field, shrink it.</li>
           <li><b>—</b> <em>No hound above the fold.</em> The hero has one job and a mascot competing with the feed costs conversions. The exception is the loading state while a reveal resolves — a dog on a scent is exactly the right thing to look at while you wait, and it's the moment the metaphor pays off.</li>
         </ol>
@@ -1805,7 +1802,7 @@
   var scanner = document.querySelector('.scanner');
   var feed    = document.querySelector('.feed');
   var cardsEl = document.getElementById('cards');
-  var moreBtn = document.getElementById('moreBtn');
+  var supplyLine = document.getElementById('supplyLine');
   var kwField = document.getElementById('kwField');
   var kwText  = document.getElementById('kwText');
   var kwMenu  = document.getElementById('kwMenu');
@@ -1856,34 +1853,42 @@
     runCycle();
   }
 
-  var PAGE = 3;
-  var curList = [], curShown = 0, curKnown = true;
+  var SHOWN = 3;
+  var curList = [], curKnown = true;
+
+  // Daily volumes are read off the dropdown rather than duplicated here, so the
+  // two can never drift apart — the menu is the single source of truth.
+  var VOLUME = (function(){
+    var v = {};
+    Array.prototype.slice.call(document.querySelectorAll('.kw-opt')).forEach(function(o){
+      var m = (o.textContent || '').match(/(\d+)\s*\/\s*day/);
+      if(o.dataset.kw && m) v[o.dataset.kw] = parseInt(m[1], 10);
+    });
+    return v;
+  })();
+
+  // Never invent a number for a keyword whose volume we don't know.
+  function supplyText(kw){
+    var vol = VOLUME[kw];
+    if(!curKnown || typeof vol !== 'number'){
+      return 'More matches for \u201c' + kw + '\u201d are in the archive.';
+    }
+    var rest = Math.max(vol - SHOWN, 0);
+    return 'Around ' + rest + ' more came in for ' + kw + ' today.';
+  }
 
   function render(kw, animate){
     curKnown = Object.prototype.hasOwnProperty.call(JOBS, kw);
     curList  = buildList(kw);
-    curShown = 0;
 
     feedLabel.textContent = curKnown ? 'Live now' : 'Recent matches for "' + kw + '"';
     feedMeta.textContent  = curKnown ? 'last 24h' : 'from the archive';
+    supplyLine.textContent = supplyText(kw);
 
     cardsEl.innerHTML = '';
-    moreBtn.disabled = false;
-    moreBtn.textContent = 'Load more postings';
-    addPage(animate, 3);
-  }
-
-  function addPage(animate, n){
-    var take = Math.min(n || PAGE, curList.length - curShown);
+    var take = Math.min(SHOWN, curList.length);
     for(var k = 0; k < take; k++){
-      cardsEl.appendChild(buildCard(curList[curShown], curShown, animate && curShown === 0));
-      curShown++;
-    }
-    if(curShown >= curList.length){
-      moreBtn.disabled = true;
-      moreBtn.textContent = curKnown
-        ? "That's everything from the last 24h — Research goes back further"
-        : "End of the archive for this keyword";
+      cardsEl.appendChild(buildCard(curList[k], k, animate && k === 0));
     }
   }
 
@@ -2020,7 +2025,6 @@
     });
   }
 
-  moreBtn.addEventListener('click', function(){ stopCycle(); addPage(true); });
 
   // cycling default
   render(CYCLE[0], false);
