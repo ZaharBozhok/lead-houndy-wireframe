@@ -14,9 +14,6 @@
     --fill:#DCDEDB;
     --fill-2:#CFD2CE;
     --mark:#2B4C9B;
-    /* colour with a job, not decoration: §2 only. Ink today so the wireframe
-       stays two-tone; this is the hook a real brand accent drops into. */
-    --accent:#23282D;
     --mark-soft:#7A93C4;
     --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
@@ -465,27 +462,6 @@
     justify-content:space-between;
   }
 
-  /* ---------- section 2: contrast ---------- */
-  .split{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch}
-  .col{border:1px solid var(--line);background:var(--sheet);padding:1rem}
-  .col-kicker{
-    font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);margin:0 0 .3rem;
-    height:1.2rem;display:flex;align-items:center;gap:.35rem;
-  }
-  .col h3{margin:0 0 .9rem;font-size:1rem;font-weight:600;letter-spacing:-.01em}
-
-  .vis{position:relative}
-  .vis svg{
-    display:block;width:100%;max-width:19rem;height:auto;
-    font-family:var(--mono);font-size:9px;
-  }
-  .vis svg text{fill:currentColor}
-  .vis.crowd{color:var(--line)}
-  .vis.direct{color:var(--accent)}
-  .cap{
-    margin:.55rem 0 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
-  }
-  .arrow{align-self:center;font-family:var(--mono);color:var(--line);font-size:1.1rem}
 
   /* ---------- section 3: steps beside the Slack mock ---------- */
   .how{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.6rem;align-items:start}
@@ -748,7 +724,7 @@
     .nav-r .hint{display:none}
 
     .hero{padding:1.1rem .8rem}
-    .plan,.plan.pop,.door,.col{padding:.9rem .8rem}
+    .plan,.plan.pop,.door{padding:.9rem .8rem}
     .how{grid-template-columns:1fr;gap:1.2rem}
     .slack-msg{padding:.7rem .6rem .75rem}
     .slack-fields{grid-template-columns:1fr;gap:.4rem}
@@ -787,8 +763,6 @@
     .panel-act .hint{text-align:center}
     .hero-foot{flex-direction:column;align-items:flex-start;gap:.4rem}
 
-    .split{grid-template-columns:1fr}
-    .arrow{justify-self:center;transform:rotate(90deg);padding:.2rem 0}
 
     .faq-row > summary{padding:.85rem 0}
 
@@ -816,7 +790,7 @@
 
   <header class="wf-head">
     <h1>leadhoundy.com — landing page wireframe</h1>
-    <p class="wf-meta">v4 · structure only · not visual design</p>
+    <p class="wf-meta">v5 · structure only · not visual design</p>
     <div class="wf-legend">
       <span><i class="swatch f"></i> placeholder content</span>
       <span><i class="swatch i"></i> primary action</span>
@@ -836,7 +810,7 @@
     </section>
     <section>
       <h3>Copy status</h3>
-      <p>The headline, the pricing lines and "no result, no credit spent" are settled wording — they were argued over and each one covers a specific edge case. There are no grey bars left: every line on the page is now written. Two answers in §4 are still waiting on legal, which is marked in that margin.</p>
+      <p>The headline, the pricing lines and "no result, no credit spent" are settled wording — they were argued over and each one covers a specific edge case. There are no grey bars left: every line on the page is now written. Two answers in §3 are still waiting on legal, which is marked in that margin.</p>
     </section>
     <section>
       <h3>Two layouts</h3>
@@ -870,12 +844,11 @@
 
   <nav class="wf-nav" id="wfNav" aria-label="Sections">
     <a href="#s1"><b>1</b> Hero</a>
-    <a href="#s2"><b>2</b> Contrast</a>
-    <a href="#s3"><b>3</b> How it works</a>
-    <a href="#s4"><b>4</b> Objections</a>
-    <a href="#s5"><b>5</b> Pricing</a>
-    <a href="#s6"><b>6</b> Close</a>
-    <a href="#s7"><b>7</b> Footer</a>
+    <a href="#s2"><b>2</b> How it works</a>
+    <a href="#s3"><b>3</b> Objections</a>
+    <a href="#s4"><b>4</b> Pricing</a>
+    <a href="#s5"><b>5</b> Close</a>
+    <a href="#s6"><b>6</b> Footer</a>
   </nav>
 
   <!-- ============ 1. HERO ============ -->
@@ -998,7 +971,7 @@
         <ol class="build">
           <li><b>0</b> <em>Wordmark plus hound mark.</em> This is the mascot's most important placement — it has to work at 24px in a browser tab and as a Slack bot avatar, so the dog needs to survive being tiny. Design the avatar crop first and let the full mark follow.</li>
           <li><b>1</b> <em>Only filled button above the fold.</em> Nav is otherwise quiet — every unit of attention above the feed belongs to the keyword field.</li>
-          <li><b>13</b> <em>Three nav links, and four is the ceiling.</em> How it works · Pricing · FAQ — one per section a visitor might actually jump to, in page order. It was four until Ways in was folded into How it works; a link for it now would land on the same section, and two labels pointing at one destination is worse than one label. Deliberately not a link per section either: Hero, Contrast and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fourth gets proposed, it has to earn its place.</li>
+          <li><b>13</b> <em>Three nav links, and four is the ceiling.</em> How it works · Pricing · FAQ — one per section a visitor might actually jump to, in page order. It was four until Ways in was folded into How it works; a link for it now would land on the same section, and two labels pointing at one destination is worse than one label. Deliberately not a link per section either: Hero and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fourth gets proposed, it has to earn its place.</li>
           <li><b>2</b> <em>Live, or gone — and it's now inside the headline.</em> There is no separate counter line any more; the number in the first sentence is the live one and it ticks on its own. If the count fails to load, the headline still has to read correctly, so it needs a defensible fallback figure rather than a spinner or a gap. A frozen counter is worse than no counter, and a frozen counter inside a headline is worse still. Never round to a fake milestone.</li>
           <li><b>2</b> <em>Set the number in tabular figures.</em> It changes every four seconds inside a line of running text, and proportional digits make the words after it shuffle sideways on each tick. This is the one place on the page where that detail is load-bearing rather than a nicety.</li>
           <li><b>3</b> <em>Copy is locked, and there is only one version now.</em> The A/B switcher is gone — this headline is the headline. "Their names" is true whether the reveal returns a person or a company, which is the constraint every rewrite has to clear. Don't rewrite to "get their email" or "find the decision maker": the first is a channel we don't deliver, the second breaks on half our results.</li>
@@ -1043,113 +1016,9 @@
     </aside>
   </section>
 
-  <!-- ============ 2. CONTRAST ============ -->
+  <!-- ============ 2. HOW IT WORKS ============ -->
   <section class="blk" id="s2">
     <div class="rail">2</div>
-    <div class="frame">
-      <p class="sec-label"><b>Contrast</b> — one strip, no prose</p>
-      <div class="split">
-        <div class="col">
-          <p class="col-kicker">on the job board</p>
-          <h3>They pick you.<i class="mk">1</i></h3>
-          <div class="vis crowd"><i class="mk">4</i>
-            <svg viewBox="0 12 240 116" role="img"
-                 aria-label="Fifteen applicants, all connected to the same client">
-              <g stroke="currentColor" stroke-width=".7" opacity=".4" fill="none">
-              <line x1="18" y1="34" x2="188" y2="71"/>
-              <line x1="36" y1="24" x2="188" y2="71"/>
-              <line x1="55" y1="31" x2="188" y2="71"/>
-              <line x1="16" y1="55" x2="188" y2="71"/>
-              <line x1="35" y1="46" x2="188" y2="71"/>
-              <line x1="54" y1="52" x2="188" y2="71"/>
-              <line x1="72" y1="40" x2="188" y2="71"/>
-              <line x1="20" y1="76" x2="188" y2="71"/>
-              <line x1="38" y1="66" x2="188" y2="71"/>
-              <line x1="57" y1="72" x2="188" y2="71"/>
-              <line x1="74" y1="60" x2="188" y2="71"/>
-              <line x1="24" y1="97" x2="188" y2="71"/>
-              <line x1="43" y1="88" x2="188" y2="71"/>
-              <line x1="61" y1="94" x2="188" y2="71"/>
-              <line x1="31" y1="115" x2="188" y2="71"/>
-              </g>
-              <g fill="currentColor">
-              <circle cx="18" cy="34" r="3.2"/>
-              <circle cx="36" cy="24" r="3.2"/>
-              <circle cx="55" cy="31" r="3.2"/>
-              <circle cx="16" cy="55" r="3.2"/>
-              <circle cx="35" cy="46" r="3.2"/>
-              <circle cx="54" cy="52" r="3.2"/>
-              <circle cx="72" cy="40" r="3.2"/>
-              <circle cx="20" cy="76" r="3.2"/>
-              <circle cx="38" cy="66" r="3.2"/>
-              <circle cx="57" cy="72" r="3.2"/>
-              <circle cx="74" cy="60" r="3.2"/>
-              <circle cx="24" cy="97" r="3.2"/>
-              <circle cx="43" cy="88" r="3.2"/>
-              <circle cx="61" cy="94" r="3.2"/>
-              <circle cx="31" cy="115" r="3.2"/>
-              </g>
-              <rect x="190" y="59" width="36" height="24" rx="3"
-                    fill="none" stroke="currentColor" stroke-width="1.1"/>
-              <text x="208" y="99" text-anchor="middle" opacity=".75">client</text>
-            </svg>
-          </div>
-          <p class="cap">you and 39 others</p>
-        </div>
-
-        <div class="arrow">&rarr;<i class="mk">2</i></div>
-
-        <div class="col">
-          <p class="col-kicker">with leadhoundy<i class="mk">3</i></p>
-          <h3>You pick them.</h3>
-          <div class="vis direct"><i class="mk">5</i>
-            <svg viewBox="0 12 240 116" role="img"
-                 aria-label="One applicant, a single line straight to one client">
-              <line x1="44" y1="71" x2="177" y2="71" stroke="currentColor" stroke-width="1.4"/>
-              <polygon points="177,65.5 189,71 177,76.5" fill="currentColor"/>
-              <circle cx="36" cy="71" r="5" fill="currentColor"/>
-              <rect x="190" y="59" width="36" height="24" rx="3"
-                    fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <text x="208" y="99" text-anchor="middle" opacity=".75">client</text>
-            </svg>
-          </div>
-          <p class="cap">just you</p>
-        </div>
-      </div>
-    </div>
-    <aside class="notes">
-      <p class="notes-h">Why</p>
-      <p class="note"><b>The density difference registers before a word is read.</b> That is the section: fifteen dots crowding one client against a single line reaching one client. Eight bullets was roughly fifteen seconds of reading and mental diffing for a section budgeted at four, and a section that takes fifteen seconds in a four-second slot doesn't get read slowly — it gets skipped.</p>
-      <p class="note"><b>The headings are now structurally identical.</b> "They pick you." / "You pick them." — same shape, same length, one swapped word, so the brain diffs them automatically instead of parsing two different sentences. The old pair was passive against active, which was thematically right and comparatively slow.</p>
-      <p class="note"><b>The specifics were dropped on purpose.</b> Connects, the platform cut, being late to the posting — all gone. §2's job is to make someone <em>feel</em> the difference at a glance; specifics belong in §3 and the FAQ, where people are already reading and willing to. A section trying to do both does neither, and this one was doing the feeling badly.</p>
-      <p class="note">Still reads correctly for both audiences: the Upwork agency recognises the crowd immediately, and the half who have never touched a job board understand "they pick you" without needing to know what a proposal queue is. The venue stays on the kicker, where the hero subhead already put it.</p>
-      <p class="note warn">Resist expanding this back into a problem/solution section. It's a strip, and it is now the length a strip should be.</p>
-
-      <div class="build-block">
-        <p class="notes-h">Build notes</p>
-        <ol class="build">
-          <li><b>1</b> <em>Don't make the left side ugly.</em> Grey it, don't villainise it — many visitors still work that way today and a sneering panel insults them. The asymmetry comes from density, not from red crosses and green ticks. Nothing on the left is broken; there is simply a lot of it.</li>
-          <li><b>4</b> <em>The visual has to work with the headings covered up.</em> That's the test: hide both headings and both captions, and the two pictures alone should still say crowd against direct line. If they don't, the dots aren't doing their job and no amount of caption will rescue them.</li>
-          <li><b>4</b> <em>Fifteen dots is a representation, not a count.</em> The caption says forty; the picture says "a lot". Don't try to draw thirty-nine — past about twenty the shape stops reading as a crowd and starts reading as noise, and the number belongs in the caption where it can be exact.</li>
-          <li><b>4</b> <em>Worth trying: one dot in the crowd is you.</em> The caption already says "you and 39 others", so marking a single dot in the accent would land the point harder. It is not drawn that way here because it puts accent colour on the left side, which is the one thing the colour rule below forbids — so it needs deciding, not defaulting.</li>
-          <li><b>5</b> <em>Colour is meaningful here and only here.</em> Left neutral, right accent, because on this one strip the colour <em>is</em> the argument rather than a treatment applied to it. Everywhere else on the page colour is either ink or annotation. If a brand accent gets introduced anywhere first, introduce it here.</li>
-          <li><b>5</b> <em>The accent is a token, not a colour decision.</em> <code>--accent</code> resolves to ink today so this document stays two-tone and honest about being a wireframe. Swap that one variable and the section takes the real brand colour; nothing else needs touching, and nothing else should be.</li>
-          <li><b>5</b> <em>Drawn, not placed.</em> Inline SVG, circles and thin lines, no image request and no icon font — a few hundred bytes, sharp at any size, and it inherits its colour from CSS so the two sides differ by one property. It also means the density can be tuned in the markup rather than re-exported.</li>
-          <li><b>5</b> <em>Both sides share one viewBox.</em> Same coordinate space, same client shape in the same position, so the only thing that differs between the two pictures is what's on the left of it. Change one and change the other, or the comparison quietly stops being fair.</li>
-          <li><b>4</b> <em>On mobile the columns stack and both drawings get narrower.</em> The density contrast is the thing to check there — the crowd may shed dots, but if it stops reading as a crowd the section has lost its argument at the width where most people meet it.</li>
-          <li><b>2</b> <em>The arrow carries the whole idea.</em> On mobile the columns stack and it rotates to point down, which keeps the logic but is doing it with a rotated character — the weakest element in the section at the width where most people will read it. Design the vertical state properly, or the strip reads as two unrelated lists on a phone.</li>
-          <li><b>2</b> <em>Worth trying: the arrow is the hound.</em> The mark is literally the thing that moves you from the left column to the right — picks up a scent, finds who's there. It's the one place outside the mark, the empty states and the footer where the dog would be doing work rather than decorating. Try it, but only after the vertical stacked state above is solved, because a brand riding on the weakest element in the section is worse than a plain arrow.</li>
-          <li><b>3</b> <em>Two kickers, one job each.</em> They name the route so the headers are free to name the behaviour. Same size, same weight, same position in both columns — the moment the right kicker gets styled as a badge or a logo lockup, the strip stops being an observation and starts being an ad, and the left column reads as a straw man. Quiet mono label, nothing more.</li>
-          <li><b>3</b> <em>Headers must sit on the same baseline.</em> The kicker exists on both columns partly so they do. Any state where one column has a kicker and the other doesn't breaks the mirror, which is the only reason this section works.</li>
-          <li><b>—</b> <em>One specific is worth reinstating if this feels too thin in testing:</em> "no proposals, no bidding, no cut". It justifies the price and currently appears only in step 4 of §3. It would go under the right-hand caption, as one line — and if it needs two, it belongs in §3 after all.</li>
-        </ol>
-      </div>
-    </aside>
-  </section>
-
-  <!-- ============ 3. HOW IT WORKS ============ -->
-  <section class="blk" id="s3">
-    <div class="rail">3</div>
     <div class="frame">
       <p class="sec-label"><b>How it works</b> — the steps, and what lands in Slack</p>
 
@@ -1331,9 +1200,9 @@
     </aside>
   </section>
 
-  <!-- ============ 4. OBJECTIONS ============ -->
-  <section class="blk" id="s4">
-    <div class="rail">4</div>
+  <!-- ============ 3. OBJECTIONS ============ -->
+  <section class="blk" id="s3">
+    <div class="rail">3</div>
     <div class="frame">
       <p class="sec-label"><b>Objections</b> — six, folded except the first<i class="mk">6</i></p>
       <div class="faq">
@@ -1409,22 +1278,22 @@
           <li><b>6</b> <em>Expanding must not animate.</em> Height transitions on open are the single most common accordion tell, and this page has a three-item motion budget that this is not on. Instant open, no easing, nothing to respect <code>prefers-reduced-motion</code> about.</li>
           <li><b>6</b> <em>Never collapse a row that's carrying a legal answer once counsel has signed it off.</em> If the lawyer's wording ends up in row 2 or 3, check that "visible only after a click" is still acceptable to them — a disclosure behind an interaction is a different thing from a disclosure on the page, and that's their call, not a design one.</li>
           <li><b>7</b> <em>Framed as capacity, not as sharing.</em> "Can my team use this too?" gets a yes; "can I share my account?" invites a no, because most SaaS forbids it and people ask that one expecting to be told off. Don't rewrite it into the sharing framing, and don't reach for role nouns like "sales manager" — the audience is agencies, where the person handling leads is a founder or whoever writes the proposals.</li>
-          <li><b>7</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §5 get upgraded together — they are the same claim in two places.</li>
+          <li><b>7</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §4 get upgraded together — they are the same claim in two places.</li>
           <li><b>7</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
           <li><b>5</b> <em>Two paragraphs, and the second one is the useful half.</em> The first sets expectations — leads, not clients. The second tells them how to actually win, which is the paragraph that earns trust, because a page that admits a generic pitch will fail is a page that isn't selling magic. Keep them as separate paragraphs; run together, the qualification swallows the advice.</li>
-          <li><b>—</b> <em>Objections is still the only place on the page where prose may run.</em> Everywhere else is fragments and structure — don't let that leak upward into §2 or §3. Folding changed how much of it is visible at once, not the licence to write it.</li>
+          <li><b>—</b> <em>Objections is still the only place on the page where prose may run.</em> Everywhere else is fragments and structure — don't let that leak upward into §2. Folding changed how much of it is visible at once, not the licence to write it.</li>
           <li><b>—</b> <em>Print and Cmd-F.</em> Collapsed <code>&lt;details&gt;</code> content is invisible to print stylesheets and, in some browsers, to in-page search. Neither matters much for a landing page, but if anyone ever asks why an answer "isn't on the page", this is why.</li>
         </ol>
       </div>
     </aside>
   </section>
 
-  <!-- ============ 5. PRICING ============ -->
-  <section class="blk" id="s5">
-    <div class="rail">5</div>
+  <!-- ============ 4. PRICING ============ -->
+  <section class="blk" id="s4">
+    <div class="rail">4</div>
     <div class="frame">
       <p class="sec-label"><b>Pricing</b> — three tiers, all of it on screen</p>
 
@@ -1515,7 +1384,7 @@
           <li><b>2</b> <em>Price baselines must align across all three cards.</em> They don't here: the flag pushes Advanced's price down a row. With four cards that read as looseness; with three it reads as broken. Solve it once — flag overlapping the top border, or the same reserved height on every card — because the descending price is only readable in one horizontal sweep if the numbers sit on a line.</li>
           <li><b>3</b> <em>The per-name line is the savings argument.</em> $1.30 → $0.66 has to be readable at a glance across the cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-throughs.</li>
           <li><b>4</b> <em>The per-name line ends blank at Unlimited, deliberately.</em> "Unlimited" is self-explanatory, and writing "$0.00 at volume" invites arithmetic the column is designed to end. Leave the slot empty rather than filling it to make the row look complete.</li>
-          <li><b>4</b> <em>"unlimited during beta" is a qualifier, not fine print.</em> Same reasoning as the seats line in §4: if a cap ever returns, this makes it a scheduled change rather than a promise broken to paying customers. It stays small and it stays visible — shrinking it to invisibility defeats the entire point of writing it.</li>
+          <li><b>4</b> <em>"unlimited during beta" is a qualifier, not fine print.</em> Same reasoning as the seats line in §3: if a cap ever returns, this makes it a scheduled change rather than a promise broken to paying customers. It stays small and it stays visible — shrinking it to invisibility defeats the entire point of writing it.</li>
           <li><b>5</b> <em>Write delivery as a benefit, never as a config chore.</em> "Route leads to your team's groups", never "multi-group Telegram configuration". This row replaces the old destinations count, which described routing that doesn't exist and was a number nobody could interpret — "5 destinations" means nothing to a reader deciding between two prices.</li>
           <li><b>6</b> <em>Highest-contrast element in the section, and the only thing in its box.</em> Treat it as a micro-ToS line: plain, unadorned, directly beneath the price. It is a term of the deal, and terms don't need decorating.</li>
           <li><b>7</b> <em>The unit definition sits above the guarantee.</em> A reader learns what a credit buys at the moment they are looking at what it costs. The what-you-get spec is folded into the same line because "what am I buying" and "what is one of them" are one question.</li>
@@ -1527,9 +1396,9 @@
     </aside>
   </section>
 
-  <!-- ============ 6. CLOSE ============ -->
-  <section class="blk" id="s6">
-    <div class="rail">6</div>
+  <!-- ============ 5. CLOSE ============ -->
+  <section class="blk" id="s5">
+    <div class="rail">5</div>
     <div class="frame">
       <p class="sec-label"><b>Close</b> — one bounded offer</p>
       <div class="close-cta">
@@ -1562,9 +1431,9 @@
   </section>
 
 
-  <!-- ============ 7. FOOTER ============ -->
-  <section class="blk" id="s7">
-    <div class="rail">7</div>
+  <!-- ============ 6. FOOTER ============ -->
+  <section class="blk" id="s6">
+    <div class="rail">6</div>
     <div class="frame">
       <p class="sec-label"><b>Footer</b> — trust, law, and the dog</p>
 
@@ -2165,6 +2034,13 @@
     var best = 0;
     for(var i = 0; i < sections.length; i++){
       if(sections[i] && sections[i].getBoundingClientRect().top <= 90) best = i;
+    }
+    // The last section is short enough that it can never scroll to the top, so
+    // without this the final nav item would never light up. At the bottom of the
+    // document, the bottom section is the one being read.
+    var doc = document.documentElement;
+    if(window.innerHeight + window.pageYOffset >= doc.scrollHeight - 2){
+      best = sections.length - 1;
     }
     navLinks.forEach(function(a, i){ a.classList.toggle('on', i === best); });
   }
