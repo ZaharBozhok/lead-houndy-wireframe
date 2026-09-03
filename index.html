@@ -648,7 +648,7 @@
   .free-band h3{margin:0 0 .2rem;font-size:.95rem;font-weight:600}
   .free-band p{margin:0;font-size:.85rem;color:var(--ink-soft)}
 
-  .plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;align-items:start}
+  .plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;align-items:start}
   .plan{border:1px solid var(--line);background:var(--sheet);padding:1rem .95rem;position:relative}
   .plan.pop{border:2px solid var(--ink);padding:.95rem .9rem}
   .plan-flag{
@@ -658,6 +658,9 @@
   .plan-name{margin:0 0 .35rem;font-size:.9rem;font-weight:600}
   .plan-price{font-size:1.42rem;font-weight:600;letter-spacing:-.025em;margin:0;line-height:1.1}
   .plan-price em{font-style:normal;font-size:.82rem;font-weight:400;color:var(--ink-soft)}
+  .beta-note{
+    display:block;margin-top:.2rem;font-size:.66rem;color:var(--line);
+  }
   .plan-unit{
     font-family:var(--mono);font-size:.7rem;line-height:1.45;color:var(--ink-soft);
     margin:.3rem 0 .9rem;padding-bottom:.75rem;border-bottom:1px solid var(--hair);
@@ -665,46 +668,7 @@
   .plan ul{margin:0 0 1rem;padding-left:1.05rem;font-size:.83rem;color:var(--ink-soft);line-height:1.65}
   .plan .btn{width:100%;text-align:center}
 
-  /* ---------- weekly / monthly billing switch ---------- */
-  .bill{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .9rem;margin:0 0 1rem}
-  .bill-lab{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft)}
-  .bill-seg{display:flex;border:1px solid var(--line);background:var(--sheet)}
-  .bill-btn{
-    font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);
-    background:none;border:0;padding:.42rem .85rem;cursor:pointer;line-height:1.2;
-  }
-  .bill-btn + .bill-btn{border-left:1px solid var(--line)}
-  .bill-btn em{font-style:normal;font-family:var(--mono);font-size:.68rem}
-  .bill-btn[aria-pressed="true"]{background:var(--ink);color:var(--sheet);font-weight:500}
-  .bill-btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
-  .bill-note{font-size:.8rem;color:var(--ink-soft)}
 
-  .cmp{
-    margin:1rem 0 0;background:none;border:1px solid var(--line);
-    font-family:var(--sans);font-size:.83rem;color:var(--ink);
-    padding:.55rem 1rem;border-radius:2px;cursor:pointer;
-  }
-  .cmp:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
-
-  .matrix-wrap{margin-top:.9rem;overflow-x:auto;border:1px solid var(--line);background:var(--sheet)}
-  .matrix-wrap[hidden]{display:none}
-  table.matrix{border-collapse:collapse;width:100%;min-width:640px;font-size:.8rem}
-  table.matrix th,table.matrix td{
-    border-bottom:1px solid var(--hair);padding:.5rem .7rem;text-align:left;vertical-align:top;
-  }
-  table.matrix thead th{
-    font-weight:600;font-size:.85rem;border-bottom:1px solid var(--line);
-    background:var(--fill);white-space:nowrap;
-  }
-  table.matrix tbody th{font-weight:400;color:var(--ink-soft);white-space:nowrap}
-  table.matrix .col-pop{background:var(--fill);font-weight:500;color:var(--ink)}
-  table.matrix .rowhead td,table.matrix .rowhead th{
-    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
-    background:var(--paper);border-bottom:1px solid var(--hair);
-  }
-  table.matrix .money{font-family:var(--mono);font-variant-numeric:tabular-nums}
-  .rownote{display:block;font-family:var(--mono);font-size:.64rem;color:var(--line)}
-  table.matrix tr:last-child th,table.matrix tr:last-child td{border-bottom:0}
 
   /* one job: the guarantee. It sits under the price because someone reading a
      price is calculating risk right then, and this is the line that removes it. */
@@ -831,18 +795,7 @@
     .free-band{flex-direction:column;align-items:stretch}
     .free-band .btn{text-align:center}
     .plans{grid-template-columns:1fr}
-    .plan.pop{order:-2}
-    .plan.decoy{order:-1}
-    .bill{gap:.45rem .6rem}
-    .bill-seg{flex:1 0 100%}
-    .bill-btn{flex:1;text-align:center}
-    table.matrix{min-width:560px}
-    table.matrix thead th:first-child,
-    table.matrix tbody th{
-      position:sticky;left:0;z-index:2;
-      background:var(--sheet);border-right:1px solid var(--hair);
-    }
-    table.matrix thead th:first-child{background:var(--fill)}
+    .plan.pop{order:-1}
 
     .close-cta{padding:1.2rem .9rem}
     .close-cta h2{font-size:1.22rem}
@@ -1417,7 +1370,7 @@
             <h3>Can my team use this too?<i class="mk">7</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
-          <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Scanners can route to different channels, so leads land where the right person will see them.</p>
+          <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Connect Slack and everyone sees the same leads in one place, so nobody has to forward anything.</p>
           <p class="faq-tag">Seats are on the roadmap. Pricing will change when they ship, and accounts opened before then will be grandfathered.</p>
         </details>
         <details class="faq-row">
@@ -1456,6 +1409,7 @@
           <li><b>6</b> <em>Expanding must not animate.</em> Height transitions on open are the single most common accordion tell, and this page has a three-item motion budget that this is not on. Instant open, no easing, nothing to respect <code>prefers-reduced-motion</code> about.</li>
           <li><b>6</b> <em>Never collapse a row that's carrying a legal answer once counsel has signed it off.</em> If the lawyer's wording ends up in row 2 or 3, check that "visible only after a click" is still acceptable to them — a disclosure behind an interaction is a different thing from a disclosure on the page, and that's their call, not a design one.</li>
           <li><b>7</b> <em>Framed as capacity, not as sharing.</em> "Can my team use this too?" gets a yes; "can I share my account?" invites a no, because most SaaS forbids it and people ask that one expecting to be told off. Don't rewrite it into the sharing framing, and don't reach for role nouns like "sales manager" — the audience is agencies, where the person handling leads is a founder or whoever writes the proposals.</li>
+          <li><b>7</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §5 get upgraded together — they are the same claim in two places.</li>
           <li><b>7</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
@@ -1472,246 +1426,102 @@
   <section class="blk" id="s5">
     <div class="rail">5</div>
     <div class="frame">
-      <p class="sec-label"><b>Pricing</b> — four shown, five available</p>
+      <p class="sec-label"><b>Pricing</b> — three tiers, all of it on screen</p>
 
       <div class="free-band">
         <div>
           <h3>Start free<i class="mk">1</i></h3>
-          <p>7 reveals and one live scanner. The reveals run out. The scanner doesn't.</p>
+          <p>7 names, once. One scanner that keeps running — but alerts arrive a day late, three a day, with the name hidden until you upgrade.</p>
         </div>
         <span class="btn">Create a scanner free</span>
-      </div>
-
-      <div class="bill" role="group" aria-label="Billing period">
-        <span class="bill-lab">Billing</span>
-        <div class="bill-seg">
-          <button class="bill-btn" type="button" data-bill="week" aria-pressed="true">Weekly</button>
-          <button class="bill-btn" type="button" data-bill="month" aria-pressed="false">Monthly <em>−10%</em></button>
-        </div>
-        <span class="bill-note" data-week="Charged every Monday. Cancel any week." data-month="Four weeks at once, 10% off. Credits still refresh every Monday.">Charged every Monday. Cancel any week.</span><i class="mk">7</i>
       </div>
 
       <div class="plans">
         <div class="plan">
           <p class="plan-name">Starter</p>
-          <p class="plan-price"><span data-week="$39" data-month="$140">$39</span><em data-week="/week" data-month="/month">/week</em></p>
-          <p class="plan-unit"><span data-week="30 reveals a week — $1.30 each" data-month="30 reveals a week — $1.17 each">30 reveals a week — $1.30 each</span></p>
+          <p class="plan-price">$39<em>/week</em></p>
+          <p class="plan-unit">30 names a week — $1.30 each<i class="mk">3</i></p>
           <ul>
             <li>2 scanners</li>
-            <li>Instant Slack or Telegram alerts</li>
-            <li>1 destination</li>
+            <li>Instant alerts, name shown</li>
+            <li>Telegram DM</li>
             <li>Research: last 7 days</li>
+            <li>Extra names $2.00</li>
+            <li>Email support</li>
           </ul>
           <span class="btn ghost">Choose Starter</span>
-        </div>
-
-        <div class="plan decoy">
-          <p class="plan-name">Pro</p>
-          <p class="plan-price"><span data-week="$79" data-month="$284">$79</span><em data-week="/week" data-month="/month">/week</em></p>
-          <p class="plan-unit"><span data-week="100 reveals a week — $0.79 each" data-month="100 reveals a week — $0.71 each">100 reveals a week — $0.79 each</span></p>
-          <ul>
-            <li>5 scanners</li>
-            <li>Instant Slack or Telegram alerts</li>
-            <li>2 destinations</li>
-            <li>Research: last 45 days</li>
-          </ul>
-          <span class="btn ghost">Choose Pro</span>
         </div>
 
         <div class="plan pop">
           <p class="plan-flag">most agencies land here<i class="mk">2</i></p>
           <p class="plan-name">Advanced</p>
-          <p class="plan-price"><span data-week="$99" data-month="$356">$99</span><em data-week="/week" data-month="/month">/week</em></p>
-          <p class="plan-unit"><span data-week="150 reveals a week — $0.66 each" data-month="150 reveals a week — $0.59 each">150 reveals a week — $0.66 each</span><i class="mk">3</i></p>
+          <p class="plan-price">$99<em>/week</em></p>
+          <p class="plan-unit">150 names a week — $0.66 each</p>
           <ul>
             <li>15 scanners</li>
-            <li>Instant Slack and Telegram alerts</li>
-            <li>5 destinations — route by team or service</li>
+            <li>Instant alerts, name shown</li>
+            <li>Route leads to your team's groups — Telegram groups and Slack<i class="mk">5</i></li>
             <li>Research: full archive</li>
+            <li>Extra names $0.90</li>
+            <li>Email support</li>
           </ul>
           <span class="btn">Choose Advanced</span>
         </div>
 
         <div class="plan">
-          <p class="plan-name">Agency</p>
-          <p class="plan-price"><span>Talk to us</span><i class="mk">4</i></p>
-          <p class="plan-unit"><span data-week="from 400 reveals a week — $0.50 each" data-month="from 400 reveals a week — $0.45 each">from 400 reveals a week — $0.50 each</span></p>
+          <p class="plan-name">Unlimited</p>
+          <p class="plan-price">$199<em>/week</em><i class="mk">4</i></p>
+          <p class="plan-unit">Unlimited names<span class="beta-note">unlimited during beta</span></p>
           <ul>
-            <li>Unlimited scanners and destinations</li>
-            <li>Webhook — push into your CRM</li>
+            <li>Unlimited scanners</li>
+            <li>Instant alerts, name shown</li>
+            <li>Telegram groups, Slack and webhook</li>
+            <li>Research: full archive</li>
             <li>CSV export</li>
             <li>Priority support and a setup call</li>
           </ul>
-          <span class="btn ghost">Book a call</span>
+          <span class="btn ghost">Choose Unlimited</span>
         </div>
       </div>
 
-      <p class="unit-line"><b>1 credit = 1 name.</b> The person or company behind the posting, plus profiles to message.<i class="mk">9</i></p>
+      <p class="unit-line"><b>1 credit = 1 name.</b> The person or company behind the posting, plus profiles to message.<i class="mk">7</i></p>
 
       <div class="always">
         <span>No result, no credit spent.<i class="mk">6</i></span>
       </div>
 
-      <button class="cmp" id="cmpBtn" type="button" aria-expanded="false" aria-controls="matrix">Compare all plans</button><i class="mk">5</i>
+      <p class="refresh-line">Names refresh every Monday. They don't roll over — a three-week-old posting is already dead.</p>
 
-      <div class="matrix-wrap" id="matrix" hidden>
-        <table class="matrix">
-          <thead>
-            <tr>
-              <th scope="col">&nbsp;</th>
-              <th scope="col">Free</th>
-              <th scope="col">Starter</th>
-              <th scope="col">Pro</th>
-              <th scope="col" class="col-pop">Advanced</th>
-              <th scope="col">Agency</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Price</th>
-              <td class="money">$0</td>
-              <td class="money"><span data-week="$39/wk" data-month="$140/mo">$39/wk</span></td>
-              <td class="money"><span data-week="$79/wk" data-month="$284/mo">$79/wk</span></td>
-              <td class="money col-pop"><span data-week="$99/wk" data-month="$356/mo">$99/wk</span></td>
-              <td class="money">Talk to us</td>
-            </tr>
-            <tr>
-              <th scope="row">Per reveal</th>
-              <td class="money">—</td>
-              <td class="money"><span data-week="$1.30" data-month="$1.17">$1.30</span></td>
-              <td class="money"><span data-week="$0.79" data-month="$0.71">$0.79</span></td>
-              <td class="money col-pop"><span data-week="$0.66" data-month="$0.59">$0.66</span></td>
-              <td class="money"><span data-week="$0.50" data-month="$0.45">$0.50</span></td>
-            </tr>
-
-            <tr class="rowhead"><th scope="row" colspan="6">Reveals</th></tr>
-            <tr>
-              <th scope="row">Included</th>
-              <td>7 total, once</td>
-              <td>30/week</td>
-              <td>100/week</td>
-              <td class="col-pop">150/week</td>
-              <td>400/week</td>
-            </tr>
-            <tr>
-              <th scope="row">Extra reveals<span class="rownote">same price either way</span></th>
-              <td class="money">—</td>
-              <td class="money">$2.00</td>
-              <td class="money">$1.20</td>
-              <td class="money col-pop">$0.90</td>
-              <td class="money">$0.60</td>
-            </tr>
-
-            <tr class="rowhead"><th scope="row" colspan="6">Scanner</th></tr>
-            <tr>
-              <th scope="row">Scanners</th>
-              <td>1</td><td>2</td><td>5</td>
-              <td class="col-pop">15</td><td>unlimited</td>
-            </tr>
-            <tr>
-              <th scope="row">Alert speed</th>
-              <td>24h delayed</td><td>instant</td><td>instant</td>
-              <td class="col-pop">instant</td><td>instant</td>
-            </tr>
-            <tr>
-              <th scope="row">Alerts per day</th>
-              <td>3 max</td><td>unlimited</td><td>unlimited</td>
-              <td class="col-pop">unlimited</td><td>unlimited</td>
-            </tr>
-            <tr>
-              <th scope="row">Contact in alert</th>
-              <td>hidden</td><td>full</td><td>full</td>
-              <td class="col-pop">full</td><td>full</td>
-            </tr>
-
-            <tr class="rowhead"><th scope="row" colspan="6">Delivery</th></tr>
-            <tr>
-              <th scope="row">Slack / Telegram</th>
-              <td>✓</td><td>✓</td><td>✓</td>
-              <td class="col-pop">✓</td><td>✓</td>
-            </tr>
-            <tr>
-              <th scope="row">Destinations</th>
-              <td>1</td><td>1</td><td>2</td>
-              <td class="col-pop">5</td><td>unlimited</td>
-            </tr>
-            <tr>
-              <th scope="row">Webhook</th>
-              <td>—</td><td>—</td><td>—</td>
-              <td class="col-pop">—</td><td>✓</td>
-            </tr>
-
-            <tr class="rowhead"><th scope="row" colspan="6">Research and tools</th></tr>
-            <tr>
-              <th scope="row">Archive depth</th>
-              <td>—</td><td>7 days</td><td>45 days</td>
-              <td class="col-pop">full archive</td><td>full archive</td>
-            </tr>
-            <tr>
-              <th scope="row">Single-link reveal</th>
-              <td>✓</td><td>✓</td><td>✓</td>
-              <td class="col-pop">✓</td><td>✓</td>
-            </tr>
-            <tr>
-              <th scope="row">CSV export</th>
-              <td>—</td><td>—</td><td>—</td>
-              <td class="col-pop">—</td><td>✓</td>
-            </tr>
-            <tr>
-              <th scope="row">Support</th>
-              <td>—</td><td>email</td><td>email</td>
-              <td class="col-pop">email</td><td>priority + setup call</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="refresh-line">Credits refresh every Monday on every plan, whichever way you pay. They don't roll over — a three-week-old posting is already dead.</p>
-
-      <p class="annual">Advanced costs <b data-week="$5,148" data-month="$4,272">$5,148</b> a year. One won project usually covers it.<i class="mk">8</i></p>
+      <p class="annual">Advanced costs <b>$5,148</b> a year. One won project usually covers it.<i class="mk">8</i></p>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note"><b>Advanced is the target, Pro is the decoy.</b> $20 more than Pro buys 50% more reveals, 3× the scanners and the full archive. Both your current customers took that jump. Pro is now on the page rather than hidden in the compare table — a decoy only works if it's seen, and the $79→$99 step is the single most persuasive comparison in the section. Cost: four columns instead of three, so every card is narrower and the copy has to be shorter.</p>
-      <p class="note">Free sits above the paid tiers, not beside them. It's the primary CTA now, not a lesser plan competing for the same click.</p>
-      <p class="note warn"><b>Free is 7 reveals, down from 15.</b> With the one free name on the landing page that's 8 before anyone pays, against 16 before. Reveals cost you essentially nothing, so this isn't a cost saving — it's a bet that 7 is still enough to reach a first reply. That is the number to watch: if a free account runs out before anyone answers, the tier proves nothing and the visitor leaves having learned that the product doesn't work, which is worse than never signing up. Check it against the reply rate the ROI block assumes.</p>
-      <p class="note"><b>The per-reveal line does the saving argument.</b> $1.30 → $0.79 → $0.66 → $0.50 reads left to right on its own. No percentage badges, no "save 24%" — nobody converts on a percentage.</p>
-      <p class="note">Overage always costs more than the next tier's included rate. Starter overage is $2.00; on Advanced those reveals are $0.66. Run out twice and upgrading is arithmetic, not persuasion.</p>
-      <p class="note">"1 reveal", never "1 contact". At a 50/50 person-to-company split, "contact" is a promise you'd break every second time.</p>
-      <p class="note"><b>The strip has one job now.</b> It held three unrelated claims sharing one high-contrast box; the guarantee is the strongest line in the section and shouldn't be sharing its contrast with a beta caveat. "Unlimited users during beta" moved to the FAQ, where a qualifier can be explained instead of asserted.</p>
-      <p class="note"><b>"No result, no credit spent" appears here and in §4, word for word.</b> It's a conversion lever, not just an answer — if the two copies drift, it stops reading as a rule and starts reading as reassurance. They had already drifted: §4 said "the credit isn't taken", which is the same fact in different words. Both now open with the exact line.</p>
-      <p class="note">Weekly refresh stated in plain sight and framed as freshness. Hiding it in fine print turns into refund requests.</p>
-      <p class="note"><b>Monthly billing changes the charge, never the credits.</b> 10% off for paying four weeks up front; reveals still land every Monday at the same weekly number. Keeping the credit cadence weekly in both modes protects the freshness argument — "600 reveals a month" would invite people to save them up, and a three-week-old posting is worthless.</p>
-      <p class="note">10% is the discount because it's the largest number that stays boring. It buys a month of runway per customer without teaching anyone to wait for a sale, and the per-reveal ladder still descends cleanly in monthly mode: $1.17 → $0.71 → $0.59 → $0.45.</p>
-      <p class="note warn"><b>The ROI block undercuts Advanced.</b> 300 reveals a month fits inside Pro's 400 with room to spare, at $284 rather than $356. If the typical month really is 300, Advanced has to be sold on scanners, destinations and the full archive — not on reveal volume — or the example needs to be a heavier user. Worth resolving before this section is written, because right now the page argues against its own target plan.</p>
-      <p class="note warn"><b>Two blockers before this goes live.</b> Pull both customers' actual weekly usage — Advanced was unlimited when they bought it, and capping it at 150 is a change to a live plan. Grandfather them on unlimited permanently; it costs nothing you currently collect and buys two references with no reason to be annoyed.</p>
-      <p class="note"><b>The purpose stands; the instrument was wrong.</b> Agencies buy on cost-per-acquired-client, not cost-per-credit, so the price still needs anchoring against a project value. A funnel table was the wrong way to do it.</p>
-      <p class="note warn"><b>With two customers there is no reply rate and no close rate.</b> Every number in that table was a guess formatted as data, and this audience reads enough vendor decks to recognise an invented funnel on sight. It cost credibility at the exact moment someone was deciding to pay — the worst place on the page to be spending any.</p>
-      <p class="note"><b>It also handed the reader something to argue with.</b> "10 replies" makes half of them think <em>not from my outreach</em>, and a reason to doubt sitting directly beside the price is worse than no number at all. The sentence replacing it can't be argued with, because it asks the reader to supply the number.</p>
-      <p class="note">One line works better because the reader checks it against their own project values in about a second. "Usually" is honest and unfalsifiable in a way a printed reply rate isn't — it invites the arithmetic instead of asserting it.</p>
-      <p class="note">A spreadsheet beside the plan cards was also competing for attention at the moment of choosing. The section now asks one question at a time: which plan, then what it costs a year.</p>
-      <p class="note warn"><b>Check "one won project usually covers it" against your real project values.</b> The table this replaces assumed $3,000–5,000 a project — at those numbers one project does <em>not</em> cover $5,148, so the sentence would be false for the ICP the old block described. It holds comfortably for an agency doing $10k projects. If your customers sit at the low end, the honest version names two projects, not one.</p>
+      <p class="note"><b>Pro is gone, and it should have gone earlier.</b> It was a decoy, and a decoy only works if it is seen — it sat behind "Compare all plans", so most visitors never met it while it still cost a fifth column and a narrower card for everyone. Both real customers skipped it and went Starter → Advanced directly, which is the decoy's job done without the decoy.</p>
+      <p class="note"><b>"Agency" couldn't be a tier name, because it's the entire audience.</b> Smaller agencies buy Starter and Advanced too, so the label told a visitor nothing about which column was theirs. "Unlimited" names capacity, which is what a pricing column should do: someone scanning Starter → Advanced → Unlimited understands the ladder before reading a single row.</p>
+      <p class="note"><b>Naming the top price also removes a decision.</b> "Talk to us" asks a visitor to start a conversation before they know whether they can afford it; $199 lets them decide alone, and the ones who do call arrive already sold on the number.</p>
+      <p class="note warn"><b>Unlimited caps revenue per customer at $199 a week, however large they get.</b> The heaviest, stickiest accounts — the ones with the most to lose by leaving — stop growing revenue at exactly the point they are most valuable. That is a deliberate early-stage trade: removing volume anxiety buys commitments now. It is not a permanent structure, and "unlimited during beta" is the door left open. Decide what replaces it before beta ends, not during.</p>
+      <p class="note"><b>Advanced has to look complete on its own now.</b> It no longer has Pro beside it making it look cheap, so the full archive and group routing are what carry it. Being the middle option between $39 and $199 is a strong position — most people take the middle — but only if the middle reads as sufficient rather than as a compromise.</p>
+      <p class="note">Free stays a band above the cards, not a fourth column. It is the primary CTA, not a lesser plan competing for the same click, and its limits are stated plainly — a day-late alert with the name hidden is a real constraint and hiding it would produce refund requests.</p>
+      <p class="note"><b>Everything is on screen now.</b> With three tiers there was nothing left worth hiding, so the compare toggle and the expandable matrix are gone. A visitor no longer has to click to find out what they are not getting.</p>
+      <p class="note">Monthly billing is removed. One price, one cadence, no toggle to interpret — and it takes with it a second annual figure that the copy had to stay true at.</p>
+      <p class="note">"Names" everywhere in this section now, not "reveals". A reveal is the billing event; a name is what the visitor receives. This finally settles a drift the page carried for a while.</p>
+      <p class="note warn"><b>The delivery line describes routing that doesn't exist yet.</b> Telegram currently sends everything to whoever connected the bot. Group routing has to ship before this row is true — and confirm that a <em>scanner</em> can target a specific group, not just the account pointing at one destination. If it turns out to be account-level, this row does not hold and Advanced loses one of the two things carrying it.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
           <li><b>1</b> <em>A band, not a fourth card.</em> Free is the primary CTA, so it must not sit in the row competing for the same glance as the paid plans. Full width above them, visually distinct, still clearly part of the ladder.</li>
-          <li><b>2</b> <em>One marked plan only.</em> Advanced carries the border and the flag. Resist marking a second — two highlights is no highlight, and this whole section is built so one plan wins.</li>
-          <li><b>—</b> <em>Price baselines must align across all four cards.</em> Right now they don't: the flag pushes Advanced's price down, and Agency's longer unit line pushes its bullets down. With three cards that read as looseness; with four it reads as broken. Solve it once — flag overlapping the top border, or the same reserved height on every card — and the descending price ladder becomes readable in one horizontal sweep, which is the entire mechanism of this row.</li>
-          <li><b>—</b> <em>Four cards is the ceiling, and 720–900px is where it hurts.</em> At the narrow end of the web layout the cards are about 150px wide and the feature bullets wrap to three lines. Don't add a third breakpoint to fix it — shorten the bullets. Every one of them should survive at 150px on two lines.</li>
-          <li><b>—</b> <em>Pro sits immediately left of Advanced, and stays plain.</em> Its whole job is to be read a half-second before Advanced and lose. No flag, no border, no "good value" label — the moment Pro looks appealing it stops working. Adjacency is the mechanism, so never reorder the row.</li>
-          <li><b>3</b> <em>The per-reveal line is the savings argument.</em> It has to be readable at a glance across all three cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-through prices.</li>
-          <li><b>4</b> <em>Sits in the price slot, same size as a number.</em> "Talk to us" replaces a price, so it takes the price's position and weight. Don't shrink it into a link or the column stops reading as a tier.</li>
-          <li><b>—</b> <em>Mobile reorders the plans: Advanced, Pro, Starter, Agency.</em> On web the eye scans left to right and settles just right of centre; on mobile it reads top-down and the first card takes the attention. Source order would hand that to Starter — the one plan you don't want chosen. Pro follows Advanced so the comparison survives the stack, just reversed.</li>
-          <li><b>5</b> <em>Closed by default.</em> All four paid plans are already on the page, so this is for the one visitor in twenty who wants the Free column, the webhook row and the archive depths side by side. Expands in place, no scroll jump — and on mobile the matrix scrolls horizontally with the first column pinned, or it's unusable.</li>
-          <li><b>6</b> <em>Highest-contrast element in the section, and now the only thing in its box.</em> It used to share the strip with two unrelated claims, which meant the strongest line on the page was competing with a beta caveat for the same glance. Treat it as a micro-ToS line: plain, unadorned, directly beneath the price, no icon and no panel styling — it is a term of the deal, and terms don't need decorating.</li>
-          <li><b>9</b> <em>The unit definition sits above the guarantee, not below it.</em> A reader learns what a credit buys at the moment they are looking at what a credit costs; putting it further down means they do the arithmetic without knowing the unit. The what-you-get spec is folded into that same line rather than standing alone, because "what am I buying" and "what is one of them" are one question.</li>
-          <li><b>9</b> <em>Three words for one thing, and that still needs settling.</em> This line says <em>name</em>, the plan cards say <em>reveals</em>, and the internal unit is a <em>credit</em>. They are the same object. Reveal is the billing unit, a name is what the visitor receives — so the cards are the ones that should change, not this line.</li>
-          <li><b>7</b> <em>Weekly is the default and stays selected.</em> Weekly is the lower number and the smaller commitment, so it's what an undecided visitor should meet first; monthly is the upgrade they choose. Two segments, no third — annual is not on the table while the archive is four months deep on some sources. Switching must repaint the cards, the comparison matrix and the ROI block together and instantly; a price that animates between values reads as a slot machine. Design the pressed state as a real state, not a hover — people re-check which one they're looking at.</li>
-          <li><b>7</b> <em>Never a struck-through weekly price next to the monthly one.</em> Same rule as the per-reveal line: the "−10%" on the segment is the entire discount signal. No badges, no "save $40", no countdown.</li>
-          <li><b>8</b> <em>Bring the funnel back when it's real and citable</em> — roughly twenty customers, with a source line above it: "Across 40 accounts: 200 reveals &rarr; 12 replies &rarr; 1.4 projects." Cited numbers convince and invented ones repel, and the difference is visible to this audience. Until then, one sentence.</li>
-          <li><b>8</b> <em>Body text, not a card.</em> No border, no background, no box. The moment it acquires a frame it becomes a claim being presented rather than a fact being mentioned, and a presented claim invites exactly the scrutiny the table just failed. Same weight as the line about credits refreshing, directly beneath it.</li>
-          <li><b>8</b> <em>The annual figure follows the billing toggle.</em> $5,148 is fifty-two weeks at $99; monthly billing makes it $4,272. It uses the same data-week / data-month swap as every other price on the page, so it can't drift out of step with the cards — but it does mean the sentence has to stay true at both numbers.</li>
+          <li><b>2</b> <em>One marked plan only.</em> Advanced carries the border and the flag. Resist marking a second — two highlights is no highlight, and with three columns the middle one is already doing most of the work.</li>
+          <li><b>2</b> <em>Price baselines must align across all three cards.</em> They don't here: the flag pushes Advanced's price down a row. With four cards that read as looseness; with three it reads as broken. Solve it once — flag overlapping the top border, or the same reserved height on every card — because the descending price is only readable in one horizontal sweep if the numbers sit on a line.</li>
+          <li><b>3</b> <em>The per-name line is the savings argument.</em> $1.30 → $0.66 has to be readable at a glance across the cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-throughs.</li>
+          <li><b>4</b> <em>The per-name line ends blank at Unlimited, deliberately.</em> "Unlimited" is self-explanatory, and writing "$0.00 at volume" invites arithmetic the column is designed to end. Leave the slot empty rather than filling it to make the row look complete.</li>
+          <li><b>4</b> <em>"unlimited during beta" is a qualifier, not fine print.</em> Same reasoning as the seats line in §4: if a cap ever returns, this makes it a scheduled change rather than a promise broken to paying customers. It stays small and it stays visible — shrinking it to invisibility defeats the entire point of writing it.</li>
+          <li><b>5</b> <em>Write delivery as a benefit, never as a config chore.</em> "Route leads to your team's groups", never "multi-group Telegram configuration". This row replaces the old destinations count, which described routing that doesn't exist and was a number nobody could interpret — "5 destinations" means nothing to a reader deciding between two prices.</li>
+          <li><b>6</b> <em>Highest-contrast element in the section, and the only thing in its box.</em> Treat it as a micro-ToS line: plain, unadorned, directly beneath the price. It is a term of the deal, and terms don't need decorating.</li>
+          <li><b>7</b> <em>The unit definition sits above the guarantee.</em> A reader learns what a credit buys at the moment they are looking at what it costs. The what-you-get spec is folded into the same line because "what am I buying" and "what is one of them" are one question.</li>
+          <li><b>8</b> <em>Body text, not a card.</em> No border, no background. A framed claim invites scrutiny; a mentioned fact doesn't. With monthly gone this is a single figure — fifty-two weeks at $99 — so it no longer has to stay true at two numbers.</li>
+          <li><b>8</b> <em>Bring the funnel back when it's real and citable</em> — roughly twenty customers, with a source line above it: "Across 40 accounts: 200 reveals &rarr; 12 replies &rarr; 1.4 projects." Cited numbers convince and invented ones repel. Until then, one sentence.</li>
+          <li><b>—</b> <em>Three cards is a comfortable row, and that is a resource.</em> Each card now holds six bullets where four used to fit. Spend that on the rows a visitor actually compares — alert speed, delivery, archive depth — not on adding a fourth column back.</li>
         </ol>
       </div>
     </aside>
@@ -2325,34 +2135,7 @@
   }, 4000);
 
   // compare-all-plans toggle
-  var cmpBtn = document.getElementById('cmpBtn');
-  var matrix = document.getElementById('matrix');
-  cmpBtn.addEventListener('click', function(){
-    var open = matrix.hasAttribute('hidden');
-    if(open){ matrix.removeAttribute('hidden'); } else { matrix.setAttribute('hidden',''); }
-    cmpBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    cmpBtn.textContent = open ? 'Hide comparison' : 'Compare all plans';
-  });
 
-  // ---- weekly / monthly billing ----
-  // Every price on the page carries both figures as data-week / data-month, so the
-  // switch is one text swap — cards, comparison matrix and the ROI block together.
-  var billBtns = Array.prototype.slice.call(document.querySelectorAll('.bill-btn'));
-  var billEls  = Array.prototype.slice.call(document.querySelectorAll('[data-week]'));
-
-  function setBilling(mode){
-    billEls.forEach(function(el){
-      var v = el.getAttribute('data-' + mode);
-      if(v !== null) el.textContent = v;
-    });
-    billBtns.forEach(function(b){
-      b.setAttribute('aria-pressed', b.getAttribute('data-bill') === mode ? 'true' : 'false');
-    });
-  }
-  billBtns.forEach(function(b){
-    b.addEventListener('click', function(){ setBilling(b.getAttribute('data-bill')); });
-  });
-  setBilling('week');
 
   // designer notes toggle
   var hintsBtn = document.getElementById('hintsBtn');
