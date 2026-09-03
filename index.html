@@ -14,6 +14,9 @@
     --fill:#DCDEDB;
     --fill-2:#CFD2CE;
     --mark:#2B4C9B;
+    /* colour with a job, not decoration: §2 only. Ink today so the wireframe
+       stays two-tone; this is the hook a real brand accent drops into. */
+    --accent:#23282D;
     --mark-soft:#7A93C4;
     --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
@@ -476,8 +479,19 @@
     font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);margin:0 0 .3rem;
     height:1.2rem;display:flex;align-items:center;gap:.35rem;
   }
-  .col h3{margin:0 0 .7rem;font-size:.9rem;font-weight:600}
-  .col ul{margin:0;padding-left:1.05rem;font-size:.85rem;color:var(--ink-soft);line-height:1.65}
+  .col h3{margin:0 0 .9rem;font-size:1rem;font-weight:600;letter-spacing:-.01em}
+
+  .vis{position:relative}
+  .vis svg{
+    display:block;width:100%;max-width:19rem;height:auto;
+    font-family:var(--mono);font-size:9px;
+  }
+  .vis svg text{fill:currentColor}
+  .vis.crowd{color:var(--line)}
+  .vis.direct{color:var(--accent)}
+  .cap{
+    margin:.55rem 0 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+  }
   .arrow{align-self:center;font-family:var(--mono);color:var(--line);font-size:1.1rem}
 
   /* ---------- section 3: steps ---------- */
@@ -1005,45 +1019,97 @@
       <div class="split">
         <div class="col">
           <p class="col-kicker">on the job board</p>
-          <h3>Waiting to be picked<i class="mk">1</i></h3>
-          <ul>
-            <li>You pay for a chance to be read</li>
-            <li>Candidate #37. Pay more to move up</li>
-            <li>The job closes and you've got nothing</li>
-            <li>No reviews, no work. No work, no reviews</li>
-          </ul>
+          <h3>They pick you.<i class="mk">1</i></h3>
+          <div class="vis crowd"><i class="mk">4</i>
+            <svg viewBox="0 12 240 116" role="img"
+                 aria-label="Fifteen applicants, all connected to the same client">
+              <g stroke="currentColor" stroke-width=".7" opacity=".4" fill="none">
+              <line x1="18" y1="34" x2="188" y2="71"/>
+              <line x1="36" y1="24" x2="188" y2="71"/>
+              <line x1="55" y1="31" x2="188" y2="71"/>
+              <line x1="16" y1="55" x2="188" y2="71"/>
+              <line x1="35" y1="46" x2="188" y2="71"/>
+              <line x1="54" y1="52" x2="188" y2="71"/>
+              <line x1="72" y1="40" x2="188" y2="71"/>
+              <line x1="20" y1="76" x2="188" y2="71"/>
+              <line x1="38" y1="66" x2="188" y2="71"/>
+              <line x1="57" y1="72" x2="188" y2="71"/>
+              <line x1="74" y1="60" x2="188" y2="71"/>
+              <line x1="24" y1="97" x2="188" y2="71"/>
+              <line x1="43" y1="88" x2="188" y2="71"/>
+              <line x1="61" y1="94" x2="188" y2="71"/>
+              <line x1="31" y1="115" x2="188" y2="71"/>
+              </g>
+              <g fill="currentColor">
+              <circle cx="18" cy="34" r="3.2"/>
+              <circle cx="36" cy="24" r="3.2"/>
+              <circle cx="55" cy="31" r="3.2"/>
+              <circle cx="16" cy="55" r="3.2"/>
+              <circle cx="35" cy="46" r="3.2"/>
+              <circle cx="54" cy="52" r="3.2"/>
+              <circle cx="72" cy="40" r="3.2"/>
+              <circle cx="20" cy="76" r="3.2"/>
+              <circle cx="38" cy="66" r="3.2"/>
+              <circle cx="57" cy="72" r="3.2"/>
+              <circle cx="74" cy="60" r="3.2"/>
+              <circle cx="24" cy="97" r="3.2"/>
+              <circle cx="43" cy="88" r="3.2"/>
+              <circle cx="61" cy="94" r="3.2"/>
+              <circle cx="31" cy="115" r="3.2"/>
+              </g>
+              <rect x="190" y="59" width="36" height="24" rx="3"
+                    fill="none" stroke="currentColor" stroke-width="1.1"/>
+              <text x="208" y="99" text-anchor="middle" opacity=".75">client</text>
+            </svg>
+          </div>
+          <p class="cap">you and 39 others</p>
         </div>
-        <div class="arrow">→<i class="mk">2</i></div>
+
+        <div class="arrow">&rarr;<i class="mk">2</i></div>
+
         <div class="col">
           <p class="col-kicker">with leadhoundy<i class="mk">3</i></p>
-          <h3>Picking who you talk to</h3>
-          <ul>
-            <li>You pay for a name you keep</li>
-            <li>You choose how you show up</li>
-            <li>Next quarter you still know who they are</li>
-            <li>Nobody asks how long you've been here</li>
-          </ul>
+          <h3>You pick them.</h3>
+          <div class="vis direct"><i class="mk">5</i>
+            <svg viewBox="0 12 240 116" role="img"
+                 aria-label="One applicant, a single line straight to one client">
+              <line x1="44" y1="71" x2="177" y2="71" stroke="currentColor" stroke-width="1.4"/>
+              <polygon points="177,65.5 189,71 177,76.5" fill="currentColor"/>
+              <circle cx="36" cy="71" r="5" fill="currentColor"/>
+              <rect x="190" y="59" width="36" height="24" rx="3"
+                    fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <text x="208" y="99" text-anchor="middle" opacity=".75">client</text>
+            </svg>
+          </div>
+          <p class="cap">just you</p>
         </div>
       </div>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note">Reads correctly for both audiences: the Upwork agency recognises every line on the left, and the half who've never touched a job board still understand "waiting to be picked" — it's a feeling they've had somewhere else. The left column now names a behaviour rather than a venue; the venue moved down to the kicker, where it belongs, because the hero subhead already established it.</p>
-      <p class="note"><b>Each row is a matched pair, and the mirror is the mechanism.</b> What your money buys, whether you're in a queue, what's left when the job closes, whether a new agency can win. Read across, not down. If a line is ever rewritten, its opposite number gets rewritten with it or the row stops working.</p>
-      <p class="note"><b>Left side is described, not attacked.</b> "Waiting to be picked" is the one line here with any edge on it, and a good share of your visitors work that way today. It stays because it's accurate, not because it's cutting — and every answer on the right is warm rather than triumphant. No red crosses, no green ticks.</p>
-      <p class="note warn"><b>This strip got longer, deliberately.</b> Roughly four seconds became seven or eight. The old version listed symptoms ("40 proposals sent"); this one makes four arguments, which is worth the extra beats. It is now at its ceiling — if anything else needs saying, it goes in §4, and if the budget has to be held, row 2 is the one to cut because row 1 already implies it.</p>
-      <p class="note warn">Resist expanding this into a problem/solution section. It's still a strip.</p>
-      <p class="note">"Connects" is gone. It's Upwork's word and invisible to half the audience; "pay more to move up" says the same thing to everyone.</p>
+      <p class="note"><b>The density difference registers before a word is read.</b> That is the section: fifteen dots crowding one client against a single line reaching one client. Eight bullets was roughly fifteen seconds of reading and mental diffing for a section budgeted at four, and a section that takes fifteen seconds in a four-second slot doesn't get read slowly — it gets skipped.</p>
+      <p class="note"><b>The headings are now structurally identical.</b> "They pick you." / "You pick them." — same shape, same length, one swapped word, so the brain diffs them automatically instead of parsing two different sentences. The old pair was passive against active, which was thematically right and comparatively slow.</p>
+      <p class="note"><b>The specifics were dropped on purpose.</b> Connects, the platform cut, being late to the posting — all gone. §2's job is to make someone <em>feel</em> the difference at a glance; specifics belong in §3 and the FAQ, where people are already reading and willing to. A section trying to do both does neither, and this one was doing the feeling badly.</p>
+      <p class="note">Still reads correctly for both audiences: the Upwork agency recognises the crowd immediately, and the half who have never touched a job board understand "they pick you" without needing to know what a proposal queue is. The venue stays on the kicker, where the hero subhead already put it.</p>
+      <p class="note warn">Resist expanding this back into a problem/solution section. It's a strip, and it is now the length a strip should be.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
-          <li><b>1</b> <em>Don't make the left side ugly.</em> Grey it, don't villainise it — many visitors still work that way and a sneering panel insults them. The asymmetry should come from the content, not from red crosses and green ticks.</li>
+          <li><b>1</b> <em>Don't make the left side ugly.</em> Grey it, don't villainise it — many visitors still work that way today and a sneering panel insults them. The asymmetry comes from density, not from red crosses and green ticks. Nothing on the left is broken; there is simply a lot of it.</li>
+          <li><b>4</b> <em>The visual has to work with the headings covered up.</em> That's the test: hide both headings and both captions, and the two pictures alone should still say crowd against direct line. If they don't, the dots aren't doing their job and no amount of caption will rescue them.</li>
+          <li><b>4</b> <em>Fifteen dots is a representation, not a count.</em> The caption says forty; the picture says "a lot". Don't try to draw thirty-nine — past about twenty the shape stops reading as a crowd and starts reading as noise, and the number belongs in the caption where it can be exact.</li>
+          <li><b>4</b> <em>Worth trying: one dot in the crowd is you.</em> The caption already says "you and 39 others", so marking a single dot in the accent would land the point harder. It is not drawn that way here because it puts accent colour on the left side, which is the one thing the colour rule below forbids — so it needs deciding, not defaulting.</li>
+          <li><b>5</b> <em>Colour is meaningful here and only here.</em> Left neutral, right accent, because on this one strip the colour <em>is</em> the argument rather than a treatment applied to it. Everywhere else on the page colour is either ink or annotation. If a brand accent gets introduced anywhere first, introduce it here.</li>
+          <li><b>5</b> <em>The accent is a token, not a colour decision.</em> <code>--accent</code> resolves to ink today so this document stays two-tone and honest about being a wireframe. Swap that one variable and the section takes the real brand colour; nothing else needs touching, and nothing else should be.</li>
+          <li><b>5</b> <em>Drawn, not placed.</em> Inline SVG, circles and thin lines, no image request and no icon font — a few hundred bytes, sharp at any size, and it inherits its colour from CSS so the two sides differ by one property. It also means the density can be tuned in the markup rather than re-exported.</li>
+          <li><b>5</b> <em>Both sides share one viewBox.</em> Same coordinate space, same client shape in the same position, so the only thing that differs between the two pictures is what's on the left of it. Change one and change the other, or the comparison quietly stops being fair.</li>
+          <li><b>4</b> <em>On mobile the columns stack and both drawings get narrower.</em> The density contrast is the thing to check there — the crowd may shed dots, but if it stops reading as a crowd the section has lost its argument at the width where most people meet it.</li>
           <li><b>2</b> <em>The arrow carries the whole idea.</em> On mobile the columns stack and it rotates to point down, which keeps the logic but is doing it with a rotated character — the weakest element in the section at the width where most people will read it. Design the vertical state properly, or the strip reads as two unrelated lists on a phone.</li>
           <li><b>2</b> <em>Worth trying: the arrow is the hound.</em> The mark is literally the thing that moves you from the left column to the right — picks up a scent, finds who's there. It's the one place outside the mark, the empty states and the footer where the dog would be doing work rather than decorating. Try it, but only after the vertical stacked state above is solved, because a brand riding on the weakest element in the section is worse than a plain arrow.</li>
           <li><b>3</b> <em>Two kickers, one job each.</em> They name the route so the headers are free to name the behaviour. Same size, same weight, same position in both columns — the moment the right kicker gets styled as a badge or a logo lockup, the strip stops being an observation and starts being an ad, and the left column reads as a straw man. Quiet mono label, nothing more.</li>
           <li><b>3</b> <em>Headers must sit on the same baseline.</em> The kicker exists on both columns partly so they do. Any state where one column has a kicker and the other doesn't breaks the mirror, which is the only reason this section works.</li>
-          <li><b>—</b> <em>Lines will wrap to two rows at most widths.</em> That's expected — but the wrap point must not fall mid-phrase on "No reviews, no work. No work, no reviews", which is the one line whose rhythm carries it. Check it at the narrow end of the web layout, not just wide.</li>
+          <li><b>—</b> <em>One specific is worth reinstating if this feels too thin in testing:</em> "no proposals, no bidding, no cut". It justifies the price and currently appears only in step 4 of §3. It would go under the right-hand caption, as one line — and if it needs two, it belongs in §3 after all.</li>
         </ol>
       </div>
     </aside>
