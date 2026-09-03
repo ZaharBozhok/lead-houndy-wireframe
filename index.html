@@ -290,6 +290,8 @@
   }
   .hint{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft)}
 
+  /* the number reflows the sentence every 4s unless the digits are fixed-width */
+  #hlNum{font-variant-numeric:tabular-nums}
   h2.hl{
     font-size:1.9rem;line-height:1.12;letter-spacing:-.025em;
     font-weight:600;margin:0 0 .6rem;max-width:16ch;
@@ -307,43 +309,11 @@
   .logo{width:74px;height:16px;background:var(--fill-2);border:1px solid var(--line)}
   .nav-r{display:flex;align-items:center;gap:.7rem}
 
-  /* ---------- headline variant switcher ----------
-     A review control, so it lives in the document header with the other review
-     controls — never inside a frame, where hatched blue furniture sitting on top
-     of the hero misrepresents the layout being reviewed. */
-  .variants{
-    border-bottom:1px dashed var(--mark-soft);
-    background-image:repeating-linear-gradient(45deg,rgba(122,147,196,.16) 0 1px,transparent 1px 8px);
-    padding:.7rem 1.5rem;margin:0;
-    display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .7rem;
-  }
-  .wf.no-hints .variants{display:none}
-  .variants > span{font-family:var(--mono);font-size:.66rem;color:var(--mark)}
-  .variants .vwhere{color:var(--mark-soft)}
-  .vbtn{
-    font-family:var(--mono);font-size:.68rem;
-    background:var(--paper);border:1px solid var(--mark-soft);color:var(--mark);
-    padding:.28rem .55rem;border-radius:2px;cursor:pointer;
-  }
-  .vbtn:hover{border-color:var(--mark)}
-  .vbtn[aria-pressed="true"]{background:var(--mark);border-color:var(--mark);color:var(--sheet)}
-  .vbtn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
-  .vnote{
-    flex:0 0 100%;max-width:74ch;margin:.15rem 0 0;
-    font-size:.73rem;line-height:1.45;color:var(--mark);
-  }
 
   /* ---------- hero demo ---------- */
   .hero{background:var(--sheet);border:1px solid var(--line);padding:1.7rem 1.5rem}
   .hero-top{max-width:60ch}
 
-  .live{
-    display:flex;align-items:center;gap:.45rem;
-    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
-    margin-bottom:1rem;
-  }
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--ink);animation:pulse 2.4s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
 
   .scanner{margin:1.5rem 0 0}
   .kw-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
@@ -702,7 +672,6 @@
     .price-card{padding:1rem .8rem}
     h2.hl{font-size:1.32rem;max-width:100%}
     p.sub{font-size:.87rem}
-    .live{margin-bottom:.8rem}
 
     .kw-row{gap:.4rem}
     .kw-label{width:100%}
@@ -779,14 +748,6 @@
     </div>
   </header>
 
-  <div class="variants" id="variantPicker">
-    <span>review control · headline A/B</span>
-    <button class="vbtn" type="button" data-v="0" aria-pressed="true">A · supply</button>
-    <button class="vbtn" type="button" data-v="1" aria-pressed="false">B · outcome</button>
-    <span class="vwhere">rewrites the headline in §1 Hero</span>
-    <p class="vnote" id="vNote"></p>
-  </div>
-
   <div class="brief">
     <h2>Before you start</h2>
     <section>
@@ -861,9 +822,8 @@
 
       <div class="hero">
         <div class="hero-top">
-          <p class="live"><i class="dot"></i> <span id="scanCount">3,412</span> postings scanned today <i class="mk">2</i></p>
-          <h2 class="hl">See who's behind the posting.<i class="mk">3</i></h2>
-          <p class="sub">Job posts are anonymous. We trace each one back to the person or company that wrote it, and the profiles to message. No proposals, no queue, no platform in between.</p>
+          <h2 class="hl">Today <span id="hlNum">3,412</span><i class="mk">2</i> companies posted work they need done. We give you their names.<i class="mk">3</i></h2>
+          <p class="sub">You can see the work and the budget. You just can't see who's asking — we hand you the name and the people to talk to.</p>
         </div>
 
         <div class="scanner">
@@ -917,6 +877,11 @@
 
     <aside class="notes">
       <p class="notes-h">Why</p>
+      <p class="note"><b>The headline is settled and the A/B is over.</b> Two variants used to be switchable from a control above the document; the page now ships one headline and the switcher is gone. Worth keeping in mind that the old variant B ("Every job posting is a client") repeated the subhead's claim — the current pair doesn't. The headline states the supply, the subhead states the gap, and neither says the other's sentence.</p>
+      <p class="note"><b>The counter line is gone because the headline swallowed it.</b> "3,412 postings scanned today" sitting above a headline that opens "Today 3,412 companies posted work" is the same figure printed twice, and it reads as a copy-paste error rather than as proof. The number kept its live tick and moved into the sentence, so the proof mechanism survives — it just isn't a separate line any more.</p>
+      <p class="note">The subhead now does the work the old one skipped. "Job boards don't show you who's hiring. We do." asserted the gap; this one describes it — you can see the work and the budget, you can't see who's asking — which is a thing the visitor can check against their own experience in the second it takes to read.</p>
+      <p class="note">"The people to talk to" rather than "contacts", again. Same reason as everywhere else: at a 50/50 person-to-company split, a promise of a specific individual fails half the time, and this is the most-read sentence on the page to get that wrong in.</p>
+      <p class="note warn"><b>The pulsing dot went with the counter line, and that's a motion-budget win.</b> It was a fourth infinite animation on a page whose own motion panel says nothing loops forever except the keyword cycle. If a live indicator ever comes back, it counts against the budget of three and something else has to give.</p>
       <p class="note"><b>The whole page rests here.</b> They see the product working on their own niche before reading a word. Everything below is support.</p>
       <p class="note">Keyword cycles on load so the feed is never blank. Cycling stops permanently on first click or keypress — typing into a moving field feels broken.</p>
       <p class="note"><b>Three states, not two: cycling, held, stopped.</b> Hovering the feed <em>holds</em> the cycle and leaving it resumes; clicking anything <em>stops</em> it for good. Reading a card is not the same act as choosing a keyword, so it shouldn't have the same consequence — a visitor who leans in to read one posting and then loses interest should get the rotation back, not a frozen field.</p>
@@ -936,8 +901,9 @@
           <li><b>0</b> <em>Wordmark plus hound mark.</em> This is the mascot's most important placement — it has to work at 24px in a browser tab and as a Slack bot avatar, so the dog needs to survive being tiny. Design the avatar crop first and let the full mark follow.</li>
           <li><b>1</b> <em>Only filled button above the fold.</em> Nav is otherwise quiet — every unit of attention above the feed belongs to the keyword field.</li>
           <li><b>13</b> <em>Three nav links, and four is the ceiling.</em> How it works · Pricing · FAQ — one per section a visitor might actually jump to, in page order. It was four until Ways in was folded into How it works; a link for it now would land on the same section, and two labels pointing at one destination is worse than one label. Deliberately not a link per section either: Hero, Contrast and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fourth gets proposed, it has to earn its place.</li>
-          <li><b>2</b> <em>Live, or gone.</em> Ticks upward on a real number. If the count fails to load, hide the whole line — a frozen counter is worse than no counter. Never round to a fake milestone.</li>
-          <li><b>3</b> <em>Copy is locked.</em> "Who's behind" is true whether the reveal returns a person or a company. Don't rewrite to "get their email" or "find the decision maker" — both break on half our results.</li>
+          <li><b>2</b> <em>Live, or gone — and it's now inside the headline.</em> There is no separate counter line any more; the number in the first sentence is the live one and it ticks on its own. If the count fails to load, the headline still has to read correctly, so it needs a defensible fallback figure rather than a spinner or a gap. A frozen counter is worse than no counter, and a frozen counter inside a headline is worse still. Never round to a fake milestone.</li>
+          <li><b>2</b> <em>Set the number in tabular figures.</em> It changes every four seconds inside a line of running text, and proportional digits make the words after it shuffle sideways on each tick. This is the one place on the page where that detail is load-bearing rather than a nicety.</li>
+          <li><b>3</b> <em>Copy is locked, and there is only one version now.</em> The A/B switcher is gone — this headline is the headline. "Their names" is true whether the reveal returns a person or a company, which is the constraint every rewrite has to clear. Don't rewrite to "get their email" or "find the decision maker": the first is a channel we don't deliver, the second breaks on half our results.</li>
           <li><b>12</b> <em>Popular tags are the one-tap path.</em> The dropdown costs two clicks — open, then choose. These cost one, and they double as proof that real volume exists across services. The active tag stays in sync with the field, including while it cycles, so a visitor always sees which keyword the feed belongs to.</li>
           <li><b>4</b> <em>Label is a sentence, not a field name.</em> "Show me clients looking for [Webflow]" explains the input and the output in one read, so no separate instruction is needed. Never the word "niche" — half your audience would read that as an industry (dental, legal) and type something with no volume behind it. The nouns are services and technologies.</li>
           <li><b>4</b> <em>Mobile breaks the sentence.</em> An inline field inside a sentence wraps badly on a phone. The label stacks above the field at narrow widths — narrow the window past 720px to check it.</li>
@@ -1460,7 +1426,7 @@
     <aside class="notes">
       <p class="notes-h">Why</p>
       <p class="note">Same interaction as the hero, not a generic button. Anyone who scrolled this far is ready — don't send them back to the top.</p>
-      <p class="note warn"><b>No testimonials section.</b> Two customers who won't be named can't fill a logo wall, and an empty one reads worse than none. Proof is the live demo, the scan counter, and — if either says yes — one unnamed line: "a 12-person Webflow agency in Berlin".</p>
+      <p class="note warn"><b>No testimonials section.</b> Two customers who won't be named can't fill a logo wall, and an empty one reads worse than none. Proof is the live demo, the live number in the headline, and — if either says yes — one unnamed line: "a 12-person Webflow agency in Berlin".</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
@@ -1776,7 +1742,7 @@
   var kwCaret = document.getElementById('kwCaret');
   var feedLabel = document.getElementById('feedLabel');
   var feedMeta  = document.getElementById('feedMeta');
-  var scanCount = document.getElementById('scanCount');
+  var hlNumEl = document.getElementById('hlNum');
 
   var mkOn = true;
   function MK(n){ return mkOn ? '<i class="mk">'+n+'</i>' : ''; }
@@ -1982,11 +1948,10 @@
     }
   });
 
-  // live counter
+  // live counter — the number now sits inside the headline, so the headline ticks
   var n = 3412;
   setInterval(function(){
     n += Math.floor(Math.random() * 3) + 1;
-    scanCount.textContent = n.toLocaleString('en-US');
     if(hlNumEl) hlNumEl.textContent = n.toLocaleString('en-US');
   }, 4000);
 
@@ -2022,44 +1987,6 @@
     b.addEventListener('click', function(){ setBilling(b.getAttribute('data-bill')); });
   });
   setBilling('week');
-
-  // ---- headline variants ----
-  var VARIANTS = [
-    {
-      h1: 'Today <span id="hlNum">3,412</span> companies posted work. See who posted them.',
-      sub: 'Job boards don\u2019t show you who\u2019s hiring. We do.',
-      hideCounter: true,
-      note: 'Leads on volume \u2014 works for the half of your ICP who\u2019ve never used a job board, because it proves demand exists before explaining the product. Number is bound to the live counter, so the counter line is suppressed: two totals in one viewport reads as sloppiness. \u201cSee who posted them\u201d keeps the page\u2019s vocabulary consistent \u2014 never \u201ccontacts\u201d, which the 50/50 person-company split would break.'
-    },
-    {
-      h1: 'Every job posting is a client. We give you their name.',
-      sub: 'Job boards don\u2019t show you who\u2019s hiring. We do.',
-      hideCounter: false,
-      note: 'Shortest and most quotable. Two flat statements, no hedging. Weakness: \u201cclient\u201d is doing a lot of work \u2014 it asserts intent to buy, which not every posting has.'
-    },
-  ];
-
-  var hlEl = document.querySelector('h2.hl');
-  var subEl = document.querySelector('p.sub');
-  var liveEl = document.querySelector('.live');
-  var vNote = document.getElementById('vNote');
-  var vBtns = Array.prototype.slice.call(document.querySelectorAll('.vbtn'));
-  var hlNumEl = null;
-
-  function setVariant(i){
-    var v = VARIANTS[i];
-    hlEl.innerHTML = v.h1 + '<i class="mk">3</i>';
-    subEl.textContent = v.sub;
-    liveEl.style.visibility = v.hideCounter ? 'hidden' : '';
-    vNote.textContent = v.note;
-    hlNumEl = document.getElementById('hlNum');
-    if(hlNumEl) hlNumEl.textContent = n.toLocaleString('en-US');
-    vBtns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-  }
-  vBtns.forEach(function(b){
-    b.addEventListener('click', function(){ setVariant(parseInt(b.dataset.v, 10)); });
-  });
-  setVariant(0);
 
   // designer notes toggle
   var hintsBtn = document.getElementById('hintsBtn');
