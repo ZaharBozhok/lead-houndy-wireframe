@@ -531,10 +531,29 @@
 
   /* ---------- section 5: objections ---------- */
   .faq{border-top:1px solid var(--hair)}
-  .faq-row{border-bottom:1px solid var(--hair);padding:.8rem 0}
-  .faq-row h3{margin:0 0 .35rem;font-size:.9rem;font-weight:600}
-  .faq-row p{margin:0;font-size:.85rem;color:var(--ink-soft);max-width:64ch}
-  .faq-row p + p{margin-top:.5rem}
+  .faq-row{border-bottom:1px solid var(--hair)}
+  /* native <details>: folds without a line of JS, keyboard-operable for free,
+     and works before the script runs — which is a rule on this page */
+  .faq-row > summary{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+    padding:.62rem 0;
+  }
+  .faq-row > summary::-webkit-details-marker{display:none}
+  .faq-row > summary::marker{content:""}
+  .faq-row > summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .faq-row h3{margin:0;font-size:.9rem;font-weight:600}
+  /* the closed rows are the ones that must advertise; once open the sign recedes */
+  .faq-sign{
+    font-family:var(--mono);font-size:.95rem;line-height:1;
+    color:var(--ink-soft);flex:none;
+  }
+  .faq-sign::after{content:"+"}
+  .faq-row[open] .faq-sign{color:var(--line)}
+  .faq-row[open] .faq-sign::after{content:"\2013"}
+  .faq-row > summary:hover .faq-sign{color:var(--ink)}
+  .faq-row > p{margin:0 0 .5rem;font-size:.85rem;color:var(--ink-soft);max-width:64ch}
+  .faq-row > p:last-child{margin-bottom:.85rem}
 
   /* ---------- section 6: pricing ---------- */
   .free-band{
@@ -705,6 +724,8 @@
     .steps{grid-template-columns:1fr}
     .door-vis{grid-template-columns:1fr}
     .minor{grid-template-columns:1fr}
+
+    .faq-row > summary{padding:.85rem 0}
 
     .free-band{flex-direction:column;align-items:stretch}
     .free-band .btn{text-align:center}
@@ -1082,35 +1103,54 @@
   <section class="blk" id="s4">
     <div class="rail">4</div>
     <div class="frame">
-      <p class="sec-label"><b>Objections</b> — five, flat, unbothered</p>
+      <p class="sec-label"><b>Objections</b> — five, folded except the first<i class="mk">6</i></p>
       <div class="faq">
-        <div class="faq-row">
-          <h3>What exactly do I get for a credit?<i class="mk">1</i></h3>
+        <details class="faq-row" open>
+          <summary>
+            <h3>What exactly do I get for a credit?<i class="mk">1</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
           <p>The person or company behind the posting, plus matching LinkedIn profiles. Sometimes we can name the individual directly, sometimes the company and the people to talk to there.</p>
-        </div>
-        <div class="faq-row">
-          <h3>Where does this data come from?<i class="mk">2</i></h3>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Where does this data come from?<i class="mk">2</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
           <p>Public job boards — the places companies post paid project work. Everything we use is published openly: the posting itself, and the professional profiles we match it to. We don't buy lists, and we don't touch anything private.</p>
-        </div>
-        <div class="faq-row">
-          <h3>Can I get banned for contacting people directly?<i class="mk">4</i></h3>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Can I get banned for contacting people directly?<i class="mk">4</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
           <p>We can't speak for another platform's rules — if you're active on one, read its terms and use your judgment. What we give you is who published a posting and their public professional profile. Where you take it from there is your call, and it happens outside that platform.</p>
-        </div>
-        <div class="faq-row">
-          <h3>What if a reveal finds nothing?<i class="mk">3</i></h3>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>What if a reveal finds nothing?<i class="mk">3</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
           <p>The credit isn't taken. You only spend one when we return a result.</p>
-        </div>
-        <div class="faq-row">
-          <h3>Does cold outreach actually work on these clients?<i class="mk">5</i></h3>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Does cold outreach actually work on these clients?<i class="mk">5</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
           <p>Yes, but they're leads, not guaranteed clients. These are companies with a budget and stated intent, so reply rates are far better than untargeted cold email. Some buy, most don't — same as any pipeline.</p>
           <p>What decides it is the pitch. Agencies getting the most out of this pick one thing they're excellent at and reach out only where they're clearly the best answer. A generic proposal sent to a well-targeted lead is still a generic proposal.</p>
-        </div>
+        </details>
       </div>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
       <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
       <p class="note">Row 4 is a conversion lever, not an FAQ answer. It also appears next to pricing.</p>
+      <p class="note warn"><b>This section used to be open with no accordions, and that was a deliberate rule.</b> The old note read: "a collapsed objection is an unanswered one, and the whole point is that these are read without being clicked." It was overruled on space — five open answers ran 625px on desktop and 872px on a phone, which is most of a viewport of prose sitting between the product and the price. The fold is the concession; which row stays open is how the original concern gets paid for.</p>
+      <p class="note"><b>Row 1 stays open because nobody would click it.</b> It's the 50/50 disclosure — a visitor doesn't arrive wondering whether they'll get a person or a company, so they'd never open it, and it's the one answer that stops the first paid reveal feeling like a bait-and-switch. Folding it would have been the one genuinely costly fold on the page.</p>
+      <p class="note"><b>Rows 2, 3 and 5 fold safely because they answer questions a visitor actually has.</b> Someone worried about the data source, a ban, or whether cold outreach works arrives already holding that question; a visible question with an obvious affordance gets clicked. The question text does most of the reassurance work anyway — seeing "Can I get banned for contacting people directly?" printed on the page tells a careful buyer the concern is acknowledged before they read a word of the answer.</p>
+      <p class="note">Row 4 folds for free. Its answer is deliberately duplicated next to pricing, so a visitor who never opens it here still meets "no result, no credit spent" further down. It's the only row on the page with that property, which is exactly why it can afford to be closed.</p>
       <p class="note">All five answers are now written — these were the last grey bars on the page. Rows 2 and 3 still need the lawyer before publishing, though; being written is not the same as being cleared.</p>
       <p class="note"><b>Rows 2 and 3 are the two that get screenshotted.</b> One says where the data comes from, the other says whether using it is safe. They're the reason a careful buyer either signs up or closes the tab, and they're the two most likely to be quoted back at you — so they stay plain, specific and short. No hedging language, no legal register, no "we take privacy seriously".</p>
       <p class="note warn"><b>"Published openly" is not the same as "lawful to process".</b> Under GDPR, personal data that someone published is still personal data, and row 2 doesn't settle the posture — it describes the sourcing honestly, which is the right thing for a landing page to do and not a substitute for the legal review. If counsel needs a sentence added, it goes here rather than into a policy nobody opens.</p>
@@ -1120,12 +1160,18 @@
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
-          <li><b>1</b> <em>Answers open by default.</em> No accordions. A collapsed objection is an unanswered one, and the whole point is that these are read without being clicked.</li>
+          <li><b>1</b> <em>Row 1 is open on load and the other four are closed.</em> That split is the whole design of this section — see the margin for why each row falls the way it does. Don't "tidy" it by closing all five or opening all five; both are worse than the mix, in opposite directions.</li>
+          <li><b>6</b> <em>The affordance has to be unmistakable, because the fold only works if people click.</em> A row that looks like static text is a lost answer. Whole summary row is the hit target, not just the sign — and on mobile that row needs at least 44px of height. The <code>+</code> / <code>–</code> is a placeholder for whatever the designer picks; a chevron is fine, a mystery-meat dot is not.</li>
+          <li><b>6</b> <em>Built on native <code>&lt;details&gt;</code>, and it should stay that way.</em> No JavaScript, keyboard-operable and screen-reader-announced for free, and it works before the script runs — which is a rule on this page. A hand-rolled accordion would cost bytes and re-implement four accessibility behaviours the browser already has right.</li>
+          <li><b>6</b> <em>Multiple rows can be open at once, deliberately.</em> An exclusive accordion (which <code>&lt;details name&gt;</code> would give free) would slam row 1 shut the moment someone opens row 2, and row 1 is the one that must stay readable. It also stops anyone comparing two answers.</li>
+          <li><b>6</b> <em>Expanding must not animate.</em> Height transitions on open are the single most common accordion tell, and this page has a three-item motion budget that this is not on. Instant open, no easing, nothing to respect <code>prefers-reduced-motion</code> about.</li>
+          <li><b>6</b> <em>Never collapse a row that's carrying a legal answer once counsel has signed it off.</em> If the lawyer's wording ends up in row 2 or 3, check that "visible only after a click" is still acceptable to them — a disclosure behind an interaction is a different thing from a disclosure on the page, and that's their call, not a design one.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
           <li><b>5</b> <em>Two paragraphs, and the second one is the useful half.</em> The first sets expectations — leads, not clients. The second tells them how to actually win, which is the paragraph that earns trust, because a page that admits a generic pitch will fail is a page that isn't selling magic. Keep them as separate paragraphs; run together, the qualification swallows the advice.</li>
-          <li><b>—</b> <em>No section is longer than this one now, and that's correct.</em> Objections is the only place on the page where prose is allowed to run — everywhere else is fragments and structure. Don't let that leak upward into §2 or §3.</li>
+          <li><b>—</b> <em>Objections is still the only place on the page where prose may run.</em> Everywhere else is fragments and structure — don't let that leak upward into §2 or §3. Folding changed how much of it is visible at once, not the licence to write it.</li>
+          <li><b>—</b> <em>Print and Cmd-F.</em> Collapsed <code>&lt;details&gt;</code> content is invisible to print stylesheets and, in some browsers, to in-page search. Neither matters much for a landing page, but if anyone ever asks why an answer "isn't on the page", this is why.</li>
         </ol>
       </div>
     </aside>
