@@ -469,6 +469,10 @@
   /* ---------- section 2: contrast ---------- */
   .split{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch}
   .col{border:1px solid var(--line);background:var(--sheet);padding:1rem}
+  .col-kicker{
+    font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);margin:0 0 .3rem;
+    height:1.2rem;display:flex;align-items:center;gap:.35rem;
+  }
   .col h3{margin:0 0 .7rem;font-size:.9rem;font-weight:600}
   .col ul{margin:0;padding-left:1.05rem;font-size:.85rem;color:var(--ink-soft);line-height:1.65}
   .arrow{align-self:center;font-family:var(--mono);color:var(--line);font-size:1.1rem}
@@ -908,36 +912,46 @@
       <p class="sec-label"><b>Contrast</b> — one strip, no prose</p>
       <div class="split">
         <div class="col">
-          <h3>Applying on the platform<i class="mk">1</i></h3>
+          <p class="col-kicker">on the job board</p>
+          <h3>Waiting to be picked<i class="mk">1</i></h3>
           <ul>
-            <li>40 proposals sent</li>
-            <li>Connects spent to be seen</li>
-            <li>You're candidate #37</li>
-            <li>Client never opens it</li>
+            <li>You pay for a chance to be read</li>
+            <li>Candidate #37. Pay more to move up</li>
+            <li>The job closes and you've got nothing</li>
+            <li>No reviews, no work. No work, no reviews</li>
           </ul>
         </div>
         <div class="arrow">→<i class="mk">2</i></div>
         <div class="col">
-          <h3>Reaching out directly</h3>
+          <p class="col-kicker">with leadhoundy<i class="mk">3</i></p>
+          <h3>Picking who you talk to</h3>
           <ul>
-            <li>One message, one person</li>
-            <li>Sent before the post cools</li>
-            <li>Your pitch, your channel</li>
-            <li>They know who you are</li>
+            <li>You pay for a name you keep</li>
+            <li>You choose how you show up</li>
+            <li>Next quarter you still know who they are</li>
+            <li>Nobody asks how long you've been here</li>
           </ul>
         </div>
       </div>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note">Four seconds, then move on. Reads correctly for both audiences: the Upwork agency recognises the left column, the newcomer just reads it as "cold outreach beats queuing".</p>
-      <p class="note warn">Resist expanding this into a problem/solution section. It's a strip.</p>
+      <p class="note">Reads correctly for both audiences: the Upwork agency recognises every line on the left, and the half who've never touched a job board still understand "waiting to be picked" — it's a feeling they've had somewhere else. The left column now names a behaviour rather than a venue; the venue moved down to the kicker, where it belongs, because the hero subhead already established it.</p>
+      <p class="note"><b>Each row is a matched pair, and the mirror is the mechanism.</b> What your money buys, whether you're in a queue, what's left when the job closes, whether a new agency can win. Read across, not down. If a line is ever rewritten, its opposite number gets rewritten with it or the row stops working.</p>
+      <p class="note"><b>Left side is described, not attacked.</b> "Waiting to be picked" is the one line here with any edge on it, and a good share of your visitors work that way today. It stays because it's accurate, not because it's cutting — and every answer on the right is warm rather than triumphant. No red crosses, no green ticks.</p>
+      <p class="note warn"><b>This strip got longer, deliberately.</b> Roughly four seconds became seven or eight. The old version listed symptoms ("40 proposals sent"); this one makes four arguments, which is worth the extra beats. It is now at its ceiling — if anything else needs saying, it goes in §5, and if the budget has to be held, row 2 is the one to cut because row 1 already implies it.</p>
+      <p class="note warn">Resist expanding this into a problem/solution section. It's still a strip.</p>
+      <p class="note">"Connects" is gone. It's Upwork's word and invisible to half the audience; "pay more to move up" says the same thing to everyone.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
           <li><b>1</b> <em>Don't make the left side ugly.</em> Grey it, don't villainise it — many visitors still work that way and a sneering panel insults them. The asymmetry should come from the content, not from red crosses and green ticks.</li>
-          <li><b>2</b> <em>The arrow carries the whole idea.</em> On mobile the columns stack and the arrow disappears; find a vertical equivalent or the section loses its logic and reads as two unrelated lists.</li>
+          <li><b>2</b> <em>The arrow carries the whole idea.</em> On mobile the columns stack and it rotates to point down, which keeps the logic but is doing it with a rotated character — the weakest element in the section at the width where most people will read it. Design the vertical state properly, or the strip reads as two unrelated lists on a phone.</li>
+          <li><b>2</b> <em>Worth trying: the arrow is the hound.</em> The mark is literally the thing that moves you from the left column to the right — picks up a scent, finds who's there. It's the one place outside the mark, the empty states and the footer where the dog would be doing work rather than decorating. Try it, but only after the vertical stacked state above is solved, because a brand riding on the weakest element in the section is worse than a plain arrow.</li>
+          <li><b>3</b> <em>Two kickers, one job each.</em> They name the route so the headers are free to name the behaviour. Same size, same weight, same position in both columns — the moment the right kicker gets styled as a badge or a logo lockup, the strip stops being an observation and starts being an ad, and the left column reads as a straw man. Quiet mono label, nothing more.</li>
+          <li><b>3</b> <em>Headers must sit on the same baseline.</em> The kicker exists on both columns partly so they do. Any state where one column has a kicker and the other doesn't breaks the mirror, which is the only reason this section works.</li>
+          <li><b>—</b> <em>Lines will wrap to two rows at most widths.</em> That's expected — but the wrap point must not fall mid-phrase on "No reviews, no work. No work, no reviews", which is the one line whose rhythm carries it. Check it at the narrow end of the web layout, not just wide.</li>
         </ol>
       </div>
     </aside>
