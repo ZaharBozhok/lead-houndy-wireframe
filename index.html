@@ -706,9 +706,19 @@
   .rownote{display:block;font-family:var(--mono);font-size:.64rem;color:var(--line)}
   table.matrix tr:last-child th,table.matrix tr:last-child td{border-bottom:0}
 
+  /* one job: the guarantee. It sits under the price because someone reading a
+     price is calculating risk right then, and this is the line that removes it. */
   .always{
-    margin-top:.9rem;border:1px solid var(--ink);background:var(--sheet);padding:.85rem 1rem;
-    display:flex;flex-wrap:wrap;gap:.45rem 1.6rem;font-size:.84rem;font-weight:500;
+    margin-top:.55rem;border:1px solid var(--ink);background:var(--sheet);
+    padding:.7rem 1rem;font-size:.92rem;font-weight:600;
+  }
+  .unit-line{
+    margin:1rem 0 0;font-size:.86rem;color:var(--ink-soft);max-width:60ch;
+  }
+  .unit-line b{color:var(--ink);font-weight:600}
+  .faq-tag{
+    font-family:var(--mono);font-size:.68rem;line-height:1.5;color:var(--ink-soft);
+    border-left:2px solid var(--hair);padding-left:.6rem;
   }
   .refresh-line{margin:.9rem 0 0;font-size:.85rem;color:var(--ink-soft)}
 
@@ -832,7 +842,6 @@
     .bill{gap:.45rem .6rem}
     .bill-seg{flex:1 0 100%}
     .bill-btn{flex:1;text-align:center}
-    .always{flex-direction:column;gap:.4rem}
     .math{max-width:100%}
     table.matrix{min-width:560px}
     table.matrix thead th:first-child,
@@ -1381,7 +1390,7 @@
   <section class="blk" id="s4">
     <div class="rail">4</div>
     <div class="frame">
-      <p class="sec-label"><b>Objections</b> — five, folded except the first<i class="mk">6</i></p>
+      <p class="sec-label"><b>Objections</b> — six, folded except the first<i class="mk">6</i></p>
       <div class="faq">
         <details class="faq-row" open>
           <summary>
@@ -1409,7 +1418,15 @@
             <h3>What if a reveal finds nothing?<i class="mk">3</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
-          <p>The credit isn't taken. You only spend one when we return a result.</p>
+          <p>No result, no credit spent. The credit isn't taken — you only spend one when we return a result.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Can my team use this too?<i class="mk">7</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Scanners can route to different channels, so leads land where the right person will see them.</p>
+          <p class="faq-tag">Seats are on the roadmap. Pricing will change when they ship, and accounts opened before then will be grandfathered.</p>
         </details>
         <details class="faq-row">
           <summary>
@@ -1424,7 +1441,9 @@
     <aside class="notes">
       <p class="notes-h">Why</p>
       <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
-      <p class="note">Row 4 is a conversion lever, not an FAQ answer. It also appears next to pricing.</p>
+      <p class="note">Row 4 is a conversion lever, not an FAQ answer. It also appears next to pricing, word for word.</p>
+      <p class="note"><b>The team row does two jobs.</b> It answers a question this ICP is definitely asking — the audience is defined as agencies with someone who writes proposals, so a second person is assumed, not hypothetical. And it sells destination routing, which is otherwise buried in the pricing table as a number nobody can interpret: "5 destinations" means nothing, "leads land where the right person will see them" is the same fact and explains why Advanced beats Starter.</p>
+      <p class="note">The beta qualifier is doing real work rather than hedging. It sets up a future price change honestly now, instead of making it a surprise at launch — and it is the reason this row can say yes at all.</p>
       <p class="note warn"><b>This section used to be open with no accordions, and that was a deliberate rule.</b> The old note read: "a collapsed objection is an unanswered one, and the whole point is that these are read without being clicked." It was overruled on space — five open answers ran 625px on desktop and 872px on a phone, which is most of a viewport of prose sitting between the product and the price. The fold is the concession; which row stays open is how the original concern gets paid for.</p>
       <p class="note"><b>Row 1 stays open because nobody would click it.</b> It's the 50/50 disclosure — a visitor doesn't arrive wondering whether they'll get a person or a company, so they'd never open it, and it's the one answer that stops the first paid reveal feeling like a bait-and-switch. Folding it would have been the one genuinely costly fold on the page.</p>
       <p class="note"><b>Rows 2, 3 and 5 fold safely because they answer questions a visitor actually has.</b> Someone worried about the data source, a ban, or whether cold outreach works arrives already holding that question; a visible question with an obvious affordance gets clicked. The question text does most of the reassurance work anyway — seeing "Can I get banned for contacting people directly?" printed on the page tells a careful buyer the concern is acknowledged before they read a word of the answer.</p>
@@ -1444,6 +1463,8 @@
           <li><b>6</b> <em>Multiple rows can be open at once, deliberately.</em> An exclusive accordion (which <code>&lt;details name&gt;</code> would give free) would slam row 1 shut the moment someone opens row 2, and row 1 is the one that must stay readable. It also stops anyone comparing two answers.</li>
           <li><b>6</b> <em>Expanding must not animate.</em> Height transitions on open are the single most common accordion tell, and this page has a three-item motion budget that this is not on. Instant open, no easing, nothing to respect <code>prefers-reduced-motion</code> about.</li>
           <li><b>6</b> <em>Never collapse a row that's carrying a legal answer once counsel has signed it off.</em> If the lawyer's wording ends up in row 2 or 3, check that "visible only after a click" is still acceptable to them — a disclosure behind an interaction is a different thing from a disclosure on the page, and that's their call, not a design one.</li>
+          <li><b>7</b> <em>Framed as capacity, not as sharing.</em> "Can my team use this too?" gets a yes; "can I share my account?" invites a no, because most SaaS forbids it and people ask that one expecting to be told off. Don't rewrite it into the sharing framing, and don't reach for role nouns like "sales manager" — the audience is agencies, where the person handling leads is a founder or whoever writes the proposals.</li>
+          <li><b>7</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
@@ -1531,6 +1552,12 @@
           </ul>
           <span class="btn ghost">Book a call</span>
         </div>
+      </div>
+
+      <p class="unit-line"><b>1 credit = 1 name.</b> The person or company behind the posting, plus profiles to message.<i class="mk">9</i></p>
+
+      <div class="always">
+        <span>No result, no credit spent.<i class="mk">6</i></span>
       </div>
 
       <button class="cmp" id="cmpBtn" type="button" aria-expanded="false" aria-controls="matrix">Compare all plans</button><i class="mk">5</i>
@@ -1647,11 +1674,6 @@
         </table>
       </div>
 
-      <div class="always">
-        <span>No result, no credit spent.<i class="mk">6</i></span>
-        <span>Person or company, plus matching LinkedIn profiles.</span>
-        <span>Unlimited users during beta.</span>
-      </div>
       <p class="refresh-line">Credits refresh every Monday on every plan, whichever way you pay. They don't roll over — a three-week-old posting is already dead.</p>
 
       <div class="math">
@@ -1684,6 +1706,8 @@
       <p class="note"><b>The per-reveal line does the saving argument.</b> $1.30 → $0.79 → $0.66 → $0.50 reads left to right on its own. No percentage badges, no "save 24%" — nobody converts on a percentage.</p>
       <p class="note">Overage always costs more than the next tier's included rate. Starter overage is $2.00; on Advanced those reveals are $0.66. Run out twice and upgrading is arithmetic, not persuasion.</p>
       <p class="note">"1 reveal", never "1 contact". At a 50/50 person-to-company split, "contact" is a promise you'd break every second time.</p>
+      <p class="note"><b>The strip has one job now.</b> It held three unrelated claims sharing one high-contrast box; the guarantee is the strongest line in the section and shouldn't be sharing its contrast with a beta caveat. "Unlimited users during beta" moved to the FAQ, where a qualifier can be explained instead of asserted.</p>
+      <p class="note"><b>"No result, no credit spent" appears here and in §4, word for word.</b> It's a conversion lever, not just an answer — if the two copies drift, it stops reading as a rule and starts reading as reassurance. They had already drifted: §4 said "the credit isn't taken", which is the same fact in different words. Both now open with the exact line.</p>
       <p class="note">Weekly refresh stated in plain sight and framed as freshness. Hiding it in fine print turns into refund requests.</p>
       <p class="note"><b>Monthly billing changes the charge, never the credits.</b> 10% off for paying four weeks up front; reveals still land every Monday at the same weekly number. Keeping the credit cadence weekly in both modes protects the freshness argument — "600 reveals a month" would invite people to save them up, and a three-week-old posting is worthless.</p>
       <p class="note">10% is the discount because it's the largest number that stays boring. It buys a month of runway per customer without teaching anyone to wait for a sale, and the per-reveal ladder still descends cleanly in monthly mode: $1.17 → $0.71 → $0.59 → $0.45.</p>
@@ -1703,7 +1727,9 @@
           <li><b>4</b> <em>Sits in the price slot, same size as a number.</em> "Talk to us" replaces a price, so it takes the price's position and weight. Don't shrink it into a link or the column stops reading as a tier.</li>
           <li><b>—</b> <em>Mobile reorders the plans: Advanced, Pro, Starter, Agency.</em> On web the eye scans left to right and settles just right of centre; on mobile it reads top-down and the first card takes the attention. Source order would hand that to Starter — the one plan you don't want chosen. Pro follows Advanced so the comparison survives the stack, just reversed.</li>
           <li><b>5</b> <em>Closed by default.</em> All four paid plans are already on the page, so this is for the one visitor in twenty who wants the Free column, the webhook row and the archive depths side by side. Expands in place, no scroll jump — and on mobile the matrix scrolls horizontally with the first column pinned, or it's unusable.</li>
-          <li><b>6</b> <em>Highest-contrast element in the section.</em> This single line removes the biggest objection to a credit model. It outranks every feature bullet around it.</li>
+          <li><b>6</b> <em>Highest-contrast element in the section, and now the only thing in its box.</em> It used to share the strip with two unrelated claims, which meant the strongest line on the page was competing with a beta caveat for the same glance. Treat it as a micro-ToS line: plain, unadorned, directly beneath the price, no icon and no panel styling — it is a term of the deal, and terms don't need decorating.</li>
+          <li><b>9</b> <em>The unit definition sits above the guarantee, not below it.</em> A reader learns what a credit buys at the moment they are looking at what a credit costs; putting it further down means they do the arithmetic without knowing the unit. The what-you-get spec is folded into that same line rather than standing alone, because "what am I buying" and "what is one of them" are one question.</li>
+          <li><b>9</b> <em>Three words for one thing, and that still needs settling.</em> This line says <em>name</em>, the plan cards say <em>reveals</em>, and the internal unit is a <em>credit</em>. They are the same object. Reveal is the billing unit, a name is what the visitor receives — so the cards are the ones that should change, not this line.</li>
           <li><b>7</b> <em>Weekly is the default and stays selected.</em> Weekly is the lower number and the smaller commitment, so it's what an undecided visitor should meet first; monthly is the upgrade they choose. Two segments, no third — annual is not on the table while the archive is four months deep on some sources. Switching must repaint the cards, the comparison matrix and the ROI block together and instantly; a price that animates between values reads as a slot machine. Design the pressed state as a real state, not a hover — people re-check which one they're looking at.</li>
           <li><b>7</b> <em>Never a struck-through weekly price next to the monthly one.</em> Same rule as the per-reveal line: the "−10%" on the segment is the entire discount signal. No badges, no "save $40", no countdown.</li>
           <li><b>8</b> <em>The meter is the argument, the rows are the evidence.</em> One dark sliver on a light track, drawn to scale against the low end of the range — the point is that the cost is visibly a rounding error, and it makes that point without a percentage anywhere. Square ends and greyscale, same as everything else; no gradient, no glow, no count-up. It does not animate — it is not one of the three moving things.</li>
