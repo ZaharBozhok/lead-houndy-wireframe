@@ -214,6 +214,11 @@
   .swatch.f{background:var(--fill)}
   .swatch.i{background:var(--ink);border-color:var(--ink)}
   .swatch.m{background:transparent;border:1px dashed var(--mark)}
+  /* the legend tracks the toggle: don't key a hatch nobody can see, and don't
+     let a first-time reader miss that there is reasoning behind the margins */
+  .wf.no-hints .lg-ann{display:none}
+  .wf:not(.no-hints) .lg-prompt{display:none}
+  .lg-prompt{color:var(--mark)}
 
   /* ---------- three-column block grid ---------- */
   .blk{
@@ -735,7 +740,7 @@
   }
 </style>
 
-<div class="wf">
+<div class="wf no-hints">
 
   <header class="wf-head">
     <h1>leadhoundy.com — landing page wireframe</h1>
@@ -743,10 +748,11 @@
     <div class="wf-legend">
       <span><i class="swatch f"></i> placeholder content</span>
       <span><i class="swatch i"></i> primary action</span>
-      <span><i class="swatch m"></i> hatched = annotation, not design</span>
+      <span class="lg-ann"><i class="swatch m"></i> hatched = annotation, not design</span>
       <span>hero demo is interactive — try it</span>
+      <span class="lg-prompt">the reasoning lives in the margins — switch annotations on to read it</span>
       <span class="mode-tag">layout: <b class="at-web">web</b><b class="at-mob">mobile</b> — switches at 720px, resize to check</span>
-      <button class="hints-btn" id="hintsBtn" type="button" aria-pressed="true" style="margin-left:auto">annotations: on</button>
+      <button class="hints-btn" id="hintsBtn" type="button" aria-pressed="false" style="margin-left:auto">annotations: off</button>
     </div>
   </header>
 
