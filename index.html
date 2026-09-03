@@ -494,21 +494,75 @@
   }
   .arrow{align-self:center;font-family:var(--mono);color:var(--line);font-size:1.1rem}
 
-  /* ---------- section 3: steps ---------- */
-  .steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
-  .step{border:1px solid var(--line);background:var(--sheet);padding:.95rem}
-  .step-n{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin:0 0 .5rem}
-  .step h3{margin:0 0 .4rem;font-size:.92rem;font-weight:600}
-  .step p{margin:0;font-size:.83rem;color:var(--ink-soft)}
+  /* ---------- section 3: steps beside the Slack mock ---------- */
+  .how{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.6rem;align-items:start}
 
-  /* the payoff: what actually lands in Slack */
-  .payoff-h,.also-h{
-    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
-    margin:1.3rem 0 .5rem;
+  /* numbering plus one vertical rule is the whole sequence signal */
+  .stepline{list-style:none;margin:0;padding:0;position:relative}
+  .stepline::before{
+    content:"";position:absolute;left:11px;top:12px;bottom:14px;
+    width:1px;background:var(--hair);
   }
-  .also-h{margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid var(--hair)}
-  .slack-ph{flex-direction:column;gap:.45rem;line-height:1.5}
-  .slack-ph b{font-weight:600;color:var(--ink)}
+  .stepr{display:flex;gap:.85rem;padding-bottom:1.25rem}
+  .stepr:last-child{padding-bottom:0}
+  .stepr-n{
+    position:relative;z-index:1;flex:none;
+    width:23px;height:23px;background:var(--paper);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);
+  }
+  .stepr-t{min-width:0;padding-top:.1rem}
+  .stepr-t h3{margin:0 0 .25rem;font-size:.92rem;font-weight:600}
+  .stepr-t p{margin:0;font-size:.83rem;color:var(--ink-soft);line-height:1.5}
+
+  /* ---------- the Slack message: real chrome, nothing gated ---------- */
+  .slack{border:1px solid var(--line);background:var(--sheet)}
+  .slack-head{
+    display:flex;align-items:center;gap:.3rem;
+    padding:.55rem .8rem;border-bottom:1px solid var(--hair);background:var(--fill);
+    font-size:.84rem;font-weight:600;
+  }
+  .slack-hash{color:var(--ink-soft);font-weight:400}
+  .slack-meta{
+    margin-left:auto;font-family:var(--mono);font-size:.66rem;
+    font-weight:400;color:var(--ink-soft);
+  }
+  .slack-msg{display:flex;gap:.6rem;padding:.8rem .8rem .9rem}
+  .slack-av{
+    width:32px;height:32px;flex:none;border-radius:4px;
+    border:1px solid var(--line);
+    background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px);
+  }
+  .slack-body{min-width:0;flex:1}
+  .slack-from{margin:0 0 .35rem;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:.35rem}
+  .slack-app{
+    font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.04em;
+    background:var(--fill-2);color:var(--ink-soft);padding:.08rem .22rem;border-radius:2px;
+  }
+  .slack-time{font-family:var(--mono);font-size:.62rem;font-weight:400;color:var(--ink-soft)}
+  .slack-block{border-left:3px solid var(--line);padding:.1rem 0 .1rem .65rem}
+  .slack-sum{margin:0 0 .55rem;font-size:.82rem;line-height:1.45}
+  .slack-fields{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  .slack-fields > div{min-width:0}
+  .fl{
+    display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.03em;
+    color:var(--ink-soft);margin:0 0 .1rem;
+  }
+  .slack-fields b{font-size:.82rem;font-weight:600}
+  .slack-div{height:1px;background:var(--hair);margin:.6rem 0}
+  .slack-prof{display:flex;align-items:center;gap:.45rem;padding:.18rem 0;min-width:0}
+  .slack-prof .pav{
+    width:20px;height:20px;flex:none;border-radius:50%;
+    background:var(--fill-2);border:1px solid var(--line);
+  }
+  .slack-prof b{font-size:.79rem;font-weight:600;white-space:nowrap}
+  .slack-prof em{font-style:normal;font-size:.72rem;color:var(--ink-soft);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  .also-h{
+    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+    margin:1.6rem 0 .5rem;padding-top:1.1rem;border-top:1px solid var(--hair);
+  }
 
   /* media placeholder — dashed grey reads as "video goes here", never as annotation */
   .ph.vid{
@@ -521,8 +575,23 @@
     border:1px solid var(--ink-soft);color:var(--ink-soft);
     display:flex;align-items:center;justify-content:center;font-size:.62rem;
   }
-  .frames3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin-top:auto}
-  .frames3 .ph{height:100px;font-size:.62rem;margin-top:0}
+
+  /* three stills, because a paste has no duration to record */
+  .frames3{
+    display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
+    align-items:center;gap:.4rem;margin-top:auto;
+  }
+  .fr{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+  .fr-in,.fr-out{
+    height:34px;display:flex;align-items:center;padding:0 .4rem;
+    border:1px solid var(--line);background:var(--fill);
+    font-family:var(--mono);font-size:.58rem;color:var(--ink-soft);
+    overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  }
+  .fr-out{background:var(--sheet);border-color:var(--ink);color:var(--ink);
+    font-family:var(--sans);font-size:.72rem;font-weight:600}
+  .fr-cap{font-family:var(--mono);font-size:.58rem;color:var(--line);text-align:center}
+  .fr-arrow{font-family:var(--mono);font-size:.7rem;color:var(--line);align-self:center;padding-bottom:.9rem}
 
   /* ---------- section 4: doors ---------- */
   .door{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;margin-bottom:.9rem}
@@ -708,7 +777,13 @@
     .nav-r .hint{display:none}
 
     .hero{padding:1.1rem .8rem}
-    .plan,.plan.pop,.door,.col,.step{padding:.9rem .8rem}
+    .plan,.plan.pop,.door,.col{padding:.9rem .8rem}
+    .how{grid-template-columns:1fr;gap:1.2rem}
+    .slack-msg{padding:.7rem .6rem .75rem}
+    .slack-fields{grid-template-columns:1fr;gap:.4rem}
+    .slack-prof em{display:none}
+    .frames3{grid-template-columns:1fr;gap:.3rem}
+    .fr-arrow{transform:rotate(90deg);padding:0;justify-self:center}
     .price-card{padding:1rem .8rem}
     h2.hl{font-size:1.32rem;max-width:100%}
     p.sub{font-size:.87rem}
@@ -740,7 +815,6 @@
 
     .split{grid-template-columns:1fr}
     .arrow{justify-self:center;transform:rotate(90deg);padding:.2rem 0}
-    .steps{grid-template-columns:1fr}
     .door-vis{grid-template-columns:1fr}
     .minor{grid-template-columns:1fr}
 
@@ -1119,37 +1193,69 @@
   <section class="blk" id="s3">
     <div class="rail">3</div>
     <div class="frame">
-      <p class="sec-label"><b>How it works</b> — steps, then the payoff</p>
+      <p class="sec-label"><b>How it works</b> — the steps, and what lands in Slack</p>
 
-      <div class="steps">
-        <div class="step">
-          <p class="step-n">01</p><i class="mk">1</i>
-          <h3>Tell it what you want</h3>
-          <p>Keywords, budget or hourly rate, location.</p>
-        </div>
-        <div class="step">
-          <p class="step-n">02</p>
-          <h3>Pick where alerts land<i class="mk">2</i></h3>
-          <p>Slack or Telegram. About a minute, then you never open it again.</p>
-        </div>
-        <div class="step">
-          <p class="step-n">03</p>
-          <h3>Leads arrive with the name attached</h3>
-          <p>An AI reads every new posting and drops the ones that don't fit.</p>
-        </div>
-        <div class="step">
-          <p class="step-n">04</p>
-          <h3>Pitch them<i class="mk">3</i></h3>
-          <p>Straight to the person. No proposal queue, no bidding, no cut.</p>
-        </div>
-      </div>
+      <div class="how">
+        <ol class="stepline">
+          <li class="stepr">
+            <span class="stepr-n">01</span>
+            <div class="stepr-t"><i class="mk">1</i>
+              <h3>Tell it what you want</h3>
+              <p>Keywords, budget or hourly rate, location.</p>
+            </div>
+          </li>
+          <li class="stepr">
+            <span class="stepr-n">02</span>
+            <div class="stepr-t"><i class="mk">2</i>
+              <h3>Pick where alerts land</h3>
+              <p>Slack or Telegram. About a minute, then you never open it again.</p>
+            </div>
+          </li>
+          <li class="stepr">
+            <span class="stepr-n">03</span>
+            <div class="stepr-t">
+              <h3>Leads arrive with the name attached</h3>
+              <p>An AI reads every new posting and drops the ones that don't fit.</p>
+            </div>
+          </li>
+          <li class="stepr">
+            <span class="stepr-n">04</span>
+            <div class="stepr-t"><i class="mk">3</i>
+              <h3>Pitch them</h3>
+              <p>Straight to the person. No proposal queue, no bidding, no cut.</p>
+            </div>
+          </li>
+        </ol>
 
-      <p class="payoff-h">What actually shows up<i class="mk">4</i></p>
-      <div class="ph slack-ph" style="height:260px">
-        <span>real Slack chrome — not a generic chat bubble</span>
-        <span>channel <b>#webflow-leads</b> · hound as the bot avatar<i class="mk">5</i></span>
-        <span>one lead card: AI summary · <b>$4,500</b> · posted 12 min ago</span>
-        <span>the revealed name · two profiles to message</span>
+        <div class="slack"><i class="mk">4</i>
+          <div class="slack-head">
+            <span class="slack-hash">#</span>
+            <span class="slack-ch">webflow-leads</span>
+            <span class="slack-meta">3</span>
+          </div>
+          <div class="slack-msg">
+            <span class="slack-av" aria-hidden="true"></span><i class="mk">5</i>
+            <div class="slack-body">
+              <p class="slack-from">Leadhoundy <span class="slack-app">APP</span> <span class="slack-time">12:04</span></p>
+              <div class="slack-block">
+                <p class="slack-sum">Marketing site rebuild in Webflow — 12 pages, CMS blog, moving off WordPress. Wants it live before their Q3 launch.</p>
+                <div class="slack-fields">
+                  <div><span class="fl">Budget</span><b>$4,500</b></div>
+                  <div><span class="fl">Posted</span><b>12 min ago</b></div>
+                </div>
+                <div class="slack-div"></div>
+                <div class="slack-fields">
+                  <div><span class="fl">Posted by</span><b>Ravel Studio</b></div>
+                  <div><span class="fl">Where</span><b>Rotterdam, NL</b></div>
+                </div>
+                <div class="slack-div"></div>
+                <p class="fl">Profiles to message</p>
+                <div class="slack-prof"><span class="pav"></span><b>Frida Kahlenberg</b><em>Head of Growth</em></div>
+                <div class="slack-prof"><span class="pav"></span><b>Tomas Berg</b><em>Operations Lead</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <p class="also-h">Also included<i class="mk">6</i></p>
@@ -1158,17 +1264,19 @@
           <div class="door-h"><h3>Research</h3></div>
           <p>Search months of past postings and reveal on demand.</p>
           <div class="ph vid">
-            <span class="vid-play" aria-hidden="true">▶</span>
-            <span>video · ~6s · filter → scroll results → reveal a name<i class="mk">7</i></span>
+            <span class="vid-play" aria-hidden="true">&#9654;</span>
+            <span>video · ~6s · filter &rarr; scroll results &rarr; reveal a name<i class="mk">7</i></span>
           </div>
         </div>
         <div class="door">
           <div class="door-h"><h3>Single link<i class="mk">8</i></h3></div>
           <p>Paste a job URL, get the name back.</p>
           <div class="frames3">
-            <div class="ph">1 · paste URL</div>
-            <div class="ph">2 · resolving</div>
-            <div class="ph">3 · name back</div>
+            <div class="fr"><span class="fr-in"></span><span class="fr-cap">empty</span></div>
+            <span class="fr-arrow" aria-hidden="true">&rarr;</span>
+            <div class="fr"><span class="fr-in has">&#8230;/jobs/~021847ff3b9c40e2a1</span><span class="fr-cap">pasted</span></div>
+            <span class="fr-arrow" aria-hidden="true">&rarr;</span>
+            <div class="fr"><span class="fr-out">Frida Kahlenberg</span><span class="fr-cap">the name</span></div>
           </div>
         </div>
       </div>
@@ -1176,33 +1284,34 @@
 
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note"><b>Scanner is the spine of the page</b> — the hero demo and these steps — not one of several equal features. The old "ways in, ordered by time to value" framing died the moment the steps section became a Scanner explainer: two sections back to back were describing the same thing, and the Slack mock sat a full scroll after the words that set it up. Now the picture arrives exactly where the reader asks "okay, what actually shows up?"</p>
+      <p class="note"><b>Scanner is the spine of the page</b> — the hero demo and these steps — not one of several equal features. Everything in the "Also included" strip exists to close a "but what if I want X" loop, not to be chosen.</p>
       <p class="note"><b>Step 4 keeps "no proposal queue, no bidding, no cut".</b> That line was dropped from the hero subhead when it was shortened. If it isn't here it is nowhere on the page, and it is the sentence that explains why this is worth $99 a week.</p>
       <p class="note">Steps 1 and 2 are both configuration, which risks reading as more setup than the one-tap hero implied. "About a minute" defuses that, and it is the only reason the pair survives being adjacent.</p>
       <p class="note">Research can't be cut. Archive depth — 7 days, 45 days, full — is a row in the pricing table, and an unexplained pricing row is worse than a small section.</p>
       <p class="note warn"><b>Browser extension stays off the page until it ships.</b> A section that leads nowhere costs more trust than the feature earns.</p>
-      <p class="note warn"><b>The credit is still invisible in this flow.</b> Nothing in the four steps says a delivered alert costs anything, so a visitor can read step 3 as "alerts are free" and then meet "150 reveals a week" in §5 as a unit this section never introduced. Decide whether an alert spends a credit and put the answer in step 3 — this is the expectation the mixed demo feed exists to protect.</p>
-      <p class="note">One thing this merge fixed on its own: the old Scanner copy said alerts land in "Slack or email", which the pricing matrix has never offered. Everything now says Slack or Telegram.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
-          <li><b>1</b> <em>Numbers mark sequence, they aren't the design.</em> If the numerals start competing with the step titles they're too big. Two by two rather than a row of four: the pairs are real — 1 and 2 are setup done once, 3 and 4 are what happens every day after — and a 2×2 reads as two phases where four across reads as a long list.</li>
-          <li><b>1</b> <em>One short line per step, and hold that line.</em> The Slack mock below does the explaining, so the text stays light. As built these sit on one line at full width and wrap to two at the narrow end of the web layout — that's the ceiling. Any step reaching three lines is taking work the picture already does.</li>
+          <li><b>1</b> <em>Not a stepper, and not tabs.</em> Steps hidden behind a click don't get read on a landing page — people scroll, they don't operate. All four are visible at once and the sequence is carried by the numbers and the rule connecting them, which costs one pseudo-element and no JavaScript.</li>
+          <li><b>1</b> <em>No per-step icons.</em> Four little pictures next to four short lines would split the eye four ways and take weight off the Slack mock, which is the one image on this page that sells the product. The numbers are the only ornament this column gets.</li>
           <li><b>2</b> <em>"About a minute, then you never open it again" is a promise about the whole product.</em> It says the dashboard isn't where the value lives — Slack is. Everything downstream has to hold it up: if the alert is missing something the visitor then has to log in to see, this is the line they'll remember.</li>
-          <li><b>3</b> <em>Give step 4 slightly more weight</em> than the three before it. It carries the promise the others set up, and it's the shortest, which makes it easy to under-weight by accident.</li>
-          <li><b>4</b> <em>The Slack mock is doing a demo video's job.</em> Draw real Slack chrome — actual channel header, avatar, timestamp, message layout — not a generic chat bubble. It is the largest single object in this section and the one people will look at closely, so it has to survive close inspection.</li>
-          <li><b>4</b> <em>No Scanner explainer video.</em> It would only repeat these four steps, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time — which is exactly what companies make videos to fake.</li>
+          <li><b>3</b> <em>Give step 4 slightly more weight</em> than the three above it. It carries the promise the others set up, and it's the shortest, which makes it easy to under-weight by accident.</li>
+          <li><b>4</b> <em>The message shows the resolved name, not a "Get the name" button.</em> The alert <em>is</em> the deliverable — the user gets the value without opening the app, which is the whole argument for a subscription rather than pay-per-use. It is also the strongest case for the upper tiers: more scanners and more destinations means more names arriving unprompted.</li>
+          <li><b>4</b> <em>Nothing here is blurred, masked or gated.</em> The hero demo withholds because the visitor hasn't paid; this is the paid experience, and a blurred name in a Slack screenshot would say the product doesn't deliver. The two mocks must never borrow each other's states.</li>
+          <li><b>4</b> <em>The hero and this mock tell one story.</em> A name on demand, and a name unprompted — the same deliverable in two modes. If either drifts so the two look like different products, the page has two pitches and closes neither.</li>
+          <li><b>4</b> <em>Product check before this ships: confirm the credit is spent when the alert is sent, not when the user opens it.</em> This mock shows a resolved name sitting in Slack with nothing left to click, which only makes sense if the reveal already happened and was already billed. If billing works the other way round, either the mock is promising something the product doesn't do or the pricing page is describing a different product.</li>
+          <li><b>4</b> <em>Real Slack chrome, not a generic chat bubble.</em> Channel header, app badge, timestamp, the attachment bar down the left, small field labels. This mock is doing the job a demo video would, so it has to survive being looked at closely — a stylised approximation reads as a mockup and proves nothing.</li>
           <li><b>5</b> <em>The hound's highest-value placement.</em> The bot avatar is daily brand contact for paying customers — they will see this dog more often than they see the website. Design the 24px crop first and build the full mark out from it, not the other way round.</li>
-          <li><b>6</b> <em>The strip stays quiet and the two stay equal.</em> They exist to close the "but what if I want X" loop, not to be chosen. If either starts competing with the Slack mock above, shrink it.</li>
+          <li><b>6</b> <em>The strip stays quiet and the two stay equal in weight.</em> They close a loop rather than compete with the Scanner. If either starts pulling attention off the Slack mock above, shrink it.</li>
+          <li><b>6</b> <em>No Scanner explainer video.</em> It would only repeat these four steps, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time — which is exactly what companies make videos to fake.</li>
           <li><b>7</b> <em>Video, not GIF, ever.</em> MP4 and WebM, muted, looping, <code>playsinline</code>, <code>preload="none"</code> with a poster. A fifteen-second screen recording as a GIF is 5–15MB and would break the load-time rule this page is built around.</li>
-          <li><b>7</b> <em>Prefetch on <code>mouseenter</code> of the surrounding section.</em> By the time someone reaches the video they've already signalled interest, so playback should start instantly rather than spinning at the exact moment they showed it.</li>
-          <li><b>7</b> <em>Hover doesn't exist on a phone.</em> Autoplay on scroll-into-view or show a real play affordance. A poster frame that does nothing when tapped reads as broken, and mobile is where most of this section gets read.</li>
+          <li><b>7</b> <em>Prefetch on <code>mouseenter</code> of the surrounding section.</em> By the time someone reaches the video they've already signalled interest, so playback should start instantly rather than spinning at the exact moment they showed it. Hover doesn't exist on a phone: autoplay on scroll-into-view or show a real play affordance, because a poster that does nothing when tapped reads as broken.</li>
           <li><b>7</b> <em>The poster frame is the real asset.</em> Most visitors never hover, so the still has to explain the feature on its own. Use the end state — results visible, a name revealed — never a mid-scroll frame.</li>
-          <li><b>7</b> <em>Ship screenshots first.</em> Three static frames with arrows costs an hour; the video costs a day. Upgrade only once this section proves it converts.</li>
-          <li><b>8</b> <em>Three frames, no video.</em> Single link is three states — empty, resolving, resolved — and three stills say that faster than six seconds of footage. Resist making it a second video for symmetry with Research; the asymmetry is the point, because these two features are not the same size.</li>
-          <li><b>—</b> <em>Watch the section height on mobile.</em> Four steps plus a large image plus a two-column strip is a lot for one block. Steps stack to one column, so keeping each to one line is what stops this becoming the longest scroll on the page.</li>
-          <li><b>—</b> <em>Dashed grey border means "media placeholder", not annotation.</em> Annotation in this document is blue and hatched; grey dashed is already used for the pricing arithmetic block. Don't let the video frame drift toward the annotation palette or it will read as a margin note that wandered into the page.</li>
+          <li><b>7</b> <em>Ship screenshots before commissioning video.</em> Three frames with arrows costs an hour; the video costs a day. Upgrade only once this section proves it converts.</li>
+          <li><b>8</b> <em>Three stills, because a paste has no duration.</em> Empty field, a pasted URL, the name — the transformation is the whole story and it has no middle to record. Resist making this a second video for symmetry with Research; the asymmetry is honest, because these two features are not the same size.</li>
+          <li><b>8</b> <em>The URL has to look like something from a real clipboard</em> — long, with an opaque ID, overflowing its field. A tidy short URL makes the transformation look staged. Open question for the designer: the host is truncated here, because spelling out a named job board puts it on the page above the footer disclaimer. Decide that deliberately rather than by accident.</li>
+          <li><b>—</b> <em>Watch the section height on mobile.</em> Four steps, a full Slack message and a two-column strip is a lot for one block once it stacks. The message is the part to protect: field labels can drop to one column and the role text can go, but the resolved name and the two profiles are the reason the mock exists.</li>
         </ol>
       </div>
     </aside>
