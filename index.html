@@ -73,6 +73,12 @@
     padding:.3rem .6rem;border-radius:2px;cursor:pointer;
   }
   .hints-btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .mode-tag b{font-weight:600;color:var(--ink)}
+  .mode-tag .at-mob{display:none}
+  @media (max-width:720px){
+    .mode-tag .at-web{display:none}
+    .mode-tag .at-mob{display:inline}
+  }
 
   .mk{
     display:inline-flex;align-items:center;justify-content:center;
@@ -156,7 +162,7 @@
     grid-column:1/-1;border-top:1px solid var(--mark-soft);padding-top:1rem;margin-top:.2rem;
     display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem 1.7rem;
   }
-  @media (max-width:660px){ .seq{margin:0 1.1rem} }
+  @media (max-width:720px){ .seq{margin:0 1.1rem} }
 
   /* ---------- footer ---------- */
   .ftr{border:1px solid var(--line);background:var(--sheet);padding:1.4rem 1.3rem}
@@ -180,7 +186,7 @@
     font-size:.76rem;color:var(--ink-soft);line-height:1.7;
   }
   .ftr-legal p{margin:0 0 .2rem}
-  @media (max-width:660px){ .ftr-top{grid-template-columns:1fr 1fr} }
+  @media (max-width:720px){ .ftr-top{grid-template-columns:1fr 1fr} }
   .wf-head h1{
     font-size:1.22rem;
     font-weight:600;
@@ -225,7 +231,7 @@
     border-right:1px solid var(--hair);
     align-self:stretch;
   }
-  .frame{padding:1.5rem 1.6rem 2.4rem;min-width:0;container-type:inline-size}
+  .frame{padding:1.5rem 1.6rem 2.4rem;min-width:0}
   .notes{
     padding:1.5rem 1.4rem 2.4rem 0;
     border-left:1px solid var(--hair);
@@ -292,17 +298,23 @@
     padding:.6rem .85rem;margin-bottom:1.6rem;
   }
   .nav-l{display:flex;align-items:center;gap:.7rem}
+  .nav-links{display:flex;align-items:center;gap:.95rem}
   .logo{width:74px;height:16px;background:var(--fill-2);border:1px solid var(--line)}
   .nav-r{display:flex;align-items:center;gap:.7rem}
 
-  /* ---------- headline variant switcher (review tool, not page furniture) ---------- */
+  /* ---------- headline variant switcher ----------
+     A review control, so it lives in the document header with the other review
+     controls — never inside a frame, where hatched blue furniture sitting on top
+     of the hero misrepresents the layout being reviewed. */
   .variants{
-    border:1px dashed var(--mark-soft);
+    border-bottom:1px dashed var(--mark-soft);
     background-image:repeating-linear-gradient(45deg,rgba(122,147,196,.16) 0 1px,transparent 1px 8px);
-    padding:.6rem .75rem;margin-bottom:.6rem;
+    padding:.7rem 1.5rem;margin:0;
     display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .7rem;
   }
+  .wf.no-hints .variants{display:none}
   .variants > span{font-family:var(--mono);font-size:.66rem;color:var(--mark)}
+  .variants .vwhere{color:var(--mark-soft)}
   .vbtn{
     font-family:var(--mono);font-size:.68rem;
     background:var(--paper);border:1px solid var(--mark-soft);color:var(--mark);
@@ -312,7 +324,7 @@
   .vbtn[aria-pressed="true"]{background:var(--mark);border-color:var(--mark);color:var(--sheet)}
   .vbtn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
   .vnote{
-    width:100%;margin:.15rem 0 0;
+    flex:0 0 100%;max-width:74ch;margin:.15rem 0 0;
     font-size:.73rem;line-height:1.45;color:var(--mark);
   }
 
@@ -500,22 +512,36 @@
   .free-band h3{margin:0 0 .2rem;font-size:.95rem;font-weight:600}
   .free-band p{margin:0;font-size:.85rem;color:var(--ink-soft)}
 
-  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;align-items:start}
-  .plan{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;position:relative}
-  .plan.pop{border:2px solid var(--ink);padding:1.05rem}
+  .plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;align-items:start}
+  .plan{border:1px solid var(--line);background:var(--sheet);padding:1rem .95rem;position:relative}
+  .plan.pop{border:2px solid var(--ink);padding:.95rem .9rem}
   .plan-flag{
     font-family:var(--mono);font-size:.66rem;color:var(--ink);
     margin:0 0 .5rem;padding-bottom:.4rem;border-bottom:1px solid var(--hair);
   }
   .plan-name{margin:0 0 .35rem;font-size:.9rem;font-weight:600}
-  .plan-price{font-size:1.55rem;font-weight:600;letter-spacing:-.025em;margin:0;line-height:1.1}
+  .plan-price{font-size:1.42rem;font-weight:600;letter-spacing:-.025em;margin:0;line-height:1.1}
   .plan-price em{font-style:normal;font-size:.82rem;font-weight:400;color:var(--ink-soft)}
   .plan-unit{
-    font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);
+    font-family:var(--mono);font-size:.7rem;line-height:1.45;color:var(--ink-soft);
     margin:.3rem 0 .9rem;padding-bottom:.75rem;border-bottom:1px solid var(--hair);
   }
   .plan ul{margin:0 0 1rem;padding-left:1.05rem;font-size:.83rem;color:var(--ink-soft);line-height:1.65}
   .plan .btn{width:100%;text-align:center}
+
+  /* ---------- weekly / monthly billing switch ---------- */
+  .bill{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .9rem;margin:0 0 1rem}
+  .bill-lab{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft)}
+  .bill-seg{display:flex;border:1px solid var(--line);background:var(--sheet)}
+  .bill-btn{
+    font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);
+    background:none;border:0;padding:.42rem .85rem;cursor:pointer;line-height:1.2;
+  }
+  .bill-btn + .bill-btn{border-left:1px solid var(--line)}
+  .bill-btn em{font-style:normal;font-family:var(--mono);font-size:.68rem}
+  .bill-btn[aria-pressed="true"]{background:var(--ink);color:var(--sheet);font-weight:500}
+  .bill-btn:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .bill-note{font-size:.8rem;color:var(--ink-soft)}
 
   .cmp{
     margin:1rem 0 0;background:none;border:1px solid var(--line);
@@ -540,7 +566,8 @@
     font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
     background:var(--paper);border-bottom:1px solid var(--hair);
   }
-  table.matrix .money{font-family:var(--mono)}
+  table.matrix .money{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .rownote{display:block;font-family:var(--mono);font-size:.64rem;color:var(--line)}
   table.matrix tr:last-child th,table.matrix tr:last-child td{border-bottom:0}
 
   .always{
@@ -551,8 +578,23 @@
 
   .math{border:1px dashed var(--line);background:var(--sheet);padding:1.2rem;margin-top:1.4rem;max-width:34rem}
   .math-row{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;font-size:.87rem;border-bottom:1px solid var(--hair)}
-  .math-row:last-child{border:0;font-weight:600;padding-top:.7rem}
-  .math-row span:last-child{font-family:var(--mono)}
+  .math-row.tot{border:0;font-weight:600;padding-top:.7rem}
+  .math-row span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* spent-against-returned meter: one fill on a lighter step of the same ramp */
+  .ledger{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--hair)}
+  .led-track{height:14px;background:var(--fill-2);border:1px solid var(--line);display:flex;overflow:hidden}
+  .led-spent{flex:none;background:var(--ink);border-right:2px solid var(--sheet);min-width:3px}
+  .led-key{
+    display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;margin-top:.55rem;
+    font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);
+  }
+  .led-key span{display:flex;align-items:center;gap:.35rem}
+  .led-key b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .led-sw{width:11px;height:9px;border:1px solid var(--line);display:inline-block;flex:none}
+  .led-sw.ink{background:var(--ink);border-color:var(--ink)}
+  .led-sw.track{background:var(--fill-2)}
+  .led-foot{margin:.55rem 0 0;font-size:.72rem;line-height:1.45;color:var(--ink-soft)}
 
   .guarantee{
     margin-top:.9rem;border:1px solid var(--ink);padding:.7rem .85rem;
@@ -568,21 +610,35 @@
   .mini span{font-size:.82rem}
   .footer-note{padding:1.6rem 1.6rem 0 4.2rem}
 
-  /* ---------- mobile view toggle ---------- */
-  .wf.mobile .frame{
-    width:100%;
-    max-width:392px;
-    margin-inline:auto;
-    padding:1.4rem 0 2.2rem;
-  }
+  /* ---------- breakpoints ----------
+     The page being designed has exactly two layouts: web and mobile.
+     One breakpoint, 720px, switches between them. There is no view toggle —
+     resize the window and the wireframe responds like the real page will.
+     The 1040px rule further down is review-document chrome only (the margin
+     notes move below the frame); it is not a product breakpoint. */
   .burger{
     display:none;
     width:22px;height:16px;border:1px solid var(--line);background:var(--fill);
   }
 
-  /* frame-scoped mobile layout — fires from the toggle and from a real phone */
-  @container (max-width: 520px){
+  /* ---------- review-document chrome, not a product breakpoint ---------- */
+  @media (max-width:1040px){
+    .blk{grid-template-columns:2.2rem minmax(0,1fr)}
+    .notes{grid-column:2;border-left:0;border-top:1px dashed var(--mark-soft);padding:1rem 1.6rem 2rem 0;margin-left:1.6rem}
+  }
+
+  @media (max-width:720px){
+    /* review-document chrome */
+    .wf{font-size:14px}
+    .blk{grid-template-columns:1fr}
+    .rail{text-align:left;padding:1.2rem 1.2rem 0;border-right:0}
+    .frame{padding:.8rem 1.1rem 1.6rem}
+    .notes{grid-column:1;margin-left:1.1rem;padding-right:1.1rem}
+    .footer-note{padding:1.6rem 1.1rem 0}
+
+    /* the page itself */
     .nav{padding:.5rem .6rem}
+    .nav-links{display:none}
     .nav-l .hint{display:none}
     .burger{display:block}
     .nav-r .hint{display:none}
@@ -620,7 +676,11 @@
     .free-band{flex-direction:column;align-items:stretch}
     .free-band .btn{text-align:center}
     .plans{grid-template-columns:1fr}
-    .plan.pop{order:-1}
+    .plan.pop{order:-2}
+    .plan.decoy{order:-1}
+    .bill{gap:.45rem .6rem}
+    .bill-seg{flex:1 0 100%}
+    .bill-btn{flex:1;text-align:center}
     .always{flex-direction:column;gap:.4rem}
     .math{max-width:100%}
     table.matrix{min-width:560px}
@@ -642,21 +702,6 @@
     .ftr-hound{flex-direction:column;align-items:flex-start}
   }
 
-  /* ---------- responsive ---------- */
-  @media (max-width:1040px){
-    .blk{grid-template-columns:2.2rem minmax(0,1fr)}
-    .notes{grid-column:2;border-left:0;border-top:1px dashed var(--mark-soft);padding:1rem 1.6rem 2rem 0;margin-left:1.6rem}
-  }
-  @media (max-width:660px){
-    .wf{font-size:14px}
-    .blk{grid-template-columns:1fr}
-    .rail{text-align:left;padding:1.2rem 1.2rem 0;border-right:0}
-    .frame{padding:.8rem 1.1rem 1.6rem}
-    .notes{grid-column:1;margin-left:1.1rem;padding-right:1.1rem}
-    .footer-note{padding:1.6rem 1.1rem 0}
-    h2.hl{font-size:1.5rem}
-    .split,.steps,.price,.minor,.door-vis,.plans{grid-template-columns:1fr}
-  }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
   }
@@ -666,17 +711,24 @@
 
   <header class="wf-head">
     <h1>leadhoundy.com — landing page wireframe</h1>
-    <p class="wf-meta">v2 · structure only · not visual design</p>
+    <p class="wf-meta">v3 · structure only · not visual design</p>
     <div class="wf-legend">
       <span><i class="swatch f"></i> placeholder content</span>
       <span><i class="swatch i"></i> primary action</span>
       <span><i class="swatch m"></i> hatched = annotation, not design</span>
       <span>hero demo is interactive — try it</span>
-      <span>toggles at right →</span>
-      <button class="hints-btn" id="viewBtn" type="button" aria-pressed="false" style="margin-left:auto">view: desktop</button>
-      <button class="hints-btn" id="hintsBtn" type="button" aria-pressed="true" style="margin-left:0">annotations: on</button>
+      <span class="mode-tag">layout: <b class="at-web">web</b><b class="at-mob">mobile</b> — switches at 720px, resize to check</span>
+      <button class="hints-btn" id="hintsBtn" type="button" aria-pressed="true" style="margin-left:auto">annotations: on</button>
     </div>
   </header>
+
+  <div class="variants" id="variantPicker">
+    <span>review control · headline A/B</span>
+    <button class="vbtn" type="button" data-v="0" aria-pressed="true">A · supply</button>
+    <button class="vbtn" type="button" data-v="1" aria-pressed="false">B · outcome</button>
+    <span class="vwhere">rewrites the headline in §1 Hero</span>
+    <p class="vnote" id="vNote"></p>
+  </div>
 
   <div class="brief">
     <h2>Before you start</h2>
@@ -687,6 +739,10 @@
     <section>
       <h3>Copy status</h3>
       <p>The headline, the pricing lines and "no result, no credit spent" are settled wording — they were argued over and each one covers a specific edge case. Grey bars mark copy still unwritten. Everything else is directional.</p>
+    </section>
+    <section>
+      <h3>Two layouts</h3>
+      <p>Web and mobile, one breakpoint at 720px. There's no view toggle — resize the window and the wireframe reflows exactly the way the page will. Everything needs designing twice, and only twice.</p>
     </section>
     <section>
       <h3>Two hard rules</h3>
@@ -734,20 +790,18 @@
       <div class="nav">
         <div class="nav-l">
           <div class="logo"></div><i class="mk">0</i>
-          <span class="hint">how it works · pricing</span>
+          <nav class="nav-links" aria-label="Page sections">
+            <span class="hint">How it works</span>
+            <span class="hint">Ways to use it</span>
+            <span class="hint">Pricing</span>
+            <span class="hint">FAQ</span>
+          </nav><i class="mk">13</i>
         </div>
         <div class="nav-r">
           <span class="hint">log in</span>
           <span class="btn">Start free</span><i class="mk">1</i>
           <span class="burger"></span><i class="mk">11</i>
         </div>
-      </div>
-
-      <div class="variants">
-        <span>headline</span>
-        <button class="vbtn" type="button" data-v="0" aria-pressed="true">A · supply</button>
-        <button class="vbtn" type="button" data-v="1" aria-pressed="false">B · outcome</button>
-        <p class="vnote" id="vNote"></p>
       </div>
 
       <div class="hero">
@@ -823,11 +877,12 @@
         <ol class="build">
           <li><b>0</b> <em>Wordmark plus hound mark.</em> This is the mascot's most important placement — it has to work at 24px in a browser tab and as a Slack bot avatar, so the dog needs to survive being tiny. Design the avatar crop first and let the full mark follow.</li>
           <li><b>1</b> <em>Only filled button above the fold.</em> Nav is otherwise quiet — every unit of attention above the feed belongs to the keyword field.</li>
+          <li><b>13</b> <em>Four nav links, and four is the ceiling.</em> How it works · Ways to use it · Pricing · FAQ — one per section a visitor might jump to, in page order. Deliberately not a link per section: Hero, Contrast and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fifth ever gets proposed, something else comes out.</li>
           <li><b>2</b> <em>Live, or gone.</em> Ticks upward on a real number. If the count fails to load, hide the whole line — a frozen counter is worse than no counter. Never round to a fake milestone.</li>
           <li><b>3</b> <em>Copy is locked.</em> "Who's behind" is true whether the reveal returns a person or a company. Don't rewrite to "get their email" or "find the decision maker" — both break on half our results.</li>
           <li><b>12</b> <em>Popular tags are the one-tap path.</em> The dropdown costs two clicks — open, then choose. These cost one, and they double as proof that real volume exists across services. The active tag stays in sync with the field, including while it cycles, so a visitor always sees which keyword the feed belongs to.</li>
           <li><b>4</b> <em>Label is a sentence, not a field name.</em> "Show me clients looking for [Webflow]" explains the input and the output in one read, so no separate instruction is needed. Never the word "niche" — half your audience would read that as an industry (dental, legal) and type something with no volume behind it. The nouns are services and technologies.</li>
-          <li><b>4</b> <em>Mobile breaks the sentence.</em> An inline field inside a sentence wraps badly on a phone. The label stacks above the field at narrow widths — check it in the mobile toggle.</li>
+          <li><b>4</b> <em>Mobile breaks the sentence.</em> An inline field inside a sentence wraps badly on a phone. The label stacks above the field at narrow widths — narrow the window past 720px to check it.</li>
           <li><b>4</b> <em>Must read as editable, not as a dropdown.</em> It's a text field with suggestions. Cycling keyword stops permanently on first click or keypress, and the caret disappears with it. On mobile this is the one thing a thumb has to find instantly.</li>
           <li><b>5</b> <em>Two label states.</em> "Live now / last 24h" for curated keywords; "Recent matches for X / from the archive" for custom ones. Design both — the second is not an error state, it's normal.</li>
           <li><b>6</b> <em>Budget is the credibility anchor.</em> A real number does more than any copy, and it stays sharp in every state — give it visual weight above the tags.</li>
@@ -835,7 +890,7 @@
           <li><b>7</b> <em>Three button states.</em> Reveal → Revealed (quiet, done) → Locked (gated). Plus a loading state; the lookup isn't instant in production.</li>
           <li><b>8</b> <em>Reveal opens in place.</em> Never a modal, never a new page. Card grows, content below shifts down. Company reveals expand taller than person reveals — design for the tall one.</li>
           <li><b>8</b> <em>Three visual states, deliberately different.</em> Blurred (nothing known yet) → masked characters (found, not legible) → full (after login). The switch from blur to character-masking matters: blur reads as "still loading", masking reads as "deliberately withheld". Don't use the same treatment for both.</li>
-          <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts.</li>
+          <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts. With four links rather than two, the burger is now carrying real content: it needs a designed open state, not just an icon.</li>
           <li><b>—</b> <em>Mobile: keyword field goes full width</em>, directly under the subheadline. Reveal buttons go full width too. Every tap target is at least 44px and spans the card, because on a phone the demo is the entire page.</li>
           <li><b>10</b> <em>Three cards by default, three per click.</em> The hero has to stay above the fold on a laptop, and three is enough to show the mix — person, company, different budgets — without pushing the rest of the page below the screen. Anyone who wants more is engaged enough to ask.</li>
           <li><b>10</b> <em>Load more, not infinite scroll.</em> Each click is a deliberate act; infinite scroll on a landing page fights the scroll down to pricing. The end state names Research, which turns running out into a pitch for the tier above.</li>
@@ -1026,7 +1081,7 @@
   <section class="blk" id="s6">
     <div class="rail">6</div>
     <div class="frame">
-      <p class="sec-label"><b>Pricing</b> — three shown, five available</p>
+      <p class="sec-label"><b>Pricing</b> — four shown, five available</p>
 
       <div class="free-band">
         <div>
@@ -1036,11 +1091,20 @@
         <span class="btn">Create a scanner free</span>
       </div>
 
+      <div class="bill" role="group" aria-label="Billing period">
+        <span class="bill-lab">Billing</span>
+        <div class="bill-seg">
+          <button class="bill-btn" type="button" data-bill="week" aria-pressed="true">Weekly</button>
+          <button class="bill-btn" type="button" data-bill="month" aria-pressed="false">Monthly <em>−10%</em></button>
+        </div>
+        <span class="bill-note" data-week="Charged every Monday. Cancel any week." data-month="Four weeks at once, 10% off. Credits still refresh every Monday.">Charged every Monday. Cancel any week.</span><i class="mk">7</i>
+      </div>
+
       <div class="plans">
         <div class="plan">
           <p class="plan-name">Starter</p>
-          <p class="plan-price">$39<em>/week</em></p>
-          <p class="plan-unit">30 reveals — $1.30 each</p>
+          <p class="plan-price"><span data-week="$39" data-month="$140">$39</span><em data-week="/week" data-month="/month">/week</em></p>
+          <p class="plan-unit"><span data-week="30 reveals a week — $1.30 each" data-month="30 reveals a week — $1.17 each">30 reveals a week — $1.30 each</span></p>
           <ul>
             <li>2 scanners</li>
             <li>Instant Slack or Telegram alerts</li>
@@ -1050,11 +1114,24 @@
           <span class="btn ghost">Choose Starter</span>
         </div>
 
+        <div class="plan decoy">
+          <p class="plan-name">Pro</p>
+          <p class="plan-price"><span data-week="$79" data-month="$284">$79</span><em data-week="/week" data-month="/month">/week</em></p>
+          <p class="plan-unit"><span data-week="100 reveals a week — $0.79 each" data-month="100 reveals a week — $0.71 each">100 reveals a week — $0.79 each</span></p>
+          <ul>
+            <li>5 scanners</li>
+            <li>Instant Slack or Telegram alerts</li>
+            <li>2 destinations</li>
+            <li>Research: last 45 days</li>
+          </ul>
+          <span class="btn ghost">Choose Pro</span>
+        </div>
+
         <div class="plan pop">
           <p class="plan-flag">most agencies land here<i class="mk">2</i></p>
           <p class="plan-name">Advanced</p>
-          <p class="plan-price">$99<em>/week</em></p>
-          <p class="plan-unit">150 reveals — $0.66 each<i class="mk">3</i></p>
+          <p class="plan-price"><span data-week="$99" data-month="$356">$99</span><em data-week="/week" data-month="/month">/week</em></p>
+          <p class="plan-unit"><span data-week="150 reveals a week — $0.66 each" data-month="150 reveals a week — $0.59 each">150 reveals a week — $0.66 each</span><i class="mk">3</i></p>
           <ul>
             <li>15 scanners</li>
             <li>Instant Slack and Telegram alerts</li>
@@ -1066,8 +1143,8 @@
 
         <div class="plan">
           <p class="plan-name">Agency</p>
-          <p class="plan-price">Talk to us<i class="mk">4</i></p>
-          <p class="plan-unit">from 400 reveals — $0.50 each</p>
+          <p class="plan-price"><span>Talk to us</span><i class="mk">4</i></p>
+          <p class="plan-unit"><span data-week="from 400 reveals a week — $0.50 each" data-month="from 400 reveals a week — $0.45 each">from 400 reveals a week — $0.50 each</span></p>
           <ul>
             <li>Unlimited scanners and destinations</li>
             <li>Webhook — push into your CRM</li>
@@ -1096,18 +1173,18 @@
             <tr>
               <th scope="row">Price</th>
               <td class="money">$0</td>
-              <td class="money">$39/wk</td>
-              <td class="money">$79/wk</td>
-              <td class="money col-pop">$99/wk</td>
+              <td class="money"><span data-week="$39/wk" data-month="$140/mo">$39/wk</span></td>
+              <td class="money"><span data-week="$79/wk" data-month="$284/mo">$79/wk</span></td>
+              <td class="money col-pop"><span data-week="$99/wk" data-month="$356/mo">$99/wk</span></td>
               <td class="money">Talk to us</td>
             </tr>
             <tr>
               <th scope="row">Per reveal</th>
               <td class="money">—</td>
-              <td class="money">$1.30</td>
-              <td class="money">$0.79</td>
-              <td class="money col-pop">$0.66</td>
-              <td class="money">$0.50</td>
+              <td class="money"><span data-week="$1.30" data-month="$1.17">$1.30</span></td>
+              <td class="money"><span data-week="$0.79" data-month="$0.71">$0.79</span></td>
+              <td class="money col-pop"><span data-week="$0.66" data-month="$0.59">$0.66</span></td>
+              <td class="money"><span data-week="$0.50" data-month="$0.45">$0.50</span></td>
             </tr>
 
             <tr class="rowhead"><th scope="row" colspan="6">Reveals</th></tr>
@@ -1120,7 +1197,7 @@
               <td>400/week</td>
             </tr>
             <tr>
-              <th scope="row">Extra reveals</th>
+              <th scope="row">Extra reveals<span class="rownote">same price either way</span></th>
               <td class="money">—</td>
               <td class="money">$2.00</td>
               <td class="money">$1.20</td>
@@ -1197,38 +1274,61 @@
         <span>Person or company, plus matching LinkedIn profiles.</span>
         <span>Unlimited users during beta.</span>
       </div>
-      <p class="refresh-line">Credits refresh every Monday. They don't roll over — a three-week-old posting is already dead.</p>
+      <p class="refresh-line">Credits refresh every Monday on every plan, whichever way you pay. They don't roll over — a three-week-old posting is already dead.</p>
 
       <div class="math">
-        <p class="hint" style="margin:0 0 .7rem">What a month on Advanced returns</p>
-        <div class="math-row"><span>Reveals used</span><span>~600</span></div>
-        <div class="math-row"><span>Replies</span><span>__</span></div>
-        <div class="math-row"><span>Projects won</span><span>__</span></div>
-        <div class="math-row"><span>Typical project value</span><span>$__</span></div>
-        <div class="math-row"><span>Cost of the month</span><span>$396</span></div>
+        <p class="hint" style="margin:0 0 .7rem">What a month on Advanced returns<i class="mk">8</i></p>
+        <div class="math-row"><span>Reveals used</span><span>~300</span></div>
+        <div class="math-row"><span>Replies</span><span>30 · 10%</span></div>
+        <div class="math-row"><span>Projects won</span><span>3 · 1%</span></div>
+        <div class="math-row"><span>Typical project value</span><span>$3,000 – $5,000</span></div>
+        <div class="math-row"><span>Cost of the month</span><span data-week="$396" data-month="$356">$396</span></div>
+        <div class="math-row tot"><span>Work won</span><span>$9,000 – $15,000</span></div>
+
+        <div class="ledger">
+          <div class="led-track" aria-hidden="true">
+            <span class="led-spent" id="ledSpent" style="width:4.4%"></span>
+          </div>
+          <div class="led-key">
+            <span><i class="led-sw ink"></i> spent <b data-week="$396" data-month="$356">$396</b></span>
+            <span><i class="led-sw track"></i> back <b>$9,000 – $15,000</b></span>
+            <span class="led-ret">a <b data-week="22× – 37×" data-month="25× – 42×">22× – 37×</b> return</span>
+          </div>
+          <p class="led-foot">Bar is drawn against the low end of the range. Three won projects out of 300 reveals — a 1% conversion, deliberately pessimistic. Multiples always round down.</p>
+        </div>
       </div>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note"><b>Advanced is the target, Pro is the decoy.</b> $20 more than Pro buys 50% more reveals, 3× the scanners and the full archive. Both your current customers took that jump. Pro stays hidden behind the compare table so the default view is three columns, not five.</p>
+      <p class="note"><b>Advanced is the target, Pro is the decoy.</b> $20 more than Pro buys 50% more reveals, 3× the scanners and the full archive. Both your current customers took that jump. Pro is now on the page rather than hidden in the compare table — a decoy only works if it's seen, and the $79→$99 step is the single most persuasive comparison in the section. Cost: four columns instead of three, so every card is narrower and the copy has to be shorter.</p>
       <p class="note">Free sits above the paid tiers, not beside them. It's the primary CTA now, not a lesser plan competing for the same click.</p>
       <p class="note"><b>The per-reveal line does the saving argument.</b> $1.30 → $0.79 → $0.66 → $0.50 reads left to right on its own. No percentage badges, no "save 24%" — nobody converts on a percentage.</p>
       <p class="note">Overage always costs more than the next tier's included rate. Starter overage is $2.00; on Advanced those reveals are $0.66. Run out twice and upgrading is arithmetic, not persuasion.</p>
       <p class="note">"1 reveal", never "1 contact". At a 50/50 person-to-company split, "contact" is a promise you'd break every second time.</p>
       <p class="note">Weekly refresh stated in plain sight and framed as freshness. Hiding it in fine print turns into refund requests.</p>
+      <p class="note"><b>Monthly billing changes the charge, never the credits.</b> 10% off for paying four weeks up front; reveals still land every Monday at the same weekly number. Keeping the credit cadence weekly in both modes protects the freshness argument — "600 reveals a month" would invite people to save them up, and a three-week-old posting is worthless.</p>
+      <p class="note">10% is the discount because it's the largest number that stays boring. It buys a month of runway per customer without teaching anyone to wait for a sale, and the per-reveal ladder still descends cleanly in monthly mode: $1.17 → $0.71 → $0.59 → $0.45.</p>
+      <p class="note warn"><b>The ROI block undercuts Advanced.</b> 300 reveals a month fits inside Pro's 400 with room to spare, at $284 rather than $356. If the typical month really is 300, Advanced has to be sold on scanners, destinations and the full archive — not on reveal volume — or the example needs to be a heavier user. Worth resolving before this section is written, because right now the page argues against its own target plan.</p>
       <p class="note warn"><b>Two blockers before this goes live.</b> Pull both customers' actual weekly usage — Advanced was unlimited when they bought it, and capping it at 150 is a change to a live plan. Grandfather them on unlimited permanently; it costs nothing you currently collect and buys two references with no reason to be annoyed.</p>
-      <p class="note warn">Funnel numbers are placeholders. They're the most persuasive thing on the page once they're real.</p>
+      <p class="note warn">Funnel numbers are still assumptions, not measurements — 10% reply, 1% won, $3–5k a project are plausible agency figures, not yours. They're the most persuasive thing on the page once they're real, and the most damaging if a customer checks them.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
           <li><b>1</b> <em>A band, not a fourth card.</em> Free is the primary CTA, so it must not sit in the row competing for the same glance as the paid plans. Full width above them, visually distinct, still clearly part of the ladder.</li>
           <li><b>2</b> <em>One marked plan only.</em> Advanced carries the border and the flag. Resist marking a second — two highlights is no highlight, and this whole section is built so one plan wins.</li>
+          <li><b>—</b> <em>Price baselines must align across all four cards.</em> Right now they don't: the flag pushes Advanced's price down, and Agency's longer unit line pushes its bullets down. With three cards that read as looseness; with four it reads as broken. Solve it once — flag overlapping the top border, or the same reserved height on every card — and the descending price ladder becomes readable in one horizontal sweep, which is the entire mechanism of this row.</li>
+          <li><b>—</b> <em>Four cards is the ceiling, and 720–900px is where it hurts.</em> At the narrow end of the web layout the cards are about 150px wide and the feature bullets wrap to three lines. Don't add a third breakpoint to fix it — shorten the bullets. Every one of them should survive at 150px on two lines.</li>
+          <li><b>—</b> <em>Pro sits immediately left of Advanced, and stays plain.</em> Its whole job is to be read a half-second before Advanced and lose. No flag, no border, no "good value" label — the moment Pro looks appealing it stops working. Adjacency is the mechanism, so never reorder the row.</li>
           <li><b>3</b> <em>The per-reveal line is the savings argument.</em> It has to be readable at a glance across all three cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-through prices.</li>
           <li><b>4</b> <em>Sits in the price slot, same size as a number.</em> "Talk to us" replaces a price, so it takes the price's position and weight. Don't shrink it into a link or the column stops reading as a tier.</li>
-          <li><b>—</b> <em>Mobile reorders the plans.</em> Advanced moves to the top of the stack, above Starter. On desktop the eye scans left to right and settles on the middle column; on mobile it reads top-down and the first card takes the attention. Source order would hand that to Starter — the one plan you don't want chosen.</li>
-          <li><b>5</b> <em>Closed by default.</em> Opening it reveals Pro, which exists to lose. Expands in place, no scroll jump — and on mobile the matrix scrolls horizontally with the first column pinned, or it's unusable.</li>
+          <li><b>—</b> <em>Mobile reorders the plans: Advanced, Pro, Starter, Agency.</em> On web the eye scans left to right and settles just right of centre; on mobile it reads top-down and the first card takes the attention. Source order would hand that to Starter — the one plan you don't want chosen. Pro follows Advanced so the comparison survives the stack, just reversed.</li>
+          <li><b>5</b> <em>Closed by default.</em> All four paid plans are already on the page, so this is for the one visitor in twenty who wants the Free column, the webhook row and the archive depths side by side. Expands in place, no scroll jump — and on mobile the matrix scrolls horizontally with the first column pinned, or it's unusable.</li>
           <li><b>6</b> <em>Highest-contrast element in the section.</em> This single line removes the biggest objection to a credit model. It outranks every feature bullet around it.</li>
+          <li><b>7</b> <em>Weekly is the default and stays selected.</em> Weekly is the lower number and the smaller commitment, so it's what an undecided visitor should meet first; monthly is the upgrade they choose. Two segments, no third — annual is not on the table while the archive is four months deep on some sources. Switching must repaint the cards, the comparison matrix and the ROI block together and instantly; a price that animates between values reads as a slot machine. Design the pressed state as a real state, not a hover — people re-check which one they're looking at.</li>
+          <li><b>7</b> <em>Never a struck-through weekly price next to the monthly one.</em> Same rule as the per-reveal line: the "−10%" on the segment is the entire discount signal. No badges, no "save $40", no countdown.</li>
+          <li><b>8</b> <em>The meter is the argument, the rows are the evidence.</em> One dark sliver on a light track, drawn to scale against the low end of the range — the point is that the cost is visibly a rounding error, and it makes that point without a percentage anywhere. Square ends and greyscale, same as everything else; no gradient, no glow, no count-up. It does not animate — it is not one of the three moving things.</li>
+          <li><b>8</b> <em>Ranges need two columns, not a wrap.</em> "$3,000 – $5,000" and "22× – 37×" must sit on one line at every width, in tabular figures, or the block stops reading as arithmetic. On mobile the labels shorten before the numbers do.</li>
         </ol>
       </div>
     </aside>
@@ -1755,6 +1855,29 @@
     cmpBtn.textContent = open ? 'Hide comparison' : 'Compare all plans';
   });
 
+  // ---- weekly / monthly billing ----
+  // Every price on the page carries both figures as data-week / data-month, so the
+  // switch is one text swap — cards, comparison matrix and the ROI block together.
+  var billBtns = Array.prototype.slice.call(document.querySelectorAll('.bill-btn'));
+  var billEls  = Array.prototype.slice.call(document.querySelectorAll('[data-week]'));
+  var ledSpent = document.getElementById('ledSpent');
+  var LED_WIDTH = { week: '4.4%', month: '4.0%' };   // cost as a share of the low-end return
+
+  function setBilling(mode){
+    billEls.forEach(function(el){
+      var v = el.getAttribute('data-' + mode);
+      if(v !== null) el.textContent = v;
+    });
+    if(ledSpent) ledSpent.style.width = LED_WIDTH[mode] || LED_WIDTH.week;
+    billBtns.forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-bill') === mode ? 'true' : 'false');
+    });
+  }
+  billBtns.forEach(function(b){
+    b.addEventListener('click', function(){ setBilling(b.getAttribute('data-bill')); });
+  });
+  setBilling('week');
+
   // ---- headline variants ----
   var VARIANTS = [
     {
@@ -1800,14 +1923,6 @@
     var off = root.classList.toggle('no-hints');
     hintsBtn.textContent = 'annotations: ' + (off ? 'off' : 'on');
     hintsBtn.setAttribute('aria-pressed', off ? 'false' : 'true');
-  });
-
-  // desktop / mobile view toggle
-  var viewBtn = document.getElementById('viewBtn');
-  viewBtn.addEventListener('click', function(){
-    var m = root.classList.toggle('mobile');
-    viewBtn.textContent = 'view: ' + (m ? 'mobile' : 'desktop');
-    viewBtn.setAttribute('aria-pressed', m ? 'true' : 'false');
   });
 
   // section index: scroll spy + smooth jump
