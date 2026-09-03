@@ -722,25 +722,10 @@
   }
   .refresh-line{margin:.9rem 0 0;font-size:.85rem;color:var(--ink-soft)}
 
-  .math{border:1px dashed var(--line);background:var(--sheet);padding:1.2rem;margin-top:1.4rem;max-width:34rem}
-  .math-row{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;font-size:.87rem;border-bottom:1px solid var(--hair)}
-  .math-row.tot{border:0;font-weight:600;padding-top:.7rem}
-  .math-row span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
-
-  /* spent-against-returned meter: one fill on a lighter step of the same ramp */
-  .ledger{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--hair)}
-  .led-track{height:14px;background:var(--fill-2);border:1px solid var(--line);display:flex;overflow:hidden}
-  .led-spent{flex:none;background:var(--ink);border-right:2px solid var(--sheet);min-width:3px}
-  .led-key{
-    display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;margin-top:.55rem;
-    font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);
+  .annual{
+    margin:1.1rem 0 0;font-size:.87rem;color:var(--ink-soft);max-width:56ch;
   }
-  .led-key span{display:flex;align-items:center;gap:.35rem}
-  .led-key b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
-  .led-sw{width:11px;height:9px;border:1px solid var(--line);display:inline-block;flex:none}
-  .led-sw.ink{background:var(--ink);border-color:var(--ink)}
-  .led-sw.track{background:var(--fill-2)}
-  .led-foot{margin:.55rem 0 0;font-size:.72rem;line-height:1.45;color:var(--ink-soft)}
+  .annual b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
 
   .guarantee{
     margin-top:.9rem;border:1px solid var(--ink);padding:.7rem .85rem;
@@ -842,7 +827,6 @@
     .bill{gap:.45rem .6rem}
     .bill-seg{flex:1 0 100%}
     .bill-btn{flex:1;text-align:center}
-    .math{max-width:100%}
     table.matrix{min-width:560px}
     table.matrix thead th:first-child,
     table.matrix tbody th{
@@ -1676,27 +1660,7 @@
 
       <p class="refresh-line">Credits refresh every Monday on every plan, whichever way you pay. They don't roll over — a three-week-old posting is already dead.</p>
 
-      <div class="math">
-        <p class="hint" style="margin:0 0 .7rem">What a month on Advanced returns<i class="mk">8</i></p>
-        <div class="math-row"><span>Reveals used</span><span>~300</span></div>
-        <div class="math-row"><span>Replies</span><span>30 · 10%</span></div>
-        <div class="math-row"><span>Projects won</span><span>3 · 1%</span></div>
-        <div class="math-row"><span>Typical project value</span><span>$3,000 – $5,000</span></div>
-        <div class="math-row"><span>Cost of the month</span><span data-week="$396" data-month="$356">$396</span></div>
-        <div class="math-row tot"><span>Work won</span><span>$9,000 – $15,000</span></div>
-
-        <div class="ledger">
-          <div class="led-track" aria-hidden="true">
-            <span class="led-spent" id="ledSpent" style="width:4.4%"></span>
-          </div>
-          <div class="led-key">
-            <span><i class="led-sw ink"></i> spent <b data-week="$396" data-month="$356">$396</b></span>
-            <span><i class="led-sw track"></i> back <b>$9,000 – $15,000</b></span>
-            <span class="led-ret">a <b data-week="22× – 37×" data-month="25× – 42×">22× – 37×</b> return</span>
-          </div>
-          <p class="led-foot">Bar is drawn against the low end of the range. Three won projects out of 300 reveals — a 1% conversion, deliberately pessimistic. Multiples always round down.</p>
-        </div>
-      </div>
+      <p class="annual">Advanced costs <b data-week="$5,148" data-month="$4,272">$5,148</b> a year. One won project usually covers it.<i class="mk">8</i></p>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
@@ -1713,7 +1677,12 @@
       <p class="note">10% is the discount because it's the largest number that stays boring. It buys a month of runway per customer without teaching anyone to wait for a sale, and the per-reveal ladder still descends cleanly in monthly mode: $1.17 → $0.71 → $0.59 → $0.45.</p>
       <p class="note warn"><b>The ROI block undercuts Advanced.</b> 300 reveals a month fits inside Pro's 400 with room to spare, at $284 rather than $356. If the typical month really is 300, Advanced has to be sold on scanners, destinations and the full archive — not on reveal volume — or the example needs to be a heavier user. Worth resolving before this section is written, because right now the page argues against its own target plan.</p>
       <p class="note warn"><b>Two blockers before this goes live.</b> Pull both customers' actual weekly usage — Advanced was unlimited when they bought it, and capping it at 150 is a change to a live plan. Grandfather them on unlimited permanently; it costs nothing you currently collect and buys two references with no reason to be annoyed.</p>
-      <p class="note warn">Funnel numbers are still assumptions, not measurements — 10% reply, 1% won, $3–5k a project are plausible agency figures, not yours. They're the most persuasive thing on the page once they're real, and the most damaging if a customer checks them.</p>
+      <p class="note"><b>The purpose stands; the instrument was wrong.</b> Agencies buy on cost-per-acquired-client, not cost-per-credit, so the price still needs anchoring against a project value. A funnel table was the wrong way to do it.</p>
+      <p class="note warn"><b>With two customers there is no reply rate and no close rate.</b> Every number in that table was a guess formatted as data, and this audience reads enough vendor decks to recognise an invented funnel on sight. It cost credibility at the exact moment someone was deciding to pay — the worst place on the page to be spending any.</p>
+      <p class="note"><b>It also handed the reader something to argue with.</b> "10 replies" makes half of them think <em>not from my outreach</em>, and a reason to doubt sitting directly beside the price is worse than no number at all. The sentence replacing it can't be argued with, because it asks the reader to supply the number.</p>
+      <p class="note">One line works better because the reader checks it against their own project values in about a second. "Usually" is honest and unfalsifiable in a way a printed reply rate isn't — it invites the arithmetic instead of asserting it.</p>
+      <p class="note">A spreadsheet beside the plan cards was also competing for attention at the moment of choosing. The section now asks one question at a time: which plan, then what it costs a year.</p>
+      <p class="note warn"><b>Check "one won project usually covers it" against your real project values.</b> The table this replaces assumed $3,000–5,000 a project — at those numbers one project does <em>not</em> cover $5,148, so the sentence would be false for the ICP the old block described. It holds comfortably for an agency doing $10k projects. If your customers sit at the low end, the honest version names two projects, not one.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
@@ -1732,8 +1701,9 @@
           <li><b>9</b> <em>Three words for one thing, and that still needs settling.</em> This line says <em>name</em>, the plan cards say <em>reveals</em>, and the internal unit is a <em>credit</em>. They are the same object. Reveal is the billing unit, a name is what the visitor receives — so the cards are the ones that should change, not this line.</li>
           <li><b>7</b> <em>Weekly is the default and stays selected.</em> Weekly is the lower number and the smaller commitment, so it's what an undecided visitor should meet first; monthly is the upgrade they choose. Two segments, no third — annual is not on the table while the archive is four months deep on some sources. Switching must repaint the cards, the comparison matrix and the ROI block together and instantly; a price that animates between values reads as a slot machine. Design the pressed state as a real state, not a hover — people re-check which one they're looking at.</li>
           <li><b>7</b> <em>Never a struck-through weekly price next to the monthly one.</em> Same rule as the per-reveal line: the "−10%" on the segment is the entire discount signal. No badges, no "save $40", no countdown.</li>
-          <li><b>8</b> <em>The meter is the argument, the rows are the evidence.</em> One dark sliver on a light track, drawn to scale against the low end of the range — the point is that the cost is visibly a rounding error, and it makes that point without a percentage anywhere. Square ends and greyscale, same as everything else; no gradient, no glow, no count-up. It does not animate — it is not one of the three moving things.</li>
-          <li><b>8</b> <em>Ranges need two columns, not a wrap.</em> "$3,000 – $5,000" and "22× – 37×" must sit on one line at every width, in tabular figures, or the block stops reading as arithmetic. On mobile the labels shorten before the numbers do.</li>
+          <li><b>8</b> <em>Bring the funnel back when it's real and citable</em> — roughly twenty customers, with a source line above it: "Across 40 accounts: 200 reveals &rarr; 12 replies &rarr; 1.4 projects." Cited numbers convince and invented ones repel, and the difference is visible to this audience. Until then, one sentence.</li>
+          <li><b>8</b> <em>Body text, not a card.</em> No border, no background, no box. The moment it acquires a frame it becomes a claim being presented rather than a fact being mentioned, and a presented claim invites exactly the scrutiny the table just failed. Same weight as the line about credits refreshing, directly beneath it.</li>
+          <li><b>8</b> <em>The annual figure follows the billing toggle.</em> $5,148 is fifty-two weeks at $99; monthly billing makes it $4,272. It uses the same data-week / data-month swap as every other price on the page, so it can't drift out of step with the cards — but it does mean the sentence has to stay true at both numbers.</li>
         </ol>
       </div>
     </aside>
@@ -2356,15 +2326,12 @@
   // switch is one text swap — cards, comparison matrix and the ROI block together.
   var billBtns = Array.prototype.slice.call(document.querySelectorAll('.bill-btn'));
   var billEls  = Array.prototype.slice.call(document.querySelectorAll('[data-week]'));
-  var ledSpent = document.getElementById('ledSpent');
-  var LED_WIDTH = { week: '4.4%', month: '4.0%' };   // cost as a share of the low-end return
 
   function setBilling(mode){
     billEls.forEach(function(el){
       var v = el.getAttribute('data-' + mode);
       if(v !== null) el.textContent = v;
     });
-    if(ledSpent) ledSpent.style.width = LED_WIDTH[mode] || LED_WIDTH.week;
     billBtns.forEach(function(b){
       b.setAttribute('aria-pressed', b.getAttribute('data-bill') === mode ? 'true' : 'false');
     });
