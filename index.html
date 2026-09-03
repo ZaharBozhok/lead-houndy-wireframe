@@ -904,7 +904,7 @@
         </div>
 
         <div class="hero-foot">
-          <span class="hint">Reveal any posting. 15 free reveals when you sign up.</span><i class="mk">8</i>
+          <span class="hint">Reveal any posting. 7 free reveals when you sign up.</span><i class="mk">8</i>
           <span class="hint">Have a job link? Paste it instead</span><i class="mk">9</i>
         </div>
       </div>
@@ -939,9 +939,9 @@
       <p class="note warn"><b>Only the masked string is ever rendered.</b> The real name is not in the card's markup at any point, so it can't be read out of devtools, and a blurred screenshot can't be sharpened back into it. CSS blur is a visual effect, not a redaction — if production ever sends the real name and blurs it, the paywall is decorative. Mask on the server, not in the stylesheet.</p>
       <p class="note">Mobile starts masked and never transitions. There is no hover on a phone and roughly half your traffic taps, so the compelling state is simply the default one there — a transition needs a "before", and on mobile there isn't one.</p>
       <p class="note"><b>The panel names the posting the visitor was already looking at.</b> A generic signup form is an interruption; "get the name behind <em>Migrate Framer site to Webflow</em>" is the continuation of a task already in progress. This is also the strongest argument for making the keyword carry through signup — if it does, the account they land in is already the one they were imagining.</p>
-      <p class="note">The button says "Get the name" now, not "Reveal". It matches what the headline promises two lines above it. "Reveal" stays everywhere it means the billing unit — 15 free reveals, 150 reveals a week — because that is a unit of account, not a description of what the visitor receives.</p>
-      <p class="note warn"><b>"The 15 free reveals are the reward for signing up, not something spent on the landing page" — that rule now has one exception, deliberately.</b> Exactly one name is spent before signup. The 15 still belong to the account; this is a sample, not a draw against them, which is why the card says "on us" rather than counting down.</p>
-      <p class="note"><b>Reveal is a partial, not a giveaway.</b> Any card can be revealed, any number of times. The blur comes off and the answer's shape appears — individual or company, how many profiles matched, their job titles — but the names stay masked. They learn the answer exists and that it's specific. The 15 free reveals are the reward for signing up, not something spent on the landing page.</p>
+      <p class="note">The button says "Get the name" now, not "Reveal". It matches what the headline promises two lines above it. "Reveal" stays everywhere it means the billing unit — 7 free reveals, 150 reveals a week — because that is a unit of account, not a description of what the visitor receives.</p>
+      <p class="note warn"><b>"The free reveals are the reward for signing up, not something spent on the landing page" — that rule now has one exception, deliberately.</b> Exactly one name is spent before signup. The 7 still belong to the account; this is a sample, not a draw against them, which is why the card says "on us" rather than counting down.</p>
+      <p class="note"><b>Reveal is a partial, not a giveaway.</b> Any card can be revealed, any number of times. The blur comes off and the answer's shape appears — individual or company, how many profiles matched, their job titles — but the names stay masked. They learn the answer exists and that it's specific. The 7 free reveals are the reward for signing up, not something spent on the landing page.</p>
       <p class="note">Currency is USD throughout, since that's what the source platforms quote regardless of where the client sits. Don't convert to local currency — it adds a rounding artifact and makes the number look calculated rather than copied.</p>
       <p class="note">Job titles are the part worth showing. "Head of Growth" and "Operations Lead" prove the match is real in a way a blurred name never could, and they're the reason someone believes the next reveal is worth an account.</p>
       <p class="note warn">Custom keywords fall back to historical postings — and the label changes to "Recent matches". Never label stale results "Live now".</p>
@@ -981,7 +981,7 @@
           <li><b>15</b> <em>One button and one link, not two buttons.</em> Google carries the weight; email is a quiet text link that reads as an escape hatch rather than an alternative. If email ever becomes a second filled button, the panel has stopped being an invitation and started being a form.</li>
           <li><b>15</b> <em>Dismissal is permanent and needs no confirmation.</em> One close control, top right, and the panel never comes back in that session. Design the dismissed state as the normal path — most people will take it, and the ones who don't were always going to sign up.</li>
           <li><b>16</b> <em>This line has to be read before the first click, or it does nothing.</em> Its job is to make the click feel free and the later gate feel fair rather than sudden. Test its placement — under three cards it may sit below where people stop scanning, and if it does, it belongs above them instead. It disappears once the free name is spent, because it stops being true.</li>
-          <li><b>8</b> <em>Three phrasings of the same promise now sit within one screen.</em> This foot line says "15 free reveals", the card says "15 more", the panel says "15 names included". Same number, three nouns. Reveals are the billing unit and names are what the visitor receives, so the visitor-facing copy should say names everywhere and leave "reveals" to pricing — which would make this line "15 free names when you sign up". Worth settling before the page ships; it is the kind of drift nobody notices until a customer quotes it back.</li>
+          <li><b>8</b> <em>Three phrasings of the same promise now sit within one screen.</em> This foot line says "7 free reveals", the card says "7 more", the panel says "7 names included". Same number, three nouns. Reveals are the billing unit and names are what the visitor receives, so the visitor-facing copy should say names everywhere and leave "reveals" to pricing — which would make this line "7 free names when you sign up". Worth settling before the page ships; it is the kind of drift nobody notices until a customer quotes it back.</li>
           <li><b>11</b> <em>Mobile nav collapses to a burger</em> and the CTA stays out of it. "Start free" never hides behind a menu — it's the only thing in the nav that converts. With four links rather than two, the burger is now carrying real content: it needs a designed open state, not just an icon.</li>
           <li><b>—</b> <em>Mobile: keyword field goes full width</em>, directly under the subheadline. Reveal buttons go full width too. Every tap target is at least 44px and spans the card, because on a phone the demo is the entire page.</li>
           <li><b>10</b> <em>The Load more button was cut deliberately.</em> It put a second control next to "Get the name" and competed with it, it pushed pricing further down the page, and it answered a question nobody was asking — a visitor's next thought after three cards is <em>what's the name?</em>, not <em>are there more?</em></li>
@@ -1229,7 +1229,7 @@
       <div class="free-band">
         <div>
           <h3>Start free<i class="mk">1</i></h3>
-          <p>15 reveals and one live scanner. The reveals run out. The scanner doesn't.</p>
+          <p>7 reveals and one live scanner. The reveals run out. The scanner doesn't.</p>
         </div>
         <span class="btn">Create a scanner free</span>
       </div>
@@ -1333,7 +1333,7 @@
             <tr class="rowhead"><th scope="row" colspan="6">Reveals</th></tr>
             <tr>
               <th scope="row">Included</th>
-              <td>15 total, once</td>
+              <td>7 total, once</td>
               <td>30/week</td>
               <td>100/week</td>
               <td class="col-pop">150/week</td>
@@ -1445,6 +1445,7 @@
       <p class="notes-h">Why</p>
       <p class="note"><b>Advanced is the target, Pro is the decoy.</b> $20 more than Pro buys 50% more reveals, 3× the scanners and the full archive. Both your current customers took that jump. Pro is now on the page rather than hidden in the compare table — a decoy only works if it's seen, and the $79→$99 step is the single most persuasive comparison in the section. Cost: four columns instead of three, so every card is narrower and the copy has to be shorter.</p>
       <p class="note">Free sits above the paid tiers, not beside them. It's the primary CTA now, not a lesser plan competing for the same click.</p>
+      <p class="note warn"><b>Free is 7 reveals, down from 15.</b> With the one free name on the landing page that's 8 before anyone pays, against 16 before. Reveals cost you essentially nothing, so this isn't a cost saving — it's a bet that 7 is still enough to reach a first reply. That is the number to watch: if a free account runs out before anyone answers, the tier proves nothing and the visitor leaves having learned that the product doesn't work, which is worse than never signing up. Check it against the reply rate the ROI block assumes.</p>
       <p class="note"><b>The per-reveal line does the saving argument.</b> $1.30 → $0.79 → $0.66 → $0.50 reads left to right on its own. No percentage badges, no "save 24%" — nobody converts on a percentage.</p>
       <p class="note">Overage always costs more than the next tier's included rate. Starter overage is $2.00; on Advanced those reveals are $0.66. Run out twice and upgrading is arithmetic, not persuasion.</p>
       <p class="note">"1 reveal", never "1 contact". At a 50/50 person-to-company split, "contact" is a promise you'd break every second time.</p>
@@ -1982,7 +1983,7 @@
 
     var p = document.createElement('p');
     p.className = 'onus';
-    p.textContent = 'That one was on us. Sign up free for 15 more.';
+    p.textContent = 'That one was on us. Sign up free for 7 more.';
     card.appendChild(p);
   }
 
@@ -1994,7 +1995,7 @@
       '<i class="mk">15</i>' +
       '<p class="panel-h">Sign up free to get the name behind' +
         '<span class="panel-job">\u201c' + item.sum + '\u201d</span></p>' +
-      '<p class="panel-p">15 names included.</p>' +
+      '<p class="panel-p">7 names included.</p>' +
       '<div class="panel-act">' +
         '<button class="btn" type="button">Continue with Google</button>' +
         '<span class="hint">or use email \u2192</span>' +
