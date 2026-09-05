@@ -534,11 +534,6 @@
   .sl-name{margin:0;font-size:8.5px;font-weight:700}
   .sl-card.part{margin-top:.4rem;opacity:.55}
 
-  .either{
-    margin:1.2rem 0 0;padding-top:1rem;border-top:1px solid var(--hair);
-    text-align:center;font-size:.88rem;font-weight:500;
-  }
-
   .also-h{
     font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
     margin:1.6rem 0 .5rem;padding-top:1.1rem;border-top:1px solid var(--hair);
@@ -796,7 +791,6 @@
     /* Unsolved by design — see the margin. Stacking four zones loses the
        left-to-right stream entirely, so for now the row scrolls instead. */
     .stream{gap:.35rem;padding-bottom:.4rem}
-    .either{margin-top:1rem}
     /* Mobile is unsolved by design, not by CSS — see the margin. This is the
        least-bad stopgap: entry cards go 2x2, the funnel stops tapering. */
     .rsplit{grid-template-columns:minmax(0,1fr);gap:1.1rem}
@@ -1179,9 +1173,7 @@
         </div>
       </div>
 
-      <p class="either">Either way, you end up here.<i class="mk">6</i></p>
-
-      <p class="also-h">Also included<i class="mk">7</i></p>
+      <p class="also-h">Also included<i class="mk">6</i></p>
       <div class="door research">
         <div class="door-h"><h3>Research</h3></div>
         <p>Scanner watches what gets posted next. Research is everything that already happened.</p>
@@ -1201,7 +1193,7 @@
               <div class="stepr-t">
                 <h4>Narrow it down</h4>
                 <p>Set the filters that fit your work.</p>
-                <div class="chips-row"><i class="mk">10</i>
+                <div class="chips-row"><i class="mk">9</i>
                   <span class="fchip on">React</span>
                   <span class="fchip on">over $5,000</span>
                   <span class="fchip on">US</span>
@@ -1227,7 +1219,7 @@
 
           <div class="funnel">
             <div class="fl fl1">
-              <div class="ecard"><i class="mk">8</i>
+              <div class="ecard"><i class="mk">7</i>
                 <div class="eart rows"><span></span><span></span><span></span><span></span></div>
                 <p class="elab">jobs</p><p class="enum">890k</p>
               </div>
@@ -1250,7 +1242,7 @@
             <div class="fl fl2">
               <div class="jc t3"><p class="jt">Shopify theme build</p><p class="jm">$3,200 &middot; DE</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
               <div class="jc t2"><p class="jt">Webflow marketing site</p><p class="jm">$6,800 &middot; US</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
-              <div class="jc t1"><i class="mk">9</i><p class="jt">React dashboard rebuild</p><p class="jm">$9,500 &middot; US</p><p class="jage">posted 9 days ago</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+              <div class="jc t1"><i class="mk">8</i><p class="jt">React dashboard rebuild</p><p class="jm">$9,500 &middot; US</p><p class="jage">posted 9 days ago</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
               <div class="jc t2"><p class="jt">Headless commerce build</p><p class="jm">$7,400 &middot; NL</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
               <div class="jc t3"><p class="jt">Design system in Figma</p><p class="jm">$5,100 &middot; UK</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
             </div>
@@ -1268,7 +1260,7 @@
               </div>
             </div>
 
-            <div class="fl fl4"><i class="mk">11</i>
+            <div class="fl fl4"><i class="mk">10</i>
               <div class="msg">
                 <div class="msg-h"><span class="jav on"></span><span class="msg-who">Anna Oosterhuis<em>active 2h ago</em></span></div>
                 <div class="msg-field">Saw you&rsquo;re rebuilding the dashboard&hellip;</div>
@@ -1282,13 +1274,13 @@
 
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note"><b>Scanner is a stream, Research is a funnel.</b> Opposite geometries on purpose &mdash; one runs left to right and never ends, the other runs top to bottom and narrows to a single person. They share a card, a chip and an accent so they still read as one product, and one shared closing line so the visitor never has to choose between them.</p>
+      <p class="note"><b>Scanner is a stream, Research is a funnel.</b> Opposite geometries on purpose &mdash; one runs left to right and never ends, the other runs top to bottom and narrows to a single person. They share a card, a chip and an accent, which is now the only thing holding them together as one product &mdash; see the note on the removed join below.</p>
       <p class="note"><b>The identical before/after field is the section&rsquo;s core device.</b> Zone 3 <em>is</em> zone 1 &mdash; the same fifteen cards at the same coordinates at the same size &mdash; with everything unmatched dimmed and three cards resolved to a name. Nothing is added, nothing is removed, nothing moves. That is the entire claim: the scanner doesn&rsquo;t fetch you a different internet, it picks out the three postings that were always yours. Redraw zone 3 as its own arrangement and the section loses its argument and becomes two pictures of some cards.</p>
       <p class="note"><b>Uniform weighting in zone 1 is deliberate.</b> Every card is the same size and weight, and the budgets deliberately run from $800 to $9,500 with no ranking. Zone 1 is what the visitor has today: unsorted, undifferentiated, unreadable at volume. If anything is emphasised there, the scanner is doing less work than it claims &mdash; the flood has to look genuinely flat for three hits to be worth paying for.</p>
       <p class="note"><b>The timestamps are the strongest claim in the section.</b> &ldquo;posted 13:44&rdquo; and &ldquo;13:46, two minutes later&rdquo; are the only numbers here, and they say the thing that actually beats refreshing a job board yourself. Everything else in the stream is geometry; that pair is a promise.</p>
       <p class="note"><b>Scanner is the spine of the page</b> &mdash; the hero demo and this stream &mdash; not one of several equal features. Research exists to close a &ldquo;but what about everything before I arrived&rdquo; loop, not to be chosen instead.</p>
       <p class="note"><b>Research is the backlog; Scanner is the future.</b> Scanner can only ever show what gets posted after you arrive. Research is everything before that &mdash; the answer to the empty first day, and the one thing Scanner structurally cannot do. Naming the past and the volume is what stops it reading as a search box bolted onto Scanner.</p>
-      <p class="note warn"><b>&ldquo;No proposal queue, no bidding, no cut&rdquo; is now nowhere on the page.</b> It lived in step 4, which this diagram replaced, and it had already been dropped from the hero subhead when that was shortened. It is the sentence explaining why this is worth $99 a week rather than a marketplace fee. The centred &ldquo;either way&rdquo; line is the obvious place to put it back &mdash; it is also the only line in the section doing nothing else.</p>
+      <p class="note warn"><b>&ldquo;No proposal queue, no bidding, no cut&rdquo; is now nowhere on the page.</b> It lived in step 4, which this diagram replaced, and it had already been dropped from the hero subhead when that was shortened. It is the sentence explaining why this is worth $99 a week rather than a marketplace fee. There is no longer a spare line in this section to put it in, so it needs a home found for it deliberately rather than a slot it happens to fit.</p>
       <p class="note"><b>Four distinct entry cards exist so &ldquo;you can search four different things&rdquo; is visible in a second.</b> An earlier version used four identical counters, which said &ldquo;we have a lot of rows&rdquo; &mdash; true, and it taught nothing while burying the differentiator. Four different shapes say four different objects before a single label is read.</p>
       <p class="note"><b>Chips are a filter state, never a query box.</b> If they read as typeable, someone types a sentence on day one and the product fails them in their first thirty seconds. Pills, not a field &mdash; and the distance between those two things is smaller than it looks. The same component now appears twice in this section, so a change to one is a change to both.</p>
       <p class="note">Research can&rsquo;t be cut from the page. Archive depth is something people are charged for, and an unexplained thing on a price card is worse than a small section.</p>
@@ -1314,22 +1306,22 @@
           <li><b>5</b> <em>Nothing in zone 4 is blurred, masked or gated.</em> The hero demo withholds because the visitor hasn&rsquo;t paid; this is the paid experience, and a masked name in a Slack frame would say the product doesn&rsquo;t deliver. The two mocks must never borrow each other&rsquo;s states.</li>
           <li><b>5</b> <em>Product check before this ships: confirm the credit is spent when the alert is sent, not when the user opens it.</em> This shows a resolved name sitting in Slack with nothing left to click, which only makes sense if the reveal already happened and was already billed. If billing works the other way round, either the mock promises something the product doesn&rsquo;t do or the pricing section describes a different product.</li>
           <li><b>5</b> <em>The hound&rsquo;s highest-value placement no longer appears anywhere on the page.</em> A bot avatar in Slack is daily brand contact for paying customers &mdash; they will see that dog far more often than they see this website &mdash; and the frame that carried it was the large mock this diagram replaced. Still design the 24px crop first and build the full mark out from it; it just has no home in this section any more.</li>
-          <li><b>6</b> <em>The rule and the centred line are the section&rsquo;s only join.</em> Two diagrams with opposite geometry are stacked in one block, and without an explicit &ldquo;either way&rdquo; the visitor has to work out for themselves that these are two doors into the same room. The line stays short and unstyled &mdash; it is punctuation, not a third pitch.</li>
-          <li><b>6</b> <em>Recurrence is missing.</em> The whole stream reads as a single event: these postings, this scanner, this message, at 13:46 today. Nothing says it happens again tomorrow without you doing anything, which is the entire reason this is a subscription rather than a purchase. The clipped second card gestures at it; a repeat marker on the arrow into Slack, or &ldquo;every day, unprompted&rdquo; beside the timestamp, would say it.</li>
-          <li><b>7</b> <em>Research is its own block, not one half of a strip.</em> &ldquo;Also included&rdquo; still earns its place as the divider saying this isn&rsquo;t part of the stream &mdash; but it labels one thing, so don&rsquo;t reintroduce a column beside it to balance the row. The extra width went to the frames, which is what the density needs.</li>
-          <li><b>7</b> <em>It stays quiet and must not compete with the stream above it.</em> Research closes a &ldquo;but what about everything before I signed up&rdquo; loop; it is not a second pitch. If it starts pulling attention off the scanner, shrink it.</li>
-          <li><b>7</b> <em>No Scanner explainer video.</em> It would only repeat this diagram, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time &mdash; which is exactly what companies make videos to fake.</li>
-          <li><b>8</b> <em>Four card types, four shapes, and this is the most important element in the funnel.</em> A stack of rows, a grid of tiles, a row of faces, a header with indented children. It is what makes &ldquo;four ways in&rdquo; visible rather than asserted, so it must never collapse into four identical counters again.</li>
-          <li><b>8</b> <em>The clients card is the weakest of the four at this size and carries the most interesting idea</em> &mdash; start from a company, see everything it has hired for. Draw that one first and match the other three to it, rather than drawing three easy ones and squeezing it in last.</li>
-          <li><b>8</b> <em>Sub-counts must sum to the headline total once they&rsquo;re real.</em> This whole block rests on a claim of scale, and arithmetic that doesn&rsquo;t add up is the one error people actually check.</li>
-          <li><b>9</b> <em>THE TAPER IS THE ARGUMENT.</em> 100% &rarr; 75.5% &rarr; 71% &rarr; 49% of the funnel width, centre-aligned &mdash; currently 608 &rarr; 459 &rarr; 432 &rarr; 298. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the block stops meaning anything. It is held in percentages rather than fixed pixels precisely so the ratios survive being resized; the pixel figures are what those ratios happen to measure today, not the spec.</li>
-          <li><b>9</b> <em>Five cards, and all five have to be countable.</em> Narrower than the entry cards above them, overlapped just enough to stack &mdash; centre on top, the pair behind it, then the outer pair furthest back, in both z-order and opacity. An earlier version overlapped them hard and let the frame clip the outer two, which read as one card floating over a strip rather than as a stack of five.</li>
-          <li><b>9</b> <em>Detail escalates as the layers narrow.</em> Layer 1 shows a label and a count, layer 2 two or three lines, layer 3 five. Filtering doesn&rsquo;t only remove rows &mdash; it earns you more information, and the cards have to visibly hold more or the narrowing reads as loss.</li>
-          <li><b>9</b> <em>Locked bars read as withheld, not as unloaded.</em> Dark and solid, never a pale skeleton. Same three-state logic as the hero cards: locked, revealed, acted on &mdash; and a visitor should be able to tell the difference between &ldquo;we haven&rsquo;t fetched this&rdquo; and &ldquo;we have it and you haven&rsquo;t paid&rdquo;.</li>
-          <li><b>9</b> <em>Timestamps read in days or weeks, never minutes.</em> Research is the archive; a minute-old posting would put it in competition with the scanner for the same freshness claim, and the two halves of this section would start arguing with each other.</li>
-          <li><b>10</b> <em>The dashed connector is the chips&rsquo; effect made visible.</em> It runs from the chip cluster into the results so the filters visibly cause the row below rather than sitting near it. Strictly it is a fourth use of the accent &mdash; it belongs to the chips, and if it ever reads as decoration rather than causation, remove it rather than recolour it.</li>
-          <li><b>11</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy&rsquo;s UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
-          <li><b>11</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone &mdash; swap that one variable for a real brand colour and this section takes it.</li>
+          <li><b>5</b> <em>Recurrence is missing.</em> The whole stream reads as a single event: these postings, this scanner, this message, at 13:46 today. Nothing says it happens again tomorrow without you doing anything, which is the entire reason this is a subscription rather than a purchase. The clipped second card gestures at it; a repeat marker on the arrow into Slack, or &ldquo;every day, unprompted&rdquo; beside the timestamp, would say it.</li>
+          <li><b>6</b> <em>Research is its own block, not one half of a strip.</em> &ldquo;Also included&rdquo; still earns its place as the divider saying this isn&rsquo;t part of the stream &mdash; but it labels one thing, so don&rsquo;t reintroduce a column beside it to balance the row. The extra width went to the frames, which is what the density needs.</li>
+          <li><b>6</b> <em>It stays quiet and must not compete with the stream above it.</em> Research closes a &ldquo;but what about everything before I signed up&rdquo; loop; it is not a second pitch. If it starts pulling attention off the scanner, shrink it.</li>
+          <li><b>6</b> <em>No Scanner explainer video.</em> It would only repeat this diagram, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time &mdash; which is exactly what companies make videos to fake.</li>
+          <li><b>7</b> <em>Four card types, four shapes, and this is the most important element in the funnel.</em> A stack of rows, a grid of tiles, a row of faces, a header with indented children. It is what makes &ldquo;four ways in&rdquo; visible rather than asserted, so it must never collapse into four identical counters again.</li>
+          <li><b>7</b> <em>The clients card is the weakest of the four at this size and carries the most interesting idea</em> &mdash; start from a company, see everything it has hired for. Draw that one first and match the other three to it, rather than drawing three easy ones and squeezing it in last.</li>
+          <li><b>7</b> <em>Sub-counts must sum to the headline total once they&rsquo;re real.</em> This whole block rests on a claim of scale, and arithmetic that doesn&rsquo;t add up is the one error people actually check.</li>
+          <li><b>8</b> <em>THE TAPER IS THE ARGUMENT.</em> 100% &rarr; 75.5% &rarr; 71% &rarr; 49% of the funnel width, centre-aligned &mdash; currently 608 &rarr; 459 &rarr; 432 &rarr; 298. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the block stops meaning anything. It is held in percentages rather than fixed pixels precisely so the ratios survive being resized; the pixel figures are what those ratios happen to measure today, not the spec.</li>
+          <li><b>8</b> <em>Five cards, and all five have to be countable.</em> Narrower than the entry cards above them, overlapped just enough to stack &mdash; centre on top, the pair behind it, then the outer pair furthest back, in both z-order and opacity. An earlier version overlapped them hard and let the frame clip the outer two, which read as one card floating over a strip rather than as a stack of five.</li>
+          <li><b>8</b> <em>Detail escalates as the layers narrow.</em> Layer 1 shows a label and a count, layer 2 two or three lines, layer 3 five. Filtering doesn&rsquo;t only remove rows &mdash; it earns you more information, and the cards have to visibly hold more or the narrowing reads as loss.</li>
+          <li><b>8</b> <em>Locked bars read as withheld, not as unloaded.</em> Dark and solid, never a pale skeleton. Same three-state logic as the hero cards: locked, revealed, acted on &mdash; and a visitor should be able to tell the difference between &ldquo;we haven&rsquo;t fetched this&rdquo; and &ldquo;we have it and you haven&rsquo;t paid&rdquo;.</li>
+          <li><b>8</b> <em>Timestamps read in days or weeks, never minutes.</em> Research is the archive; a minute-old posting would put it in competition with the scanner for the same freshness claim, and the two halves of this section would start arguing with each other.</li>
+          <li><b>9</b> <em>The dashed connector is the chips&rsquo; effect made visible.</em> It runs from the chip cluster into the results so the filters visibly cause the row below rather than sitting near it. Strictly it is a fourth use of the accent &mdash; it belongs to the chips, and if it ever reads as decoration rather than causation, remove it rather than recolour it.</li>
+          <li><b>10</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy&rsquo;s UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
+          <li><b>10</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone &mdash; swap that one variable for a real brand colour and this section takes it.</li>
+          <li><b>&mdash;</b> <em>Scanner and Research now have no explicit join, and that is a real loss to watch.</em> They are two diagrams with opposite geometry stacked in one block, and the centred &ldquo;either way, you end up here&rdquo; line was the one sentence telling the visitor these are two doors into the same room rather than two features. What remains is the rule above &ldquo;Also included&rdquo; and the shared card, chip and accent &mdash; structure and styling doing a job a sentence was doing. If reviewers start reading the funnel as a second product rather than the same product looking backwards, this is why, and the fix is a line rather than more rules.</li>
           <li><b>&mdash;</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Four zones stacked lose the left-to-right stream reading entirely, and the arrows become meaningless pointing down a column. The stopgap is a horizontal scroll, which hides zones 3 and 4 &mdash; the payoff &mdash; behind a swipe most visitors won&rsquo;t make. Likely direction: reduce zone 1 to a strip and keep the before/after adjacency at any cost, accepting that the scanner panel becomes a caption. The identity between zones 1 and 3 is the thing that has to survive, and nothing here protects it yet.</li>
           <li><b>&mdash;</b> <em>The funnel has the same problem, differently.</em> Four distinct entry cards stacked in a column lose the &ldquo;four ways in&rdquo; reading, and the taper disappears once every layer is full width. The stopgap is a 2&times;2 grid for layer 1 and a much shallower taper. Likely direction: accept that the funnel becomes a sequence on small screens &mdash; but the narrowing needs some replacement signal, and right now it has none.</li>
           <li><b>&mdash;</b> <em>The same person runs through layers 2, 3 and 4</em> &mdash; locked, revealed, then addressed. That thread is the difference between a story and four illustrations, and it is the first thing lost when someone edits one layer in isolation.</li>
