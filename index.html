@@ -454,11 +454,25 @@
   .z-field .zbox{width:180px}
   .z-scan .zbox{width:118px}
   .z-slack .zbox{width:120px}
-  .zlab{
-    margin:0 0 .4rem;font-family:var(--mono);font-size:.62rem;color:var(--ink-soft);
-    white-space:nowrap;
+  /* same badge-and-title shape as a Research step, stacked instead of side by
+     side because a 118px zone has no room for a 23px badge beside the words */
+  /* fixed height, not min-height: the four zboxes must start on one baseline or
+     zone 1 and zone 3 stop lining up, which is the whole argument of the
+     diagram. A title long enough to wrap overflows into the gap below — visibly
+     wrong, and visibly wrong is better than silently misaligned. */
+  .zlab{margin:0 0 .5rem;height:47px}
+  .zn{
+    display:flex;align-items:center;justify-content:center;
+    width:23px;height:23px;flex:none;margin-bottom:.4rem;
+    background:var(--paper);border:1px solid var(--line);
+    font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);
   }
-  .zlab b{color:var(--ink);font-weight:600;margin-right:.25rem}
+  /* every label reserves two lines so the four zboxes start on one baseline —
+     zone 1 and zone 3 lining up exactly is the whole argument of this diagram */
+  .zlab b{
+    display:block;font-size:.88rem;font-weight:600;color:var(--ink);
+    line-height:1.25;
+  }
   /* rows run edge to edge and clip: a row that stops short reads "we ran out" */
   .zbox{position:relative;height:250px;overflow:hidden}
   .zbox.plain{overflow:visible;display:flex;align-items:center}
@@ -466,7 +480,7 @@
   .zfoot b{display:block;font-weight:600}
   .zfoot span{display:block;font-family:var(--mono);font-size:.6rem;color:var(--ink-soft)}
   .zarrow{
-    flex:none;align-self:flex-start;margin-top:206px;
+    flex:none;align-self:flex-start;margin-top:240px;
     font-family:var(--mono);font-size:.8rem;color:var(--line);
   }
 
@@ -1056,7 +1070,7 @@
 
       <div class="stream">
         <div class="zone z-field">
-          <p class="zlab"><b>1</b> Everything posted<i class="mk">1</i></p>
+          <p class="zlab"><span class="zn">01</span><b>Everything posted<i class="mk">1</i></b></p>
           <div class="zbox">
             <div class="scard" style="left:-30px;top:0px"><span class="srow"><i class="sb ci"></i><b>Vue</b></span><em>$6,800</em></div>
             <div class="scard" style="left:62px;top:0px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>$9,500</em></div>
@@ -1080,7 +1094,7 @@
         <span class="zarrow" aria-hidden="true">&rarr;</span>
 
         <div class="zone z-scan">
-          <p class="zlab"><b>2</b> Your scanner</p>
+          <p class="zlab"><span class="zn">02</span><b>Your scanner</b></p>
           <div class="zbox plain">
             <div class="spanel"><i class="mk">2</i>
               <span class="fchip on">React</span>
@@ -1096,7 +1110,7 @@
         <span class="zarrow" aria-hidden="true">&rarr;</span>
 
         <div class="zone z-field">
-          <p class="zlab"><b>3</b> Spotted and enriched<i class="mk">4</i></p>
+          <p class="zlab"><span class="zn">03</span><b>Spotted and enriched<i class="mk">4</i></b></p>
           <div class="zbox">
             <div class="scard dim" style="left:-30px;top:0px"><span class="srow"><i class="sb ci"></i><b>Vue</b></span><em>$6,800</em></div>
             <div class="scard hit" style="left:62px;top:0px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>Oosterhuis</em></div>
@@ -1120,7 +1134,7 @@
         <span class="zarrow" aria-hidden="true">&rarr;</span>
 
         <div class="zone z-slack">
-          <p class="zlab"><b>4</b> Into Slack</p>
+          <p class="zlab"><span class="zn">04</span><b>Into Slack</b></p>
           <div class="zbox plain">
             <div class="sl"><i class="mk">5</i>
               <p class="sl-h">#leads</p>
@@ -1259,6 +1273,9 @@
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
+          <li><b>1</b> <em>Zone labels use the same badge-and-title as a Research step, and that is the point.</em> Numbered box, then the title in the same size and weight &mdash; 23px, mono, ink-soft on paper; 0.88rem at 600. The two diagrams have opposite geometry on purpose, so the shared vocabulary is what stops them reading as two unrelated pictures. If either treatment is ever restyled, both move together or the section loses the only thing holding its halves together.</li>
+          <li><b>1</b> <em>Stacked, not side by side, because a 118px zone has no room for a badge beside the words.</em> The Research rail is 15rem wide and can afford the horizontal arrangement plus the vertical rule joining the numbers; the zones cannot, and a connecting rule would fight the arrows anyway. Same parts, different assembly.</li>
+          <li><b>1</b> <em>The label block is a fixed 47px, not a min-height.</em> All four zboxes must start on one baseline &mdash; zone 1 and zone 3 lining up is the argument of the whole section &mdash; and any label that grows a line would push its zbox down alone. A title long enough to wrap now overflows into the gap below instead: visibly wrong, which is far better than silently misaligned. Keep titles to one line, and if a longer one is genuinely needed, raise the height on all four at once and move <code>.zarrow</code>&rsquo;s offset by the same amount.</li>
           <li><b>1</b> <em>The field is clipped on both edges, and that is the point.</em> Cards run off the left and the right at alternating rows, so the zone reads as a window onto something larger rather than as fifteen postings arranged for the picture. Give it tidy margins and &ldquo;3,412 today&rdquo; becomes a caption contradicting the drawing directly above it.</li>
           <li><b>1</b> <em>The stagger offsets must be hardcoded and tuned by eye, never generated randomly.</em> Rows alternate by a fixed &minus;42px so the field reads as flow rather than as a table &mdash; but zone 3 has to sit on exactly the same coordinates. Anything random or computed at runtime means the two fields drift apart on the first reload, and the one thing this section cannot survive is zones 1 and 3 not lining up.</li>
           <li><b>1</b> <em>Fifteen cards is the minimum that reads as &ldquo;too many to check&rdquo;.</em> Fewer and a visitor counts them; many more and the three hits stop being findable in zone 3. If the zone gets wider, add columns before rows &mdash; the height is already the tallest thing in the section.</li>
