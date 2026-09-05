@@ -722,12 +722,6 @@
 
 
 
-  /* one job: the guarantee. It sits under the price because someone reading a
-     price is calculating risk right then, and this is the line that removes it. */
-  .always{
-    margin-top:.55rem;border:1px solid var(--ink);background:var(--sheet);
-    padding:.7rem 1rem;font-size:.92rem;font-weight:600;
-  }
   .unit-line{
     margin:1rem 0 0;font-size:.86rem;color:var(--ink-soft);max-width:60ch;
   }
@@ -736,8 +730,6 @@
     font-family:var(--mono);font-size:.68rem;line-height:1.5;color:var(--ink-soft);
     border-left:2px solid var(--hair);padding-left:.6rem;
   }
-  .refresh-line{margin:.9rem 0 0;font-size:.85rem;color:var(--ink-soft)}
-
   .annual{
     margin:1.1rem 0 0;font-size:.87rem;color:var(--ink-soft);max-width:56ch;
   }
@@ -1404,13 +1396,13 @@
     <aside class="notes">
       <p class="notes-h">Why</p>
       <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
-      <p class="note">Row 4 is a conversion lever, not an FAQ answer. It also appears next to pricing, word for word.</p>
+      <p class="note">Row 4 is a conversion lever, not an FAQ answer — and this is now the only place on the page it appears. The pricing section carried the same line word for word; it was removed there because sitting beside the price it read as a warning that reveals fail often enough to need a guarantee.</p>
       <p class="note"><b>The team row does two jobs.</b> It answers a question this ICP is definitely asking — the audience is defined as agencies with someone who writes proposals, so a second person is assumed, not hypothetical. And it sells destination routing, which is otherwise buried in the pricing table as a number nobody can interpret: "5 destinations" means nothing, "leads land where the right person will see them" is the same fact and explains why Advanced beats Starter.</p>
       <p class="note">The beta qualifier is doing real work rather than hedging. It sets up a future price change honestly now, instead of making it a surprise at launch — and it is the reason this row can say yes at all.</p>
       <p class="note warn"><b>This section used to be open with no accordions, and that was a deliberate rule.</b> The old note read: "a collapsed objection is an unanswered one, and the whole point is that these are read without being clicked." It was overruled on space — five open answers ran 625px on desktop and 872px on a phone, which is most of a viewport of prose sitting between the product and the price. The fold is the concession; which row stays open is how the original concern gets paid for.</p>
       <p class="note"><b>Row 1 stays open because nobody would click it.</b> It's the 50/50 disclosure — a visitor doesn't arrive wondering whether they'll get a person or a company, so they'd never open it, and it's the one answer that stops the first paid reveal feeling like a bait-and-switch. Folding it would have been the one genuinely costly fold on the page.</p>
       <p class="note"><b>Rows 2, 3 and 5 fold safely because they answer questions a visitor actually has.</b> Someone worried about the data source, a ban, or whether cold outreach works arrives already holding that question; a visible question with an obvious affordance gets clicked. The question text does most of the reassurance work anyway — seeing "Can I get banned for contacting people directly?" printed on the page tells a careful buyer the concern is acknowledged before they read a word of the answer.</p>
-      <p class="note">Row 4 folds for free. Its answer is deliberately duplicated next to pricing, so a visitor who never opens it here still meets "no result, no credit spent" further down. It's the only row on the page with that property, which is exactly why it can afford to be closed.</p>
+      <p class="note warn">Row 4 used to fold for free, because its answer was repeated next to pricing and a visitor who never opened it here still met "no result, no credit spent" further down. That duplicate is gone, so the fold is no longer free: the guarantee is now behind a click and nowhere else. Either this row opens on load alongside row 1, or the line goes back somewhere in the pricing section — but it can't be the only copy of a term of the deal <em>and</em> be collapsed.</p>
       <p class="note">All five answers are now written — these were the last grey bars on the page. Rows 2 and 3 still need the lawyer before publishing, though; being written is not the same as being cleared.</p>
       <p class="note"><b>Rows 2 and 3 are the two that get screenshotted.</b> One says where the data comes from, the other says whether using it is safe. They're the reason a careful buyer either signs up or closes the tab, and they're the two most likely to be quoted back at you — so they stay plain, specific and short. No hedging language, no legal register, no "we take privacy seriously".</p>
       <p class="note warn"><b>"Published openly" is not the same as "lawful to process".</b> Under GDPR, personal data that someone published is still personal data, and row 2 doesn't settle the posture — it describes the sourcing honestly, which is the right thing for a landing page to do and not a substitute for the legal review. If counsel needs a sentence added, it goes here rather than into a policy nobody opens.</p>
@@ -1430,7 +1422,7 @@
           <li><b>7</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §4 get upgraded together — they are the same claim in two places.</li>
           <li><b>7</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
-          <li><b>3</b> <em>This row appears twice.</em> Here, and next to pricing. Same wording both times; it's a conversion lever, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
+          <li><b>3</b> <em>This row is now the only copy of the guarantee.</em> It used to be repeated next to pricing and was removed there. Treat the wording as a term of the deal rather than as an answer — plain, short, unhedged — because there is no longer a second place where a visitor might meet it.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
           <li><b>5</b> <em>Two paragraphs, and the second one is the useful half.</em> The first sets expectations — leads, not clients. The second tells them how to actually win, which is the paragraph that earns trust, because a page that admits a generic pitch will fail is a page that isn't selling magic. Keep them as separate paragraphs; run together, the qualification swallows the advice.</li>
           <li><b>—</b> <em>Objections is still the only place on the page where prose may run.</em> Everywhere else is fragments and structure — don't let that leak upward into §2. Folding changed how much of it is visible at once, not the licence to write it.</li>
@@ -1449,7 +1441,7 @@
       <div class="free-band">
         <div>
           <h3>Start free<i class="mk">1</i></h3>
-          <p>7 names, once. One scanner that keeps running — but alerts arrive a day late, three a day, with the name hidden until you upgrade.</p>
+          <p>Seven names, on us. One scanner that keeps running, up to three alerts a day.</p>
         </div>
         <span class="btn">Create a scanner free</span>
       </div>
@@ -1461,10 +1453,8 @@
           <p class="plan-unit">30 names a week — $1.30 each<i class="mk">3</i></p>
           <ul>
             <li>2 scanners</li>
-            <li>Instant alerts, name shown</li>
             <li>Telegram DM</li>
             <li>Research: last 7 days</li>
-            <li>Extra names $2.00</li>
             <li>Email support</li>
           </ul>
           <span class="btn ghost">Choose Starter</span>
@@ -1477,10 +1467,8 @@
           <p class="plan-unit">150 names a week — $0.66 each</p>
           <ul>
             <li>15 scanners</li>
-            <li>Instant alerts, name shown</li>
             <li>Route leads to your team's groups — Telegram groups and Slack<i class="mk">5</i></li>
             <li>Research: full archive</li>
-            <li>Extra names $0.90</li>
             <li>Email support</li>
           </ul>
           <span class="btn">Choose Advanced</span>
@@ -1492,7 +1480,6 @@
           <p class="plan-unit">Unlimited names<span class="beta-note">unlimited during beta</span></p>
           <ul>
             <li>Unlimited scanners</li>
-            <li>Instant alerts, name shown</li>
             <li>Telegram groups, Slack and webhook</li>
             <li>Research: full archive</li>
             <li>CSV export</li>
@@ -1502,26 +1489,27 @@
         </div>
       </div>
 
-      <p class="unit-line"><b>1 credit = 1 name.</b> The person or company behind the posting, plus profiles to message.<i class="mk">7</i></p>
+      <p class="unit-line"><b>1 credit = 1 name.</b> The person or company behind the posting, plus profiles to message.<i class="mk">6</i></p>
 
-      <div class="always">
-        <span>No result, no credit spent.<i class="mk">6</i></span>
-      </div>
-
-      <p class="refresh-line">Names refresh every Monday. They don't roll over — a three-week-old posting is already dead.</p>
-
-      <p class="annual">Advanced costs <b>$5,148</b> a year. One won project usually covers it.<i class="mk">8</i></p>
+      <p class="annual">One <b>$5k</b> project covers a year of Leadhoundy.<i class="mk">7</i></p>
     </div>
     <aside class="notes">
       <p class="notes-h">Why</p>
       <p class="note"><b>Pro is gone, and it should have gone earlier.</b> It was a decoy, and a decoy only works if it is seen — it sat behind "Compare all plans", so most visitors never met it while it still cost a fifth column and a narrower card for everyone. Both real customers skipped it and went Starter → Advanced directly, which is the decoy's job done without the decoy.</p>
       <p class="note"><b>"Agency" couldn't be a tier name, because it's the entire audience.</b> Smaller agencies buy Starter and Advanced too, so the label told a visitor nothing about which column was theirs. "Unlimited" names capacity, which is what a pricing column should do: someone scanning Starter → Advanced → Unlimited understands the ladder before reading a single row.</p>
       <p class="note"><b>Naming the top price also removes a decision.</b> "Talk to us" asks a visitor to start a conversation before they know whether they can afford it; $199 lets them decide alone, and the ones who do call arrive already sold on the number.</p>
+      <p class="note"><b>The 24-hour delay on free is gone, and this reverses an earlier decision.</b> Seven credits already limit the free tier legibly. The delay was a second limit that had to be explained, and running out of names is self-evident in a way that day-old leads are not — a visitor who has used their seven knows exactly what happened and what to do about it.</p>
+      <p class="note"><b>It also contradicted the page.</b> The scanner section argues speed — posted 13:44, in Slack by 13:46 — and a delayed free tier would have given every new user a 24-hour experience of that same product. First impressions of infrastructure are hard to undo: the delay taught people the product was slow, when the thing it was meant to teach them was that their allowance had run out.</p>
+      <p class="note"><b>The alert-speed row went with it.</b> With free instant too, four columns all read "instant" — a row where every cell is identical is not a comparison, it is furniture, and it pushes the rows that do differ further down the card.</p>
       <p class="note warn"><b>Unlimited caps revenue per customer at $199 a week, however large they get.</b> The heaviest, stickiest accounts — the ones with the most to lose by leaving — stop growing revenue at exactly the point they are most valuable. That is a deliberate early-stage trade: removing volume anxiety buys commitments now. It is not a permanent structure, and "unlimited during beta" is the door left open. Decide what replaces it before beta ends, not during.</p>
       <p class="note"><b>Advanced has to look complete on its own now.</b> It no longer has Pro beside it making it look cheap, so the full archive and group routing are what carry it. Being the middle option between $39 and $199 is a strong position — most people take the middle — but only if the middle reads as sufficient rather than as a compromise.</p>
-      <p class="note">Free stays a band above the cards, not a fourth column. It is the primary CTA, not a lesser plan competing for the same click, and its limits are stated plainly — a day-late alert with the name hidden is a real constraint and hiding it would produce refund requests.</p>
+      <p class="note">Free stays a band above the cards, not a fourth column. It is the primary CTA, not a lesser plan competing for the same click. Its two limits — seven names and three alerts a day — are both stated in the blurb, because a free tier whose ceiling is discovered rather than read produces refund requests.</p>
       <p class="note"><b>Everything is on screen now.</b> With three tiers there was nothing left worth hiding, so the compare toggle and the expandable matrix are gone. A visitor no longer has to click to find out what they are not getting.</p>
       <p class="note">Monthly billing is removed. One price, one cadence, no toggle to interpret — and it takes with it a second annual figure that the copy had to stay true at.</p>
+      <p class="note"><b>Extra-name pricing is gone from both cards.</b> $2.00 and $0.90 were a fourth number on a card that already carries a weekly price, a per-name price and an allowance, and the two cheap ones sat directly under the number that was supposed to be the comparison. A plan should be one price; if you need more names you move up a tier, which is also the upgrade path the ladder was built to sell.</p>
+      <p class="note warn"><b>Nothing on the page now says what happens when a plan runs out.</b> With extra names gone and the Monday-refresh line gone with them, a Starter who spends thirty on Tuesday meets a wall the page never mentioned and offers no way past. That is a dead end in the middle of a paid week, and it is the kind of thing people ask for refunds over. Either overage returns as a billing mechanic rather than a card row, or an upgrade-mid-week path exists and is findable at the moment the allowance hits zero. It doesn't have to be on the page; it does have to exist.</p>
+      <p class="note"><b>The refresh line went because it was answering a question nobody had yet.</b> "Names refresh every Monday, they don't roll over" is a billing rule, and a billing rule read before purchase is a restriction; read inside the product when the counter resets, it is just how it works. It belongs in the account, not under the price. The trade is that "don't roll over" is now discovered rather than disclosed — acceptable for a weekly plan, and the reason the dead-end note above matters more than it did.</p>
+      <p class="note"><b>"No result, no credit spent" is off the pricing section but still answered in Objections.</b> It was doing the same job twice, and next to the price it read as a warning that reveals fail often enough to need a guarantee. In the objections list it is an answer to a question someone actually asked. One place, not two.</p>
       <p class="note">"Names" everywhere in this section now, not "reveals". A reveal is the billing event; a name is what the visitor receives. This finally settles a drift the page carried for a while.</p>
       <p class="note warn"><b>The delivery line describes routing that doesn't exist yet.</b> Telegram currently sends everything to whoever connected the bot. Group routing has to ship before this row is true — and confirm that a <em>scanner</em> can target a specific group, not just the account pointing at one destination. If it turns out to be account-level, this row does not hold and Advanced loses one of the two things carrying it.</p>
 
@@ -1535,11 +1523,10 @@
           <li><b>4</b> <em>The per-name line ends blank at Unlimited, deliberately.</em> "Unlimited" is self-explanatory, and writing "$0.00 at volume" invites arithmetic the column is designed to end. Leave the slot empty rather than filling it to make the row look complete.</li>
           <li><b>4</b> <em>"unlimited during beta" is a qualifier, not fine print.</em> Same reasoning as the seats line in §3: if a cap ever returns, this makes it a scheduled change rather than a promise broken to paying customers. It stays small and it stays visible — shrinking it to invisibility defeats the entire point of writing it.</li>
           <li><b>5</b> <em>Write delivery as a benefit, never as a config chore.</em> "Route leads to your team's groups", never "multi-group Telegram configuration". This row replaces the old destinations count, which described routing that doesn't exist and was a number nobody could interpret — "5 destinations" means nothing to a reader deciding between two prices.</li>
-          <li><b>6</b> <em>Highest-contrast element in the section, and the only thing in its box.</em> Treat it as a micro-ToS line: plain, unadorned, directly beneath the price. It is a term of the deal, and terms don't need decorating.</li>
-          <li><b>7</b> <em>The unit definition sits above the guarantee.</em> A reader learns what a credit buys at the moment they are looking at what it costs. The what-you-get spec is folded into the same line because "what am I buying" and "what is one of them" are one question.</li>
-          <li><b>8</b> <em>Body text, not a card.</em> No border, no background. A framed claim invites scrutiny; a mentioned fact doesn't. With monthly gone this is a single figure — fifty-two weeks at $99 — so it no longer has to stay true at two numbers.</li>
-          <li><b>8</b> <em>Bring the funnel back when it's real and citable</em> — roughly twenty customers, with a source line above it: "Across 40 accounts: 200 reveals &rarr; 12 replies &rarr; 1.4 projects." Cited numbers convince and invented ones repel. Until then, one sentence.</li>
-          <li><b>—</b> <em>Three cards is a comfortable row, and that is a resource.</em> Each card now holds six bullets where four used to fit. Spend that on the rows a visitor actually compares — alert speed, delivery, archive depth — not on adding a fourth column back.</li>
+          <li><b>6</b> <em>The unit definition is the last line under the cards now.</em> A reader learns what a credit buys at the moment they are looking at what it costs. The what-you-get spec is folded into the same line because "what am I buying" and "what is one of them" are one question.</li>
+          <li><b>7</b> <em>Body text, not a card.</em> No border, no background. A framed claim invites scrutiny; a mentioned fact doesn't. It is also no longer arithmetic a reader can check — $5,148 invited someone to divide, "one $5k project" invites them to picture a client — so nothing here has to stay true at a second number.</li>
+          <li><b>7</b> <em>Bring the funnel back when it's real and citable</em> — roughly twenty customers, with a source line above it: "Across 40 accounts: 200 reveals &rarr; 12 replies &rarr; 1.4 projects." Cited numbers convince and invented ones repel. Until then, one sentence.</li>
+          <li><b>—</b> <em>Three cards is a comfortable row, and that is a resource.</em> The cards are down to four or five bullets each, so there is room again. Spend it on the rows a visitor actually compares — delivery, archive depth, scanner count — not on adding a fourth column back, and not on refilling the cards to make them look even.</li>
         </ol>
       </div>
     </aside>
