@@ -46,26 +46,6 @@
     background:var(--paper);
   }
 
-  .wf-nav{
-    position:sticky;top:0;z-index:60;
-    background:var(--paper);
-    border-bottom:1px solid var(--line);
-    display:flex;gap:0;overflow-x:auto;
-    scrollbar-width:none;
-  }
-  .wf-nav::-webkit-scrollbar{display:none}
-  .wf-nav a{
-    flex:none;
-    font-family:var(--mono);font-size:.71rem;
-    color:var(--ink-soft);text-decoration:none;
-    padding:.62rem .8rem;white-space:nowrap;
-    border-bottom:2px solid transparent;
-  }
-  .wf-nav a:hover{color:var(--ink)}
-  .wf-nav a.on{color:var(--ink);border-bottom-color:var(--ink)}
-  .wf-nav a:focus-visible{outline:2px solid var(--mark);outline-offset:-2px}
-  .wf-nav a b{font-weight:500;color:inherit}
-
   .blk{scroll-margin-top:3rem}
 
   /* ---------- designer hints ---------- */
@@ -900,15 +880,6 @@
     </section>
   </div>
 
-  <nav class="wf-nav" id="wfNav" aria-label="Sections">
-    <a href="#s1"><b>1</b> Hero</a>
-    <a href="#s2"><b>2</b> How it works</a>
-    <a href="#s3"><b>3</b> Objections</a>
-    <a href="#s4"><b>4</b> Pricing</a>
-    <a href="#s5"><b>5</b> Close</a>
-    <a href="#s6"><b>6</b> Footer</a>
-  </nav>
-
   <!-- ============ 1. HERO ============ -->
   <section class="blk" id="s1">
     <div class="rail">1</div>
@@ -918,7 +889,8 @@
         <div class="nav-l">
           <div class="logo"></div><i class="mk">0</i>
           <nav class="nav-links" aria-label="Page sections">
-            <span class="hint">How it works</span>
+            <span class="hint">Scanner</span>
+            <span class="hint">Research</span>
             <span class="hint">Pricing</span>
             <span class="hint">FAQ</span>
           </nav><i class="mk">13</i>
@@ -1028,7 +1000,8 @@
         <ol class="build">
           <li><b>0</b> <em>Wordmark plus hound mark.</em> This is the mascot's most important placement — it has to work at 24px in a browser tab and as a Slack bot avatar, so the dog needs to survive being tiny. Design the avatar crop first and let the full mark follow.</li>
           <li><b>1</b> <em>Only filled button above the fold.</em> Nav is otherwise quiet — every unit of attention above the feed belongs to the keyword field.</li>
-          <li><b>13</b> <em>Three nav links, and four is the ceiling.</em> How it works · Pricing · FAQ — one per section a visitor might actually jump to, in page order. It was four until Ways in was folded into How it works; a link for it now would land on the same section, and two labels pointing at one destination is worse than one label. Deliberately not a link per section either: Hero and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift. If a fourth gets proposed, it has to earn its place.</li>
+          <li><b>13</b> <em>Four nav links, named after the product rather than the page.</em> Scanner · Research · Pricing · FAQ. "How it works" described a section; Scanner and Research name the two things being sold, which is what a visitor scans a nav for — and the footer's Product column already lists them that way, so the page now says the same thing twice instead of two different things. Deliberately not a link per section: Hero and Close aren't destinations, they're the argument. Every one of these is a way out of the demo, so they stay at hint weight — grey, no underline, no hover lift.</li>
+          <li><b>13</b> <em>Scanner and Research are both inside §2, and this is the one place two labels may point at one destination.</em> The rule everywhere else on this page is that they must not — but these are two products that happen to share a section, not two names for one thing, and a nav that hides Research behind "How it works" hides the answer to the empty first day. If the section is ever split, these become two real destinations and the exception disappears. Four is still the ceiling.</li>
           <li><b>2</b> <em>Live, or gone — and it's now inside the headline.</em> There is no separate counter line any more; the number in the first sentence is the live one and it ticks on its own. If the count fails to load, the headline still has to read correctly, so it needs a defensible fallback figure rather than a spinner or a gap. A frozen counter is worse than no counter, and a frozen counter inside a headline is worse still. Never round to a fake milestone.</li>
           <li><b>2</b> <em>Set the number in tabular figures.</em> It changes every four seconds inside a line of running text, and proportional digits make the words after it shuffle sideways on each tick. This is the one place on the page where that detail is load-bearing rather than a nicety.</li>
           <li><b>3</b> <em>Copy is locked, and there is only one version now.</em> The A/B switcher is gone — this headline is the headline. "Their names" is true whether the reveal returns a person or a company, which is the constraint every rewrite has to clear. Don't rewrite to "get their email" or "find the decision maker": the first is a channel we don't deliver, the second breaks on half our results.</li>
@@ -2145,42 +2118,5 @@
     hintsBtn.textContent = 'annotations: ' + (off ? 'off' : 'on');
     hintsBtn.setAttribute('aria-pressed', off ? 'false' : 'true');
   });
-
-  // section index: scroll spy + smooth jump
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('#wfNav a'));
-  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  navLinks.forEach(function(a, i){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var t = sections[i];
-      if(!t) return;
-      var y = t.getBoundingClientRect().top + window.pageYOffset - 44;
-      window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
-    });
-  });
-
-  function spy(){
-    var best = 0;
-    for(var i = 0; i < sections.length; i++){
-      if(sections[i] && sections[i].getBoundingClientRect().top <= 90) best = i;
-    }
-    // The last section is short enough that it can never scroll to the top, so
-    // without this the final nav item would never light up. At the bottom of the
-    // document, the bottom section is the one being read.
-    var doc = document.documentElement;
-    if(window.innerHeight + window.pageYOffset >= doc.scrollHeight - 2){
-      best = sections.length - 1;
-    }
-    navLinks.forEach(function(a, i){ a.classList.toggle('on', i === best); });
-  }
-  var ticking = false;
-  window.addEventListener('scroll', function(){
-    if(ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function(){ spy(); ticking = false; });
-  }, { passive:true });
-  spy();
 })();
 </script>
