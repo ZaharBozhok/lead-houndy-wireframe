@@ -658,6 +658,61 @@
   .r2{animation:row2 15s steps(1,end) infinite}
   .r3{animation:row3 15s steps(1,end) infinite}
 
+
+  /* ---------- Fit: the still block. It sits between an animated hero and
+     three animated diagrams, and being the one thing that does not move is
+     what lets it read as the page pausing to talk. Never animate it. ------- */
+  .fit-h{
+    margin:0 0 1.2rem;font-size:1.34rem;font-weight:600;letter-spacing:-.02em;
+    max-width:24ch;line-height:1.2;
+  }
+
+  /* the table. Row gaps are zero on purpose: the accent wash has to read as one
+     continuous field behind four rows, not as four separate tints. */
+  .cmpt{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr);gap:0}
+  .cmpt > *{position:relative}
+  /* the wash is painted on the four winning cells rather than spanned across the
+     column: with no row gap they abut into one field, and it is then structurally
+     impossible for it to reach the two rows the section concedes */
+  .cmpt-c.wash::before{
+    content:"";position:absolute;inset:0;background:var(--accent);opacity:.05;
+    pointer-events:none;
+  }
+  .cmpt-c.wash > *{position:relative}
+  .cmpt-hd{padding:0 .85rem .55rem;border-bottom:1px solid var(--line)}
+  .cmpt-hd b{display:block;font-size:.88rem;font-weight:600}
+  .cmpt-hd span{display:block;font-size:.74rem;color:var(--ink-soft);margin-top:.12rem}
+  .cmpt-hd.lbl{border-bottom-color:transparent}
+  .cmpt-l,.cmpt-c{padding:.6rem .85rem;border-bottom:1px solid var(--hair);font-size:.84rem;line-height:1.4}
+  .cmpt-l{color:var(--ink-soft)}
+  /* the only row label with weight — the strongest row in the table */
+  .cmpt-l.key{color:var(--ink);font-weight:500}
+  .cmpt-c.win{font-weight:500;display:flex;gap:.4rem;align-items:baseline}
+  .cmpt-c.lose{opacity:.55;font-weight:400}
+  .tick{flex:none;width:9px;height:9px;margin-top:.28rem}
+  .tick path{fill:none;stroke:var(--ok);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .cmpt-note{
+    margin:.8rem 0 0;font-size:.8rem;font-style:italic;color:var(--ink-soft);
+  }
+
+  /* fit: two equal cards, equal weight. No red on the right — red would say
+     "this is bad"; the point is "this is not you, and that is fine". */
+  .fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;margin-top:1.8rem}
+  .fit-c{border:1px solid var(--line);background:var(--sheet);padding:1rem 1.05rem}
+  .fit-c.no{opacity:.7}
+  .fit-c h4{margin:0 0 .75rem;font-size:.88rem;font-weight:600}
+  .fit-c ul{list-style:none;margin:0;padding:0}
+  .fit-c li{display:flex;gap:.6rem;margin-bottom:.7rem}
+  .fit-c li:last-child{margin-bottom:0}
+  .fit-c li > div{min-width:0}
+  .fit-c p{margin:0;font-size:.84rem;line-height:1.4}
+  .fit-c p + p{margin-top:.15rem;font-size:.76rem;color:var(--ink-soft)}
+  /* empty, and they stay empty: a reader ticks them mentally, and an empty box
+     pulls them to answer where a pre-filled one is just decoration */
+  .fit-box{flex:none;width:13px;height:13px;margin-top:.15rem;border:1px solid var(--line);background:var(--paper)}
+  .fit-x{flex:none;width:13px;height:13px;margin-top:.15rem}
+  .fit-x path{stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+
   /* ---------- Competitor Research: folded, because it is powerful and niche.
      Same card treatment as everything else, and the closed and open states are
      one <details> with one icon — never two components that look alike. ------ */
@@ -908,6 +963,10 @@
 
     .hero{padding:1.1rem .8rem}
     .plan,.plan.pop,.door{padding:.9rem .8rem}
+    /* three items with a two-line reason do not survive being halved */
+    .fit{grid-template-columns:minmax(0,1fr);gap:.7rem}
+    .fit-h{font-size:1.16rem;max-width:100%}
+    .cmpt-l,.cmpt-c,.cmpt-hd{padding-left:.5rem;padding-right:.5rem;font-size:.78rem}
     /* Unsolved by design — see the margin. Stacking five blocks loses the
        left-to-right reading in both diagrams, and with it the contrast between
        them, so for now the rows scroll instead. */
@@ -1185,9 +1244,90 @@
     </aside>
   </section>
 
-  <!-- ============ 2. HOW IT WORKS ============ -->
+  <!-- ============ 2. FIT ============ -->
   <section class="blk" id="s2">
     <div class="rail">2</div>
+    <div class="frame">
+      <h2 class="fit-h">Stay on the platforms. Just stop being chained to them.<i class="mk">1</i></h2>
+
+      <div class="cmpt">
+        <div class="cmpt-hd lbl"></div>
+        <div class="cmpt-hd"><b>Platforms only</b><span>how most agencies work today</span></div>
+        <div class="cmpt-hd"><b>With Leadhoundy</b><span>same work, one layer added</span><i class="mk">2</i></div>
+          <div class="cmpt-l">Client attention<i class="mk">3</i></div>
+          <div class="cmpt-c lose">you&rsquo;re one of fifty</div>
+          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>you&rsquo;re the only message</div>
+          <div class="cmpt-l">What you&rsquo;re paying for</div>
+          <div class="cmpt-c lose">a chance to be seen</div>
+          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>a lead that stays yours</div>
+          <div class="cmpt-l">What you spend on</div>
+          <div class="cmpt-c lose">fees, subs, connects, highlights, ads</div>
+          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>leads</div>
+          <div class="cmpt-l key">If you left tomorrow<i class="mk">4</i></div>
+          <div class="cmpt-c lose">everything stays behind</div>
+          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>your clients come with you</div>
+          <div class="cmpt-l">Payment protection<i class="mk">5</i></div>
+          <div class="cmpt-c win"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>escrow, mostly safe</div>
+          <div class="cmpt-c lose">your own contract</div>
+          <div class="cmpt-l">Credibility with new clients</div>
+          <div class="cmpt-c win"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>ratings and reviews, built in</div>
+          <div class="cmpt-c lose">your site, your case studies</div>
+      </div>
+      <p class="cmpt-note">Two rows go the platform&rsquo;s way. We&rsquo;re not pretending otherwise.<i class="mk">6</i></p>
+
+      <div class="fit">
+        <div class="fit-c">
+          <h4>Worth it if all three are true<i class="mk">7</i></h4>
+          <ul>
+              <li><span class="fit-box" aria-hidden="true"></span><div><p>You&rsquo;re an agency or a studio</p><p>not a solo doing one-off gigs</p></div></li>
+              <li><span class="fit-box" aria-hidden="true"></span><div><p>Someone on the team pitches</p><p>a lead is only worth what you do with it</p></div></li>
+              <li><span class="fit-box" aria-hidden="true"></span><div><p>Your projects start at $2,000</p><p>one won job covers months of this</p></div></li>
+          </ul>
+        </div>
+        <div class="fit-c no">
+          <h4>Not worth it if</h4>
+          <ul>
+              <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>You&rsquo;re bidding on $200 jobs<i class="mk">8</i></p><p>the maths doesn&rsquo;t work, and we&rsquo;d rather say so</p></div></li>
+              <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>Nobody has time to write pitches</p><p>names pile up unused</p></div></li>
+              <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>You want the platform to handle it all</p><p>escrow, disputes, ratings &mdash; we don&rsquo;t do those</p></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <aside class="notes">
+      <p class="sec-label"><b>Fit</b> &mdash; what it adds, and who it is not for</p>
+      <p class="notes-h">Why</p>
+      <p class="note"><b>This replaces a section that was abstract on both sides.</b> &ldquo;They pick you / you pick them&rdquo; described a dynamic nobody experiences that way &mdash; nobody&rsquo;s week feels like <em>being picked</em>. This says the same thing in terms of the reader&rsquo;s week, and it does something no other section on the page does: it names who the product is for.</p>
+      <p class="note"><b>Position two, so disqualification happens early.</b> The hero shows leads and the reader&rsquo;s very next thought is <em>is this for me, and why would I switch?</em> Turning someone away in section two saves them five more sections; doing it in section six wastes everyone&rsquo;s time and reads as a late hedge.</p>
+      <p class="note"><b>Addition, not replacement, and that distinction is load-bearing.</b> &ldquo;Platforms vs Leadhoundy&rdquo; asks someone to abandon the thing currently paying their bills, and they will not. &ldquo;Platforms only vs with Leadhoundy&rdquo; asks them to add a layer. The headline says it before the table does. Never reframe this as a replacement pitch, at any point on the page.</p>
+      <p class="note"><b>Four to two is what makes this a comparison rather than an ad.</b> A table where every row favours you reads as a strawman, and a reader who spots one invented row stops believing the four real ones. Escrow and ratings are genuine advantages the product does not offer, so they are stated as such and the wash stops before them.</p>
+      <p class="note"><b>The third exclusion closes the loop with the two concession rows.</b> &ldquo;You want the platform to handle it all &mdash; escrow, disputes, ratings&rdquo; is the same admission the table already made, said a second time as a position rather than a gap. Stated twice, it stops being a hole in the offer and becomes a boundary around it.</p>
+      <p class="note warn"><b>&ldquo;If you left tomorrow&rdquo; absorbs the banning question without naming it.</b> It is the only row about five years out rather than one project, which is why it carries the weight. Never name banning explicitly: it plants a fear most readers had not considered, and it is a claim about a named category being catastrophic &mdash; two different kinds of exposure in one sentence.</p>
+
+      <div class="build-block">
+        <p class="notes-h">Build notes</p>
+        <ol class="build">
+          <li><b>1</b> <em>No animation anywhere in this section, and that is the design.</em> It sits between an animated hero and three animated diagrams. Being the one still block is what lets it read as the moment the page stops demoing and starts talking &mdash; and it is the only section a reader can take in without waiting for something to finish.</li>
+          <li><b>2</b> <em>The accent wash covers four rows and must stop before the last two.</em> It is one continuous element spanning the winning rows, not a tint repeated per cell, so it cannot drift out of alignment &mdash; and a wash that ran the full column would quietly claim the two rows the section just conceded. Row gaps are zero for the same reason: gaps would break it into four bands.</li>
+          <li><b>3</b> <em>Rows one and two are the compressible pair if this section runs long.</em> &ldquo;Client attention&rdquo; and &ldquo;what you&rsquo;re paying for&rdquo; overlap &mdash; both are about being one of many &mdash; and merging them costs the least. The section runs around 580px and sits early; if the page feels heavy before the mechanism, cut here. Protect the fit block at full size.</li>
+          <li><b>4</b> <em>This is the strongest row in the table and the only label with weight.</em> Every other row is about one project; this one is about five years. Keep it fourth rather than first &mdash; it lands harder after three rows of ordinary arithmetic than it would cold.</li>
+          <li><b>5</b> <em>The two concession rows are non-negotiable.</em> Escrow and ratings are real advantages the product does not offer, and a reader who has used a platform knows it. Deleting either to tidy the table into a clean sweep would cost more credibility than the row costs comparison.</li>
+          <li><b>6</b> <em>This sentence will look deletable and is one of the two most load-bearing in the section.</em> Naming the score out loud is what turns a table into an argument someone can check. If it goes, the four winning rows go back to being assertions.</li>
+          <li><b>7</b> <em>The boxes stay empty.</em> A reader ticks them mentally, and an empty box pulls them to answer; a pre-filled checkmark is decoration and answers on their behalf, which is the opposite of what a fit list is for.</li>
+          <li><b>8</b> <em>&ldquo;The maths doesn&rsquo;t work, and we&rsquo;d rather say so&rdquo; is the other load-bearing sentence.</em> Telling a visitor not to buy is what makes everything else on the page believable, and it is the line most likely to be softened by someone optimising for conversions. It converts by not converting.</li>
+          <li><b>&mdash;</b> <em>Equal card size, equal weight, and no red.</em> The right column sits at 70% and uses grey crosses. Red would say <em>this is bad</em>; the point is <em>this is not you, and that is fine</em>. Don&rsquo;t reach for green on the left either &mdash; it already means &ldquo;wins this row&rdquo; in the table directly above, and one colour with two jobs is how a palette stops meaning anything. If the two cards need more separation, use a faint tint on the left card rather than colour on the right.</li>
+          <li><b>&mdash;</b> <em>Green is now doing two jobs on the page, and it is worth a second look.</em> It marks the winning cell here and the &ldquo;keep&rdquo; verdict in Research step 3. The two readings are close enough &mdash; both mean &ldquo;this one&rdquo; &mdash; that it probably holds, but they were arrived at separately rather than decided together. Check them side by side before this ships.</li>
+          <li><b>&mdash;</b> <em>Never name a specific platform anywhere in this section.</em> &ldquo;Platforms&rdquo; stays plural and generic. Comparative advertising against a named competitor carries real exposure, and half this audience has never used one &mdash; a name would tell them the page is not for them, which is the opposite of what a fit section is doing.</li>
+          <li><b>&mdash;</b> <em>Two equal columns must stack on mobile, never shrink.</em> Three items each with a two-line reason does not survive being halved; a reader would meet six truncated lines and skip the block that decides whether they are the customer. Stacking costs height in the one section that can afford it.</li>
+        </ol>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 3. HOW IT WORKS ============ -->
+  <section class="blk" id="s3">
+    <div class="rail">3</div>
     <div class="frame">
 
       <div class="toolh">
@@ -1340,9 +1480,9 @@
     </aside>
   </section>
 
-  <!-- ============ 3. OBJECTIONS ============ -->
-  <section class="blk" id="s3">
-    <div class="rail">3</div>
+  <!-- ============ 4. OBJECTIONS ============ -->
+  <section class="blk" id="s4">
+    <div class="rail">4</div>
     <div class="frame">
       <div class="faq">
         <details class="faq-row" open>
@@ -1433,9 +1573,9 @@
     </aside>
   </section>
 
-  <!-- ============ 4. PRICING ============ -->
-  <section class="blk" id="s4">
-    <div class="rail">4</div>
+  <!-- ============ 5. PRICING ============ -->
+  <section class="blk" id="s5">
+    <div class="rail">5</div>
     <div class="frame">
 
       <div class="free-band">
@@ -1535,9 +1675,9 @@
     </aside>
   </section>
 
-  <!-- ============ 5. CLOSE ============ -->
-  <section class="blk" id="s5">
-    <div class="rail">5</div>
+  <!-- ============ 6. CLOSE ============ -->
+  <section class="blk" id="s6">
+    <div class="rail">6</div>
     <div class="frame">
       <div class="close-cta">
         <h2>Get 7 leads, right now.<i class="mk">1</i></h2>
@@ -1573,9 +1713,9 @@
   </section>
 
 
-  <!-- ============ 6. FOOTER ============ -->
-  <section class="blk" id="s6">
-    <div class="rail">6</div>
+  <!-- ============ 7. FOOTER ============ -->
+  <section class="blk" id="s7">
+    <div class="rail">7</div>
     <div class="frame">
 
       <div class="ftr">
