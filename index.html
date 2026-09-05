@@ -247,15 +247,16 @@
     align-self:stretch;
   }
 
+  /* the section label is annotation, so it lives in the margin with the rest of
+     it — same blue, same hatched ground, above the Why heading it introduces */
   .sec-label{
     font-family:var(--mono);
     font-size:.72rem;
-    color:var(--ink-soft);
-    margin:0 0 1.2rem;
-    padding-bottom:.45rem;
-    border-bottom:1px solid var(--hair);
+    color:var(--mark);
+    margin:0 0 .9rem;
+    position:relative;
   }
-  .sec-label b{color:var(--ink);font-weight:600}
+  .sec-label b{color:var(--mark);font-weight:600}
 
   /* ---------- annotations ---------- */
   .note{
@@ -921,7 +922,6 @@
   <section class="blk" id="s1">
     <div class="rail">1</div>
     <div class="frame">
-      <p class="sec-label"><b>Hero</b> — live scanner demo</p>
 
       <div class="nav">
         <div class="nav-l">
@@ -996,6 +996,7 @@
     </div>
 
     <aside class="notes">
+      <p class="sec-label"><b>Hero</b> — live scanner demo</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>The headline is settled and the A/B is over.</b> Two variants used to be switchable from a control above the document; the page now ships one headline and the switcher is gone. Worth keeping in mind that the old variant B ("Every job posting is a client") repeated the subhead's claim — the current pair doesn't. The headline states the supply, the subhead states the gap, and neither says the other's sentence.</p>
       <p class="note"><b>The counter line is gone because the headline swallowed it.</b> "3,412 postings scanned today" sitting above a headline that opens "Today 3,412 companies posted work" is the same figure printed twice, and it reads as a copy-paste error rather than as proof. The number kept its live tick and moved into the sentence, so the proof mechanism survives — it just isn't a separate line any more.</p>
@@ -1084,7 +1085,6 @@
   <section class="blk" id="s2">
     <div class="rail">2</div>
     <div class="frame">
-      <p class="sec-label"><b>How it works</b> — from everything posted to your Slack</p>
 
       <div class="stream">
         <div class="zone z-field">
@@ -1275,6 +1275,7 @@
     </div>
 
     <aside class="notes">
+      <p class="sec-label"><b>How it works</b> — from everything posted to your Slack</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Scanner is a stream, Research is a funnel.</b> Opposite geometries on purpose &mdash; one runs left to right and never ends, the other runs top to bottom and narrows to a single person. They share a card, a chip and an accent so they still read as one product, and one shared closing line so the visitor never has to choose between them.</p>
       <p class="note"><b>The identical before/after field is the section&rsquo;s core device.</b> Zone 3 <em>is</em> zone 1 &mdash; the same fifteen cards at the same coordinates at the same size &mdash; with everything unmatched dimmed and three cards resolved to a name. Nothing is added, nothing is removed, nothing moves. That is the entire claim: the scanner doesn&rsquo;t fetch you a different internet, it picks out the three postings that were always yours. Redraw zone 3 as its own arrangement and the section loses its argument and becomes two pictures of some cards.</p>
@@ -1339,7 +1340,6 @@
   <section class="blk" id="s3">
     <div class="rail">3</div>
     <div class="frame">
-      <p class="sec-label"><b>Objections</b> — six, folded except the first<i class="mk">6</i></p>
       <div class="faq">
         <details class="faq-row" open>
           <summary>
@@ -1371,7 +1371,7 @@
         </details>
         <details class="faq-row">
           <summary>
-            <h3>Can my team use this too?<i class="mk">7</i></h3>
+            <h3>Can my team use this too?<i class="mk">6</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
           <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Connect Slack and everyone sees the same leads in one place, so nobody has to forward anything.</p>
@@ -1388,6 +1388,7 @@
       </div>
     </div>
     <aside class="notes">
+      <p class="sec-label"><b>Objections</b> — six, folded except the first</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
       <p class="note">Row 4 is a conversion lever, not an FAQ answer — and this is now the only place on the page it appears. The pricing section carried the same line word for word; it was removed there because sitting beside the price it read as a warning that reveals fail often enough to need a guarantee.</p>
@@ -1403,18 +1404,20 @@
       <p class="note warn"><b>"Reply rates are far better than untargeted cold email" is a performance claim.</b> Not comparative against a named company, so it doesn't carry the exposure the headline rules were guarding against — but it's still a claim you'd need to stand behind. Either get a number from the two customers and say it, or soften "far" before this ships.</p>
       <p class="note">Row 3's real defence is its last clause — the outreach happens somewhere else entirely. That's the load-bearing sentence in the answer, and it should survive any edit.</p>
 
+      <p class="note"><b>The accordion notes lost their marker when this label moved to the margin.</b> Marker 6 was attached to "six, folded except the first", which was the only thing in the frame the accordion-as-a-whole could point at. There is no single element to re-anchor it to &mdash; the mechanism <em>is</em> all six rows &mdash; so those notes are now unnumbered, which is what this document already uses for section-wide points.</p>
+
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
           <li><b>1</b> <em>Row 1 is open on load and the other four are closed.</em> That split is the whole design of this section — see the margin for why each row falls the way it does. Don't "tidy" it by closing all five or opening all five; both are worse than the mix, in opposite directions.</li>
-          <li><b>6</b> <em>The affordance has to be unmistakable, because the fold only works if people click.</em> A row that looks like static text is a lost answer. Whole summary row is the hit target, not just the sign — and on mobile that row needs at least 44px of height. The <code>+</code> / <code>–</code> is a placeholder for whatever the designer picks; a chevron is fine, a mystery-meat dot is not.</li>
-          <li><b>6</b> <em>Built on native <code>&lt;details&gt;</code>, and it should stay that way.</em> No JavaScript, keyboard-operable and screen-reader-announced for free, and it works before the script runs — which is a rule on this page. A hand-rolled accordion would cost bytes and re-implement four accessibility behaviours the browser already has right.</li>
-          <li><b>6</b> <em>Multiple rows can be open at once, deliberately.</em> An exclusive accordion (which <code>&lt;details name&gt;</code> would give free) would slam row 1 shut the moment someone opens row 2, and row 1 is the one that must stay readable. It also stops anyone comparing two answers.</li>
-          <li><b>6</b> <em>Expanding must not animate.</em> Height transitions on open are the single most common accordion tell, and this page has a three-item motion budget that this is not on. Instant open, no easing, nothing to respect <code>prefers-reduced-motion</code> about.</li>
-          <li><b>6</b> <em>Never collapse a row that's carrying a legal answer once counsel has signed it off.</em> If the lawyer's wording ends up in row 2 or 3, check that "visible only after a click" is still acceptable to them — a disclosure behind an interaction is a different thing from a disclosure on the page, and that's their call, not a design one.</li>
-          <li><b>7</b> <em>Framed as capacity, not as sharing.</em> "Can my team use this too?" gets a yes; "can I share my account?" invites a no, because most SaaS forbids it and people ask that one expecting to be told off. Don't rewrite it into the sharing framing, and don't reach for role nouns like "sales manager" — the audience is agencies, where the person handling leads is a founder or whoever writes the proposals.</li>
-          <li><b>7</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §4 get upgraded together — they are the same claim in two places.</li>
-          <li><b>7</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
+          <li><b>&mdash;</b> <em>The affordance has to be unmistakable, because the fold only works if people click.</em> A row that looks like static text is a lost answer. Whole summary row is the hit target, not just the sign — and on mobile that row needs at least 44px of height. The <code>+</code> / <code>–</code> is a placeholder for whatever the designer picks; a chevron is fine, a mystery-meat dot is not.</li>
+          <li><b>&mdash;</b> <em>Built on native <code>&lt;details&gt;</code>, and it should stay that way.</em> No JavaScript, keyboard-operable and screen-reader-announced for free, and it works before the script runs — which is a rule on this page. A hand-rolled accordion would cost bytes and re-implement four accessibility behaviours the browser already has right.</li>
+          <li><b>&mdash;</b> <em>Multiple rows can be open at once, deliberately.</em> An exclusive accordion (which <code>&lt;details name&gt;</code> would give free) would slam row 1 shut the moment someone opens row 2, and row 1 is the one that must stay readable. It also stops anyone comparing two answers.</li>
+          <li><b>&mdash;</b> <em>Expanding must not animate.</em> Height transitions on open are the single most common accordion tell, and this page has a three-item motion budget that this is not on. Instant open, no easing, nothing to respect <code>prefers-reduced-motion</code> about.</li>
+          <li><b>&mdash;</b> <em>Never collapse a row that's carrying a legal answer once counsel has signed it off.</em> If the lawyer's wording ends up in row 2 or 3, check that "visible only after a click" is still acceptable to them — a disclosure behind an interaction is a different thing from a disclosure on the page, and that's their call, not a design one.</li>
+          <li><b>6</b> <em>Framed as capacity, not as sharing.</em> "Can my team use this too?" gets a yes; "can I share my account?" invites a no, because most SaaS forbids it and people ask that one expecting to be told off. Don't rewrite it into the sharing framing, and don't reach for role nouns like "sales manager" — the audience is agencies, where the person handling leads is a founder or whoever writes the proposals.</li>
+          <li><b>6</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §4 get upgraded together — they are the same claim in two places.</li>
+          <li><b>6</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row is now the only copy of the guarantee.</em> It used to be repeated next to pricing and was removed there. Treat the wording as a term of the deal rather than as an answer — plain, short, unhedged — because there is no longer a second place where a visitor might meet it.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
@@ -1430,7 +1433,6 @@
   <section class="blk" id="s4">
     <div class="rail">4</div>
     <div class="frame">
-      <p class="sec-label"><b>Pricing</b> — three tiers, all of it on screen</p>
 
       <div class="free-band">
         <div>
@@ -1488,6 +1490,7 @@
       <p class="annual">One <b>$5k</b> project covers a year of Leadhoundy.<i class="mk">7</i></p>
     </div>
     <aside class="notes">
+      <p class="sec-label"><b>Pricing</b> — three tiers, all of it on screen</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Pro is gone, and it should have gone earlier.</b> It was a decoy, and a decoy only works if it is seen — it sat behind "Compare all plans", so most visitors never met it while it still cost a fifth column and a narrower card for everyone. Both real customers skipped it and went Starter → Advanced directly, which is the decoy's job done without the decoy.</p>
       <p class="note"><b>"Agency" couldn't be a tier name, because it's the entire audience.</b> Smaller agencies buy Starter and Advanced too, so the label told a visitor nothing about which column was theirs. "Unlimited" names capacity, which is what a pricing column should do: someone scanning Starter → Advanced → Unlimited understands the ladder before reading a single row.</p>
@@ -1530,7 +1533,6 @@
   <section class="blk" id="s5">
     <div class="rail">5</div>
     <div class="frame">
-      <p class="sec-label"><b>Close</b> — one bounded offer</p>
       <div class="close-cta">
         <h2>Get 7 leads, right now.<i class="mk">1</i></h2>
         <p>Try it with 7 free names. No card, nothing to cancel.<i class="mk">2</i></p>
@@ -1539,6 +1541,7 @@
       </div>
     </div>
     <aside class="notes">
+      <p class="sec-label"><b>Close</b> — one bounded offer</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Repeating the hero assumed the hero failed.</b> A weaker copy of it at the bottom doesn't fix that — and the mini cards carried no keyword context, so they were less compelling than the feed the visitor had already scrolled past. What has actually changed by this point is that they have seen the price, so the closer answers <em>is this worth trying</em> rather than re-proving the product.</p>
       <p class="note"><b>The old headline promised a result inside a week.</b> "You'll know if this works in a week" put an outcome the product cannot control at the exact moment of conversion — whether anyone replies depends on the pitch, the market and the week, none of which is ours. The closer shouldn't make a promise it isn't the one keeping. The new version promises immediacy instead: what they get right now, not what happens later.</p>
@@ -1568,7 +1571,6 @@
   <section class="blk" id="s6">
     <div class="rail">6</div>
     <div class="frame">
-      <p class="sec-label"><b>Footer</b> — trust, law, and the dog</p>
 
       <div class="ftr">
         <div class="ftr-top">
@@ -1622,6 +1624,7 @@
     </div>
 
     <aside class="notes">
+      <p class="sec-label"><b>Footer</b> — trust, law, and the dog</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>This footer does compliance work, not navigation work.</b> Nobody browses a footer. But "where does this data come from" is one of the top objections, and a visible, honest answer down here is worth more than a paragraph of reassurance up there.</p>
       <p class="note">You're operating from Portugal on personal data, so a findable removal route and a plain data-sourcing page aren't decoration — they're the thing you point at when someone asks, and the thing a regulator looks for first.</p>
