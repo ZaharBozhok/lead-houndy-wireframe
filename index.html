@@ -658,6 +658,133 @@
   .r2{animation:row2 15s steps(1,end) infinite}
   .r3{animation:row3 15s steps(1,end) infinite}
 
+  /* ---------- Competitor Research: folded, because it is powerful and niche.
+     Same card treatment as everything else, and the closed and open states are
+     one <details> with one icon — never two components that look alike. ------ */
+  .cmp{border:1px solid var(--line);background:var(--sheet);margin-top:.9rem}
+  .cmp > summary{
+    list-style:none;cursor:pointer;display:flex;align-items:center;gap:.55rem;
+    padding:.85rem 1.1rem;
+  }
+  .cmp > summary::-webkit-details-marker{display:none}
+  .cmp > summary::marker{content:""}
+  .cmp > summary:focus-visible{outline:2px solid var(--mark);outline-offset:-2px}
+  .podium{flex:none;width:16px;height:14px}
+  .podium .pb{fill:var(--line)}
+  .podium .pb.mid{fill:var(--accent)}
+  .podium .pbase{stroke:var(--ink-soft);stroke-width:1}
+  .cmp-closed,.cmp-open{font-size:.9rem;font-weight:600;display:flex;align-items:baseline;gap:.3rem}
+  .cmp-open{font-weight:600}
+  .cmp-open em{font-style:normal;font-weight:400;color:var(--ink-soft)}
+  .cmp:not([open]) .cmp-open{display:none}
+  .cmp[open] .cmp-closed{display:none}
+
+  /* fixed width and clipped: sized for the longest name the query can return,
+     so the row can never reflow mid-rotation */
+  .cmp-slot{
+    display:inline-block;width:11.5rem;height:1.35em;overflow:hidden;
+    vertical-align:bottom;position:relative;
+  }
+  .cmp-reel{display:block;animation:reel 16s cubic-bezier(.4,0,.2,1) infinite}
+  .cmp-reel b{
+    display:block;height:1.35em;line-height:1.35em;color:var(--accent);font-weight:600;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  /* 26px per step. Four names, so the reel carries five and the fifth repeats
+     the first — that is what makes the wrap seamless instead of a rewind. */
+  @keyframes reel{
+    0%,20%   {transform:translateY(0)}
+    25%,45%  {transform:translateY(-26px)}
+    50%,70%  {transform:translateY(-52px)}
+    75%,95%  {transform:translateY(-78px)}
+    100%     {transform:translateY(-104px)}
+  }
+
+  .cmp-chev{
+    margin-left:auto;flex:none;width:9px;height:9px;
+    border-right:1.5px solid var(--ink-soft);border-bottom:1.5px solid var(--ink-soft);
+    transform:rotate(45deg);
+    animation:nudge 16s ease-in-out infinite;
+  }
+  .cmp[open] .cmp-chev{transform:rotate(-135deg);animation:none}
+  /* one soft nudge near the end of a cycle — once, never a loop, and never a
+     shake: shake means error in every UI a visitor has already used */
+  @keyframes nudge{
+    0%,86%   {transform:rotate(45deg) translate(0,0)}
+    91%      {transform:rotate(45deg) translate(2.1px,2.1px)}
+    96%,100% {transform:rotate(45deg) translate(0,0)}
+  }
+  /* stops once the row has scrolled past, and permanently after any open */
+  .cmp-still .cmp-reel,.cmp-still .cmp-chev{animation:none}
+
+  .cmp-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--hair)}
+  .cmp-steps{
+    display:grid;grid-template-columns:repeat(3,392px);gap:0 25px;
+    width:1226px;margin-top:.7rem;
+  }
+  .cmp-hand{
+    margin:1.1rem 0 0;padding-top:.9rem;border-top:1px solid var(--hair);
+    font-size:.84rem;color:var(--ink-soft);
+  }
+
+  /* ---- the three panels ---- */
+  .cmpsvg{display:block;flex:none}
+  .cpanel{fill:var(--paper);stroke:var(--hair);stroke-width:1}
+  .cwin{fill:var(--sheet);stroke:var(--line);stroke-width:1}
+  .crule{stroke:var(--hair);stroke-width:1}
+  .cav{fill:none;stroke:var(--line);stroke-width:1}
+  .cav.on{fill:var(--accent);stroke:none}
+  .cname{font-size:11px;font-weight:600;fill:var(--ink)}
+  .cmeta{font-family:var(--mono);font-size:8px;fill:var(--ink-soft)}
+  .cring{fill:none;stroke:var(--accent);stroke-width:2;opacity:0}
+  .cdivl{stroke:var(--hair);stroke-width:1}
+  .cdet{opacity:0}
+  .cdett{font-size:10px;fill:var(--ink)}
+
+  .cgrid{stroke:var(--hair);stroke-width:1}
+  .cspark{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+  .cmark{fill:var(--sheet);stroke:var(--accent);stroke-width:2;opacity:0}
+  .cyear{font-family:var(--mono);font-size:8px;fill:var(--ink-soft);text-anchor:middle}
+  .cstats{opacity:0}
+  .cstat{font-size:10px;fill:var(--ink-soft)}
+  .cstatn{font-size:12px;font-weight:700;fill:var(--ink)}
+
+  .ccard{fill:var(--sheet);stroke:var(--hair);stroke-width:1}
+  .cclient{font-size:11px;font-weight:600;fill:var(--ink)}
+  .camt{font-family:var(--mono);font-size:11px;font-weight:600;fill:var(--ink);text-anchor:end}
+  /* withheld, not unloaded — see the margin: the hero uses blur for the other
+     meaning and the two must not be read as the same state */
+  .clock{fill:var(--ink);opacity:.75}
+  .clock.dim{opacity:.35}
+  .cblur{filter:blur(3.5px);opacity:.55}
+
+  /* ---- one 12s loop. Step 3 resolves only after step 2 has finished
+     drawing, so it reads pick, then study, then the clients appear. ---- */
+  @keyframes creel{
+    0%,4%    {transform:translateY(0)}
+    18%,92%  {transform:translateY(-140px)}
+    100%     {transform:translateY(0)}
+  }
+  .creel{animation:creel 12s cubic-bezier(.15,.85,.25,1) infinite}
+  @keyframes fadeAt20{0%,19%{opacity:0}20%,92%{opacity:1}100%{opacity:0}}
+  @keyframes fadeAt23{0%,22%{opacity:0}23%,92%{opacity:1}100%{opacity:0}}
+  @keyframes fadeAt54{0%,53%{opacity:0}54%,92%{opacity:1}100%{opacity:0}}
+  @keyframes fadeAt57{0%,56%{opacity:0}57%,92%{opacity:1}100%{opacity:0}}
+  .cring{animation:fadeAt20 12s steps(1,end) infinite}
+  .cdet {animation:fadeAt23 12s steps(1,end) infinite}
+  .cmark{animation:fadeAt54 12s steps(1,end) infinite}
+  .cstats{animation:fadeAt57 12s steps(1,end) infinite}
+  /* the line draws itself between 20% and 48%; dash length is set from JS so it
+     survives anyone editing the path */
+  @keyframes draw{0%,20%{stroke-dashoffset:var(--len)}48%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:var(--len)}}
+  .cspark{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 12s ease-out infinite}
+  @keyframes unblur{
+    0%,56%  {filter:blur(3.5px);opacity:.55}
+    68%,92% {filter:blur(0);opacity:1}
+    100%    {filter:blur(3.5px);opacity:.55}
+  }
+  .cblur{animation:unblur 12s ease-in-out infinite}
+
   /* ---------- section 4: doors ---------- */
   .door{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;margin-bottom:.9rem}
   .door p{margin:0 0 .8rem;font-size:.86rem;color:var(--ink-soft);max-width:56ch}
@@ -1099,6 +1226,26 @@
           </div>
         </div>
       </div>
+
+        <details class="cmp" id="cmpBlock">
+        <summary>
+        <svg class="podium" viewBox="0 0 16 14" aria-hidden="true"><rect x="0.6" y="6.5" width="4" height="6.9" class="pb"/><rect x="6" y="2.6" width="4" height="10.8" class="pb mid"/><rect x="11.4" y="8.4" width="4" height="5" class="pb"/><line x1="0" y1="13.4" x2="16" y2="13.4" class="pbase"/></svg><i class="mk">12</i>
+        <span class="cmp-closed">Look up any competitor &mdash; see who paid <span class="cmp-slot"><span class="cmp-reel"><b>Nordvale Studios</b><b>Halvard &amp; Co</b><b>Brightpath Digital</b><b>Meridian Type</b><b>Nordvale Studios</b></span></span></span>
+        <span class="cmp-open">Competitor Research <em>&mdash; see who, what, when, and how much they earned</em></span>
+        <span class="cmp-chev" aria-hidden="true"></span>
+        </summary>
+        <div class="cmp-body">
+        <div class="scanwrap">
+<svg class="cmpsvg" viewBox="0 0 1226 220" width="1226" height="220" role="img" aria-label="Three steps: pick a competitor, see what they have done, then see the clients who paid them."><defs><clipPath id="cclip0"><rect x="0" y="0" width="392" height="220"/></clipPath><clipPath id="cclip1"><rect x="0" y="0" width="392" height="220"/></clipPath><clipPath id="cclip2"><rect x="0" y="0" width="392" height="220"/></clipPath></defs><g transform="translate(0 0)" clip-path="url(#cclip0)"><rect x="0.5" y="0.5" width="391" height="219" class="cpanel"/><rect x="20.5" y="22.5" width="351" height="131" class="cwin"/><clipPath id="cwinclip"><rect x="20" y="22" width="352" height="132"/></clipPath><g clip-path="url(#cwinclip)"><g class="creel"><circle cx="42" cy="48" r="9" class="cav"/><text x="60" y="46" class="cname">Halvard &amp; Co</text><text x="60" y="58" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="70" x2="360" y2="70" class="crule"/><circle cx="42" cy="92" r="9" class="cav"/><text x="60" y="90" class="cname">Meridian Type</text><text x="60" y="102" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="114" x2="360" y2="114" class="crule"/><circle cx="42" cy="136" r="9" class="cav"/><text x="60" y="134" class="cname">Lumen Field</text><text x="60" y="146" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="158" x2="360" y2="158" class="crule"/><circle cx="42" cy="180" r="9" class="cav"/><text x="60" y="178" class="cname">Brightpath Digital</text><text x="60" y="190" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="202" x2="360" y2="202" class="crule"/><circle cx="42" cy="224" r="9" class="cav"/><text x="60" y="222" class="cname">Nordvale Studios</text><text x="60" y="234" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="246" x2="360" y2="246" class="crule"/><circle cx="42" cy="268" r="9" class="cav"/><text x="60" y="266" class="cname">Kestrel Works</text><text x="60" y="278" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="290" x2="360" y2="290" class="crule"/><circle cx="42" cy="312" r="9" class="cav"/><text x="60" y="310" class="cname">Oostveen Studio</text><text x="60" y="322" class="cmeta">agency &middot; Webflow, React</text></g></g><rect x="26" y="62" width="340" height="42" class="cring"/><line x1="20" y1="170" x2="372" y2="170" class="cdivl"/><g class="cdet"><circle cx="32" cy="192" r="10" class="cav on"/><text x="50" y="196" class="cdett">18 people &middot; Amsterdam</text></g></g><g transform="translate(417 0)" clip-path="url(#cclip1)"><rect x="0.5" y="0.5" width="391" height="219" class="cpanel"/><line x1="20" y1="44" x2="372" y2="44" class="cgrid"/><line x1="20" y1="84" x2="372" y2="84" class="cgrid"/><line x1="20" y1="124" x2="372" y2="124" class="cgrid"/><line x1="20" y1="164" x2="372" y2="164" class="cgrid"/><path d="M30 140 L90 124 L150 132 L210 96 L270 74 L330 58 L362 44" class="cspark"/><circle cx="90" cy="124" r="4" class="cmark"/><circle cx="210" cy="96" r="4" class="cmark"/><circle cx="330" cy="58" r="4" class="cmark"/><text x="34" y="182" class="cyear">2022</text><text x="140" y="182" class="cyear">2023</text><text x="246" y="182" class="cyear">2024</text><text x="352" y="182" class="cyear">2025</text><g class="cstats"><text x="20" y="205" class="cstat"><tspan class="cstatn">42</tspan> jobs delivered</text><text x="200" y="205" class="cstat"><tspan class="cstatn">$18k</tspan> average</text></g></g><g transform="translate(834 0)" clip-path="url(#cclip2)"><rect x="0.5" y="0.5" width="391" height="219" class="cpanel"/><g class="cblur"><rect x="20" y="26" width="352" height="52" class="ccard"/><circle cx="43" cy="52" r="9" class="cav on"/><text x="56" y="49" class="cclient">Ravel Studio</text><text x="56" y="62" class="cmeta">2023&#8211;25</text><text x="342" y="53" class="camt">$46,200</text><rect x="20" y="88" width="352" height="52" class="ccard"/><circle cx="43" cy="114" r="9" class="cav on"/><text x="56" y="111" class="cclient">Brightpath Commerce</text><text x="56" y="124" class="cmeta">2024&#8211;25</text><text x="342" y="115" class="camt">$31,800</text><rect x="20" y="150" width="352" height="52" class="ccard"/><rect x="34" y="166" width="120" height="9" class="clock"/><rect x="34" y="182" width="72" height="7" class="clock dim"/><rect x="286" y="166" width="56" height="9" class="clock"/></g></g></svg>
+          <div class="cmp-steps">
+        <div class="scanstep"><b>01 &middot; Pick a competitor<i class="mk">13</i></b><span>an agency or a freelancer doing your kind of work</span></div>
+        <div class="scanstep"><b>02 &middot; See what they've done<i class="mk">14</i></b><span>past work, what it paid, how they&rsquo;ve grown</span></div>
+        <div class="scanstep"><b>03 &middot; See who paid them<i class="mk">15</i></b><span>the clients behind every one of those jobs</span></div>
+          </div>
+        </div>
+        <p class="cmp-hand">From here it&rsquo;s the same as above &mdash; reveal, add to your list, pitch them.<i class="mk">16</i></p>
+        </div>
+      </details>
     </div>
 
     <aside class="notes">
@@ -1117,7 +1264,11 @@
       <p class="note"><b>A tester read Scanner instantly and got lost in the Research version this replaces.</b> That one had four entity types, its own geometry and its own vocabulary, and it made the reader start over. The fix was not more explanation: it was to make the two diagrams structurally identical &mdash; same five blocks, same widths, same pitch, same label row &mdash; and let one variable carry the difference. Scanner drifts and pulses because it is a stream; Research ripples and steps because it is a settled pile.</p>
       <p class="note"><b>Research is the backlog; Scanner is the future.</b> Density, the age fade and &ldquo;going back&rdquo; say historical; Scanner&rsquo;s pulse and drift say live. The two titles carry it before either diagram is read &mdash; a pulsing dot on one, a drawer on the other &mdash; and the absence of the dot here is as much the signal as its presence there.</p>
       <p class="note"><b>The paid/unfilled dot is the outcome dimension, and it is why Research beats a job board.</b> A paid job proves the client has budget and actually hires; an unfilled one means they are still looking. Both are good leads for opposite reasons, which is why the legend names them rather than ranking them. No job board carries this, because a board stops caring once the posting closes.</p>
-      <p class="note"><b>Searching by agency, freelancer or client is deliberately not in the diagram.</b> It is the most distinctive thing the product does and it is also what made the earlier version incomprehensible &mdash; four entity types is four diagrams. It lives in the copy above instead, and competitor-earnings deserves its own small strip below rather than a corner of this one.</p>
+      <p class="note"><b>Competitor Research is folded because it is powerful and niche.</b> It is the most distinctive thing the product does and a two-person Webflow shop will never open it &mdash; and &sect;3 is already the longest section on the page. Folding serves the minority who care without taxing everyone else. The tradeoff is accepted rather than solved: most visitors will not open it, so the closed row&rsquo;s one line has to land the point on its own, and this block cannot be asked to carry the differentiation argument. That stays with Scanner and Research.</p>
+      <p class="note"><b>The framing is acquisition, not espionage.</b> &ldquo;An agency or a freelancer doing your kind of work&rdquo; rather than &ldquo;your competitors&rdquo;; &ldquo;see who paid them&rdquo; rather than &ldquo;see what they earned&rdquo;. &ldquo;Look up your competitors&rdquo; flatters and threatens the same reader in one sentence, because their own numbers are equally visible to everyone else &mdash; and a reader who works that out mid-sentence stops reading about the feature and starts thinking about themselves.</p>
+      <p class="note"><b>The closed teaser and the open title say different things on purpose.</b> The teaser is a promise &mdash; look up any competitor, see who paid them &mdash; and the title is a spec: who, what, when, and how much. If they drift into near-duplicates, expanding the block will feel like it gave nothing back, which is the one thing a fold cannot survive.</p>
+      <p class="note"><b>The rotation is the attention mechanism, and it works because every frame teaches something.</b> Four named studios cycling through one slot say two things at once: the feature works on real, nameable competitors, and there are a lot of them. That is why it is a rotation and not a shake &mdash; shake means error in every UI a visitor has ever used, and it would invert an invitation into a warning.</p>
+      <p class="note"><b>Searching by agency, freelancer or client is deliberately not in the Research diagram.</b> It is the most distinctive thing the product does and it is also what made the earlier version incomprehensible &mdash; four entity types is four diagrams. It lives in the copy above instead, and competitor-earnings deserves its own small strip below rather than a corner of this one.</p>
       <p class="note"><b>The rejection in find 2 is the most valuable second in the loop.</b> It is the only moment on the page showing that the <em>user</em> decides &mdash; which is exactly what separates Research from Scanner, where the AI decides and credits are spent without being asked. Its numbers are checkable against the chips above: $1,800 is under the budget filter, Wix is not React, and the dot is hollow where the filter says paid. A reader can audit the verdict, and that is what makes it persuasive rather than decorative.</p>
       <p class="note"><b>Steps 1 and 3 are one object, not two drawings.</b> The archive is defined once and referenced twice, so step 3 is literally step 1 seen through a scan rather than a second dataset that happens to look similar. It also means the two can never drift when someone edits one of them &mdash; the failure that eventually catches every before/after diagram built by copy-paste.</p>
 
@@ -1165,6 +1316,23 @@
           <li><b>&mdash;</b> <em>Five moving things in one diagram against a page budget of three.</em> The wave, the sweep, the cards opening, the rows appearing, and the icon and dot pulsing. The keepers are the step-3 sweep and the step-4 rows, because together they show cause and effect &mdash; a decision, then a consequence &mdash; which is the only thing here that argues rather than decorates. The wave and the pulses should be cut first.</li>
           <li><b>&mdash;</b> <em>One 15s loop drives everything, which is why the percentages can be read as a script.</em> Card 1 opens at 9%, its verdict at 16%, its row at 17%; find 2 opens at 31% and is rejected at 38% with no row; find 3 at 53/60/61; find 4 at 71/78/79; reset at 95%. Every verdict fires before the row it produces. Change the loop length and every number moves with it.</li>
           <li><b>&mdash;</b> <em>The two diagrams share <code>.scanwrap</code> and <code>.scansteps</code>,</em> which are named for Scanner but do a generic job: scroll container and five-column label row. Rename them together when someone next touches both, and never fork them &mdash; the shared skeleton is the whole reason the pair reads as a pair.</li>
+          <li><b>12</b> <em>Legal review required before this ships, and folding it changes nothing.</em> Weekly earnings snapshots are derived data about identifiable people. Public availability is not the same as free reuse under GDPR, and a solo freelancer is considerably more protected than a company. Building the feature and publishing it on a marketing page are separate questions with separate answers &mdash; and this is the marketing page, folded or not.</li>
+          <li><b>12</b> <em>The rotating names must come from real data.</em> Four hardcoded examples go stale, and someone will notice they are always the same four &mdash; probably one of the four. If the query cannot serve live names cheaply, rotate a larger hardcoded pool and date it, but do not ship four.</li>
+          <li><b>12</b> <em>The slot is fixed-width and clipped, and that was a decision rather than a discovery.</em> 11.5rem, sized for the longest name the query can return, with an ellipsis behind it. Let it size to content and the row reflows every four seconds while a visitor is reading it &mdash; measured here as one width across a full cycle, and it has to stay that way when the names become real ones you did not choose.</li>
+          <li><b>12</b> <em>Two stop conditions, both required, and they are not the same condition.</em> The rotation stops once the row has been on screen and scrolled past &mdash; it has made its offer &mdash; and it stops permanently after any open, persisted, so a returning visitor is never nagged about something they already looked at. Scrolling past does not persist: it is a session-level courtesy, not a decision the visitor made.</li>
+          <li><b>12</b> <em>One soft nudge on the chevron near the end of each cycle. Once, never a loop.</em> A repeating nudge is a nag, and a nag on a fold that most people are right to ignore costs more than the fold earns. 3px, down, the direction the thing actually opens.</li>
+          <li><b>12</b> <em>The podium was chosen over a bracket, opposing triangles and a magnifier.</em> It says comparison and ranking without saying &ldquo;you versus them&rdquo; &mdash; the accent bar is simply the one being looked at, not a rival beating you. That keeps the block pointed at research rather than rivalry, which is the same thing the copy is doing. Use the product&rsquo;s icon set rather than the hand-drawn path here.</li>
+          <li><b>13</b> <em>The list settles on the name the teaser leads with.</em> Nordvale Studios rotates past in the closed row and is the row the ring lands on when you open it. A visitor who opened the block because a name caught their eye finds that name waiting &mdash; the cheapest continuity available, and it costs one array ordering.</li>
+          <li><b>13</b> <em>Fast then decelerating, not linear.</em> <code>cubic-bezier(.15,.85,.25,1)</code> over 140px reads as a list being flicked and coming to rest; a linear scroll of the same distance reads as a carousel advancing on its own. One is a person choosing, the other is a machine presenting.</li>
+          <li><b>14</b> <em>The sparkline sets its own dash length from JavaScript.</em> <code>getTotalLength()</code> into a custom property, so the draw still completes if anyone edits the path. A hardcoded dash length is invisible when it breaks &mdash; the line simply stops short and looks like a design decision.</li>
+          <li><b>14</b> <em>Four years is the shortest span that shows a trajectory rather than a number.</em> &ldquo;How they&rsquo;ve grown&rdquo; is the claim in the label; two points is a comparison and three is a coincidence. If the archive cannot support four years for most agencies, the label has to change before the chart does.</li>
+          <li><b>15</b> <em>Blur here means withheld; blur on the hero cards means nothing known yet.</em> Two different states wearing one treatment, on one page, and a visitor who learns the hero meaning first will read this one wrong. Either give one of them a different treatment, or make the difference explicit &mdash; a lock on this one would do it. Unresolved, and it is a real ambiguity rather than a nitpick.</li>
+          <li><b>15</b> <em>The third row stays locked, deliberately.</em> Two clients revealed and one held back says the list is longer than the frame without claiming a number. A fully revealed panel would be a screenshot; this is a sample.</li>
+          <li><b>16</b> <em>This hands off rather than redrawing steps 4 and 5.</em> Repeating the list and the message window a third time would add a screen of height to say something the reader has now seen twice. One line does it, and it reinforces the thing all three tools have in common: they converge on the same action.</li>
+          <li><b>&mdash;</b> <em>Nothing in step 3 resolves until step 2 has finished drawing, and the sequencing is the argument.</em> One 12s loop: the list settles by 18%, the ring at 20%, the detail at 23%, the line draws from 20% to 48%, markers at 54%, stats at 57%, and only then does the client list unblur from 56% to 68%. It reads as pick, then study, then the clients appear &mdash; rather than three panels that happen to sit next to each other. Change the loop length and every number moves with it.</li>
+          <li><b>&mdash;</b> <em>Five moving things again, and this one is folded, which is the mitigation.</em> The closed-row rotation and the chevron nudge run on a separate 16s cycle and stop themselves; the three panel animations only run once someone has opened the block. Nothing here is competing for attention with Scanner and Research on first load, which is the only reason a third animated diagram is defensible at all.</li>
+          <li><b>&mdash;</b> <em>The alternative worth A/B testing is not folding it.</em> Three compressed panels always open cost about 120px and need no nudge mechanism, no viewport tracking and no persistence &mdash; three pieces of machinery that exist only because the block is folded. If the content is worth nagging people about, it may be worth the space; if it is not worth the space, it is probably not worth nagging about either. Cheaper to test than to build twice.</li>
+          <li><b>&mdash;</b> <em>Searching by agency, freelancer or client now has a home.</em> It was deliberately kept out of the Research diagram because four entity types made that block incomprehensible; this is where it went. If this block is ever cut, that capability goes back to being unillustrated &mdash; do not cut it silently.</li>
           <li><b>&mdash;</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Five blocks stacked lose the left-to-right reading, and with it the contrast against Scanner &mdash; a ripple and a drift both become a column, and the two tools stop being opposites. The stopgap is horizontal scroll, which hides steps 3, 4 and 5 behind a swipe most visitors will not make.</li>
           <li><b>6</b> <em>No Scanner explainer video.</em> It would only repeat this diagram, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time &mdash; which is exactly what companies make videos to fake.</li>
         </ol>
@@ -1983,6 +2151,40 @@
 
   // compare-all-plans toggle
 
+
+  // Competitor Research: the rotation is an invitation, not a nag. It stops
+  // once the row has been seen and scrolled past, and permanently after any
+  // open — persisted, so a returning visitor is never nagged twice.
+  var cmp = document.getElementById('cmpBlock');
+  if(cmp){
+    var CMP_KEY = 'lh-cmp-opened';
+    var stop = function(){ cmp.classList.add('cmp-still'); };
+    var stored = null;
+    try { stored = localStorage.getItem(CMP_KEY); } catch(e){}
+    if(stored) stop();
+    cmp.addEventListener('toggle', function(){
+      if(!cmp.open) return;
+      stop();
+      try { localStorage.setItem(CMP_KEY, '1'); } catch(e){}
+    });
+    if(!stored && 'IntersectionObserver' in window){
+      var wasSeen = false;
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ wasSeen = true; return; }
+          if(wasSeen){ stop(); io.disconnect(); }
+        });
+      }, { threshold: 0.01 });
+      io.observe(cmp);
+    }
+  }
+
+  // the sparkline sets its own dash length, so editing the path can't break the draw
+  var spark = document.querySelector('.cspark');
+  if(spark && spark.getTotalLength){
+    var len = Math.ceil(spark.getTotalLength());
+    spark.style.setProperty('--len', len + 'px');
+  }
 
   // designer notes toggle
   var hintsBtn = document.getElementById('hintsBtn');
