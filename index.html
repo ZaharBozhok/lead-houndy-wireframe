@@ -706,9 +706,6 @@
   .plan-name{margin:0 0 .35rem;font-size:.9rem;font-weight:600}
   .plan-price{font-size:1.42rem;font-weight:600;letter-spacing:-.025em;margin:0;line-height:1.1}
   .plan-price em{font-style:normal;font-size:.82rem;font-weight:400;color:var(--ink-soft)}
-  .beta-note{
-    display:block;margin-top:.2rem;font-size:.66rem;color:var(--line);
-  }
   .plan-unit{
     font-family:var(--mono);font-size:.7rem;line-height:1.45;color:var(--ink-soft);
     margin:.3rem 0 .9rem;padding-bottom:.75rem;border-bottom:1px solid var(--hair);
@@ -1463,17 +1460,17 @@
         </div>
 
         <div class="plan">
-          <p class="plan-name">Unlimited</p>
+          <p class="plan-name">Scale</p>
           <p class="plan-price">$199<em>/week</em><i class="mk">4</i></p>
-          <p class="plan-unit">Unlimited names<span class="beta-note">unlimited during beta</span></p>
+          <p class="plan-unit">500 names a week — $0.40 each</p>
           <ul>
             <li>Unlimited scanners</li>
-            <li>Telegram groups, Slack and webhook</li>
-            <li>Research: full archive</li>
+            <li>Unlimited destinations</li>
+            <li>Webhook</li>
             <li>CSV export</li>
-            <li>Priority support and a setup call</li>
+            <li>Priority support</li>
           </ul>
-          <span class="btn ghost">Choose Unlimited</span>
+          <span class="btn ghost">Choose Scale</span>
         </div>
       </div>
 
@@ -1485,12 +1482,13 @@
       <p class="sec-label"><b>Pricing</b> — three tiers, all of it on screen</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Pro is gone, and it should have gone earlier.</b> It was a decoy, and a decoy only works if it is seen — it sat behind "Compare all plans", so most visitors never met it while it still cost a fifth column and a narrower card for everyone. Both real customers skipped it and went Starter → Advanced directly, which is the decoy's job done without the decoy.</p>
-      <p class="note"><b>"Agency" couldn't be a tier name, because it's the entire audience.</b> Smaller agencies buy Starter and Advanced too, so the label told a visitor nothing about which column was theirs. "Unlimited" names capacity, which is what a pricing column should do: someone scanning Starter → Advanced → Unlimited understands the ladder before reading a single row.</p>
+      <p class="note"><b>"Agency" couldn't be a tier name, because it's the entire audience.</b> Smaller agencies buy Starter and Advanced too, so the label told a visitor nothing about which column was theirs. It became "Unlimited", then "Scale" once the tier stopped being unlimited — a tier name should describe the buyer's situation rather than the plan's mechanics, and Starter → Advanced → Scale reads as a ladder before a single row is read. It also survives the number changing, which "Unlimited" did not.</p>
       <p class="note"><b>Naming the top price also removes a decision.</b> "Talk to us" asks a visitor to start a conversation before they know whether they can afford it; $199 lets them decide alone, and the ones who do call arrive already sold on the number.</p>
       <p class="note"><b>The 24-hour delay on free is gone, and this reverses an earlier decision.</b> Seven credits already limit the free tier legibly. The delay was a second limit that had to be explained, and running out of names is self-evident in a way that day-old leads are not — a visitor who has used their seven knows exactly what happened and what to do about it.</p>
       <p class="note"><b>It also contradicted the page.</b> The scanner section argues speed — posted 13:44, in Slack by 13:46 — and a delayed free tier would have given every new user a 24-hour experience of that same product. First impressions of infrastructure are hard to undo: the delay taught people the product was slow, when the thing it was meant to teach them was that their allowance had run out.</p>
       <p class="note"><b>The alert-speed row went with it.</b> With free instant too, four columns all read "instant" — a row where every cell is identical is not a comparison, it is furniture, and it pushes the rows that do differ further down the card.</p>
-      <p class="note warn"><b>Unlimited caps revenue per customer at $199 a week, however large they get.</b> The heaviest, stickiest accounts — the ones with the most to lose by leaving — stop growing revenue at exactly the point they are most valuable. That is a deliberate early-stage trade: removing volume anxiety buys commitments now. It is not a permanent structure, and "unlimited during beta" is the door left open. Decide what replaces it before beta ends, not during.</p>
+      <p class="note"><b>The 500 cap fixes the ceiling problem the unlimited tier had</b> — revenue no longer stops growing at exactly the customers with the most to lose by leaving — and it makes the per-name line work across all three columns for the first time: $1.30 → $0.66 → $0.40, readable in one horizontal sweep. That progression is the savings argument, and it needed a finite number at the top to exist.</p>
+      <p class="note warn"><b>But the top of the ladder is now a wall, not a door.</b> Extra names were removed from the cards and nothing replaced them, so a customer who needs 600 names a week has no tier to move to and no way to buy the extra hundred. Under the unlimited tier that customer was served badly on margin; now they are not served at all, and the ones this hits are the biggest accounts on the page. Whatever answers this — overage as a billing mechanic, a fourth tier, or a "talk to us" route above $199 — has to exist before Scale ships, even if it never appears on the page.</p>
       <p class="note"><b>Advanced has to look complete on its own now.</b> It no longer has Pro beside it making it look cheap, so the full archive and group routing are what carry it. Being the middle option between $39 and $199 is a strong position — most people take the middle — but only if the middle reads as sufficient rather than as a compromise.</p>
       <p class="note">Free stays a band above the cards, not a fourth column. It is the primary CTA, not a lesser plan competing for the same click. Its two limits — seven names and three alerts a day — are both stated in the blurb, because a free tier whose ceiling is discovered rather than read produces refund requests.</p>
       <p class="note"><b>Everything is on screen now.</b> With three tiers there was nothing left worth hiding, so the compare toggle and the expandable matrix are gone. A visitor no longer has to click to find out what they are not getting.</p>
@@ -1509,8 +1507,9 @@
           <li><b>2</b> <em>One marked plan only.</em> Advanced carries the border and the flag. Resist marking a second — two highlights is no highlight, and with three columns the middle one is already doing most of the work.</li>
           <li><b>2</b> <em>Price baselines must align across all three cards.</em> They don't here: the flag pushes Advanced's price down a row. With four cards that read as looseness; with three it reads as broken. Solve it once — flag overlapping the top border, or the same reserved height on every card — because the descending price is only readable in one horizontal sweep if the numbers sit on a line.</li>
           <li><b>3</b> <em>The per-name line is the savings argument.</em> $1.30 → $0.66 has to be readable at a glance across the cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-throughs.</li>
-          <li><b>4</b> <em>The per-name line ends blank at Unlimited, deliberately.</em> "Unlimited" is self-explanatory, and writing "$0.00 at volume" invites arithmetic the column is designed to end. Leave the slot empty rather than filling it to make the row look complete.</li>
-          <li><b>4</b> <em>"unlimited during beta" is a qualifier, not fine print.</em> Same reasoning as the seats line in §3: if a cap ever returns, this makes it a scheduled change rather than a promise broken to paying customers. It stays small and it stays visible — shrinking it to invisibility defeats the entire point of writing it.</li>
+          <li><b>4</b> <em>The per-name line now runs across all three cards, which is what it was for.</em> $1.30 → $0.66 → $0.40 on one baseline, no percentage badges, no "save 24%", no strike-throughs. The old top card had to leave this slot blank because "unlimited" ends arithmetic rather than continuing it; with a finite 500 the row finally reads as a single descending line. <b>The $0.40 was not in the brief</b> — it is $199 ÷ 500 rounded, added so the row isn't broken by one empty cell. Drop it if the figure isn't settled.</li>
+          <li><b>4</b> <em>"unlimited during beta" is gone with the unlimited names, but the qualifier rule still applies to what is left.</em> Scanners and destinations are still promised without limit on this card. If a cap ever lands on either, the same reasoning holds as for the seats line in §3: it has to be a scheduled change rather than a promise broken to paying customers, which means the qualifier goes back the moment a cap is on the roadmap — not the moment it ships.</li>
+          <li><b>4</b> <em>Research archive is not listed on this card, and Advanced lists it.</em> Read across the row, the top tier appears to lose the full archive the tier below it includes. Almost certainly an omission rather than a decision, but it is on the artifact until someone says otherwise — either "Research: full archive" goes back as a bullet, or the tiers genuinely differ and the copy needs to say how.</li>
           <li><b>5</b> <em>Write delivery as a benefit, never as a config chore.</em> "Route leads to your team's groups", never "multi-group Telegram configuration". This row replaces the old destinations count, which described routing that doesn't exist and was a number nobody could interpret — "5 destinations" means nothing to a reader deciding between two prices.</li>
           <li><b>6</b> <em>The unit definition is the last line under the cards now.</em> A reader learns what a credit buys at the moment they are looking at what it costs. The what-you-get spec is folded into the same line because "what am I buying" and "what is one of them" are one question.</li>
           <li><b>7</b> <em>Body text, not a card.</em> No border, no background. A framed claim invites scrutiny; a mentioned fact doesn't. It is also no longer arithmetic a reader can check — $5,148 invited someone to divide, "one $5k project" invites them to picture a client — so nothing here has to stay true at a second number.</li>
