@@ -898,10 +898,47 @@
 
 
 
-  .unit-line{
-    margin:1rem 0 0;font-size:.86rem;color:var(--ink-soft);max-width:60ch;
+
+  /* ---------- the comparison table. A label column plus four equal plan
+     columns; the wash is painted per cell rather than spanned down the column,
+     because a spanned grid item occupies cells and pushes the rest out. ------ */
+  .pmx-wrap{overflow-x:auto;margin-top:1.4rem}
+  .pmx{
+    display:grid;grid-template-columns:minmax(9.5rem,1.3fr) repeat(4,minmax(6.2rem,1fr));
+    gap:0;font-size:.8rem;
   }
-  .unit-line b{color:var(--ink);font-weight:600}
+  .pmx > *{position:relative;padding:.42rem .6rem}
+  /* one continuous 6% field down Advanced's full height, header to last row */
+  .pmx > .adv::before{
+    content:"";position:absolute;inset:0;background:var(--accent);opacity:.06;
+    pointer-events:none;
+  }
+  .pmx > .adv > *{position:relative}
+  .pmx-flag{padding:0 .6rem .2rem;font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);white-space:nowrap}
+  .pmx-hd{align-self:end;border-bottom:1px solid var(--line);padding-bottom:.5rem}
+  .pmx-hd b{display:block;font-size:.86rem;font-weight:600}
+  .pmx-price{display:block;font-size:1.02rem;font-weight:600;letter-spacing:-.02em;margin-top:.1rem}
+  .pmx-price em{font-style:normal;font-size:.68rem;font-weight:400;color:var(--ink-soft)}
+  /* the savings argument, read across: $1.30 -> $0.66 -> $0.40 */
+  .pmx-per{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);margin-top:.1rem}
+  .pmx-g{
+    font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-soft);padding-top:.9rem;padding-bottom:.2rem;
+  }
+  .pmx-l{color:var(--ink-soft);border-bottom:1px solid var(--hair)}
+  .pmx-c{border-bottom:1px solid var(--hair)}
+  .pmx-c.adv{font-weight:500}
+  /* an em dash, never a cross: this is a feature matrix, not a judgement */
+  .pmx-no{opacity:.35}
+  .pmx-y{width:9px;height:9px;display:block;margin-top:.2rem}
+  .pmx-y path{fill:none;stroke:var(--ok);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  .pmx-foot{
+    display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;justify-content:space-between;
+    margin-top:.9rem;font-size:.84rem;
+  }
+  .pmx-foot b{font-weight:500}
+  .pmx-foot span{color:var(--ink-soft);font-size:.8rem}
   .faq-tag{
     font-family:var(--mono);font-size:.68rem;line-height:1.5;color:var(--ink-soft);
     border-left:2px solid var(--hair);padding-left:.6rem;
@@ -963,6 +1000,13 @@
 
     .hero{padding:1.1rem .8rem}
     .plan,.plan.pop,.door{padding:.9rem .8rem}
+    /* five columns will not fit at 390px, so the row scrolls and the label
+       column pins — same pattern the diagrams use */
+    .pmx{min-width:33rem;font-size:.74rem}
+    .pmx > *{padding:.4rem .45rem}
+    .pmx > .pmx-l,.pmx > .pmx-g,.pmx > .pmx-hd.lbl,.pmx > .pmx-flag:first-child{
+      position:sticky;left:0;z-index:2;background:var(--paper);
+    }
     /* three items with a two-line reason do not survive being halved */
     .fit{grid-template-columns:minmax(0,1fr);gap:.7rem}
     .fit-h{font-size:1.16rem;max-width:100%}
@@ -1515,6 +1559,14 @@
         </details>
         <details class="faq-row">
           <summary>
+            <h3>What if I upgrade mid-week?<i class="mk">7</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>You get the new plan straight away. Your week starts over from that day, and any names you haven&rsquo;t used are added on top.</p>
+          <p>If you downgrade, it takes effect when your current week ends.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
             <h3>Can my team use this too?<i class="mk">6</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
@@ -1532,7 +1584,7 @@
       </div>
     </div>
     <aside class="notes">
-      <p class="sec-label"><b>Objections</b> — six, folded except the first</p>
+      <p class="sec-label"><b>Objections</b> &mdash; seven, folded except the first</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
       <p class="note">Row 4 is a conversion lever, not an FAQ answer — and this is now the only place on the page it appears. The pricing section carried the same line word for word; it was removed there because sitting beside the price it read as a warning that reveals fail often enough to need a guarantee.</p>
@@ -1541,7 +1593,7 @@
       <p class="note warn"><b>This section used to be open with no accordions, and that was a deliberate rule.</b> The old note read: "a collapsed objection is an unanswered one, and the whole point is that these are read without being clicked." It was overruled on space — five open answers ran 625px on desktop and 872px on a phone, which is most of a viewport of prose sitting between the product and the price. The fold is the concession; which row stays open is how the original concern gets paid for.</p>
       <p class="note"><b>Row 1 stays open because nobody would click it.</b> It's the 50/50 disclosure — a visitor doesn't arrive wondering whether they'll get a person or a company, so they'd never open it, and it's the one answer that stops the first paid reveal feeling like a bait-and-switch. Folding it would have been the one genuinely costly fold on the page.</p>
       <p class="note"><b>Rows 2, 3 and 5 fold safely because they answer questions a visitor actually has.</b> Someone worried about the data source, a ban, or whether cold outreach works arrives already holding that question; a visible question with an obvious affordance gets clicked. The question text does most of the reassurance work anyway — seeing "Can I get banned for contacting people directly?" printed on the page tells a careful buyer the concern is acknowledged before they read a word of the answer.</p>
-      <p class="note warn">Row 4 used to fold for free, because its answer was repeated next to pricing and a visitor who never opened it here still met "no result, no credit spent" further down. That duplicate is gone, so the fold is no longer free: the guarantee is now behind a click and nowhere else. Either this row opens on load alongside row 1, or the line goes back somewhere in the pricing section — but it can't be the only copy of a term of the deal <em>and</em> be collapsed.</p>
+      <p class="note">Row 4 folds for free again. Its answer is duplicated under the pricing table, so a visitor who never opens it here still meets &ldquo;no result, no credit spent&rdquo; further down &mdash; which is the property that lets it be closed. If that line is ever removed from pricing a second time, this row has to open on load.</p>
       <p class="note">All five answers are now written — these were the last grey bars on the page. Rows 2 and 3 still need the lawyer before publishing, though; being written is not the same as being cleared.</p>
       <p class="note"><b>Rows 2 and 3 are the two that get screenshotted.</b> One says where the data comes from, the other says whether using it is safe. They're the reason a careful buyer either signs up or closes the tab, and they're the two most likely to be quoted back at you — so they stay plain, specific and short. No hedging language, no legal register, no "we take privacy seriously".</p>
       <p class="note warn"><b>"Published openly" is not the same as "lawful to process".</b> Under GDPR, personal data that someone published is still personal data, and row 2 doesn't settle the posture — it describes the sourcing honestly, which is the right thing for a landing page to do and not a substitute for the legal review. If counsel needs a sentence added, it goes here rather than into a policy nobody opens.</p>
@@ -1550,10 +1602,15 @@
 
       <p class="note"><b>The accordion notes lost their marker when this label moved to the margin.</b> Marker 6 was attached to "six, folded except the first", which was the only thing in the frame the accordion-as-a-whole could point at. There is no single element to re-anchor it to &mdash; the mechanism <em>is</em> all six rows &mdash; so those notes are now unnumbered, which is what this document already uses for section-wide points.</p>
 
+      <p class="note"><b>The upgrade row is the answer to the wall at the top of the pricing ladder.</b> With extra names gone from the cards, the page had no statement of what happens when a plan runs out mid-week &mdash; and the honest answer turns out to be a good one: you move up, the week restarts, and unused names carry over rather than being forfeited. That is the mechanic that makes a weekly plan safe to buy, and it was invisible until now.</p>
+
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
-          <li><b>1</b> <em>Row 1 is open on load and the other four are closed.</em> That split is the whole design of this section — see the margin for why each row falls the way it does. Don't "tidy" it by closing all five or opening all five; both are worse than the mix, in opposite directions.</li>
+          <li><b>7</b> <em>Two paragraphs, and the second one is the concession.</em> Upgrades are immediate and generous; downgrades wait for the cycle. Saying both in one row is what stops the first half reading as a sales line &mdash; a reader who has been billed by a SaaS before is already looking for the asymmetry, and finding it stated is worth more than not being told.</li>
+          <li><b>7</b> <em>&ldquo;Names you haven&rsquo;t used are added on top&rdquo; is a billing promise, not copy.</em> Confirm it is what the system actually does before this ships. It is the sentence that removes the risk of upgrading mid-week, so if the real behaviour is that the counter resets to the new plan&rsquo;s allowance, this row is worse than not having one.</li>
+          <li><b>7</b> <em>This row also quietly settles the refresh mechanic.</em> &ldquo;Your week starts over from that day&rdquo; is the same rule as &ldquo;names refresh every week from your start date&rdquo; under the pricing table &mdash; two places saying one thing. If the billing rule ever changes, both move together.</li>
+          <li><b>1</b> <em>Row 1 is open on load and the other six are closed.</em> That split is the whole design of this section — see the margin for why each row falls the way it does. Don't "tidy" it by closing all five or opening all five; both are worse than the mix, in opposite directions.</li>
           <li><b>&mdash;</b> <em>The affordance has to be unmistakable, because the fold only works if people click.</em> A row that looks like static text is a lost answer. Whole summary row is the hit target, not just the sign — and on mobile that row needs at least 44px of height. The <code>+</code> / <code>–</code> is a placeholder for whatever the designer picks; a chevron is fine, a mystery-meat dot is not.</li>
           <li><b>&mdash;</b> <em>Built on native <code>&lt;details&gt;</code>, and it should stay that way.</em> No JavaScript, keyboard-operable and screen-reader-announced for free, and it works before the script runs — which is a rule on this page. A hand-rolled accordion would cost bytes and re-implement four accessibility behaviours the browser already has right.</li>
           <li><b>&mdash;</b> <em>Multiple rows can be open at once, deliberately.</em> An exclusive accordion (which <code>&lt;details name&gt;</code> would give free) would slam row 1 shut the moment someone opens row 2, and row 1 is the one that must stay readable. It also stops anyone comparing two answers.</li>
@@ -1563,7 +1620,7 @@
           <li><b>6</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §4 get upgraded together — they are the same claim in two places.</li>
           <li><b>6</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
-          <li><b>3</b> <em>This row is now the only copy of the guarantee.</em> It used to be repeated next to pricing and was removed there. Treat the wording as a term of the deal rather than as an answer — plain, short, unhedged — because there is no longer a second place where a visitor might meet it.</li>
+          <li><b>3</b> <em>This row appears twice.</em> Here, and under the pricing table. Same wording both times; it is a term of the deal, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
           <li><b>5</b> <em>Two paragraphs, and the second one is the useful half.</em> The first sets expectations — leads, not clients. The second tells them how to actually win, which is the paragraph that earns trust, because a page that admits a generic pitch will fail is a page that isn't selling magic. Keep them as separate paragraphs; run together, the qualification swallows the advice.</li>
           <li><b>—</b> <em>Objections is still the only place on the page where prose may run.</em> Everywhere else is fragments and structure — don't let that leak upward into §2. Folding changed how much of it is visible at once, not the licence to write it.</li>
@@ -1608,7 +1665,7 @@
           <ul>
             <li>15 scanners</li>
             <li>Route leads to your team's groups — Telegram groups and Slack<i class="mk">5</i></li>
-            <li>Research: full archive</li>
+            <li>Research: 6 months</li>
             <li>Email support</li>
           </ul>
           <span class="btn">Choose Advanced</span>
@@ -1622,6 +1679,7 @@
             <li>Unlimited scanners</li>
             <li>Unlimited destinations</li>
             <li>Webhook</li>
+            <li>Research: full archive</li>
             <li>CSV export</li>
             <li>Priority support</li>
           </ul>
@@ -1629,7 +1687,94 @@
         </div>
       </div>
 
-      <p class="unit-line"><b>1 credit = 1 name.</b> The person or company behind the posting, plus profiles to message.<i class="mk">6</i></p>
+      <div class="pmx-wrap">
+        <div class="pmx">
+        <div class="pmx-flag"></div>
+        <div class="pmx-flag"></div>
+        <div class="pmx-flag"></div>
+        <div class="pmx-flag adv">most agencies land here</div>
+        <div class="pmx-flag"></div>
+        <div class="pmx-hd lbl"><i class="mk">8</i></div>
+        <div class="pmx-hd"><b>Free</b><span class="pmx-price">$0<em></em></span><span class="pmx-per">&nbsp;</span></div>
+        <div class="pmx-hd"><b>Starter</b><span class="pmx-price">$39<em>/wk</em></span><span class="pmx-per">$1.30 each</span></div>
+        <div class="pmx-hd adv"><b>Advanced</b><i class="mk">9</i><span class="pmx-price">$99<em>/wk</em></span><span class="pmx-per">$0.66 each</span></div>
+        <div class="pmx-hd"><b>Scale</b><span class="pmx-price">$199<em>/wk</em></span><span class="pmx-per">$0.40 each</span></div>
+        <div class="pmx-g">Names</div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g adv"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-l">Names<i class="mk">10</i></div>
+        <div class="pmx-c">7, once</div>
+        <div class="pmx-c">30 a week</div>
+        <div class="pmx-c adv">150 a week</div>
+        <div class="pmx-c">500 a week</div>
+        <div class="pmx-g">Scanner</div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g adv"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-l">Scanners</div>
+        <div class="pmx-c">1</div>
+        <div class="pmx-c">2</div>
+        <div class="pmx-c adv">15</div>
+        <div class="pmx-c">unlimited</div>
+        <div class="pmx-l">Alerts a day</div>
+        <div class="pmx-c">3</div>
+        <div class="pmx-c">unlimited</div>
+        <div class="pmx-c adv">unlimited</div>
+        <div class="pmx-c">unlimited</div>
+        <div class="pmx-l">Name in the alert<i class="mk">12</i></div>
+        <div class="pmx-c">hidden</div>
+        <div class="pmx-c">shown</div>
+        <div class="pmx-c adv">shown</div>
+        <div class="pmx-c">shown</div>
+        <div class="pmx-g">Delivery</div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g adv"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-l">Telegram DM</div>
+        <div class="pmx-c"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-c"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-c adv"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-c"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-l">Telegram groups + Slack</div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c adv"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-c"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-l">Webhook</div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c adv"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-g">Research</div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-g adv"></div>
+        <div class="pmx-g"></div>
+        <div class="pmx-l">Archive depth<i class="mk">11</i></div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c">7 days</div>
+        <div class="pmx-c adv">6 months</div>
+        <div class="pmx-c">full</div>
+        <div class="pmx-l">CSV export</div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c adv"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c"><svg class="pmx-y" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg></div>
+        <div class="pmx-l">Support</div>
+        <div class="pmx-c"><span class="pmx-no">&mdash;</span></div>
+        <div class="pmx-c">email</div>
+        <div class="pmx-c adv">email</div>
+        <div class="pmx-c">priority + call</div>
+        </div>
+      </div>
+      <div class="pmx-foot">
+        <b>1 credit = 1 name. No result, no credit spent.<i class="mk">6</i></b>
+        <span>Names refresh every week from your start date.<i class="mk">13</i></span>
+      </div>
 
       <p class="annual">One <b>$5k</b> project covers a year of Leadhoundy.<i class="mk">7</i></p>
     </div>
@@ -1643,15 +1788,16 @@
       <p class="note"><b>It also contradicted the page.</b> The scanner section argues speed — posted 13:44, in Slack by 13:46 — and a delayed free tier would have given every new user a 24-hour experience of that same product. First impressions of infrastructure are hard to undo: the delay taught people the product was slow, when the thing it was meant to teach them was that their allowance had run out.</p>
       <p class="note"><b>The alert-speed row went with it.</b> With free instant too, four columns all read "instant" — a row where every cell is identical is not a comparison, it is furniture, and it pushes the rows that do differ further down the card.</p>
       <p class="note"><b>The 500 cap fixes the ceiling problem the unlimited tier had</b> — revenue no longer stops growing at exactly the customers with the most to lose by leaving — and it makes the per-name line work across all three columns for the first time: $1.30 → $0.66 → $0.40, readable in one horizontal sweep. That progression is the savings argument, and it needed a finite number at the top to exist.</p>
-      <p class="note warn"><b>But the top of the ladder is now a wall, not a door.</b> Extra names were removed from the cards and nothing replaced them, so a customer who needs 600 names a week has no tier to move to and no way to buy the extra hundred. Under the unlimited tier that customer was served badly on margin; now they are not served at all, and the ones this hits are the biggest accounts on the page. Whatever answers this — overage as a billing mechanic, a fourth tier, or a "talk to us" route above $199 — has to exist before Scale ships, even if it never appears on the page.</p>
+      <p class="note"><b>The Scale cap exists to make account-sharing unattractive, not to limit real users.</b> &ldquo;Unlimited&rdquo; at $199 a week made sharing rational &mdash; four agencies splitting it pay $50 each for the same output &mdash; and the name advertised the exploit. A cap that is uncomfortable to divide is the defence: 500 a week split four ways is 125 each, which is worse than just buying Advanced. The rename came with the cap for the same reason &mdash; &ldquo;Unlimited&rdquo; both invited the sharing and would have had to be walked back the moment a cap arrived.</p>
+      <p class="note"><b>The top of the ladder is no longer silent, though it is still a ceiling.</b> Extra names stay off the cards, so 500 a week is where the page stops &mdash; but the new FAQ row now says what happens when you outgrow a plan mid-week: you move up, the week restarts, and unused names carry over. What is still unanswered is the customer who outgrows Scale itself. That needs a route before Scale has anyone on it, even if the route never appears on the page.</p>
       <p class="note"><b>Advanced has to look complete on its own now.</b> It no longer has Pro beside it making it look cheap, so the full archive and group routing are what carry it. Being the middle option between $39 and $199 is a strong position — most people take the middle — but only if the middle reads as sufficient rather than as a compromise.</p>
-      <p class="note">Free stays a band above the cards, not a fourth column. It is the primary CTA, not a lesser plan competing for the same click. Its two limits — seven names and three alerts a day — are both stated in the blurb, because a free tier whose ceiling is discovered rather than read produces refund requests.</p>
-      <p class="note"><b>Everything is on screen now.</b> With three tiers there was nothing left worth hiding, so the compare toggle and the expandable matrix are gone. A visitor no longer has to click to find out what they are not getting.</p>
+      <p class="note"><b>Free is a band above the cards and a column in the table, and that is deliberate.</b> As a card it would compete for the same click as the paid plans; as a table column it has to be there, because &ldquo;what do I actually lose by not paying&rdquo; is the question the table exists to answer. One is a call to action, the other is a specification.</p>
+      <p class="note"><b>The matrix is back, but nothing is hidden behind a click.</b> What was wrong before was never the table &mdash; it was the toggle in front of it. Four tiers across twelve rows is more than a card can hold, and a visitor comparing two prices needs those rows side by side. What they must never need is to discover that a comparison exists.</p>
       <p class="note">Monthly billing is removed. One price, one cadence, no toggle to interpret — and it takes with it a second annual figure that the copy had to stay true at.</p>
       <p class="note"><b>Extra-name pricing is gone from both cards.</b> $2.00 and $0.90 were a fourth number on a card that already carries a weekly price, a per-name price and an allowance, and the two cheap ones sat directly under the number that was supposed to be the comparison. A plan should be one price; if you need more names you move up a tier, which is also the upgrade path the ladder was built to sell.</p>
       <p class="note warn"><b>Nothing on the page now says what happens when a plan runs out.</b> With extra names gone and the Monday-refresh line gone with them, a Starter who spends thirty on Tuesday meets a wall the page never mentioned and offers no way past. That is a dead end in the middle of a paid week, and it is the kind of thing people ask for refunds over. Either overage returns as a billing mechanic rather than a card row, or an upgrade-mid-week path exists and is findable at the moment the allowance hits zero. It doesn't have to be on the page; it does have to exist.</p>
-      <p class="note"><b>The refresh line went because it was answering a question nobody had yet.</b> "Names refresh every Monday, they don't roll over" is a billing rule, and a billing rule read before purchase is a restriction; read inside the product when the counter resets, it is just how it works. It belongs in the account, not under the price. The trade is that "don't roll over" is now discovered rather than disclosed — acceptable for a weekly plan, and the reason the dead-end note above matters more than it did.</p>
-      <p class="note"><b>"No result, no credit spent" is off the pricing section but still answered in Objections.</b> It was doing the same job twice, and next to the price it read as a warning that reveals fail often enough to need a guarantee. In the objections list it is an answer to a question someone actually asked. One place, not two.</p>
+      <p class="note warn"><b>The refresh line is back, and the old wording was wrong.</b> It said &ldquo;every Monday&rdquo;. Refresh runs weekly from the subscription date, so the old copy was a policy a customer could disprove on day two of their first week &mdash; the cheapest possible way to lose someone&rsquo;s trust in a billing rule. &ldquo;Every week from your start date&rdquo; is both true and no longer than what it replaced. Under a table it reads as a spec rather than as a restriction, which is why it works here and did not work under the price.</p>
+      <p class="note"><b>&ldquo;No result, no credit spent&rdquo; is back under the price, and it belongs there now.</b> The earlier removal was right for the layout it was in &mdash; a standalone bordered line beside the price read as a warning that reveals fail often enough to need a guarantee. Folded into the credit definition, under a table, it reads as a term of the deal. It also repairs what the removal cost: the only other copy sits inside a collapsed FAQ row, so the guarantee was behind a click.</p>
       <p class="note">"Names" everywhere in this section now, not "reveals". A reveal is the billing event; a name is what the visitor receives. This finally settles a drift the page carried for a while.</p>
       <p class="note warn"><b>The delivery line describes routing that doesn't exist yet.</b> Telegram currently sends everything to whoever connected the bot. Group routing has to ship before this row is true — and confirm that a <em>scanner</em> can target a specific group, not just the account pointing at one destination. If it turns out to be account-level, this row does not hold and Advanced loses one of the two things carrying it.</p>
 
@@ -1664,11 +1810,21 @@
           <li><b>3</b> <em>The per-name line is the savings argument.</em> $1.30 → $0.66 has to be readable at a glance across the cards so the descending price is visible without reading. No percentage badges, no "save 24%", no strike-throughs.</li>
           <li><b>4</b> <em>The per-name line now runs across all three cards, which is what it was for.</em> $1.30 → $0.66 → $0.40 on one baseline, no percentage badges, no "save 24%", no strike-throughs. The old top card had to leave this slot blank because "unlimited" ends arithmetic rather than continuing it; with a finite 500 the row finally reads as a single descending line. <b>The $0.40 was not in the brief</b> — it is $199 ÷ 500 rounded, added so the row isn't broken by one empty cell. Drop it if the figure isn't settled.</li>
           <li><b>4</b> <em>"unlimited during beta" is gone with the unlimited names, but the qualifier rule still applies to what is left.</em> Scanners and destinations are still promised without limit on this card. If a cap ever lands on either, the same reasoning holds as for the seats line in §3: it has to be a scheduled change rather than a promise broken to paying customers, which means the qualifier goes back the moment a cap is on the roadmap — not the moment it ships.</li>
-          <li><b>4</b> <em>Research archive is not listed on this card, and Advanced lists it.</em> Read across the row, the top tier appears to lose the full archive the tier below it includes. Almost certainly an omission rather than a decision, but it is on the artifact until someone says otherwise — either "Research: full archive" goes back as a bullet, or the tiers genuinely differ and the copy needs to say how.</li>
+          <li><b>4</b> <em>The archive gap is real now, and it is what Scale is for.</em> Advanced stops at six months and Scale goes to full &mdash; before this, Advanced had everything and Scale had no research argument at all. Six months is long enough to be useful and short enough to be a reason to move up, and it is the only row in the table where the top tier wins on capability rather than on volume.</li>
           <li><b>5</b> <em>Write delivery as a benefit, never as a config chore.</em> "Route leads to your team's groups", never "multi-group Telegram configuration". This row replaces the old destinations count, which described routing that doesn't exist and was a number nobody could interpret — "5 destinations" means nothing to a reader deciding between two prices.</li>
           <li><b>6</b> <em>The unit definition is the last line under the cards now.</em> A reader learns what a credit buys at the moment they are looking at what it costs. The what-you-get spec is folded into the same line because "what am I buying" and "what is one of them" are one question.</li>
           <li><b>7</b> <em>Body text, not a card.</em> No border, no background. A framed claim invites scrutiny; a mentioned fact doesn't. It is also no longer arithmetic a reader can check — $5,148 invited someone to divide, "one $5k project" invites them to picture a client — so nothing here has to stay true at a second number.</li>
           <li><b>7</b> <em>Bring the funnel back when it's real and citable</em> — roughly twenty customers, with a source line above it: "Across 40 accounts: 200 reveals &rarr; 12 replies &rarr; 1.4 projects." Cited numbers convince and invented ones repel. Until then, one sentence.</li>
+          <li><b>8</b> <em>The table is a matrix, not a scoreboard, so an absent feature is an em dash rather than a cross.</em> A cross says the plan failed at something; a dash says the plan does not include it. At four tiers a column of crosses down Free would read as a page arguing with its own free tier &mdash; the tier doing the acquisition.</li>
+          <li><b>9</b> <em>The 6% wash is painted on every Advanced cell rather than spanned down the column.</em> A spanned grid item occupies cells and pushes the auto-flowed ones out of position, and the table scrambles. Painted per cell with no row gap the field is continuous &mdash; verified header to last row &mdash; and it cannot drift out of alignment when a row is added. Same construction as the comparison table in &sect;2.</li>
+          <li><b>9</b> <em>One marked column, and it is the same plan the cards mark.</em> The flag sits above the header rather than inside it so the header baselines stay level across all four columns &mdash; which is the mistake the cards still make, where the flag pushes Advanced&rsquo;s price down a row.</li>
+          <li><b>10</b> <em>500 a week is the one figure here not validated against real usage.</em> Sanity-check it against the heaviest account before publishing. It is doing two jobs at once &mdash; capping cost and making sharing unattractive &mdash; and a number chosen for the second job can quietly fail the first.</li>
+          <li><b>10</b> <em>Rate-limiting per day is a better anti-sharing defence than the weekly cap alone.</em> A weekly cap still lets four accounts burn it in one coordinated day. Not something the page shows, but worth having before Scale has anyone worth sharing it.</li>
+          <li><b>10</b> <em>Both current customers are on the old uncapped Advanced, and capping at 150 changes a live plan.</em> Grandfather them permanently. It costs nothing currently collected, it keeps the only two references whole, and they are the two people most likely to be asked what changed.</li>
+          <li><b>11</b> <em>&ldquo;Full&rdquo; in a table is a claim; in prose it needs the caveat.</em> Archive depth varies by source, so the Research block should say &ldquo;as far back as we have&rdquo; even though this row says full. The table compares tiers rather than promising a specific search &mdash; but a reader will take it as both if nothing on the page qualifies it.</li>
+          <li><b>12</b> <em>The free tier hides the name in scanner alerts, and the free band above does not say so.</em> That limit came off the blurb when the 24-hour delay went, and this row puts it back in the table only. As it stands the two disagree, and the blurb is the one a visitor reads first. Either the blurb regains the limit or this row loses it &mdash; a free tier whose ceiling is discovered rather than read produces refund requests.</li>
+          <li><b>13</b> <em>Two footer lines, and the split is the point.</em> Left carries weight because it is a term of the deal; right stays quiet because it is a mechanic. Swap the emphasis and the page starts leading with its billing cycle.</li>
+          <li><b>&mdash;</b> <em>Mobile: five columns do not fit, so the row scrolls and the label column pins.</em> Same pattern as the diagrams. Stacking into per-tier blocks would destroy the comparison, which is the only thing the table is for &mdash; a reader who cannot see two columns at once is reading four spec sheets.</li>
           <li><b>—</b> <em>Three cards is a comfortable row, and that is a resource.</em> The cards are down to four or five bullets each, so there is room again. Spend it on the rows a visitor actually compares — delivery, archive depth, scanner count — not on adding a fourth column back, and not on refilling the cards to make them look even.</li>
         </ol>
       </div>
