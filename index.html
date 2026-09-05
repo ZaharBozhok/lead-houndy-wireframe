@@ -846,6 +846,10 @@
 
   /* ---------- section 5: objections ---------- */
   .faq{border-top:1px solid var(--hair)}
+  /* review state: every answer visible, no affordance implying it folds.
+     Delete this one class and the accordion comes back exactly as it was. */
+  .faq.all-open > .faq-row > summary{cursor:default}
+  .faq.all-open .faq-sign{display:none}
   .faq-row{border-bottom:1px solid var(--hair)}
   /* native <details>: folds without a line of JS, keyboard-operable for free,
      and works before the script runs — which is a rule on this page */
@@ -1528,7 +1532,7 @@
   <section class="blk" id="s4">
     <div class="rail">4</div>
     <div class="frame">
-      <div class="faq">
+      <div class="faq all-open">
         <details class="faq-row" open>
           <summary>
             <h3>What exactly do I get for a credit?<i class="mk">1</i></h3>
@@ -1536,28 +1540,28 @@
           </summary>
           <p>The person or company behind the posting, plus matching LinkedIn profiles. Sometimes we can name the individual directly, sometimes the company and the people to talk to there.</p>
         </details>
-        <details class="faq-row">
+        <details class="faq-row" open>
           <summary>
             <h3>Where does this data come from?<i class="mk">2</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
           <p>Public job boards — the places companies post paid project work. Everything we use is published openly: the posting itself, and the professional profiles we match it to. We don't buy lists, and we don't touch anything private.</p>
         </details>
-        <details class="faq-row">
+        <details class="faq-row" open>
           <summary>
             <h3>Can I get banned for contacting people directly?<i class="mk">4</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
           <p>We can't speak for another platform's rules — if you're active on one, read its terms and use your judgment. What we give you is who published a posting and their public professional profile. Where you take it from there is your call, and it happens outside that platform.</p>
         </details>
-        <details class="faq-row">
+        <details class="faq-row" open>
           <summary>
             <h3>What if a reveal finds nothing?<i class="mk">3</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
           </summary>
           <p>No result, no credit spent. The credit isn't taken — you only spend one when we return a result.</p>
         </details>
-        <details class="faq-row">
+        <details class="faq-row" open>
           <summary>
             <h3>What if I upgrade mid-week?<i class="mk">7</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
@@ -1565,7 +1569,7 @@
           <p>You get the new plan straight away. Your week starts over from that day, and any names you haven&rsquo;t used are added on top.</p>
           <p>If you downgrade, it takes effect when your current week ends.</p>
         </details>
-        <details class="faq-row">
+        <details class="faq-row" open>
           <summary>
             <h3>Can my team use this too?<i class="mk">6</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
@@ -1573,7 +1577,7 @@
           <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Connect Slack and everyone sees the same leads in one place, so nobody has to forward anything.</p>
           <p class="faq-tag">Seats are on the roadmap. Pricing will change when they ship, and accounts opened before then will be grandfathered.</p>
         </details>
-        <details class="faq-row">
+        <details class="faq-row" open>
           <summary>
             <h3>Does cold outreach actually work on these clients?<i class="mk">5</i></h3>
             <span class="faq-sign" aria-hidden="true"></span>
@@ -1581,20 +1585,66 @@
           <p>Yes, but they're leads, not guaranteed clients. These are companies with a budget and stated intent, so reply rates are far better than untargeted cold email. Some buy, most don't — same as any pipeline.</p>
           <p>What decides it is the pitch. Agencies getting the most out of this pick one thing they're excellent at and reach out only where they're clearly the best answer. A generic proposal sent to a well-targeted lead is still a generic proposal.</p>
         </details>
+        <details class="faq-row" open>
+          <summary>
+            <h3>How accurate is the match?<i class="mk">8</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>We trace each posting back through public signals and show you what we found. Sometimes that&rsquo;s one named person. Sometimes it&rsquo;s the company plus the people there worth talking to &mdash; in which case we show you several, because we&rsquo;d rather hand you three real candidates than guess at one.</p>
+          <p>Think of it as the research done for you, not a guarantee. The last step is still a human glance: you check the profile, you decide it&rsquo;s them, you write. That takes seconds instead of an hour.</p>
+          <p>If we can&rsquo;t find anyone at all, the credit isn&rsquo;t spent.</p>
+        </details>
+        <details class="faq-row" open>
+          <summary>
+            <h3>How fast is it?<i class="mk">9</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>We check for new postings every minute and send within a minute of finding one. In practice you have the lead about two minutes after it goes live.</p>
+        </details>
+        <details class="faq-row" open>
+          <summary>
+            <h3>What if the client already hired someone?<i class="mk">10</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>That&rsquo;s often the better lead. A company that paid for this work once has budget, a habit of hiring out, and a project that&rsquo;s now live and needs maintaining, extending or redoing.</p>
+          <p>Filled jobs are also proof the client actually pays &mdash; an open posting is only a stated intention.</p>
+        </details>
+        <details class="faq-row" open>
+          <summary>
+            <h3>Do I need an account on the job platforms?<i class="mk">11</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>No. Nothing to connect, nothing to link. You log into Leadhoundy and that&rsquo;s it.</p>
+        </details>
+        <details class="faq-row" open>
+          <summary>
+            <h3>Can I cancel anytime?<i class="mk">12</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>Yes. You keep the plan until your current week ends, and nothing renews after that.</p>
+        </details>
+        <details class="faq-row" open>
+          <summary>
+            <h3>What if two people on my team reveal the same lead?<i class="mk">13</i></h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>It costs a name each time. We can&rsquo;t tell whether it&rsquo;s the same person checking twice or a colleague who hasn&rsquo;t seen it yet, and we&rsquo;d rather charge the credit than quietly show one of you stale data.</p>
+          <p>If you&rsquo;re working leads as a team, route different scanners to different channels so you&rsquo;re not covering the same ground.</p>
+        </details>
       </div>
     </div>
     <aside class="notes">
-      <p class="sec-label"><b>Objections</b> &mdash; seven, folded except the first</p>
+      <p class="sec-label"><b>Objections</b> &mdash; thirteen, all open for review</p>
       <p class="notes-h">Why</p>
       <p class="note"><b>Row 1 is the 50/50 disclosure.</b> Written as a spec, not an apology. It belongs here, never in the hero — the mixed demo feed does the expectation-setting up top.</p>
       <p class="note">Row 4 is a conversion lever, not an FAQ answer — and this is now the only place on the page it appears. The pricing section carried the same line word for word; it was removed there because sitting beside the price it read as a warning that reveals fail often enough to need a guarantee.</p>
       <p class="note"><b>The team row does two jobs.</b> It answers a question this ICP is definitely asking — the audience is defined as agencies with someone who writes proposals, so a second person is assumed, not hypothetical. And it sells destination routing, which is otherwise buried in the pricing table as a number nobody can interpret: "5 destinations" means nothing, "leads land where the right person will see them" is the same fact and explains why Advanced beats Starter.</p>
       <p class="note">The beta qualifier is doing real work rather than hedging. It sets up a future price change honestly now, instead of making it a surprise at launch — and it is the reason this row can say yes at all.</p>
-      <p class="note warn"><b>This section used to be open with no accordions, and that was a deliberate rule.</b> The old note read: "a collapsed objection is an unanswered one, and the whole point is that these are read without being clicked." It was overruled on space — five open answers ran 625px on desktop and 872px on a phone, which is most of a viewport of prose sitting between the product and the price. The fold is the concession; which row stays open is how the original concern gets paid for.</p>
-      <p class="note"><b>Row 1 stays open because nobody would click it.</b> It's the 50/50 disclosure — a visitor doesn't arrive wondering whether they'll get a person or a company, so they'd never open it, and it's the one answer that stops the first paid reveal feeling like a bait-and-switch. Folding it would have been the one genuinely costly fold on the page.</p>
-      <p class="note"><b>Rows 2, 3 and 5 fold safely because they answer questions a visitor actually has.</b> Someone worried about the data source, a ban, or whether cold outreach works arrives already holding that question; a visible question with an obvious affordance gets clicked. The question text does most of the reassurance work anyway — seeing "Can I get banned for contacting people directly?" printed on the page tells a careful buyer the concern is acknowledged before they read a word of the answer.</p>
+      <p class="note warn"><b>The fold is suspended, not deleted, and this is a review state.</b> Every row is open so all thirteen answers can be read at once; the accordion is one CSS class away from coming back exactly as it was, and the <code>&lt;details&gt;</code> markup is untouched. The reason the fold existed has not gone away &mdash; it got worse. Five open answers ran 625px; thirteen run <b>1,847px on desktop and 2,514px on a phone</b>, which is roughly two full screens of prose sitting between the product and the price.</p>
+      <p class="note"><b>If the fold comes back, row 1 stays open.</b> It is the 50/50 disclosure &mdash; a visitor does not arrive wondering whether they will get a person or a company, so they would never open it, and it is the one answer that stops the first paid reveal feeling like a bait-and-switch. Folding it would be the one genuinely costly fold on the page.</p>
+      <p class="note"><b>The rows that fold safely are the ones a visitor arrives already holding.</b> Someone worried about the data source, a ban, or whether cold outreach works comes with that question; a visible question with an obvious affordance gets clicked. The question text does most of the reassurance work anyway &mdash; seeing &ldquo;Can I get banned for contacting people directly?&rdquo; printed on the page tells a careful buyer the concern is acknowledged before they read a word of the answer.</p>
       <p class="note">Row 4 folds for free again. Its answer is duplicated under the pricing table, so a visitor who never opens it here still meets &ldquo;no result, no credit spent&rdquo; further down &mdash; which is the property that lets it be closed. If that line is ever removed from pricing a second time, this row has to open on load.</p>
-      <p class="note">All five answers are now written — these were the last grey bars on the page. Rows 2 and 3 still need the lawyer before publishing, though; being written is not the same as being cleared.</p>
+      <p class="note">All thirteen answers are written &mdash; these were the last grey bars on the page. The data-sourcing and ban rows still need the lawyer before publishing, though; being written is not the same as being cleared.</p>
       <p class="note"><b>Rows 2 and 3 are the two that get screenshotted.</b> One says where the data comes from, the other says whether using it is safe. They're the reason a careful buyer either signs up or closes the tab, and they're the two most likely to be quoted back at you — so they stay plain, specific and short. No hedging language, no legal register, no "we take privacy seriously".</p>
       <p class="note warn"><b>"Published openly" is not the same as "lawful to process".</b> Under GDPR, personal data that someone published is still personal data, and row 2 doesn't settle the posture — it describes the sourcing honestly, which is the right thing for a landing page to do and not a substitute for the legal review. If counsel needs a sentence added, it goes here rather than into a policy nobody opens.</p>
       <p class="note warn"><b>"Reply rates are far better than untargeted cold email" is a performance claim.</b> Not comparative against a named company, so it doesn't carry the exposure the headline rules were guarding against — but it's still a claim you'd need to stand behind. Either get a number from the two customers and say it, or soften "far" before this ships.</p>
@@ -1602,6 +1652,10 @@
 
       <p class="note"><b>The accordion notes lost their marker when this label moved to the margin.</b> Marker 6 was attached to "six, folded except the first", which was the only thing in the frame the accordion-as-a-whole could point at. There is no single element to re-anchor it to &mdash; the mechanism <em>is</em> all six rows &mdash; so those notes are now unnumbered, which is what this document already uses for section-wide points.</p>
 
+      <p class="note"><b>Accuracy was the biggest gap in the FAQ, and silence on the core claim undermined everything else on the page.</b> &ldquo;No result, no credit spent&rdquo; only covers finding nothing. It says nothing about finding the <em>wrong</em> person, which is the failure people actually fear &mdash; and the one they will assume the worst about if the page never mentions it.</p>
+      <p class="note"><b>&ldquo;We&rsquo;d rather hand you three real candidates than guess at one&rdquo; is the load-bearing line in the section.</b> It reframes multiple profiles from <em>we are unsure</em> into <em>we are not pretending</em> &mdash; the same fact with the opposite feeling. Do not soften &ldquo;not a guarantee&rdquo;, and never add a precision percentage: a number invites a reader to test it, and one bad match then disproves the page rather than the match.</p>
+      <p class="note"><b>Speed justifies weekly credits and the whole &ldquo;be first&rdquo; position.</b> Two minutes is a strong number and it should be stated plainly rather than left implied by the Scanner diagram &mdash; a reader who has to infer a performance claim from a drawing has not been told it.</p>
+      <p class="note"><b>Already-hired jobs are sold as a feature in Research, but a reader who sees &ldquo;paid&rdquo; thinks the job is gone.</b> This row closes that gap, and the second paragraph is the sharper half: a filled job is proof the client actually pays, where an open posting is only a stated intention. That is why the paid/unfilled dot in the Research diagram is a feature rather than a filter.</p>
       <p class="note"><b>The upgrade row is the answer to the wall at the top of the pricing ladder.</b> With extra names gone from the cards, the page had no statement of what happens when a plan runs out mid-week &mdash; and the honest answer turns out to be a good one: you move up, the week restarts, and unused names carry over rather than being forfeited. That is the mechanic that makes a weekly plan safe to buy, and it was invisible until now.</p>
 
       <div class="build-block">
@@ -1610,7 +1664,7 @@
           <li><b>7</b> <em>Two paragraphs, and the second one is the concession.</em> Upgrades are immediate and generous; downgrades wait for the cycle. Saying both in one row is what stops the first half reading as a sales line &mdash; a reader who has been billed by a SaaS before is already looking for the asymmetry, and finding it stated is worth more than not being told.</li>
           <li><b>7</b> <em>&ldquo;Names you haven&rsquo;t used are added on top&rdquo; is a billing promise, not copy.</em> Confirm it is what the system actually does before this ships. It is the sentence that removes the risk of upgrading mid-week, so if the real behaviour is that the counter resets to the new plan&rsquo;s allowance, this row is worse than not having one.</li>
           <li><b>7</b> <em>This row also quietly settles the refresh mechanic.</em> &ldquo;Your week starts over from that day&rdquo; is the same rule as &ldquo;names refresh every week from your start date&rdquo; under the pricing table &mdash; two places saying one thing. If the billing rule ever changes, both move together.</li>
-          <li><b>1</b> <em>Row 1 is open on load and the other six are closed.</em> That split is the whole design of this section — see the margin for why each row falls the way it does. Don't "tidy" it by closing all five or opening all five; both are worse than the mix, in opposite directions.</li>
+          <li><b>1</b> <em>If the fold returns, row 1 is open on load and the rest are closed.</em> That split was the whole design of this section — see the margin for why each row falls the way it does. Don't "tidy" it by closing all five or opening all five; both are worse than the mix, in opposite directions.</li>
           <li><b>&mdash;</b> <em>The affordance has to be unmistakable, because the fold only works if people click.</em> A row that looks like static text is a lost answer. Whole summary row is the hit target, not just the sign — and on mobile that row needs at least 44px of height. The <code>+</code> / <code>–</code> is a placeholder for whatever the designer picks; a chevron is fine, a mystery-meat dot is not.</li>
           <li><b>&mdash;</b> <em>Built on native <code>&lt;details&gt;</code>, and it should stay that way.</em> No JavaScript, keyboard-operable and screen-reader-announced for free, and it works before the script runs — which is a rule on this page. A hand-rolled accordion would cost bytes and re-implement four accessibility behaviours the browser already has right.</li>
           <li><b>&mdash;</b> <em>Multiple rows can be open at once, deliberately.</em> An exclusive accordion (which <code>&lt;details name&gt;</code> would give free) would slam row 1 shut the moment someone opens row 2, and row 1 is the one that must stay readable. It also stops anyone comparing two answers.</li>
@@ -1619,10 +1673,20 @@
           <li><b>6</b> <em>Framed as capacity, not as sharing.</em> "Can my team use this too?" gets a yes; "can I share my account?" invites a no, because most SaaS forbids it and people ask that one expecting to be told off. Don't rewrite it into the sharing framing, and don't reach for role nouns like "sales manager" — the audience is agencies, where the person handling leads is a founder or whoever writes the proposals.</li>
           <li><b>6</b> <em>This answer promises Slack, not per-scanner routing, and that is a correction not a softening.</em> It previously said scanners route to different channels; Telegram currently delivers to whoever connected the bot, so that sentence was ahead of the product. Slack in one shared place is true today. When group routing ships, this row and the Delivery line in §4 get upgraded together — they are the same claim in two places.</li>
           <li><b>6</b> <em>Never write "unlimited users" without the beta qualifier.</em> When seats ship, every account running on one shared login gets a bill increase — a churn event your own copy would have caused. The tag is not fine print to be tidied away; it is the thing that makes the promise safe to make.</li>
+          <li><b>8</b> <em>Three paragraphs, and none of them compress.</em> What we do, what you still do, and what happens when it fails. Merge the first two and the honesty reads as hedging; drop the third and the section makes a claim with no floor under it. This is the only place on the page that addresses the product&rsquo;s core claim, so it gets the length it needs.</li>
+          <li><b>8</b> <em>Never add a precision percentage here.</em> &ldquo;94% accurate&rdquo; is a number a reader will test on their first reveal, and a single bad match then disproves the page rather than the match. &ldquo;Not a guarantee&rdquo; cannot be falsified by one result, which is exactly why it is stronger.</li>
+          <li><b>9</b> <em>&ldquo;In practice&rdquo; stays.</em> It is honest that two minutes is typical rather than guaranteed, without a caveat that undercuts the number. &ldquo;Up to&rdquo; would; &ldquo;usually&rdquo; would; this does not.</li>
+          <li><b>9</b> <em>Two minutes must be verified against the real pipeline before launch.</em> It is checkable on day one by anyone who signs up, and it is the same claim the Scanner diagram makes with its timestamps &mdash; so if the number moves, it moves in both places.</li>
+          <li><b>10</b> <em>The second paragraph is the argument; the first is only the setup.</em> &ldquo;Budget, a habit of hiring out, a live project that needs maintaining&rdquo; is plausible reasoning. &ldquo;Proof the client actually pays&rdquo; is a fact about the data, and it is the sentence that makes the paid/unfilled dot in the Research diagram worth drawing. If the row is ever shortened, the second paragraph is the one that survives.</li>
+          <li><b>12</b> <em>Two sentences, and the second one is the whole answer.</em> &ldquo;Yes&rdquo; on its own invites the follow-up a reader is actually asking &mdash; do I lose the rest of the week I paid for. Saying it unprompted is what makes the yes worth anything, and it costs eleven words.</li>
+          <li><b>11</b> <em>Keep this one short.</em> Anything longer implies the answer is complicated, and the whole value of the answer is that it is not. Three sentences is already generous.</li>
+          <li><b>13</b> <em>The reason has to stay visible.</em> Charging twice without explaining why reads as a technicality someone will find in a bill; explaining it first turns it into a stated position. The second paragraph then turns a complaint into a suggestion and sells destination routing, which otherwise exists only as a row in the pricing table.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row appears twice.</em> Here, and under the pricing table. Same wording both times; it is a term of the deal, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
           <li><b>5</b> <em>Two paragraphs, and the second one is the useful half.</em> The first sets expectations — leads, not clients. The second tells them how to actually win, which is the paragraph that earns trust, because a page that admits a generic pitch will fail is a page that isn't selling magic. Keep them as separate paragraphs; run together, the qualification swallows the advice.</li>
+          <li><b>&mdash;</b> <em>Thirteen rows is too many for a landing page, and this needs a decision.</em> Nobody reads thirteen, and the important ones get buried by the rest. The recommended seven to keep on the page: what you get for a credit, accuracy, data sourcing, no result no credit spent, does outreach work, can I get banned, cancel anytime. The five that belong in a help centre linked at the foot of the section &mdash; speed, upgrades, team duplicates, platform accounts, already-hired &mdash; are questions people ask <em>after</em> signing up. All thirteen are here now for review; the cut is a later decision.</li>
+          <li><b>&mdash;</b> <em>The count is thirteen, not twelve, and the thirteenth is unassigned.</em> &ldquo;Can my team use this too?&rdquo; appears in neither the keep list nor the move list. It is a reasonable keeper &mdash; it answers a question this ICP is definitely asking and it sets up the seats price change honestly &mdash; but it should be placed deliberately rather than surviving by not being mentioned.</li>
           <li><b>—</b> <em>Objections is still the only place on the page where prose may run.</em> Everywhere else is fragments and structure — don't let that leak upward into §2. Folding changed how much of it is visible at once, not the licence to write it.</li>
           <li><b>—</b> <em>Print and Cmd-F.</em> Collapsed <code>&lt;details&gt;</code> content is invisible to print stylesheets and, in some browsers, to in-page search. Neither matters much for a landing page, but if anyone ever asks why an answer "isn't on the page", this is why.</li>
         </ol>
