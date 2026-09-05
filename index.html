@@ -554,10 +554,9 @@
   /* the catches are pinned while the field flows past them */
   .pinned .ring{animation:pulse 2.4s ease-in-out infinite}
 
-  .also-h{
-    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
-    margin:1.6rem 0 .5rem;padding-top:1.1rem;border-top:1px solid var(--hair);
-  }
+  /* the label above Research is gone; the rule it carried moves onto the block
+     itself, so the two tools are still separated without a word doing it */
+  .door.research{margin-top:1.7rem;padding-top:1.6rem;border-top:1px solid var(--hair)}
 
   .door-sub{margin:-.4rem 0 .9rem;font-size:.78rem;color:var(--ink-soft);max-width:52ch}
 
@@ -662,6 +661,7 @@
   /* ---------- Fit: the still block. It sits between an animated hero and
      three animated diagrams, and being the one thing that does not move is
      what lets it read as the page pausing to talk. Never animate it. ------- */
+  /* shared with §3's section title — rename it when someone next touches both */
   .fit-h{
     margin:0 0 1.2rem;font-size:1.34rem;font-weight:600;letter-spacing:-.02em;
     max-width:24ch;line-height:1.2;
@@ -1378,6 +1378,8 @@
     <div class="rail">3</div>
     <div class="frame">
 
+      <h2 class="fit-h">How it works?<i class="mk">6</i></h2>
+
       <div class="toolh">
         <span class="pulsedot" aria-hidden="true"></span>
         <h3>Scanner <em>&mdash; live leads, brought to you</em></h3>
@@ -1394,7 +1396,6 @@
         </div>
       </div>
 
-      <p class="also-h">Also included<i class="mk">6</i></p>
       <div class="door research">
         <div class="toolh">
           <svg class="drawer" viewBox="0 0 15 13" aria-hidden="true"><rect x="0.6" y="0.6" width="13.8" height="11.8"/><line x1="0.6" y1="5.2" x2="14.4" y2="5.2"/><line x1="5.6" y1="8.8" x2="9.4" y2="8.8"/></svg>
@@ -1522,6 +1523,8 @@
           <li><b>&mdash;</b> <em>The alternative worth A/B testing is not folding it.</em> Three compressed panels always open cost about 120px and need no nudge mechanism, no viewport tracking and no persistence &mdash; three pieces of machinery that exist only because the block is folded. If the content is worth nagging people about, it may be worth the space; if it is not worth the space, it is probably not worth nagging about either. Cheaper to test than to build twice.</li>
           <li><b>&mdash;</b> <em>Searching by agency, freelancer or client now has a home.</em> It was deliberately kept out of the Research diagram because four entity types made that block incomprehensible; this is where it went. If this block is ever cut, that capability goes back to being unillustrated &mdash; do not cut it silently.</li>
           <li><b>&mdash;</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Five blocks stacked lose the left-to-right reading, and with it the contrast against Scanner &mdash; a ripple and a drift both become a column, and the two tools stop being opposites. The stopgap is horizontal scroll, which hides steps 3, 4 and 5 behind a swipe most visitors will not make.</li>
+          <li><b>6</b> <em>&ldquo;How it works?&rdquo; is a heading punctuated as a question, and English wants one or the other.</em> &ldquo;How it works&rdquo; is the statement; &ldquo;How does it work?&rdquo; is the question. The mixed form is a small wrongness of exactly the kind this page has rules about elsewhere &mdash; it is set as written, and it is a one-character fix either way.</li>
+          <li><b>6</b> <em>The section title is a heading, not a label, and it replaces one.</em> &ldquo;Also included&rdquo; was a mono caption doing a structural job &mdash; it said &ldquo;this next thing is not part of the diagram above&rdquo;. A rule on the Research block says the same thing without a word, and the section now opens with a title in the same treatment as &sect;2 rather than opening straight into a diagram.</li>
           <li><b>6</b> <em>No Scanner explainer video.</em> It would only repeat this diagram, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time &mdash; which is exactly what companies make videos to fake.</li>
         </ol>
       </div>
@@ -1532,6 +1535,7 @@
   <section class="blk" id="s4">
     <div class="rail">4</div>
     <div class="frame">
+      <h2 class="fit-h">FAQ<i class="mk">14</i></h2>
       <div class="faq all-open">
         <details class="faq-row" open>
           <summary>
@@ -1681,6 +1685,7 @@
           <li><b>12</b> <em>Two sentences, and the second one is the whole answer.</em> &ldquo;Yes&rdquo; on its own invites the follow-up a reader is actually asking &mdash; do I lose the rest of the week I paid for. Saying it unprompted is what makes the yes worth anything, and it costs eleven words.</li>
           <li><b>11</b> <em>Keep this one short.</em> Anything longer implies the answer is complicated, and the whole value of the answer is that it is not. Three sentences is already generous.</li>
           <li><b>13</b> <em>The reason has to stay visible.</em> Charging twice without explaining why reads as a technicality someone will find in a bill; explaining it first turns it into a stated position. The second paragraph then turns a complaint into a suggestion and sells destination routing, which otherwise exists only as a row in the pricing table.</li>
+          <li><b>14</b> <em>A one-word title, in the same treatment as the other section headings.</em> &ldquo;FAQ&rdquo; needs no elaboration &mdash; a reader knows what it is &mdash; and this section is the only one whose content is self-describing enough to survive a bare label. The other headings argue; this one just names.</li>
           <li><b>2</b> <em>Flat, unbothered tone.</em> These read as spec, not as reassurance. No warning icons, no tinted "trust" panel, no shield graphics — defensive design makes the answers look defensive.</li>
           <li><b>3</b> <em>This row appears twice.</em> Here, and under the pricing table. Same wording both times; it is a term of the deal, not an FAQ answer. If the copy drifts between the two, the guarantee stops sounding like a rule.</li>
           <li><b>4</b> <em>The honest answer is the short one.</em> It declines to speak for someone else's terms, says exactly what is handed over, and points out that the outreach happens off that platform. Don't let this grow: every additional sentence of reassurance makes it read more like a disclaimer and less like a fact, and a long answer here is itself an admission that there's something to explain.</li>
