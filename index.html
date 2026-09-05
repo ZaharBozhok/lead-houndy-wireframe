@@ -14,6 +14,9 @@
     --fill:#DCDEDB;
     --fill-2:#CFD2CE;
     --mark:#2B4C9B;
+    /* colour with a job, not decoration. Ink today so the wireframe stays
+       two-tone; this is the hook a real brand accent drops into. */
+    --accent:#23282D;
     --mark-soft:#7A93C4;
     --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
@@ -534,53 +537,97 @@
 
   .door-sub{margin:-.4rem 0 .9rem;font-size:.78rem;color:var(--ink-soft);max-width:52ch}
 
-  /* Research: three stills, all visible. A comparison needs both halves on
-     screen at once, which is exactly what a carousel or a video cannot do. */
-  .rframes{
-    display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
-    align-items:start;gap:.4rem;
-  }
-  .rf{min-width:0}
-  .rf-box{
-    border:1px solid var(--line);background:var(--paper);
-    padding:.45rem .5rem;height:212px;overflow:hidden;
-  }
-  .rf-cap{
-    margin:.3rem 0 0;font-family:var(--mono);font-size:.58rem;
-    color:var(--line);text-align:center;
-  }
-  .rf-field{margin-bottom:.5rem}
-  .rf-field b{display:block;font-size:.76rem;font-weight:600;line-height:1.3}
-  /* the date range is the visual difference from Scanner setup, and the thing
-     the 7 / 45 / full pricing rows are selling */
-  .rf-field.date{
-    border:1px solid var(--ink);background:var(--sheet);
-    padding:.3rem .4rem;margin:.7rem 0 0;
-  }
-  .rf-count{
-    margin:0 0 .4rem;font-size:1.35rem;font-weight:600;letter-spacing:-.02em;line-height:1;
-  }
-  .rf-count em{font-style:normal;font-size:.7rem;font-weight:400;color:var(--ink-soft)}
-  .rf-note{margin:0 0 .4rem;font-family:var(--mono);font-size:.6rem;color:var(--ink-soft)}
-  .rf-note b{color:var(--ink)}
-  /* clipped, not ended — the cut-off row is what makes the list read as endless */
-  .rf-rows{max-height:176px;overflow:hidden}
-  .rr{
-    display:flex;align-items:baseline;gap:.35rem;
-    height:13px;border-bottom:1px solid var(--hair);
-  }
-  .rn{
-    font-family:var(--mono);font-size:.58rem;color:var(--ink-soft);
-    flex:0 0 30%;min-width:88px;overflow:hidden;white-space:nowrap;
-  }
-  .rn.open{font-family:var(--sans);font-weight:600;color:var(--ink);font-size:.62rem}
-  .rr em{
-    font-style:normal;font-size:.58rem;color:var(--ink);
-    overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0;
-  }
-  .rr:has(.open){background:var(--fill)}
+  /* ---------- Research: four ways in, narrowed to one message ---------- */
+  .rsplit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,29rem);gap:1.6rem;align-items:stretch;margin-top:.4rem}
+  /* the steps stretch beside the funnel so step N lands next to layer N */
+  .rsteps{display:flex;flex-direction:column;justify-content:space-between;height:100%}
+  .rsteps .stepr{padding-bottom:0}
+  .stepr-t h4{margin:0 0 .2rem;font-size:.88rem;font-weight:600}
+  .stepr-t h4 + p{margin:0;font-size:.8rem;color:var(--ink-soft);line-height:1.5}
 
-  .fr-arrow{font-family:var(--mono);font-size:.7rem;color:var(--line);align-self:center;padding-bottom:.9rem}
+  /* a filter state, never a query box — pills, not a field */
+  .chips-row{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem}
+  .fchip{
+    font-family:var(--mono);font-size:.62rem;line-height:1;
+    padding:.28rem .5rem;border-radius:999px;white-space:nowrap;
+  }
+  .fchip.on{background:var(--accent);color:var(--sheet);border:1px solid var(--accent)}
+  .fchip.add{background:none;color:var(--ink-soft);border:1px dashed var(--line)}
+
+  /* THE TAPER. Percentages, not fixed widths, so it survives every container
+     size — widen layer 3 to fit a long name and the funnel inverts. */
+  .funnel{width:100%;max-width:28.2rem;margin-inline:auto}
+  .fl{margin-inline:auto}
+  .fl1{width:100%}
+  .fl2{width:75.5%}
+  .fl3{width:71%}
+  .fl4{width:49%}
+
+  /* layer 1 — four entry points, four different shapes */
+  .fl1{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem}
+  .ecard{border:1px solid var(--line);background:var(--sheet);padding:.4rem .4rem .45rem;min-width:0}
+  .eart{height:26px;margin-bottom:.35rem;display:flex}
+  .eart span,.eart b{background:var(--fill-2);border:1px solid var(--line);display:block}
+  .eart.rows{flex-direction:column;justify-content:space-between}
+  .eart.rows span{height:4px;width:100%}
+  .eart.rows span:nth-child(2){width:72%}
+  .eart.rows span:nth-child(4){width:56%}
+  .eart.tiles{flex-wrap:wrap;gap:2px;align-content:center}
+  .eart.tiles span{width:calc(50% - 1px);height:11px}
+  .eart.faces{align-items:center;gap:2px}
+  .eart.faces span{width:13px;height:13px;border-radius:50%}
+  .eart.tree{flex-direction:column;gap:2px;justify-content:center}
+  .eart.tree b{height:7px;width:100%}
+  .eart.tree span{height:4px;width:72%;margin-left:auto}
+  .ecard .elab{margin:0;font-family:var(--mono);font-size:.56rem;color:var(--ink-soft);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ecard .enum{margin:0;font-size:.82rem;font-weight:600;letter-spacing:-.01em}
+
+  /* the chips visibly cause the results */
+  .fconn{
+    width:0;height:22px;margin:.15rem auto;
+    border-left:1px dashed var(--accent);
+  }
+
+  /* layers 2 and 3 — the same card, holding more each time */
+  .jc{border:1px solid var(--line);background:var(--paper);padding:.4rem .45rem;min-width:0}
+  .jc .jt{margin:0;font-size:.68rem;font-weight:600;line-height:1.3;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .jc .jm{margin:.1rem 0 0;font-family:var(--mono);font-size:.58rem;color:var(--ink-soft)}
+  .jc .jage{margin:.1rem 0 0;font-family:var(--mono);font-size:.56rem;color:var(--line)}
+  .jd{height:1px;background:var(--hair);margin:.35rem 0}
+  .jw{display:flex;align-items:center;gap:.35rem;min-width:0}
+  .jav{width:14px;height:14px;flex:none;border-radius:50%;background:var(--fill-2);border:1px solid var(--line)}
+  .jav.on{background:var(--accent);border-color:var(--accent)}
+  /* withheld, not unloaded — solid and dark, never a pale skeleton */
+  .jlock{height:7px;flex:1;background:var(--ink-soft);border-radius:1px;max-width:70%}
+  .jname{font-size:.64rem;font-weight:600;line-height:1.25;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .jname em{display:block;font-style:normal;font-size:.56rem;font-weight:400;color:var(--ink-soft)}
+
+  .fl2{display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .fl2 .jc{flex:none;width:38%;margin:0 -3%}
+  .fl2 .t1{width:44%;opacity:1;z-index:3;position:relative}
+  .fl2 .t2{opacity:.6;z-index:2}
+  .fl2 .t3{opacity:.3;z-index:1}
+  .fl3{display:flex;flex-direction:column;gap:.45rem}
+
+  /* layer 4 — dashed means outside Leadhoundy's UI */
+  .msg{border:1px dashed var(--line);background:var(--sheet);padding:.45rem .5rem}
+  .msg-h{display:flex;align-items:center;gap:.35rem;margin-bottom:.4rem}
+  .msg-who{font-size:.64rem;font-weight:600;line-height:1.25}
+  .msg-who em{display:block;font-style:normal;font-size:.54rem;font-weight:400;color:var(--line)}
+  .msg-field{
+    border:1px solid var(--line);background:var(--paper);border-radius:12px;
+    padding:.3rem .5rem;font-size:.58rem;color:var(--ink-soft);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .msg-send{
+    display:block;margin:.35rem 0 0 auto;width:max-content;
+    background:var(--accent);color:var(--sheet);
+    font-size:.58rem;padding:.22rem .55rem;border-radius:2px;
+  }
+
 
   /* ---------- section 4: doors ---------- */
   .door{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;margin-bottom:.9rem}
@@ -728,11 +775,15 @@
     .slack-msg{padding:.7rem .6rem .75rem}
     .slack-fields{grid-template-columns:1fr;gap:.4rem}
     .slack-prof em{display:none}
-    .rframes{grid-template-columns:1fr;gap:.3rem}
-    .fr-arrow{transform:rotate(90deg);padding:0;justify-self:center}
-    /* frame 2 sheds rows but the count stays largest and the last row still clips */
-    .rf-box{height:auto;max-height:none;padding:.55rem .6rem}
-    .rf-rows{max-height:110px}
+    /* Mobile is unsolved by design, not by CSS — see the margin. This is the
+       least-bad stopgap: entry cards go 2x2, the funnel stops tapering. */
+    .rsplit{grid-template-columns:minmax(0,1fr);gap:1.1rem}
+    .funnel{max-width:none}
+    .fl1{grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+    .fl2{width:100%}
+    .fl3{width:88%}
+    .fl4{width:72%}
+    .eart{height:30px}
     .price-card{padding:1rem .8rem}
     h2.hl{font-size:1.32rem;max-width:100%}
     p.sub{font-size:.87rem}
@@ -1088,66 +1139,94 @@
         <p>Scanner watches what gets posted next. Research is everything that already happened.</p>
         <p class="door-sub">Search past jobs and reveal who posted them. Start from a company and see everything they've hired for. Or look up an agency, see what they've worked on and who paid them — then reveal those clients yourself.</p>
 
-        <div class="rframes">
-          <div class="rf">
-            <div class="rf-box">
-              <div class="rf-field"><span class="fl">Keyword</span><b>Webflow</b></div>
-              <div class="rf-field"><span class="fl">Budget min</span><b>$2,000</b></div>
-              <div class="rf-field date"><span class="fl">Date range</span><b>Last 45 days</b><i class="mk">8</i></div>
-            </div>
-            <p class="rf-cap">filters</p>
-          </div>
+        <div class="rsplit">
+          <ol class="stepline rsteps">
+            <li class="stepr">
+              <span class="stepr-n">01</span>
+              <div class="stepr-t">
+                <h4>Start anywhere</h4>
+                <p>A job, an agency, a freelancer, a client.</p>
+              </div>
+            </li>
+            <li class="stepr">
+              <span class="stepr-n">02</span>
+              <div class="stepr-t">
+                <h4>Narrow it down</h4>
+                <p>Set the filters that fit your work.</p>
+                <div class="chips-row"><i class="mk">9</i>
+                  <span class="fchip on">React</span>
+                  <span class="fchip on">over $5,000</span>
+                  <span class="fchip on">US</span>
+                  <span class="fchip add">+ filter</span>
+                </div>
+              </div>
+            </li>
+            <li class="stepr">
+              <span class="stepr-n">03</span>
+              <div class="stepr-t">
+                <h4>Reveal who's behind</h4>
+                <p>Only the ones worth it.</p>
+              </div>
+            </li>
+            <li class="stepr">
+              <span class="stepr-n">04</span>
+              <div class="stepr-t">
+                <h4>Pitch them</h4>
+                <p>In their inbox or LinkedIn messages.</p>
+              </div>
+            </li>
+          </ol>
 
-          <span class="fr-arrow" aria-hidden="true">&rarr;</span>
-
-          <div class="rf">
-            <div class="rf-box">
-              <p class="rf-count">387 <em>matches</em><i class="mk">7</i></p>
-              <div class="rf-rows">
-              <div class="rr"><span class="rn">F•••• K••••••••</span><em>Head of Growth</em></div>
-              <div class="rr"><span class="rn">M••••• D• V•••</span><em>Founder</em></div>
-              <div class="rr"><span class="rn">A•••• O••••••</span><em>Marketing Lead</em></div>
-              <div class="rr"><span class="rn">T•••• B•••</span><em>Operations Lead</em></div>
-              <div class="rr"><span class="rn">S•••• R•••••••</span><em>Head of Product</em></div>
-              <div class="rr"><span class="rn">J••••• L••</span><em>Creative Director</em></div>
-              <div class="rr"><span class="rn">N••• H•••••••</span><em>Ecommerce Manager</em></div>
-              <div class="rr"><span class="rn">P•••• W••••</span><em>Managing Partner</em></div>
-              <div class="rr"><span class="rn">K•••• A•••••</span><em>Brand Manager</em></div>
-              <div class="rr"><span class="rn">D••••• S••••</span><em>CTO</em></div>
-              <div class="rr"><span class="rn">L••• M••••••</span><em>Head of Digital</em></div>
-              <div class="rr"><span class="rn">R•••• E•••••</span><em>Growth Lead</em></div>
-              <div class="rr"><span class="rn">C•••• N••••</span><em>Studio Director</em></div>
-              <div class="rr"><span class="rn">B••• T••••••</span><em>Head of Marketing</em></div>
-              <div class="rr"><span class="rn">V••• K•••••</span><em>Product Owner</em></div>
+          <div class="funnel">
+            <div class="fl fl1">
+              <div class="ecard"><i class="mk">7</i>
+                <div class="eart rows"><span></span><span></span><span></span><span></span></div>
+                <p class="elab">jobs</p><p class="enum">890k</p>
+              </div>
+              <div class="ecard">
+                <div class="eart tiles"><span></span><span></span><span></span><span></span></div>
+                <p class="elab">agencies</p><p class="enum">120k</p>
+              </div>
+              <div class="ecard">
+                <div class="eart faces"><span></span><span></span><span></span><span></span></div>
+                <p class="elab">freelancers</p><p class="enum">310k</p>
+              </div>
+              <div class="ecard">
+                <div class="eart tree"><b></b><span></span><span></span></div>
+                <p class="elab">clients</p><p class="enum">150k</p>
               </div>
             </div>
-            <p class="rf-cap">every one already posted</p>
-          </div>
 
-          <span class="fr-arrow" aria-hidden="true">&rarr;</span>
+            <div class="fconn" aria-hidden="true"></div>
 
-          <div class="rf">
-            <div class="rf-box">
-              <p class="rf-note">387 matches &middot; <b>1 revealed</b></p>
-              <div class="rf-rows">
-              <div class="rr"><span class="rn">F•••• K••••••••</span><em>Head of Growth</em></div>
-              <div class="rr"><span class="rn">M••••• D• V•••</span><em>Founder</em></div>
-              <div class="rr"><span class="rn open">Anna Oosterhuis</span><em>Marketing Lead</em></div>
-              <div class="rr"><span class="rn">T•••• B•••</span><em>Operations Lead</em></div>
-              <div class="rr"><span class="rn">S•••• R•••••••</span><em>Head of Product</em></div>
-              <div class="rr"><span class="rn">J••••• L••</span><em>Creative Director</em></div>
-              <div class="rr"><span class="rn">N••• H•••••••</span><em>Ecommerce Manager</em></div>
-              <div class="rr"><span class="rn">P•••• W••••</span><em>Managing Partner</em></div>
-              <div class="rr"><span class="rn">K•••• A•••••</span><em>Brand Manager</em></div>
-              <div class="rr"><span class="rn">D••••• S••••</span><em>CTO</em></div>
-              <div class="rr"><span class="rn">L••• M••••••</span><em>Head of Digital</em></div>
-              <div class="rr"><span class="rn">R•••• E•••••</span><em>Growth Lead</em></div>
-              <div class="rr"><span class="rn">C•••• N••••</span><em>Studio Director</em></div>
-              <div class="rr"><span class="rn">B••• T••••••</span><em>Head of Marketing</em></div>
-              <div class="rr"><span class="rn">V••• K•••••</span><em>Product Owner</em></div>
+            <div class="fl fl2">
+              <div class="jc t3"><p class="jt">Shopify theme build</p><p class="jm">$3,200 &middot; DE</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+              <div class="jc t2"><p class="jt">Webflow marketing site</p><p class="jm">$6,800 &middot; US</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+              <div class="jc t1"><i class="mk">8</i><p class="jt">React dashboard rebuild</p><p class="jm">$9,500 &middot; US</p><p class="jage">posted 9 days ago</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+              <div class="jc t2"><p class="jt">Headless commerce build</p><p class="jm">$7,400 &middot; NL</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+              <div class="jc t3"><p class="jt">Design system in Figma</p><p class="jm">$5,100 &middot; UK</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+            </div>
+
+            <div class="fl fl3">
+              <div class="jc open">
+                <p class="jt">React dashboard rebuild</p><p class="jm">$9,500 &middot; US</p>
+                <p class="jage">posted 9 days ago</p><div class="jd"></div>
+                <div class="jw"><span class="jav on"></span><span class="jname">Anna Oosterhuis<em>Head of Growth &middot; Ravel Studio</em></span></div>
+              </div>
+              <div class="jc open">
+                <p class="jt">Headless commerce build</p><p class="jm">$7,400 &middot; NL</p>
+                <p class="jage">posted 2 weeks ago</p><div class="jd"></div>
+                <div class="jw"><span class="jav on"></span><span class="jname">Brightpath Commerce<em>company &middot; 3 people to message</em></span></div>
               </div>
             </div>
-            <p class="rf-cap">you pick which ones</p>
+
+            <div class="fl fl4"><i class="mk">10</i>
+              <div class="msg">
+                <div class="msg-h"><span class="jav on"></span><span class="msg-who">Anna Oosterhuis<em>active 2h ago</em></span></div>
+                <div class="msg-field">Saw you&rsquo;re rebuilding the dashboard&hellip;</div>
+                <span class="msg-send">Send</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1158,17 +1237,11 @@
       <p class="note"><b>Scanner is the spine of the page</b> — the hero demo and these steps — not one of several equal features. Everything in the "Also included" strip exists to close a "but what if I want X" loop, not to be chosen.</p>
       <p class="note"><b>Step 4 keeps "no proposal queue, no bidding, no cut".</b> That line was dropped from the hero subhead when it was shortened. If it isn't here it is nowhere on the page, and it is the sentence that explains why this is worth $99 a week.</p>
       <p class="note">Steps 1 and 2 are both configuration, which risks reading as more setup than the one-tap hero implied. "About a minute" defuses that, and it is the only reason the pair survives being adjacent.</p>
-      <p class="note"><b>Research is the backlog; Scanner is the future.</b> Scanner is set-and-wait — it can only ever show you what gets posted after you arrive. Research is everything posted before that, which is the one thing Scanner structurally cannot do, and it's the answer to the empty first day. Naming the past and naming the volume is what stops this reading as a search box.</p>
-      <p class="note"><b>387 matches beside the hero's three cards is a density comparison</b>, and a comparison needs both halves on screen at the same time. That is the whole reason this is three stills rather than a carousel or a video: an animation shows one state at a time, and a stepper hides the strongest asset in the section behind a click most visitors will never make.</p>
-      <p class="note">Research can't be cut. Archive depth is a line on every plan card — 7 days on Starter, the full archive on Advanced and Unlimited — and an unexplained thing someone is being charged for is worse than a small section.</p>
-      <p class="note warn"><b>The copy now promises three entry points and the visual shows one.</b> Search by keyword is drawn; "start from a company" and "look up an agency" are not. Either frame 1 grows a second field so the panel reads as more than a keyword search, or the third sentence is describing a screen that isn't in the picture — and a reader who takes the copy literally will look for it.</p>
-      <p class="note warn"><b>"See what they've worked on and who paid them" claims more than a posting archive holds.</b> The archive shows who <em>posted</em> a job, not who won it or whether it was paid — an agency appearing near a posting is an inference, not a record. Either the product can actually link agencies to completed work, in which case this is the strongest sentence on the page and deserves its own visual, or it can't and the sentence has to shrink to what the data supports. Worth settling before it ships; it is the kind of claim a competitor checks.</p>
-      <p class="note"><b>Competitor research is a different buying motive from lead-gen</b>, and this copy quietly introduces it. Looking up an agency to reveal its clients is a poaching move, not a prospecting one — it sells to the same audience for a different reason. That is probably a good thing, but it means Research now serves two jobs and the section only illustrates the first.</p>
-      <p class="note"><b>Single link came off this page.</b> Unlike Research, nothing in pricing depends on it being explained — archive depth is a line on every plan card, Single link is included at every tier. It was also the smallest feature on the page holding equal visual weight to Research, which oversold a convenience into looking like a pillar.</p>
-      <p class="note"><b>It was quietly arguing against the page.</b> The whole pitch is "you don't have to go looking any more"; a feature that says "found something? paste it here" assumes exactly the mindset the hero is trying to move people out of. Two paragraphs apart, the page was selling a habit and a cure for it at the same time.</p>
-      <p class="note">Its real home is the app's empty state — a new user with no scanner running yet is precisely the person who wants something to do right now. That is onboarding, not a landing page.</p>
-      <p class="note warn"><b>It is now unadvertised.</b> The one-line mention in the hero footer has since been cut too, so the only place Single link appears is the footer's Product list — findable by someone looking for it, invisible to everyone else. That is a defensible end state for a feature whose real home is the app's empty state, but it does mean nobody arriving with a posting already open will learn the shortcut exists. If the app ever reports meaningful single-link usage from people who never saw it advertised, that is the signal to give it a line back.</p>
-      <p class="note warn"><b>The video previously specced here is dropped.</b> The story is a two-state comparison, not a process with duration, and a recording would have shown the two halves one after the other — which is exactly the thing that makes the argument stop working.</p>
+      <p class="note"><b>Research is the backlog; Scanner is the future.</b> Scanner can only ever show what gets posted after you arrive. Research is everything before that — the answer to the empty first day, and the one thing Scanner structurally cannot do. Naming the past and the volume is what stops this reading as a search box bolted onto Scanner.</p>
+      <p class="note"><b>Four distinct entry cards exist so "you can search four different things" is visible in a second.</b> An earlier version used four identical counters, which said "we have a lot of rows" — true, and it taught nothing while burying the differentiator. Four different shapes say four different objects before a single label is read.</p>
+      <p class="note"><b>Chips are a filter state, never a query box.</b> If they read as typeable, someone types a sentence on day one and the product fails them in their first thirty seconds. Pills, not a field — and the distance between those two things is smaller than it looks.</p>
+      <p class="note">Research can't be cut from the page. Archive depth is something people are charged for, and an unexplained thing on a price card is worse than a small section.</p>
+      <p class="note warn"><b>Archive depth is deliberately absent from the copy.</b> It varies by tier and the plan cards already carry it; repeating it here would mean two places to update and one of them would be missed.</p>
       <p class="note warn"><b>Browser extension stays off the page until it ships.</b> A section that leads nowhere costs more trust than the feature earns.</p>
 
       <div class="build-block">
@@ -1187,13 +1260,21 @@
           <li><b>6</b> <em>Research is its own block now, not one half of a strip.</em> "Also included" still earns its place as the divider that says this isn't part of the four steps — but it labels one thing, so don't reintroduce a column beside it to balance the row. The extra width went to the frames, which is what the density needs.</li>
           <li><b>6</b> <em>It stays quiet and must not compete with the Slack mock above it.</em> Research closes a "but what about everything before I signed up" loop; it is not a second pitch. If it starts pulling attention off the message, shrink it.</li>
           <li><b>6</b> <em>No Scanner explainer video.</em> It would only repeat these four steps, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time — which is exactly what companies make videos to fake.</li>
-          <li><b>7</b> <em>The count is the feature, so it is the largest thing in the frame.</em> Bigger than any row, bigger than the filters beside it. Every product has a search box; almost none can say "387 already posted, and they're all still there". Don't lead the sequence with a query field — that makes Research look like search rather than like an archive.</li>
-          <li><b>7</b> <em>Never show three results.</em> Volume is the entire argument. Three rows would make Research look like a worse Scanner, and the row count is the one number in this frame that cannot be tuned for tidiness.</li>
-          <li><b>7</b> <em>The bottom row is cut through the middle, not ended neatly.</em> A clean final row says "that's all of them"; a clipped one says the list keeps going. It is a hard clip at the frame edge — no fade, because a fade is a softening and the point is that the frame simply can't hold them all. Verify it after any change to row height, since a clip that lands on a row boundary silently undoes this.</li>
-          <li><b>7</b> <em>This is a dense table, and it must not borrow the hero's card design.</em> Many short rows, tight leading, no card padding, against three roomy cards up in the hero. That density difference <em>is</em> the feature — if Research ends up looking like the hero feed with more entries, it has become a longer Scanner rather than a different product.</li>
-          <li><b>7</b> <em>Titles readable, names locked — same rule as the hero.</em> A visible job title is what makes a locked name feel like a specific person you are one click from, rather than a blank. Frame 3 exists to show the second half of that: the visitor chooses which ones to spend on. Scanner spends automatically as leads arrive; Research is deliberate, and that difference justifies both existing.</li>
-          <li><b>7</b> <em>If the static list doesn't feel endless enough once built, there is exactly one acceptable motion:</em> the row list drifting slowly on a loop, clipped by the frame. A CSS transform, a few hundred bytes, no controls and no play button. Try static first — it may not need it, and it counts against the page's motion budget if it does.</li>
-          <li><b>8</b> <em>The date range field is load-bearing.</em> Without it frame 1 is indistinguishable from configuring a scanner, and the whole sequence loses its subject. It is also the control archive depth is sold on, so it should read as the thing being adjusted rather than as one field among three — which is why it's the only one boxed. Note the value shown is "Last 45 days", which was Pro's cap before Pro was removed; it now reads as a range someone chose rather than a limit they hit, which is fine — but if it ever needs to illustrate a cap again, the caps are 7 days and full.</li>
+          <li><b>7</b> <em>Four card types, four shapes, and this is the most important element in the section.</em> A stack of rows, a grid of tiles, a row of faces, a header with indented children. It is what makes "four ways in" visible rather than asserted, so it must never collapse into four identical counters again.</li>
+          <li><b>7</b> <em>The clients card is the weakest of the four at this size and carries the most interesting idea</em> — start from a company, see everything it has hired for. Draw that one first and match the other three to it, rather than drawing three easy ones and squeezing it in last.</li>
+          <li><b>7</b> <em>Sub-counts must sum to the headline total once they're real.</em> This whole section rests on a claim of scale, and arithmetic that doesn't add up is the one error people actually check.</li>
+          <li><b>8</b> <em>THE TAPER IS THE ARGUMENT.</em> Roughly 450 → 340 → 320 → 220, centre-aligned. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the section stops meaning anything. It is built in percentages of the funnel width rather than fixed pixels precisely so it survives every container size — keep it that way.</li>
+          <li><b>8</b> <em>Detail escalates as the layers narrow.</em> Layer 1 shows a label and a count, layer 2 two or three lines, layer 3 five. Filtering doesn't only remove rows — it earns you more information, and the cards have to visibly hold more or the narrowing reads as loss.</li>
+          <li><b>8</b> <em>Locked bars read as withheld, not as unloaded.</em> Dark and solid, never a pale skeleton. Same three-state logic as the hero cards: locked, revealed, acted on — and a visitor should be able to tell the difference between "we haven't fetched this" and "we have it and you haven't paid".</li>
+          <li><b>8</b> <em>Timestamps read in days or weeks, never minutes.</em> Research is the archive; a minute-old posting would put it in competition with Scanner for the same freshness claim, and the two features would start arguing with each other.</li>
+          <li><b>9</b> <em>The dashed connector is the chips' effect made visible.</em> It runs from the chip cluster into the results so the filters visibly cause the row below rather than sitting near it. Strictly it is a fourth use of the accent — it belongs to the chips, and if it ever reads as decoration rather than causation, remove it rather than recolour it.</li>
+          <li><b>10</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy's UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
+          <li><b>10</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone — swap that one variable for a real brand colour and this section takes it.</li>
+          <li><b>—</b> <em>The same person runs through layers 2, 3 and 4</em> — locked, revealed, then addressed. That thread is the difference between a story and four illustrations, and it is the first thing lost when someone edits one layer in isolation.</li>
+          <li><b>—</b> <em>Layer 3 resolves one person and one company, with no label saying so.</em> The 50/50 split sets expectations here the same way the hero feed does, so the first paid reveal can't feel like a bait-and-switch.</li>
+          <li><b>—</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Four distinct entry cards stacked in a column lose the "four ways in" reading, and the taper disappears once every layer is full width. The stopgap here is a 2×2 grid for layer 1 and a much shallower taper. Likely direction: accept that the funnel becomes a sequence on small screens — but the narrowing needs some replacement signal, and right now it has none.</li>
+          <li><b>—</b> <em>The agency-earnings capability is still only implied.</em> Searching an agency to find who has been paying them is the most distinctive thing in the product, and the visual shows you can search agencies without showing what comes back. Worth solving, and worth checking the data actually supports it before it gets drawn.</li>
+          <li><b>—</b> <em>Layer 1 is currently the most visually interesting thing here and it sits at the top</em>, which may pull attention away from layer 3, the payoff. Watch it in context — if the eye stops at the entry cards, the section is selling breadth instead of the result.</li>
           <li><b>—</b> <em>Watch the section height on mobile.</em> Four steps, a full Slack message and a two-column strip is a lot for one block once it stacks. The message is the part to protect: field labels can drop to one column and the role text can go, but the resolved name and the two profiles are the reason the mock exists.</li>
         </ol>
       </div>
