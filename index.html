@@ -538,7 +538,7 @@
   .door-sub{margin:-.4rem 0 .9rem;font-size:.78rem;color:var(--ink-soft);max-width:52ch}
 
   /* ---------- Research: four ways in, narrowed to one message ---------- */
-  .rsplit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,29rem);gap:1.6rem;align-items:stretch;margin-top:.4rem}
+  .rsplit{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,38rem);gap:2rem;justify-content:start;align-items:stretch;margin-top:.4rem}
   /* the steps stretch beside the funnel so step N lands next to layer N */
   .rsteps{display:flex;flex-direction:column;justify-content:space-between;height:100%}
   .rsteps .stepr{padding-bottom:0}
@@ -556,7 +556,7 @@
 
   /* THE TAPER. Percentages, not fixed widths, so it survives every container
      size — widen layer 3 to fit a long name and the funnel inverts. */
-  .funnel{width:100%;max-width:28.2rem;margin-inline:auto}
+  .funnel{width:100%;max-width:38rem;margin-inline:auto}
   .fl{margin-inline:auto}
   .fl1{width:100%}
   .fl2{width:75.5%}
@@ -605,12 +605,16 @@
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .jname em{display:block;font-style:normal;font-size:.56rem;font-weight:400;color:var(--ink-soft)}
 
-  .fl2{display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .fl2 .jc{flex:none;width:38%;margin:0 -3%}
-  .fl2 .t1{width:44%;opacity:1;z-index:3;position:relative}
-  .fl2 .t2{opacity:.6;z-index:2}
-  .fl2 .t3{opacity:.3;z-index:1}
-  .fl3{display:flex;flex-direction:column;gap:.45rem}
+  /* five cards, all of them countable: narrower than the entry cards above and
+     overlapped just enough to stack. Centre on top, then the pair behind it,
+     then the outer pair furthest back. */
+  .fl2{display:flex;align-items:center;justify-content:center}
+  .fl2 .jc{flex:none;position:relative;width:23%;margin:0 -3%}
+  .fl2 .t1{width:26%;opacity:1;z-index:3}
+  .fl2 .t2{opacity:.62;z-index:2}
+  .fl2 .t3{opacity:.32;z-index:1}
+  /* the two revealed cards sit side by side — the row is the payoff */
+  .fl3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;align-items:start}
 
   /* layer 4 — dashed means outside Leadhoundy's UI */
   .msg{border:1px dashed var(--line);background:var(--sheet);padding:.45rem .5rem}
@@ -781,7 +785,7 @@
     .funnel{max-width:none}
     .fl1{grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
     .fl2{width:100%}
-    .fl3{width:88%}
+    .fl3{width:88%;grid-template-columns:minmax(0,1fr)}
     .fl4{width:72%}
     .eart{height:30px}
     .price-card{padding:1rem .8rem}
@@ -1263,7 +1267,8 @@
           <li><b>7</b> <em>Four card types, four shapes, and this is the most important element in the section.</em> A stack of rows, a grid of tiles, a row of faces, a header with indented children. It is what makes "four ways in" visible rather than asserted, so it must never collapse into four identical counters again.</li>
           <li><b>7</b> <em>The clients card is the weakest of the four at this size and carries the most interesting idea</em> — start from a company, see everything it has hired for. Draw that one first and match the other three to it, rather than drawing three easy ones and squeezing it in last.</li>
           <li><b>7</b> <em>Sub-counts must sum to the headline total once they're real.</em> This whole section rests on a claim of scale, and arithmetic that doesn't add up is the one error people actually check.</li>
-          <li><b>8</b> <em>THE TAPER IS THE ARGUMENT.</em> Roughly 450 → 340 → 320 → 220, centre-aligned. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the section stops meaning anything. It is built in percentages of the funnel width rather than fixed pixels precisely so it survives every container size — keep it that way.</li>
+          <li><b>8</b> <em>THE TAPER IS THE ARGUMENT.</em> 100% → 75.5% → 71% → 49% of the funnel width, centre-aligned — currently 608 → 459 → 432 → 298. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the section stops meaning anything. It is held in percentages rather than fixed pixels precisely so the ratios survive being resized; the pixel figures are what those ratios happen to measure today, not the spec.</li>
+          <li><b>8</b> <em>Five cards, and all five have to be countable.</em> Narrower than the entry cards above them, overlapped just enough to stack — centre on top, the pair behind it, then the outer pair furthest back, in both z-order and opacity. An earlier version overlapped them hard and let the frame clip the outer two, which read as one card floating over a strip rather than as a stack of five.</li>
           <li><b>8</b> <em>Detail escalates as the layers narrow.</em> Layer 1 shows a label and a count, layer 2 two or three lines, layer 3 five. Filtering doesn't only remove rows — it earns you more information, and the cards have to visibly hold more or the narrowing reads as loss.</li>
           <li><b>8</b> <em>Locked bars read as withheld, not as unloaded.</em> Dark and solid, never a pale skeleton. Same three-state logic as the hero cards: locked, revealed, acted on — and a visitor should be able to tell the difference between "we haven't fetched this" and "we have it and you haven't paid".</li>
           <li><b>8</b> <em>Timestamps read in days or weeks, never minutes.</em> Research is the archive; a minute-old posting would put it in competition with Scanner for the same freshness claim, and the two features would start arguing with each other.</li>
@@ -1271,6 +1276,7 @@
           <li><b>10</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy's UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
           <li><b>10</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone — swap that one variable for a real brand colour and this section takes it.</li>
           <li><b>—</b> <em>The same person runs through layers 2, 3 and 4</em> — locked, revealed, then addressed. That thread is the difference between a story and four illustrations, and it is the first thing lost when someone edits one layer in isolation.</li>
+          <li><b>—</b> <em>Layer 3 is a row of two, not a stack.</em> Side by side, the person result and the company result are compared rather than read in sequence, which is what makes the 50/50 land as a fact about the product instead of two examples. It also keeps the layer short, so the funnel stays a funnel rather than growing a tall waist in the middle.</li>
           <li><b>—</b> <em>Layer 3 resolves one person and one company, with no label saying so.</em> The 50/50 split sets expectations here the same way the hero feed does, so the first paid reveal can't feel like a bait-and-switch.</li>
           <li><b>—</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Four distinct entry cards stacked in a column lose the "four ways in" reading, and the taper disappears once every layer is full width. The stopgap here is a 2×2 grid for layer 1 and a much shallower taper. Likely direction: accept that the funnel becomes a sequence on small screens — but the narrowing needs some replacement signal, and right now it has none.</li>
           <li><b>—</b> <em>The agency-earnings capability is still only implied.</em> Searching an agency to find who has been paying them is the most distinctive thing in the product, and the visual shows you can search agencies without showing what comes back. Worth solving, and worth checking the data actually supports it before it gets drawn.</li>
