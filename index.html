@@ -637,6 +637,8 @@
 
   /* ---------- section 4: doors ---------- */
   .door{border:1px solid var(--line);background:var(--sheet);padding:1.1rem;margin-bottom:.9rem}
+  /* .door-h is also used standalone above the Scanner stream, which is not in a
+     .door — the two product headings have to match, so keep it unscoped */
   .door-h{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.5rem}
   .door-h h3{margin:0;font-size:1rem;font-weight:600}
   .door p{margin:0 0 .8rem;font-size:.86rem;color:var(--ink-soft);max-width:56ch}
@@ -1050,6 +1052,8 @@
     <div class="rail">2</div>
     <div class="frame">
 
+      <div class="door-h"><h3>Scanner Tool</h3></div>
+
       <div class="stream">
         <div class="zone z-field">
           <p class="zlab"><b>1</b> Everything posted<i class="mk">1</i></p>
@@ -1139,7 +1143,7 @@
 
       <p class="also-h">Also included<i class="mk">6</i></p>
       <div class="door research">
-        <div class="door-h"><h3>Research</h3></div>
+        <div class="door-h"><h3>Research Tool</h3></div>
         <p>Scanner watches what gets posted next. Research is everything that already happened.</p>
         <p class="door-sub">Search past jobs and reveal who posted them. Start from a company and see everything they've hired for. Or look up an agency, see what they've worked on and who paid them — then reveal those clients yourself.</p>
 
@@ -1286,6 +1290,9 @@
           <li><b>9</b> <em>The dashed connector is the chips&rsquo; effect made visible.</em> It runs from the chip cluster into the results so the filters visibly cause the row below rather than sitting near it. Strictly it is a fourth use of the accent &mdash; it belongs to the chips, and if it ever reads as decoration rather than causation, remove it rather than recolour it.</li>
           <li><b>10</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy&rsquo;s UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
           <li><b>10</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone &mdash; swap that one variable for a real brand colour and this section takes it.</li>
+          <li><b>&mdash;</b> <em>Both products are named on the page for the first time.</em> Scanner had no heading at all once the section label moved to the margin &mdash; the diagram just started &mdash; while Research had one, so the section read as one main thing plus an extra. Two matching headings say two products, which is what the nav and the footer&rsquo;s Product column already claim.</li>
+          <li><b>&mdash;</b> <em>&ldquo;Tool&rdquo; is only on the headings, and that split needs a decision.</em> The nav says Scanner &middot; Research, the footer&rsquo;s Product column says Scanner &middot; Research, and the prose says &ldquo;Scanner watches what gets posted next. Research is everything that already happened.&rdquo; Only the two block headings carry &ldquo;Tool&rdquo;. That is defensible &mdash; a heading names a thing, a nav points at it, prose talks about it &mdash; but this page is strict about nouns everywhere else, so it should be a decision rather than a leftover. If &ldquo;Tool&rdquo; is the product name, it goes in all four places and the prose gets rewritten to carry it.</li>
+          <li><b>&mdash;</b> <em>The Scanner heading is deliberately not wrapped in a <code>.door</code>.</em> Research sits in a bordered box because it is the thing being also-included; the Scanner stream is the section&rsquo;s main content and boxing it would put a border around a diagram that already scrolls sideways inside its own frame. Same heading treatment, different container &mdash; and if that ever reads as an inconsistency, box neither rather than boxing both.</li>
           <li><b>&mdash;</b> <em>Scanner and Research now have no explicit join, and that is a real loss to watch.</em> They are two diagrams with opposite geometry stacked in one block, and the centred &ldquo;either way, you end up here&rdquo; line was the one sentence telling the visitor these are two doors into the same room rather than two features. What remains is the rule above &ldquo;Also included&rdquo; and the shared card, chip and accent &mdash; structure and styling doing a job a sentence was doing. If reviewers start reading the funnel as a second product rather than the same product looking backwards, this is why, and the fix is a line rather than more rules.</li>
           <li><b>&mdash;</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Four zones stacked lose the left-to-right stream reading entirely, and the arrows become meaningless pointing down a column. The stopgap is a horizontal scroll, which hides zones 3 and 4 &mdash; the payoff &mdash; behind a swipe most visitors won&rsquo;t make. Likely direction: reduce zone 1 to a strip and keep the before/after adjacency at any cost, accepting that the scanner panel becomes a caption. The identity between zones 1 and 3 is the thing that has to survive, and nothing here protects it yet.</li>
           <li><b>&mdash;</b> <em>The funnel has the same problem, differently.</em> Four distinct entry cards stacked in a column lose the &ldquo;four ways in&rdquo; reading, and the taper disappears once every layer is full width. The stopgap is a 2&times;2 grid for layer 1 and a much shallower taper. Likely direction: accept that the funnel becomes a sequence on small screens &mdash; but the narrowing needs some replacement signal, and right now it has none.</li>
