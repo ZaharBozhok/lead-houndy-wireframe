@@ -459,7 +459,6 @@
   .hero-foot{
     margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--hair);
     display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;
-    justify-content:space-between;
   }
 
 
@@ -924,7 +923,6 @@
 
         <div class="hero-foot">
           <span class="hint">Reveal any posting. 7 free reveals when you sign up.</span><i class="mk">8</i>
-          <span class="hint">Have a job link? Paste it instead</span><i class="mk">9</i>
         </div>
       </div>
 
@@ -1009,7 +1007,6 @@
           <li><b>10</b> <em>Quiet line, not a control.</em> Same weight as the hint text around it, no border, no background, no hover state. The moment it acquires an affordance it becomes the button again, and people will click it and find nothing happens.</li>
           <li><b>10</b> <em>The number is real arithmetic, not decoration.</em> Daily volume minus the three on screen, and it moves with the keyword — including mid-cycle. Volumes are read off the dropdown rather than kept in a second list, so the two can't drift; if a volume changes there, this line follows it. A keyword with no known volume never gets an invented number, it gets the archive sentence instead.</li>
           <li><b>10</b> <em>If analytics later show people scrolling past the hero untouched, this is where a low-commitment control goes back in.</em> Clicking anything makes the next click likelier. Don't add it pre-emptively — the point of removing it was to find out whether the demo can carry the section on its own.</li>
-          <li><b>9</b> <em>Deliberately quiet.</em> This is a shortcut for people who arrive with a link, not a second front door. If it starts competing with the keyword field, shrink it.</li>
           <li><b>—</b> <em>No hound above the fold.</em> The hero has one job and a mascot competing with the feed costs conversions. The exception is the loading state while a reveal resolves — a dog on a scent is exactly the right thing to look at while you wait, and it's the moment the metaphor pays off.</li>
         </ol>
       </div>
@@ -1167,7 +1164,7 @@
       <p class="note"><b>Single link came off this page.</b> Unlike Research, nothing in pricing depends on it being explained — archive depth is a row in the table (7 / 45 / full), Single link is included at every tier. It was also the smallest feature on the page holding equal visual weight to Research, which oversold a convenience into looking like a pillar.</p>
       <p class="note"><b>It was quietly arguing against the page.</b> The whole pitch is "you don't have to go looking any more"; a feature that says "found something? paste it here" assumes exactly the mindset the hero is trying to move people out of. Two paragraphs apart, the page was selling a habit and a cure for it at the same time.</p>
       <p class="note">Its real home is the app's empty state — a new user with no scanner running yet is precisely the person who wants something to do right now. That is onboarding, not a landing page.</p>
-      <p class="note">It survives here as one line in the hero footer, which is the right proportion for what it is: it costs nothing, it catches the visitor who arrives with a posting already open, and that is the one context where it genuinely fits. It also stays in the footer's Product list, where anyone looking for it will find it.</p>
+      <p class="note warn"><b>It is now unadvertised.</b> The one-line mention in the hero footer has since been cut too, so the only place Single link appears is the footer's Product list — findable by someone looking for it, invisible to everyone else. That is a defensible end state for a feature whose real home is the app's empty state, but it does mean nobody arriving with a posting already open will learn the shortcut exists. If the app ever reports meaningful single-link usage from people who never saw it advertised, that is the signal to give it a line back.</p>
       <p class="note warn"><b>The video previously specced here is dropped.</b> The story is a two-state comparison, not a process with duration, and a recording would have shown the two halves one after the other — which is exactly the thing that makes the argument stop working.</p>
       <p class="note warn"><b>Browser extension stays off the page until it ships.</b> A section that leads nowhere costs more trust than the feature earns.</p>
 
