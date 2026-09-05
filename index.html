@@ -465,10 +465,91 @@
   }
 
 
-  /* ---------- section 3: steps beside the Slack mock ---------- */
-  .how{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.6rem;align-items:start}
+  /* ---------- Scanner: a stream, drawn left to right ----------
+     Research is a vertical funnel; this is deliberately its opposite geometry.
+     The difference in shape is the explanation of the difference in product. */
+  .stream{display:flex;align-items:flex-start;gap:.5rem;margin-top:.6rem;overflow-x:auto}
+  .zone{flex:none;display:flex;flex-direction:column}
+  .z-field .zbox{width:180px}
+  .z-scan .zbox{width:118px}
+  .z-slack .zbox{width:120px}
+  .zlab{
+    margin:0 0 .4rem;font-family:var(--mono);font-size:.62rem;color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .zlab b{color:var(--ink);font-weight:600;margin-right:.25rem}
+  /* rows run edge to edge and clip: a row that stops short reads "we ran out" */
+  .zbox{position:relative;height:250px;overflow:hidden}
+  .zbox.plain{overflow:visible;display:flex;align-items:center}
+  .zfoot{margin:.5rem 0 0;font-size:.7rem;line-height:1.4}
+  .zfoot b{display:block;font-weight:600}
+  .zfoot span{display:block;font-family:var(--mono);font-size:.6rem;color:var(--ink-soft)}
+  .zarrow{
+    flex:none;align-self:flex-start;margin-top:206px;
+    font-family:var(--mono);font-size:.8rem;color:var(--line);
+  }
 
-  /* numbering plus one vertical rule is the whole sequence signal */
+  /* one card, drawn identically in zone 1 and zone 3 */
+  .scard{
+    position:absolute;width:84px;height:42px;box-sizing:border-box;
+    border:1px solid var(--line);background:var(--sheet);
+    padding:5px 6px;display:flex;flex-direction:column;justify-content:center;
+  }
+  .scard.dim{opacity:.28}
+  /* a ring reads as selected; a thicker border reads as a different card style */
+  .scard.hit{outline:2px solid var(--accent);outline-offset:4px}
+  .srow{display:flex;align-items:center;gap:4px;min-width:0}
+  .scard b{font-size:8px;font-weight:600;line-height:1.1;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .scard em{font-style:normal;font-family:var(--mono);font-size:7.5px;
+    color:var(--ink-soft);margin-top:3px;line-height:1}
+  .sb{width:7px;height:7px;flex:none;background:var(--line);display:block}
+  .sb.ci{border-radius:50%}
+  .sb.di{transform:rotate(45deg)}
+  .sb.tr{width:0;height:0;background:none;
+    border-left:4px solid transparent;border-right:4px solid transparent;
+    border-bottom:7px solid var(--line)}
+  .scard.hit .sb{background:var(--accent)}
+
+  /* zone 2 — the scanner itself, same card treatment so it doesn't float */
+  .spanel{
+    position:relative;width:100%;border:1px solid var(--line);background:var(--sheet);
+    padding:.5rem .55rem;display:flex;flex-direction:column;gap:.3rem;align-items:flex-start;
+  }
+  .fchip.ai{background:none;color:var(--accent);border:1px dashed var(--accent)}
+  /* the shape the scanner emits — chips define it, downstream cards carry it */
+  .semit{
+    position:absolute;right:-12px;top:50%;transform:translateY(-50%);
+    width:24px;height:24px;background:var(--accent);
+  }
+
+  /* zone 4 — dashed means someone else's UI, same rule Research uses */
+  .sl{width:100%;border:1px dashed var(--line);background:var(--sheet);padding:.45rem .5rem}
+  .sl-h{margin:0;font-size:.68rem;font-weight:600}
+  .sl-div{height:1px;background:var(--hair);margin:.35rem 0}
+  .sl-card b{font-size:8px;font-weight:600;line-height:1.15}
+  .sl-card em{display:block;font-style:normal;font-family:var(--mono);font-size:7.5px;
+    color:var(--ink-soft);margin-top:3px}
+  .sl-card .sb{background:var(--accent)}
+  .sl-name{margin:0;font-size:8.5px;font-weight:700}
+  .sl-card.part{margin-top:.4rem;opacity:.55}
+
+  .either{
+    margin:1.2rem 0 0;padding-top:1rem;border-top:1px solid var(--hair);
+    text-align:center;font-size:.88rem;font-weight:500;
+  }
+
+  .also-h{
+    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
+    margin:1.6rem 0 .5rem;padding-top:1.1rem;border-top:1px solid var(--hair);
+  }
+
+  .door-sub{margin:-.4rem 0 .9rem;font-size:.78rem;color:var(--ink-soft);max-width:52ch}
+
+  /* ---------- Research: four ways in, narrowed to one message ---------- */
+  .rsplit{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,38rem);gap:2rem;justify-content:start;align-items:stretch;margin-top:.4rem}
+  /* numbering plus one vertical rule is the whole sequence signal — shared
+     with the Research steps, which is why it lives outside the Scanner block */
   .stepline{list-style:none;margin:0;padding:0;position:relative}
   .stepline::before{
     content:"";position:absolute;left:11px;top:12px;bottom:14px;
@@ -483,62 +564,7 @@
     font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);
   }
   .stepr-t{min-width:0;padding-top:.1rem}
-  .stepr-t h3{margin:0 0 .25rem;font-size:.92rem;font-weight:600}
-  .stepr-t p{margin:0;font-size:.83rem;color:var(--ink-soft);line-height:1.5}
 
-  /* ---------- the Slack message: real chrome, nothing gated ---------- */
-  .slack{border:1px solid var(--line);background:var(--sheet)}
-  .slack-head{
-    display:flex;align-items:center;gap:.3rem;
-    padding:.55rem .8rem;border-bottom:1px solid var(--hair);background:var(--fill);
-    font-size:.84rem;font-weight:600;
-  }
-  .slack-hash{color:var(--ink-soft);font-weight:400}
-  .slack-meta{
-    margin-left:auto;font-family:var(--mono);font-size:.66rem;
-    font-weight:400;color:var(--ink-soft);
-  }
-  .slack-msg{display:flex;gap:.6rem;padding:.8rem .8rem .9rem}
-  .slack-av{
-    width:32px;height:32px;flex:none;border-radius:4px;
-    border:1px solid var(--line);
-    background-image:repeating-linear-gradient(45deg,var(--fill-2) 0 2px,var(--fill) 2px 5px);
-  }
-  .slack-body{min-width:0;flex:1}
-  .slack-from{margin:0 0 .35rem;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:.35rem}
-  .slack-app{
-    font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.04em;
-    background:var(--fill-2);color:var(--ink-soft);padding:.08rem .22rem;border-radius:2px;
-  }
-  .slack-time{font-family:var(--mono);font-size:.62rem;font-weight:400;color:var(--ink-soft)}
-  .slack-block{border-left:3px solid var(--line);padding:.1rem 0 .1rem .65rem}
-  .slack-sum{margin:0 0 .55rem;font-size:.82rem;line-height:1.45}
-  .slack-fields{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-  .slack-fields > div{min-width:0}
-  .fl{
-    display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.03em;
-    color:var(--ink-soft);margin:0 0 .1rem;
-  }
-  .slack-fields b{font-size:.82rem;font-weight:600}
-  .slack-div{height:1px;background:var(--hair);margin:.6rem 0}
-  .slack-prof{display:flex;align-items:center;gap:.45rem;padding:.18rem 0;min-width:0}
-  .slack-prof .pav{
-    width:20px;height:20px;flex:none;border-radius:50%;
-    background:var(--fill-2);border:1px solid var(--line);
-  }
-  .slack-prof b{font-size:.79rem;font-weight:600;white-space:nowrap}
-  .slack-prof em{font-style:normal;font-size:.72rem;color:var(--ink-soft);
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-  .also-h{
-    font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);
-    margin:1.6rem 0 .5rem;padding-top:1.1rem;border-top:1px solid var(--hair);
-  }
-
-  .door-sub{margin:-.4rem 0 .9rem;font-size:.78rem;color:var(--ink-soft);max-width:52ch}
-
-  /* ---------- Research: four ways in, narrowed to one message ---------- */
-  .rsplit{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,38rem);gap:2rem;justify-content:start;align-items:stretch;margin-top:.4rem}
   /* the steps stretch beside the funnel so step N lands next to layer N */
   .rsteps{display:flex;flex-direction:column;justify-content:space-between;height:100%}
   .rsteps .stepr{padding-bottom:0}
@@ -775,10 +801,10 @@
 
     .hero{padding:1.1rem .8rem}
     .plan,.plan.pop,.door{padding:.9rem .8rem}
-    .how{grid-template-columns:1fr;gap:1.2rem}
-    .slack-msg{padding:.7rem .6rem .75rem}
-    .slack-fields{grid-template-columns:1fr;gap:.4rem}
-    .slack-prof em{display:none}
+    /* Unsolved by design — see the margin. Stacking four zones loses the
+       left-to-right stream entirely, so for now the row scrolls instead. */
+    .stream{gap:.35rem;padding-bottom:.4rem}
+    .either{margin-top:1rem}
     /* Mobile is unsolved by design, not by CSS — see the margin. This is the
        least-bad stopgap: entry cards go 2x2, the funnel stops tapering. */
     .rsplit{grid-template-columns:minmax(0,1fr);gap:1.1rem}
@@ -1072,72 +1098,98 @@
   <section class="blk" id="s2">
     <div class="rail">2</div>
     <div class="frame">
-      <p class="sec-label"><b>How it works</b> — the steps, and what lands in Slack</p>
+      <p class="sec-label"><b>How it works</b> — from everything posted to your Slack</p>
 
-      <div class="how">
-        <ol class="stepline">
-          <li class="stepr">
-            <span class="stepr-n">01</span>
-            <div class="stepr-t"><i class="mk">1</i>
-              <h3>Tell it what you want</h3>
-              <p>Keywords, budget or hourly rate, location.</p>
-            </div>
-          </li>
-          <li class="stepr">
-            <span class="stepr-n">02</span>
-            <div class="stepr-t"><i class="mk">2</i>
-              <h3>Pick where alerts land</h3>
-              <p>Slack or Telegram. About a minute, then you never open it again.</p>
-            </div>
-          </li>
-          <li class="stepr">
-            <span class="stepr-n">03</span>
-            <div class="stepr-t">
-              <h3>Leads arrive with the name attached</h3>
-              <p>An AI reads every new posting and drops the ones that don't fit.</p>
-            </div>
-          </li>
-          <li class="stepr">
-            <span class="stepr-n">04</span>
-            <div class="stepr-t"><i class="mk">3</i>
-              <h3>Pitch them</h3>
-              <p>Straight to the person. No proposal queue, no bidding, no cut.</p>
-            </div>
-          </li>
-        </ol>
-
-        <div class="slack"><i class="mk">4</i>
-          <div class="slack-head">
-            <span class="slack-hash">#</span>
-            <span class="slack-ch">webflow-leads</span>
-            <span class="slack-meta">3</span>
+      <div class="stream">
+        <div class="zone z-field">
+          <p class="zlab"><b>1</b> Everything posted<i class="mk">1</i></p>
+          <div class="zbox">
+            <div class="scard" style="left:-30px;top:0px"><span class="srow"><i class="sb ci"></i><b>Vue</b></span><em>$6,800</em></div>
+            <div class="scard" style="left:62px;top:0px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>$9,500</em></div>
+            <div class="scard" style="left:154px;top:0px"><span class="srow"><i class="sb tr"></i><b>Wix</b></span><em>$3,100</em></div>
+            <div class="scard" style="left:-72px;top:50px"><span class="srow"><i class="sb di"></i><b>PHP</b></span><em>$8,200</em></div>
+            <div class="scard" style="left:20px;top:50px"><span class="srow"><i class="sb ci"></i><b>React</b></span><em>$900</em></div>
+            <div class="scard" style="left:112px;top:50px"><span class="srow"><i class="sb tr"></i><b>Figma</b></span><em>$5,400</em></div>
+            <div class="scard" style="left:-30px;top:100px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>$7,400</em></div>
+            <div class="scard" style="left:62px;top:100px"><span class="srow"><i class="sb di"></i><b>Vue</b></span><em>$2,600</em></div>
+            <div class="scard" style="left:154px;top:100px"><span class="srow"><i class="sb ci"></i><b>React</b></span><em>$1,400</em></div>
+            <div class="scard" style="left:-72px;top:150px"><span class="srow"><i class="sb tr"></i><b>Wix</b></span><em>$4,500</em></div>
+            <div class="scard" style="left:20px;top:150px"><span class="srow"><i class="sb di"></i><b>Figma</b></span><em>$1,900</em></div>
+            <div class="scard" style="left:112px;top:150px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>$6,200</em></div>
+            <div class="scard" style="left:-30px;top:200px"><span class="srow"><i class="sb ci"></i><b>PHP</b></span><em>$3,300</em></div>
+            <div class="scard" style="left:62px;top:200px"><span class="srow"><i class="sb tr"></i><b>React</b></span><em>$800</em></div>
+            <div class="scard" style="left:154px;top:200px"><span class="srow"><i class="sb di"></i><b>Shopify</b></span><em>$2,200</em></div>
           </div>
-          <div class="slack-msg">
-            <span class="slack-av" aria-hidden="true"></span><i class="mk">5</i>
-            <div class="slack-body">
-              <p class="slack-from">Leadhoundy <span class="slack-app">APP</span> <span class="slack-time">12:04</span></p>
-              <div class="slack-block">
-                <p class="slack-sum">Marketing site rebuild in Webflow — 12 pages, CMS blog, moving off WordPress. Wants it live before their Q3 launch.</p>
-                <div class="slack-fields">
-                  <div><span class="fl">Budget</span><b>$4,500</b></div>
-                  <div><span class="fl">Posted</span><b>12 min ago</b></div>
-                </div>
-                <div class="slack-div"></div>
-                <div class="slack-fields">
-                  <div><span class="fl">Posted by</span><b>Ravel Studio</b></div>
-                  <div><span class="fl">Where</span><b>Rotterdam, NL</b></div>
-                </div>
-                <div class="slack-div"></div>
-                <p class="fl">Profiles to message</p>
-                <div class="slack-prof"><span class="pav"></span><b>Frida Kahlenberg</b><em>Head of Growth</em></div>
-                <div class="slack-prof"><span class="pav"></span><b>Tomas Berg</b><em>Operations Lead</em></div>
+          <p class="zfoot"><b>posted 13:44</b><span>3,412 today</span></p>
+        </div>
+
+        <span class="zarrow" aria-hidden="true">&rarr;</span>
+
+        <div class="zone z-scan">
+          <p class="zlab"><b>2</b> Your scanner</p>
+          <div class="zbox plain">
+            <div class="spanel"><i class="mk">2</i>
+              <span class="fchip on">React</span>
+              <span class="fchip on">over $5,000</span>
+              <span class="fchip on">US</span>
+              <span class="fchip ai">AI check<i class="mk">3</i></span>
+              <span class="semit" aria-hidden="true"></span>
+            </div>
+          </div>
+          <p class="zfoot">&nbsp;</p>
+        </div>
+
+        <span class="zarrow" aria-hidden="true">&rarr;</span>
+
+        <div class="zone z-field">
+          <p class="zlab"><b>3</b> Spotted and enriched<i class="mk">4</i></p>
+          <div class="zbox">
+            <div class="scard dim" style="left:-30px;top:0px"><span class="srow"><i class="sb ci"></i><b>Vue</b></span><em>$6,800</em></div>
+            <div class="scard hit" style="left:62px;top:0px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>Oosterhuis</em></div>
+            <div class="scard dim" style="left:154px;top:0px"><span class="srow"><i class="sb tr"></i><b>Wix</b></span><em>$3,100</em></div>
+            <div class="scard dim" style="left:-72px;top:50px"><span class="srow"><i class="sb di"></i><b>PHP</b></span><em>$8,200</em></div>
+            <div class="scard dim" style="left:20px;top:50px"><span class="srow"><i class="sb ci"></i><b>React</b></span><em>$900</em></div>
+            <div class="scard dim" style="left:112px;top:50px"><span class="srow"><i class="sb tr"></i><b>Figma</b></span><em>$5,400</em></div>
+            <div class="scard hit" style="left:-30px;top:100px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>Brightpath</em></div>
+            <div class="scard dim" style="left:62px;top:100px"><span class="srow"><i class="sb di"></i><b>Vue</b></span><em>$2,600</em></div>
+            <div class="scard dim" style="left:154px;top:100px"><span class="srow"><i class="sb ci"></i><b>React</b></span><em>$1,400</em></div>
+            <div class="scard dim" style="left:-72px;top:150px"><span class="srow"><i class="sb tr"></i><b>Wix</b></span><em>$4,500</em></div>
+            <div class="scard dim" style="left:20px;top:150px"><span class="srow"><i class="sb di"></i><b>Figma</b></span><em>$1,900</em></div>
+            <div class="scard hit" style="left:112px;top:150px"><span class="srow"><i class="sb sq"></i><b>React</b></span><em>Meijer</em></div>
+            <div class="scard dim" style="left:-30px;top:200px"><span class="srow"><i class="sb ci"></i><b>PHP</b></span><em>$3,300</em></div>
+            <div class="scard dim" style="left:62px;top:200px"><span class="srow"><i class="sb tr"></i><b>React</b></span><em>$800</em></div>
+            <div class="scard dim" style="left:154px;top:200px"><span class="srow"><i class="sb di"></i><b>Shopify</b></span><em>$2,200</em></div>
+          </div>
+          <p class="zfoot">&nbsp;</p>
+        </div>
+
+        <span class="zarrow" aria-hidden="true">&rarr;</span>
+
+        <div class="zone z-slack">
+          <p class="zlab"><b>4</b> Into Slack</p>
+          <div class="zbox plain">
+            <div class="sl"><i class="mk">5</i>
+              <p class="sl-h">#leads</p>
+              <div class="sl-div"></div>
+              <div class="sl-card">
+                <span class="srow"><i class="sb sq"></i><b>React dashboard rebuild</b></span>
+                <em>$9,500 &middot; US</em>
+                <div class="sl-div"></div>
+                <p class="sl-name">Anna Oosterhuis</p>
+              </div>
+              <div class="sl-card part">
+                <span class="srow"><i class="sb sq"></i><b>Headless commerce build</b></span>
+                <em>$7,400 &middot; NL</em>
               </div>
             </div>
           </div>
+          <p class="zfoot"><b>13:46</b><span>two minutes later</span></p>
         </div>
       </div>
 
-      <p class="also-h">Also included<i class="mk">6</i></p>
+      <p class="either">Either way, you end up here.<i class="mk">6</i></p>
+
+      <p class="also-h">Also included<i class="mk">7</i></p>
       <div class="door research">
         <div class="door-h"><h3>Research</h3></div>
         <p>Scanner watches what gets posted next. Research is everything that already happened.</p>
@@ -1157,7 +1209,7 @@
               <div class="stepr-t">
                 <h4>Narrow it down</h4>
                 <p>Set the filters that fit your work.</p>
-                <div class="chips-row"><i class="mk">9</i>
+                <div class="chips-row"><i class="mk">10</i>
                   <span class="fchip on">React</span>
                   <span class="fchip on">over $5,000</span>
                   <span class="fchip on">US</span>
@@ -1183,7 +1235,7 @@
 
           <div class="funnel">
             <div class="fl fl1">
-              <div class="ecard"><i class="mk">7</i>
+              <div class="ecard"><i class="mk">8</i>
                 <div class="eart rows"><span></span><span></span><span></span><span></span></div>
                 <p class="elab">jobs</p><p class="enum">890k</p>
               </div>
@@ -1206,7 +1258,7 @@
             <div class="fl fl2">
               <div class="jc t3"><p class="jt">Shopify theme build</p><p class="jm">$3,200 &middot; DE</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
               <div class="jc t2"><p class="jt">Webflow marketing site</p><p class="jm">$6,800 &middot; US</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
-              <div class="jc t1"><i class="mk">8</i><p class="jt">React dashboard rebuild</p><p class="jm">$9,500 &middot; US</p><p class="jage">posted 9 days ago</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
+              <div class="jc t1"><i class="mk">9</i><p class="jt">React dashboard rebuild</p><p class="jm">$9,500 &middot; US</p><p class="jage">posted 9 days ago</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
               <div class="jc t2"><p class="jt">Headless commerce build</p><p class="jm">$7,400 &middot; NL</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
               <div class="jc t3"><p class="jt">Design system in Figma</p><p class="jm">$5,100 &middot; UK</p><div class="jd"></div><div class="jw"><span class="jav"></span><span class="jlock"></span></div></div>
             </div>
@@ -1224,7 +1276,7 @@
               </div>
             </div>
 
-            <div class="fl fl4"><i class="mk">10</i>
+            <div class="fl fl4"><i class="mk">11</i>
               <div class="msg">
                 <div class="msg-h"><span class="jav on"></span><span class="msg-who">Anna Oosterhuis<em>active 2h ago</em></span></div>
                 <div class="msg-field">Saw you&rsquo;re rebuilding the dashboard&hellip;</div>
@@ -1238,50 +1290,60 @@
 
     <aside class="notes">
       <p class="notes-h">Why</p>
-      <p class="note"><b>Scanner is the spine of the page</b> — the hero demo and these steps — not one of several equal features. Everything in the "Also included" strip exists to close a "but what if I want X" loop, not to be chosen.</p>
-      <p class="note"><b>Step 4 keeps "no proposal queue, no bidding, no cut".</b> That line was dropped from the hero subhead when it was shortened. If it isn't here it is nowhere on the page, and it is the sentence that explains why this is worth $99 a week.</p>
-      <p class="note">Steps 1 and 2 are both configuration, which risks reading as more setup than the one-tap hero implied. "About a minute" defuses that, and it is the only reason the pair survives being adjacent.</p>
-      <p class="note"><b>Research is the backlog; Scanner is the future.</b> Scanner can only ever show what gets posted after you arrive. Research is everything before that — the answer to the empty first day, and the one thing Scanner structurally cannot do. Naming the past and the volume is what stops this reading as a search box bolted onto Scanner.</p>
-      <p class="note"><b>Four distinct entry cards exist so "you can search four different things" is visible in a second.</b> An earlier version used four identical counters, which said "we have a lot of rows" — true, and it taught nothing while burying the differentiator. Four different shapes say four different objects before a single label is read.</p>
-      <p class="note"><b>Chips are a filter state, never a query box.</b> If they read as typeable, someone types a sentence on day one and the product fails them in their first thirty seconds. Pills, not a field — and the distance between those two things is smaller than it looks.</p>
-      <p class="note">Research can't be cut from the page. Archive depth is something people are charged for, and an unexplained thing on a price card is worse than a small section.</p>
+      <p class="note"><b>Scanner is a stream, Research is a funnel.</b> Opposite geometries on purpose &mdash; one runs left to right and never ends, the other runs top to bottom and narrows to a single person. They share a card, a chip and an accent so they still read as one product, and one shared closing line so the visitor never has to choose between them.</p>
+      <p class="note"><b>The identical before/after field is the section&rsquo;s core device.</b> Zone 3 <em>is</em> zone 1 &mdash; the same fifteen cards at the same coordinates at the same size &mdash; with everything unmatched dimmed and three cards resolved to a name. Nothing is added, nothing is removed, nothing moves. That is the entire claim: the scanner doesn&rsquo;t fetch you a different internet, it picks out the three postings that were always yours. Redraw zone 3 as its own arrangement and the section loses its argument and becomes two pictures of some cards.</p>
+      <p class="note"><b>Uniform weighting in zone 1 is deliberate.</b> Every card is the same size and weight, and the budgets deliberately run from $800 to $9,500 with no ranking. Zone 1 is what the visitor has today: unsorted, undifferentiated, unreadable at volume. If anything is emphasised there, the scanner is doing less work than it claims &mdash; the flood has to look genuinely flat for three hits to be worth paying for.</p>
+      <p class="note"><b>The timestamps are the strongest claim in the section.</b> &ldquo;posted 13:44&rdquo; and &ldquo;13:46, two minutes later&rdquo; are the only numbers here, and they say the thing that actually beats refreshing a job board yourself. Everything else in the stream is geometry; that pair is a promise.</p>
+      <p class="note"><b>Scanner is the spine of the page</b> &mdash; the hero demo and this stream &mdash; not one of several equal features. Research exists to close a &ldquo;but what about everything before I arrived&rdquo; loop, not to be chosen instead.</p>
+      <p class="note"><b>Research is the backlog; Scanner is the future.</b> Scanner can only ever show what gets posted after you arrive. Research is everything before that &mdash; the answer to the empty first day, and the one thing Scanner structurally cannot do. Naming the past and the volume is what stops it reading as a search box bolted onto Scanner.</p>
+      <p class="note warn"><b>&ldquo;No proposal queue, no bidding, no cut&rdquo; is now nowhere on the page.</b> It lived in step 4, which this diagram replaced, and it had already been dropped from the hero subhead when that was shortened. It is the sentence explaining why this is worth $99 a week rather than a marketplace fee. The centred &ldquo;either way&rdquo; line is the obvious place to put it back &mdash; it is also the only line in the section doing nothing else.</p>
+      <p class="note"><b>Four distinct entry cards exist so &ldquo;you can search four different things&rdquo; is visible in a second.</b> An earlier version used four identical counters, which said &ldquo;we have a lot of rows&rdquo; &mdash; true, and it taught nothing while burying the differentiator. Four different shapes say four different objects before a single label is read.</p>
+      <p class="note"><b>Chips are a filter state, never a query box.</b> If they read as typeable, someone types a sentence on day one and the product fails them in their first thirty seconds. Pills, not a field &mdash; and the distance between those two things is smaller than it looks. The same component now appears twice in this section, so a change to one is a change to both.</p>
+      <p class="note">Research can&rsquo;t be cut from the page. Archive depth is something people are charged for, and an unexplained thing on a price card is worse than a small section.</p>
       <p class="note warn"><b>Archive depth is deliberately absent from the copy.</b> It varies by tier and the plan cards already carry it; repeating it here would mean two places to update and one of them would be missed.</p>
       <p class="note warn"><b>Browser extension stays off the page until it ships.</b> A section that leads nowhere costs more trust than the feature earns.</p>
 
       <div class="build-block">
         <p class="notes-h">Build notes</p>
         <ol class="build">
-          <li><b>1</b> <em>Not a stepper, and not tabs.</em> Steps hidden behind a click don't get read on a landing page — people scroll, they don't operate. All four are visible at once and the sequence is carried by the numbers and the rule connecting them, which costs one pseudo-element and no JavaScript.</li>
-          <li><b>1</b> <em>No per-step icons.</em> Four little pictures next to four short lines would split the eye four ways and take weight off the Slack mock, which is the one image on this page that sells the product. The numbers are the only ornament this column gets.</li>
-          <li><b>2</b> <em>"About a minute, then you never open it again" is a promise about the whole product.</em> It says the dashboard isn't where the value lives — Slack is. Everything downstream has to hold it up: if the alert is missing something the visitor then has to log in to see, this is the line they'll remember.</li>
-          <li><b>3</b> <em>Give step 4 slightly more weight</em> than the three above it. It carries the promise the others set up, and it's the shortest, which makes it easy to under-weight by accident.</li>
-          <li><b>4</b> <em>The message shows the resolved name, not a "Get the name" button.</em> The alert <em>is</em> the deliverable — the user gets the value without opening the app, which is the whole argument for a subscription rather than pay-per-use. It is also the strongest case for the upper tiers: more scanners and more destinations means more names arriving unprompted.</li>
-          <li><b>4</b> <em>Nothing here is blurred, masked or gated.</em> The hero demo withholds because the visitor hasn't paid; this is the paid experience, and a blurred name in a Slack screenshot would say the product doesn't deliver. The two mocks must never borrow each other's states.</li>
-          <li><b>4</b> <em>The hero and this mock tell one story.</em> A name on demand, and a name unprompted — the same deliverable in two modes. If either drifts so the two look like different products, the page has two pitches and closes neither.</li>
-          <li><b>4</b> <em>Product check before this ships: confirm the credit is spent when the alert is sent, not when the user opens it.</em> This mock shows a resolved name sitting in Slack with nothing left to click, which only makes sense if the reveal already happened and was already billed. If billing works the other way round, either the mock is promising something the product doesn't do or the pricing page is describing a different product.</li>
-          <li><b>4</b> <em>Real Slack chrome, not a generic chat bubble.</em> Channel header, app badge, timestamp, the attachment bar down the left, small field labels. This mock is doing the job a demo video would, so it has to survive being looked at closely — a stylised approximation reads as a mockup and proves nothing.</li>
-          <li><b>5</b> <em>The hound's highest-value placement.</em> The bot avatar is daily brand contact for paying customers — they will see this dog more often than they see the website. Design the 24px crop first and build the full mark out from it, not the other way round.</li>
-          <li><b>6</b> <em>Research is its own block now, not one half of a strip.</em> "Also included" still earns its place as the divider that says this isn't part of the four steps — but it labels one thing, so don't reintroduce a column beside it to balance the row. The extra width went to the frames, which is what the density needs.</li>
-          <li><b>6</b> <em>It stays quiet and must not compete with the Slack mock above it.</em> Research closes a "but what about everything before I signed up" loop; it is not a second pitch. If it starts pulling attention off the message, shrink it.</li>
-          <li><b>6</b> <em>No Scanner explainer video.</em> It would only repeat these four steps, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time — which is exactly what companies make videos to fake.</li>
-          <li><b>7</b> <em>Four card types, four shapes, and this is the most important element in the section.</em> A stack of rows, a grid of tiles, a row of faces, a header with indented children. It is what makes "four ways in" visible rather than asserted, so it must never collapse into four identical counters again.</li>
-          <li><b>7</b> <em>The clients card is the weakest of the four at this size and carries the most interesting idea</em> — start from a company, see everything it has hired for. Draw that one first and match the other three to it, rather than drawing three easy ones and squeezing it in last.</li>
-          <li><b>7</b> <em>Sub-counts must sum to the headline total once they're real.</em> This whole section rests on a claim of scale, and arithmetic that doesn't add up is the one error people actually check.</li>
-          <li><b>8</b> <em>THE TAPER IS THE ARGUMENT.</em> 100% → 75.5% → 71% → 49% of the funnel width, centre-aligned — currently 608 → 459 → 432 → 298. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the section stops meaning anything. It is held in percentages rather than fixed pixels precisely so the ratios survive being resized; the pixel figures are what those ratios happen to measure today, not the spec.</li>
-          <li><b>8</b> <em>Five cards, and all five have to be countable.</em> Narrower than the entry cards above them, overlapped just enough to stack — centre on top, the pair behind it, then the outer pair furthest back, in both z-order and opacity. An earlier version overlapped them hard and let the frame clip the outer two, which read as one card floating over a strip rather than as a stack of five.</li>
-          <li><b>8</b> <em>Detail escalates as the layers narrow.</em> Layer 1 shows a label and a count, layer 2 two or three lines, layer 3 five. Filtering doesn't only remove rows — it earns you more information, and the cards have to visibly hold more or the narrowing reads as loss.</li>
-          <li><b>8</b> <em>Locked bars read as withheld, not as unloaded.</em> Dark and solid, never a pale skeleton. Same three-state logic as the hero cards: locked, revealed, acted on — and a visitor should be able to tell the difference between "we haven't fetched this" and "we have it and you haven't paid".</li>
-          <li><b>8</b> <em>Timestamps read in days or weeks, never minutes.</em> Research is the archive; a minute-old posting would put it in competition with Scanner for the same freshness claim, and the two features would start arguing with each other.</li>
-          <li><b>9</b> <em>The dashed connector is the chips' effect made visible.</em> It runs from the chip cluster into the results so the filters visibly cause the row below rather than sitting near it. Strictly it is a fourth use of the accent — it belongs to the chips, and if it ever reads as decoration rather than causation, remove it rather than recolour it.</li>
-          <li><b>10</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy's UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
-          <li><b>10</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone — swap that one variable for a real brand colour and this section takes it.</li>
-          <li><b>—</b> <em>The same person runs through layers 2, 3 and 4</em> — locked, revealed, then addressed. That thread is the difference between a story and four illustrations, and it is the first thing lost when someone edits one layer in isolation.</li>
-          <li><b>—</b> <em>Layer 3 is a row of two, not a stack.</em> Side by side, the person result and the company result are compared rather than read in sequence, which is what makes the 50/50 land as a fact about the product instead of two examples. It also keeps the layer short, so the funnel stays a funnel rather than growing a tall waist in the middle.</li>
-          <li><b>—</b> <em>Layer 3 resolves one person and one company, with no label saying so.</em> The 50/50 split sets expectations here the same way the hero feed does, so the first paid reveal can't feel like a bait-and-switch.</li>
-          <li><b>—</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Four distinct entry cards stacked in a column lose the "four ways in" reading, and the taper disappears once every layer is full width. The stopgap here is a 2×2 grid for layer 1 and a much shallower taper. Likely direction: accept that the funnel becomes a sequence on small screens — but the narrowing needs some replacement signal, and right now it has none.</li>
-          <li><b>—</b> <em>The agency-earnings capability is still only implied.</em> Searching an agency to find who has been paying them is the most distinctive thing in the product, and the visual shows you can search agencies without showing what comes back. Worth solving, and worth checking the data actually supports it before it gets drawn.</li>
-          <li><b>—</b> <em>Layer 1 is currently the most visually interesting thing here and it sits at the top</em>, which may pull attention away from layer 3, the payoff. Watch it in context — if the eye stops at the entry cards, the section is selling breadth instead of the result.</li>
-          <li><b>—</b> <em>Watch the section height on mobile.</em> Four steps, a full Slack message and a two-column strip is a lot for one block once it stacks. The message is the part to protect: field labels can drop to one column and the role text can go, but the resolved name and the two profiles are the reason the mock exists.</li>
+          <li><b>1</b> <em>The field is clipped on both edges, and that is the point.</em> Cards run off the left and the right at alternating rows, so the zone reads as a window onto something larger rather than as fifteen postings arranged for the picture. Give it tidy margins and &ldquo;3,412 today&rdquo; becomes a caption contradicting the drawing directly above it.</li>
+          <li><b>1</b> <em>The stagger offsets must be hardcoded and tuned by eye, never generated randomly.</em> Rows alternate by a fixed &minus;42px so the field reads as flow rather than as a table &mdash; but zone 3 has to sit on exactly the same coordinates. Anything random or computed at runtime means the two fields drift apart on the first reload, and the one thing this section cannot survive is zones 1 and 3 not lining up.</li>
+          <li><b>1</b> <em>Fifteen cards is the minimum that reads as &ldquo;too many to check&rdquo;.</em> Fewer and a visitor counts them; many more and the three hits stop being findable in zone 3. If the zone gets wider, add columns before rows &mdash; the height is already the tallest thing in the section.</li>
+          <li><b>1</b> <em>Verify the two-minute latency is real before this ships.</em> 13:44 &rarr; 13:46 is a hard performance claim sitting in a wireframe, and it is the number a visitor will use to decide whether this beats checking the board themselves. If ingest actually runs on a fifteen-minute or hourly cycle, change the numbers &mdash; not the design &mdash; and change them now, while they cost nothing.</li>
+          <li><b>2</b> <em>The scanner panel is small on purpose.</em> It is the only thing in the stream the user configures, and it sits between two large fields at a fraction of their size: a few chips, set once. That ratio is the argument that setup is trivial. Enlarge the panel to fit more chips and the section starts describing work.</li>
+          <li><b>2</b> <em>The emitter square is the panel&rsquo;s only output.</em> One accent mark on the right edge, feeding the arrow into zone 3 &mdash; it is what makes the panel a cause rather than a label sitting between two pictures. If it reads as decoration, remove it rather than recolour it.</li>
+          <li><b>3</b> <em>The AI check chip carries the differentiator on a dashed border alone.</em> Anyone can filter on keyword and budget; reading a posting and judging whether it is actually the work you want is the part that isn&rsquo;t a database query. Right now that entire idea is two words distinguished from the ordinary filters by a dash pattern most people will not register. It needs a real explanation somewhere on the page, or it should not be claimed here.</li>
+          <li><b>4</b> <em>Three hits out of fifteen, and the ratio is load-bearing.</em> One would read as luck; half would read as a filter that isn&rsquo;t filtering. Three is selective enough to be trusted and frequent enough to be worth $99 a week. It also has to scale with the field &mdash; hits are a proportion, not a fixed count of three.</li>
+          <li><b>4</b> <em>Dimming, not removal.</em> The rejects stay visible so the visitor can audit the judgement: a $900 React, an $800 React and a $1,400 React sitting dimmed beside the $9,500 React that got through. That is the budget filter proving itself in the drawing. Delete the rejects and zone 3 is just three cards on a white field.</li>
+          <li><b>4</b> <em>Matched cards keep their size and their position.</em> They earn an outline and a name, never extra height, never a nudge to the front. The identity between the two zones has to be checkable by eye, and a designer moving a hit card &ldquo;so it stands out&rdquo; breaks the only proof the section has.</li>
+          <li><b>4</b> <em>Enrichment is still under-shown.</em> A matched card swaps a budget for a surname and gains an outline &mdash; that is the entire visual difference between &ldquo;we found this&rdquo; and &ldquo;we found this and told you who it is&rdquo;. The name is the product, and here it costs one line inside an 84px card. This is the most under-sold element in the section and it is worth solving before it ships.</li>
+          <li><b>5</b> <em>At this width it cannot be real Slack chrome, so it has to be unmistakably Slack by shape.</em> Channel name, a rule, stacked message cards, the next one clipped. The full-fidelity mock this diagram replaced did that job by fidelity; this one has half a second and a silhouette. If a visitor can&rsquo;t tell it is a chat client and not another panel of ours, the stream has no destination.</li>
+          <li><b>5</b> <em>The second card is clipped deliberately.</em> One alert is a demo; a second running off the bottom is a feed.</li>
+          <li><b>5</b> <em>Nothing in zone 4 is blurred, masked or gated.</em> The hero demo withholds because the visitor hasn&rsquo;t paid; this is the paid experience, and a masked name in a Slack frame would say the product doesn&rsquo;t deliver. The two mocks must never borrow each other&rsquo;s states.</li>
+          <li><b>5</b> <em>Product check before this ships: confirm the credit is spent when the alert is sent, not when the user opens it.</em> This shows a resolved name sitting in Slack with nothing left to click, which only makes sense if the reveal already happened and was already billed. If billing works the other way round, either the mock promises something the product doesn&rsquo;t do or the pricing section describes a different product.</li>
+          <li><b>5</b> <em>The hound&rsquo;s highest-value placement no longer appears anywhere on the page.</em> A bot avatar in Slack is daily brand contact for paying customers &mdash; they will see that dog far more often than they see this website &mdash; and the frame that carried it was the large mock this diagram replaced. Still design the 24px crop first and build the full mark out from it; it just has no home in this section any more.</li>
+          <li><b>6</b> <em>The rule and the centred line are the section&rsquo;s only join.</em> Two diagrams with opposite geometry are stacked in one block, and without an explicit &ldquo;either way&rdquo; the visitor has to work out for themselves that these are two doors into the same room. The line stays short and unstyled &mdash; it is punctuation, not a third pitch.</li>
+          <li><b>6</b> <em>Recurrence is missing.</em> The whole stream reads as a single event: these postings, this scanner, this message, at 13:46 today. Nothing says it happens again tomorrow without you doing anything, which is the entire reason this is a subscription rather than a purchase. The clipped second card gestures at it; a repeat marker on the arrow into Slack, or &ldquo;every day, unprompted&rdquo; beside the timestamp, would say it.</li>
+          <li><b>7</b> <em>Research is its own block, not one half of a strip.</em> &ldquo;Also included&rdquo; still earns its place as the divider saying this isn&rsquo;t part of the stream &mdash; but it labels one thing, so don&rsquo;t reintroduce a column beside it to balance the row. The extra width went to the frames, which is what the density needs.</li>
+          <li><b>7</b> <em>It stays quiet and must not compete with the stream above it.</em> Research closes a &ldquo;but what about everything before I signed up&rdquo; loop; it is not a second pitch. If it starts pulling attention off the scanner, shrink it.</li>
+          <li><b>7</b> <em>No Scanner explainer video.</em> It would only repeat this diagram, and a recording sitting below a live working demo is weaker proof than the demo. The hero shows the real thing responding in real time &mdash; which is exactly what companies make videos to fake.</li>
+          <li><b>8</b> <em>Four card types, four shapes, and this is the most important element in the funnel.</em> A stack of rows, a grid of tiles, a row of faces, a header with indented children. It is what makes &ldquo;four ways in&rdquo; visible rather than asserted, so it must never collapse into four identical counters again.</li>
+          <li><b>8</b> <em>The clients card is the weakest of the four at this size and carries the most interesting idea</em> &mdash; start from a company, see everything it has hired for. Draw that one first and match the other three to it, rather than drawing three easy ones and squeezing it in last.</li>
+          <li><b>8</b> <em>Sub-counts must sum to the headline total once they&rsquo;re real.</em> This whole block rests on a claim of scale, and arithmetic that doesn&rsquo;t add up is the one error people actually check.</li>
+          <li><b>9</b> <em>THE TAPER IS THE ARGUMENT.</em> 100% &rarr; 75.5% &rarr; 71% &rarr; 49% of the funnel width, centre-aligned &mdash; currently 608 &rarr; 459 &rarr; 432 &rarr; 298. Widen layer 3 to fit a long company name, or narrow layer 1 to look tidier, and the funnel inverts and the block stops meaning anything. It is held in percentages rather than fixed pixels precisely so the ratios survive being resized; the pixel figures are what those ratios happen to measure today, not the spec.</li>
+          <li><b>9</b> <em>Five cards, and all five have to be countable.</em> Narrower than the entry cards above them, overlapped just enough to stack &mdash; centre on top, the pair behind it, then the outer pair furthest back, in both z-order and opacity. An earlier version overlapped them hard and let the frame clip the outer two, which read as one card floating over a strip rather than as a stack of five.</li>
+          <li><b>9</b> <em>Detail escalates as the layers narrow.</em> Layer 1 shows a label and a count, layer 2 two or three lines, layer 3 five. Filtering doesn&rsquo;t only remove rows &mdash; it earns you more information, and the cards have to visibly hold more or the narrowing reads as loss.</li>
+          <li><b>9</b> <em>Locked bars read as withheld, not as unloaded.</em> Dark and solid, never a pale skeleton. Same three-state logic as the hero cards: locked, revealed, acted on &mdash; and a visitor should be able to tell the difference between &ldquo;we haven&rsquo;t fetched this&rdquo; and &ldquo;we have it and you haven&rsquo;t paid&rdquo;.</li>
+          <li><b>9</b> <em>Timestamps read in days or weeks, never minutes.</em> Research is the archive; a minute-old posting would put it in competition with the scanner for the same freshness claim, and the two halves of this section would start arguing with each other.</li>
+          <li><b>10</b> <em>The dashed connector is the chips&rsquo; effect made visible.</em> It runs from the chip cluster into the results so the filters visibly cause the row below rather than sitting near it. Strictly it is a fourth use of the accent &mdash; it belongs to the chips, and if it ever reads as decoration rather than causation, remove it rather than recolour it.</li>
+          <li><b>11</b> <em>The dashed border is load-bearing.</em> Solid borders mean Leadhoundy&rsquo;s UI; dashed means outside it. Leadhoundy does not send outreach, and a solid compose window would imply a feature that does not exist. Never tidy this into a solid box.</li>
+          <li><b>11</b> <em>One accent, three jobs: the chips, the revealed avatars, the send button.</em> Something you controlled, or something you got. Everything else is grey. The token resolves to ink today so the document stays two-tone &mdash; swap that one variable for a real brand colour and this section takes it.</li>
+          <li><b>&mdash;</b> <em>Mobile is unsolved, and it is a design problem rather than a CSS one.</em> Four zones stacked lose the left-to-right stream reading entirely, and the arrows become meaningless pointing down a column. The stopgap is a horizontal scroll, which hides zones 3 and 4 &mdash; the payoff &mdash; behind a swipe most visitors won&rsquo;t make. Likely direction: reduce zone 1 to a strip and keep the before/after adjacency at any cost, accepting that the scanner panel becomes a caption. The identity between zones 1 and 3 is the thing that has to survive, and nothing here protects it yet.</li>
+          <li><b>&mdash;</b> <em>The funnel has the same problem, differently.</em> Four distinct entry cards stacked in a column lose the &ldquo;four ways in&rdquo; reading, and the taper disappears once every layer is full width. The stopgap is a 2&times;2 grid for layer 1 and a much shallower taper. Likely direction: accept that the funnel becomes a sequence on small screens &mdash; but the narrowing needs some replacement signal, and right now it has none.</li>
+          <li><b>&mdash;</b> <em>The same person runs through layers 2, 3 and 4</em> &mdash; locked, revealed, then addressed. That thread is the difference between a story and four illustrations, and it is the first thing lost when someone edits one layer in isolation.</li>
+          <li><b>&mdash;</b> <em>Layer 3 is a row of two, not a stack.</em> Side by side, the person result and the company result are compared rather than read in sequence, which is what makes the 50/50 land as a fact about the product instead of two examples. It also keeps the layer short, so the funnel stays a funnel rather than growing a tall waist in the middle.</li>
+          <li><b>&mdash;</b> <em>Layer 3 resolves one person and one company, with no label saying so.</em> The 50/50 split sets expectations here the same way the hero feed does, so the first paid reveal can&rsquo;t feel like a bait-and-switch.</li>
+          <li><b>&mdash;</b> <em>The agency-earnings capability is still only implied.</em> Searching an agency to find who has been paying them is the most distinctive thing in the product, and the visual shows you can search agencies without showing what comes back. Worth solving, and worth checking the data actually supports it before it gets drawn.</li>
         </ol>
       </div>
     </aside>
