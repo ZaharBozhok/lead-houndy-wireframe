@@ -716,7 +716,30 @@
   /* ---------- the comparison table. A label column plus four equal plan
      columns; the wash is painted per cell rather than spanned down the column,
      because a spanned grid item occupies cells and pushes the rest out. ------ */
-  .pmx-wrap{overflow-x:auto;margin-top:1.4rem}
+  /* native <details>: keyboard-operable for free, works before the script
+     runs, and the table is real markup whether it is open or not */
+  .cmpp{margin-top:1.2rem}
+  .cmpp > summary{list-style:none;cursor:pointer;display:inline-block}
+  .cmpp > summary::-webkit-details-marker{display:none}
+  .cmpp > summary::marker{content:""}
+  .cmpp > summary:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+  .cmpp-btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    background:none;color:var(--ink);border:1px solid var(--line);
+    font-family:var(--sans);font-size:.83rem;font-weight:500;
+    padding:.55rem 1rem;border-radius:2px;
+  }
+  .cmpp > summary:hover .cmpp-btn{border-color:var(--ink)}
+  .cmpp-chev{
+    width:7px;height:7px;flex:none;margin-top:-3px;
+    border-right:1.5px solid var(--ink-soft);border-bottom:1.5px solid var(--ink-soft);
+    transform:rotate(45deg);
+  }
+  .cmpp[open] .cmpp-chev{transform:rotate(-135deg);margin-top:2px}
+  /* the label stays "Compare plans" in both states — the chevron carries the
+     state, and a label that flips to "Hide" describes the button rather than
+     the thing it opens */
+  .pmx-wrap{overflow-x:auto;margin-top:1rem}
   .pmx{
     display:grid;grid-template-columns:minmax(9.5rem,1.3fr) repeat(4,minmax(6.2rem,1fr));
     gap:0;font-size:.8rem;
@@ -1229,7 +1252,9 @@
         </div>
       </div>
 
-      <div class="pmx-wrap">
+      <details class="cmpp">
+        <summary><span class="cmpp-btn">Compare plans<i class="cmpp-chev" aria-hidden="true"></i></span></summary>
+        <div class="pmx-wrap">
         <div class="pmx">
         <div class="pmx-flag"></div>
         <div class="pmx-flag"></div>
@@ -1311,8 +1336,9 @@
         <div class="pmx-c">email</div>
         <div class="pmx-c adv">email</div>
         <div class="pmx-c">priority + call</div>
+          </div>
         </div>
-      </div>
+      </details>
       <div class="pmx-foot">
         <b>1 credit = 1 name. No result, no credit spent.</b>
         <span>Names refresh every week from your start date.</span>
