@@ -4,6 +4,30 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+  /* Version switcher. Deliberately self-contained — hardcoded colours and its
+     own font stack — so it renders identically on both wireframes and cannot be
+     touched by either page's tokens. The two pages are separate documents
+     because their :root palettes and several class names collide. */
+  .vt{
+    position:fixed;top:.65rem;right:.65rem;z-index:9999;display:flex;
+    font:500 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:#FFF;border:1px solid #BFC2BC;border-radius:3px;overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,.12);
+  }
+  .vt > *{padding:.45rem .62rem;white-space:nowrap;text-decoration:none;color:#5C625E}
+  .vt-on{background:#22272C;color:#FFF;cursor:default}
+  .vt-off:hover{background:#EFEFEC;color:#22272C}
+  .vt-off:focus-visible{outline:2px solid #2B4C9B;outline-offset:-2px}
+  @media (max-width:720px){
+    .vt{top:.4rem;right:.4rem;font-size:10px}
+    .vt > *{padding:.36rem .48rem}
+  }
+  @media print{.vt{display:none}}
+</style>
+
+<nav class="vt" aria-label="Wireframe version"><span class="vt-on" aria-current="page">AI B2B SaaS</span><a class="vt-off" href="founder.html">Founder-driven SaaS</a></nav>
+
+<style>
   :root{
     --paper:#E4E5E2;
     --sheet:#F4F4F2;
