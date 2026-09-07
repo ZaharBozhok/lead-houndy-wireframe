@@ -499,6 +499,35 @@
   .r3{animation:row3 15s steps(1,end) infinite}
 
 
+  /* ---------- the promise. Two sources, one move — the repetition is the
+     whole device, so nothing may sit beside "Pitch them directly." No icon,
+     no visual, no animation: §2 is the still block between an animated hero
+     and three animated diagrams, and that is what lets it read as the moment
+     the page stops demonstrating and starts talking. If it feels bare in
+     place, the fallback is a 2px accent rule down the left of each pair. */
+  .promise{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1.3rem 2.4rem;margin:0 0 2.1rem;
+  }
+  /* numerals, not bullets or arrows: the lightest way to mark two parallel
+     items, and they don't imply the sequence a step marker would. These are
+     two routes to the same action, not steps one and two. */
+  .pr-n{
+    margin:0 0 .4rem;font-family:var(--mono);font-size:.7rem;font-weight:600;
+    letter-spacing:.04em;color:var(--accent);
+  }
+  .pr-l{
+    margin:0;font-size:1.34rem;line-height:1.22;letter-spacing:-.02em;
+    font-weight:600;
+  }
+  .pr-l.act{color:var(--accent)}
+
+  /* demoted from the section headline: it frames the comparison, not §2 */
+  .cmpt-h{
+    margin:0 0 .9rem;font-size:1.02rem;font-weight:600;letter-spacing:-.01em;
+    max-width:34ch;
+  }
+
   /* ---------- Fit: the still block. It sits between an animated hero and
      three animated diagrams, and being the one thing that does not move is
      what lets it read as the page pausing to talk. Never animate it. ------- */
@@ -860,6 +889,9 @@
     /* three items with a two-line reason do not survive being halved */
     .fit{grid-template-columns:minmax(0,1fr);gap:.7rem}
     .fit-h{font-size:1.16rem;max-width:100%}
+    .promise{grid-template-columns:minmax(0,1fr);gap:1.1rem;margin-bottom:1.6rem}
+    .pr-l{font-size:1.16rem}
+    .cmpt-h{font-size:.96rem;max-width:100%}
     .cmpt-l,.cmpt-c,.cmpt-hd{padding-left:.5rem;padding-right:.5rem;font-size:.78rem}
     /* Unsolved by design — see the margin. Stacking five blocks loses the
        left-to-right reading in both diagrams, and with it the contrast between
@@ -1000,9 +1032,72 @@
   </section>
 
   <!-- ============ 2. FIT ============ -->
+  <!-- ========================================================================
+       §2 — promise, then comparison, then fit. Each answers the question the
+       previous one raises: what I get -> why not just the platform -> is this me.
+
+       WHY THE PROMISE BLOCKS
+       - The page never named an outcome. It said what the product does, how it
+         differs and how it works, but not what changes for the reader. This
+         closes that gap without adding a section.
+       - "Pitch them directly" is the outcome and it is the one thing we
+         control. Not "get more leads" (unfalsifiable, and every competitor says
+         it); not "close more contracts" (depends on their pitch, portfolio and
+         pricing). What changes is that applying becomes pitching. Checkable,
+         and ours.
+       - The repetition IS the device. Two sources, one move. A reader should
+         catch the identical second line before reading either first line, which
+         is why nothing may sit beside "Pitch them directly." — an earlier
+         version with a send icon there was dropped for exactly that. It is also
+         why .pr-l carries no max-width: both first lines must stay on one line
+         so the two accent lines land on the same baseline.
+       - Numerals rather than bullets or icons: the lightest way to mark two
+         parallel items, and they do not imply the sequence arrows or steps
+         would. These are two routes to the same action, not steps 1 and 2.
+       - No visual, and that is deliberate. §2 is the only section without one:
+         it sits between an animated hero and three animated diagrams, and being
+         the still block is what lets it read as the moment the page stops
+         demonstrating and starts talking. A before/after visual was designed and
+         rejected. If the block feels bare in place, the fallback is a 2px accent
+         rule down the left of each pair — not an icon.
+
+       REJECTED, SO NOBODY RE-ADDS THEM
+       - "Get more leads". "More" and "leads" are the two words every lead tool
+         uses, and this page's edge is that everything else on it is checkable.
+       - A third block about market research or strategy. It contradicts folding
+         Competitor Research in §3 — something can be a headline promise or a
+         folded extra, not both. And "develop strategy" is a promise we cannot
+         keep: we sell a client list, not a methodology. The idea survives inside
+         block 02.
+       - Icons. Two were designed (a posting, and an agency fanning out to
+         clients) and cut. The fan-out mark in particular does not survive 24px.
+
+       BUILD
+       - "Stay on the platforms" is the comparison's framing, not the section's,
+         so it is an h3 above the table rather than the section headline.
+       - §2 runs ~810px and sits early. If it feels heavy before §3, the
+         compressible part is the table: "Client attention" and "What you're
+         paying for" overlap and could merge. Protect the promise blocks and the
+         fit columns at full size.
+       - Mobile: the blocks stack and the numerals stay aligned with the text
+         rather than in a gutter that disappears at narrow widths.
+  ========================================================================== -->
   <section class="blk" id="s2">
     <div class="frame">
-      <h2 class="fit-h">Stay on the platforms. Just stop being chained to them.</h2>
+      <div class="promise">
+        <div class="pr-b">
+          <p class="pr-n">01</p>
+          <p class="pr-l">See who posted the job.</p>
+          <p class="pr-l act">Pitch them directly.</p>
+        </div>
+        <div class="pr-b">
+          <p class="pr-n">02</p>
+          <p class="pr-l">See who paid your competitors.</p>
+          <p class="pr-l act">Pitch them directly.</p>
+        </div>
+      </div>
+
+      <h3 class="cmpt-h">Stay on the platforms. Just stop being chained to them.</h3>
 
       <div class="cmpt">
         <div class="cmpt-hd lbl"></div>
