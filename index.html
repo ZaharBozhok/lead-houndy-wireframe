@@ -288,6 +288,14 @@
     margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--hair);
     display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;
   }
+  /* the price, at screen 0. It sits opposite the demo line the way "last 24h"
+     sits opposite "Live now" above it — the hero already establishes that a
+     fact belongs on the right of a strip. Deliberately in .hint's register:
+     this is a filter, not a pitch, and a reader under $2k/project should be
+     able to leave here rather than four screens down at §4. Only the number
+     is weighted, so the strip still reads as one line of fine print. */
+  .px{margin-left:auto}
+  .px b{font-weight:600;color:var(--ink)}
 
 
   /* ---------- Scanner: a stream, drawn left to right in one SVG ----------
@@ -931,6 +939,7 @@
     .panel-act .btn{text-align:center}
     .panel-act .hint{text-align:center}
     .hero-foot{flex-direction:column;align-items:flex-start;gap:.4rem}
+    .px{margin-left:0}
 
 
     .faq-row > summary{padding:.85rem 0}
@@ -1030,6 +1039,7 @@
 
         <div class="hero-foot">
           <span class="hint">Reveal any posting. 7 free reveals when you sign up.</span>
+          <span class="hint px">From <b>$39/week</b>. No card to start.</span>
         </div>
       </div>
 
