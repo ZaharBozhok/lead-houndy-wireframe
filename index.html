@@ -752,17 +752,31 @@
   .faq-row > p:last-child{margin-bottom:.85rem}
 
   /* ---------- section 6: pricing ---------- */
+  /* sits under the tiers now: the tiers are the consideration, this is the
+     way in that costs nothing, and the ask reads better after the prices than
+     before them */
   .free-band{
     border:1px solid var(--line);background:var(--sheet);
     padding:.95rem 1.1rem;display:flex;flex-wrap:wrap;gap:.7rem 1.2rem;
-    align-items:center;justify-content:space-between;margin-bottom:1rem;
+    align-items:center;justify-content:space-between;margin-top:1rem;
   }
   .free-band h3{margin:0 0 .2rem;font-size:.95rem;font-weight:600}
   .free-band p{margin:0;font-size:.85rem;color:var(--ink-soft)}
 
-  .plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;align-items:start}
+  /* stretch, not start: at content height the three cards ended at three
+     different depths and the highlighted one was not even the tallest — at
+     1100px Advanced overshot Scale because one bullet wrapped. Equal heights
+     make the row read as one set of choices and let the border do the
+     highlighting on its own. */
+  .plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;align-items:stretch}
   .plan{border:1px solid var(--line);background:var(--sheet);padding:1rem .95rem;position:relative}
   .plan.pop{border:2px solid var(--ink);padding:.95rem .9rem}
+  /* every card carries this row, but only Advanced fills it. In flow on one
+     card alone it pushed that card's name, price and bullets a line below its
+     neighbours' — three prices at two heights. Reserved on all three, the
+     content columns align and the rule stays where the label is. Same idiom as
+     .pmx-flag's empty cells in the table below. */
+  .plan:not(.pop) .plan-flag{border-bottom-color:transparent}
   .plan-flag{
     font-family:var(--mono);font-size:.66rem;color:var(--ink);
     margin:0 0 .5rem;padding-bottom:.4rem;border-bottom:1px solid var(--hair);
@@ -906,6 +920,9 @@
 
     .hero{padding:1.1rem .8rem}
     .plan,.plan.pop,.door{padding:.9rem .8rem}
+    /* the reserved row only exists to align three columns; stacked there are
+       no columns to align, so it is 31px of nothing on each unflagged card */
+    .plan:not(.pop) .plan-flag{display:none}
     /* five columns will not fit at 390px, so the row scrolls and the label
        column pins — same pattern the diagrams use */
     .pmx{min-width:33rem;font-size:.74rem}
@@ -1256,16 +1273,9 @@
   <section class="blk" id="s4">
     <div class="frame">
 
-      <div class="free-band">
-        <div>
-          <h3>Free</h3>
-          <p>Seven names, on us. One scanner that keeps running, up to three alerts a day.</p>
-        </div>
-        <span class="btn">Start free</span>
-      </div>
-
       <div class="plans">
         <div class="plan">
+          <p class="plan-flag" aria-hidden="true">&nbsp;</p>
           <p class="plan-name">Starter</p>
           <p class="plan-price">$39<em>/week</em></p>
           <p class="plan-unit">30 names a week — $1.30 each</p>
@@ -1291,6 +1301,7 @@
         </div>
 
         <div class="plan">
+          <p class="plan-flag" aria-hidden="true">&nbsp;</p>
           <p class="plan-name">Scale</p>
           <p class="plan-price">$199<em>/week</em></p>
           <p class="plan-unit">500 names a week — $0.40 each</p>
@@ -1303,6 +1314,14 @@
             <li>Priority support</li>
           </ul>
         </div>
+      </div>
+
+      <div class="free-band">
+        <div>
+          <h3>Free</h3>
+          <p>Seven names, on us. One scanner that keeps running, up to three alerts a day.</p>
+        </div>
+        <span class="btn">Start free</span>
       </div>
 
       <details class="cmpp">
