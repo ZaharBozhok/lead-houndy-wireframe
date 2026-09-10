@@ -512,9 +512,12 @@
      and three animated diagrams, and that is what lets it read as the moment
      the page stops demonstrating and starts talking. If it feels bare in
      place, the fallback is a 2px accent rule down the left of each pair. */
+  /* the mechanism, under the claim. The separator values are .door.research's,
+     so §2 and §3 divide their parts the same way. */
   .promise{
     display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:1.3rem 2.4rem;margin:0 0 2.1rem;
+    gap:1.3rem 2.4rem;
+    margin:1.7rem 0 0;padding-top:1.6rem;border-top:1px solid var(--hair);
   }
   /* numerals, not bullets or arrows: the lightest way to mark two parallel
      items, and they don't imply the sequence a step marker would. These are
@@ -523,48 +526,58 @@
     margin:0 0 .4rem;font-family:var(--mono);font-size:.7rem;font-weight:600;
     letter-spacing:.04em;color:var(--accent);
   }
+  /* one step under .own-h, not level with it. These were 1.34rem — the
+     section-heading size — back when the promise block opened §2. With a real
+     heading above them, matching it means the reader cannot tell which line
+     frames the section. */
   .pr-l{
-    margin:0;font-size:1.34rem;line-height:1.22;letter-spacing:-.02em;
+    margin:0;font-size:1.2rem;line-height:1.24;letter-spacing:-.02em;
     font-weight:600;
   }
   .pr-l.act{color:var(--accent)}
 
-  /* ---------- Ownership: the argument the section turns on -----------------
-     Not a comparison of features, a comparison of what you are left holding
+  /* ---------- The claim: §2's thesis, and now its heading ------------------
+     The couplet was two bold body lines in the middle of the section. It is
+     the thesis — "01 See who posted the job" is a mechanism, and a mechanism
+     cannot be the thing that opens a section. Before this §2 had nine
+     emphasised lines and no heading at all, which is why three good blocks
+     read as three unrelated ones.
+     Not a comparison of features: a comparison of what you are left holding
      when the work is done. The two lines share an opening so the divergence
-     lands on the last word: a rating, or twenty clients. */
-  /* three full-width rows: the claim, then the reasoning beside the caveat,
-     then the verdict. The middle row is two columns so the block fills the
-     frame the way .promise above and .fit below do — a half-width block
-     between two full-width ones reads as unfinished, not as whitespace.
-     The columns are deliberately uneven: at 1:1 the concession runs to a
-     single edge-to-edge line and reads as a pinned footnote. Narrow enough
-     to wrap it into a paragraph and it reads as a margin note beside the
-     argument, which is the relationship we want. */
-  .own{
+     lands on the last word — a rating, or twenty clients. ------------------ */
+  .own-h{
+    margin:0 0 1.1rem;font-size:1.34rem;font-weight:600;letter-spacing:-.02em;
+    line-height:1.22;
+  }
+  /* no max-width, unlike .fit-h: the lines run 45 and 52 characters and the
+     parallel only reads if each stays on one line — the rule .pr-l lives by.
+     Only colour separates them; both carry the heading's weight, so the
+     couplet is one emphasis rather than two competing ones. */
+  .own-h span{display:block}
+  .own-h .own-a{color:var(--ink-soft);font-weight:500}
+  .own-h .own-b{color:var(--ink)}
+
+  /* the reasoning, with the concession level with it rather than under it: the
+     page concedes in the same breath it claims in, and in a smaller voice.
+     Uneven columns on purpose — at 1:1 the concession runs to one
+     edge-to-edge line and reads as a pinned footnote instead of a margin note
+     beside the argument. */
+  .own-r{
     display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);
     column-gap:2.6rem;
   }
-  .own-a,.own-b{
-    grid-column:1/-1;margin:0;font-size:1.2rem;line-height:1.3;
-    letter-spacing:-.015em;
-  }
-  .own-a{color:var(--ink-soft);font-weight:500}
-  .own-b{color:var(--ink);font-weight:600}
-  .own-p{
-    margin:1.1rem 0 0;font-size:.87rem;line-height:1.55;color:var(--ink-soft);
-  }
-  /* the concession sits level with the argument, not under it: the page
-     concedes in the same breath it claims in, and in a smaller voice */
+  .own-p{margin:0;font-size:.87rem;line-height:1.55;color:var(--ink-soft)}
   .own-c{
-    margin:1.1rem 0 0;font-size:.8rem;font-style:italic;color:var(--ink-soft);
-    line-height:1.55;
+    margin:0;font-size:.8rem;font-style:italic;line-height:1.55;
+    color:var(--ink-soft);
   }
-  /* the parting shot. No accent — the two accent lines in .promise open the
-     section, and a third would stop reading as emphasis. */
+
+  /* the section's one verdict, and it closes the argument rather than the
+     section — the filter below it is a different job. No accent: the two
+     accent lines in .promise directly above are §2's accent, and a third
+     would stop reading as emphasis. */
   .own-k{
-    grid-column:1/-1;margin:1.5rem 0 0;font-size:1.02rem;font-weight:600;
-    letter-spacing:-.01em;
+    margin:1.3rem 0 0;font-size:1.02rem;font-weight:600;letter-spacing:-.01em;
   }
 
   /* ---------- Fit: the still block. It sits between an animated hero and
@@ -578,7 +591,10 @@
 
   /* fit: two equal cards, equal weight. No red on the right — red would say
      "this is bad"; the point is "this is not you, and that is fine". */
-  .fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;margin-top:1.8rem}
+  .fit{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;
+    margin-top:1.7rem;padding-top:1.6rem;border-top:1px solid var(--hair);
+  }
   .fit-c{border:1px solid var(--line);background:var(--sheet);padding:1rem 1.05rem}
   .fit-c.no{opacity:.7}
   .fit-c h4{margin:0 0 .75rem;font-size:.88rem;font-weight:600}
@@ -869,12 +885,12 @@
     /* three items with a two-line reason do not survive being halved */
     .fit{grid-template-columns:minmax(0,1fr);gap:.7rem}
     .fit-h{font-size:1.16rem;max-width:100%}
-    .promise{grid-template-columns:minmax(0,1fr);gap:1.1rem;margin-bottom:1.6rem}
-    .pr-l{font-size:1.16rem}
-    .own{grid-template-columns:minmax(0,1fr)}
-    .own-a,.own-b{font-size:1.1rem}
+    .promise{grid-template-columns:minmax(0,1fr);gap:1.1rem}
+    .pr-l{font-size:1.06rem}
+    .own-h{font-size:1.16rem}
+    .own-r{grid-template-columns:minmax(0,1fr)}
     .own-c{margin-top:.75rem}
-    .own-k{font-size:.98rem;margin-top:1.2rem}
+    .own-k{font-size:.98rem}
     /* Unsolved by design — see the margin. Stacking five blocks loses the
        left-to-right reading in both diagrams, and with it the contrast between
        them, so for now the rows scroll instead. */
@@ -1017,8 +1033,20 @@
 
   <!-- ============ 2. FIT ============ -->
   <!-- ========================================================================
-       §2 — promise, then ownership, then fit. Each answers the question the
-       previous one raises: what I get -> why not just the platform -> is this me.
+       §2 in three movements, divided by two hairlines:
+         the claim   — the couplet as the section heading, then the reasoning
+                       beside the concession
+         the mechanism — the two promise blocks, then the one verdict
+         the filter  — worth it / not worth it
+
+       It used to run promise -> ownership -> fit with no heading at all, and
+       nine emphasised lines competing inside it: four promise lines, two
+       couplet lines, the verdict and two card headings. Three good blocks read
+       as three unrelated ones because nothing said what the section was for and
+       nothing said where one argument ended and the next began. The order also
+       stated the thesis (you get the name) twice — once as a promise, once as
+       ownership — before giving the reason for either.
+       Now: thesis, reason, how, verdict, who it is for.
 
        WHY THE PROMISE BLOCKS
        - The page never named an outcome. It said what the product does, how it
@@ -1035,6 +1063,10 @@
          version with a send icon there was dropped for exactly that. It is also
          why .pr-l carries no max-width: both first lines must stay on one line
          so the two accent lines land on the same baseline.
+       - They sit under the heading now, not at the top of the section, and
+         .pr-l stepped down from 1.34rem to 1.2rem when they did. At the
+         heading's own size a reader cannot tell which line frames the section.
+         Do not put it back without also demoting .own-h.
        - Numerals rather than bullets or icons: the lightest way to mark two
          parallel items, and they do not imply the sequence arrows or steps
          would. These are two routes to the same action, not steps 1 and 2.
@@ -1074,9 +1106,10 @@
          cannot give back: after the work, who is left holding the client. That
          is the only ground where we win outright, so it is the only ground the
          section argues on.
-       - The couplet is the heading. A reader who reads those two lines and
-         nothing else has the whole argument, and a headline above them would
-         say it a third time.
+       - The couplet is the heading — literally, an <h2>, the way §3 opens on
+         "How it works?". A reader who reads those two lines and nothing else
+         has the whole argument. Only colour separates them; both carry the
+         heading's weight, so the couplet is one emphasis rather than two.
        - The prose names where the money is (repeat and referral) rather than
          asserting a benefit. The reader already knows their own margin on a
          repeat job; we only have to point at it.
@@ -1084,20 +1117,43 @@
          just dismissed — the rating, and the escrow behind it — which is the
          objection a reader raises in the same breath. Conceding it here is
          cheaper than letting them raise it in §5.
+       - It is also the section's ONLY concession now. "Not worth it if" used to
+         end on "escrow, disputes, ratings — we don't do those", which put the
+         same subject twice in one section a few hundred pixels apart. The two
+         claims were genuinely different — one concedes the platform's value,
+         one concedes our scope — but a reader only registers that we said
+         escrow twice. That item is now "you want one place that handles
+         everything / we're a layer on top, not a replacement": same job, no
+         echo. Do not reintroduce the word here or there without removing it
+         from the other.
 
        BUILD
        - The two couplet lines must each stay on one line at desktop, which is
          why neither carries a max-width. If a copy edit pushes one to wrap and
          the other not to, the parallel breaks — the same failure mode .pr-l
          has, for the same reason.
-       - §2 runs ~700px and sits early. If it feels heavy before §3, the
-         compressible part is .own-p. Protect the promise blocks, the couplet
+       - The two hairlines are .door.research's separator values — 1.7rem margin,
+         1.6rem padding, one --hair rule — so §2 and §3 divide their parts the
+         same way. They are the cheapest thing that says "different job now";
+         headings over each movement would give the section four headings.
+       - §2 runs ~604px and sits early. If it feels heavy before §3, the
+         compressible part is .own-p. Protect the heading, the promise blocks
          and the fit columns at full size.
        - Mobile: the blocks stack and the numerals stay aligned with the text
          rather than in a gutter that disappears at narrow widths.
   ========================================================================== -->
   <section class="blk" id="s2">
     <div class="frame">
+      <h2 class="own-h">
+        <span class="own-a">After 20 platform projects, you have a rating.</span>
+        <span class="own-b">After 20 projects with the name, you have 20 clients.</span>
+      </h2>
+
+      <div class="own-r">
+        <p class="own-p">Repeat work and referrals are the only jobs you don&rsquo;t pay to win. Both need a relationship that outlives the project, and a relationship needs somewhere to live once the contract closes.</p>
+        <p class="own-c">The rating is real, and so is the escrow behind it. We&rsquo;re not asking you to give up either.</p>
+      </div>
+
       <div class="promise">
         <div class="pr-b">
           <p class="pr-n">01</p>
@@ -1111,13 +1167,7 @@
         </div>
       </div>
 
-      <div class="own">
-        <p class="own-a">After 20 platform projects, you have a rating.</p>
-        <p class="own-b">After 20 projects with the name, you have 20 clients.</p>
-        <p class="own-p">Repeat work and referrals are the only jobs you don&rsquo;t pay to win. Both need a relationship that outlives the project, and a relationship needs somewhere to live once the contract closes.</p>
-        <p class="own-c">The rating is real, and so is the escrow behind it. We&rsquo;re not asking you to give up either.</p>
-        <p class="own-k">Keep bidding. Just stop letting every relationship die with the invoice.</p>
-      </div>
+      <p class="own-k">Keep bidding. Just stop letting every relationship die with the invoice.</p>
 
       <div class="fit">
         <div class="fit-c">
@@ -1133,7 +1183,7 @@
           <ul>
               <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>You&rsquo;re bidding on $200 jobs</p><p>the maths doesn&rsquo;t work, and we&rsquo;d rather say so</p></div></li>
               <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>Nobody has time to write pitches</p><p>names pile up unused</p></div></li>
-              <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>You want the platform to handle it all</p><p>escrow, disputes, ratings &mdash; we don&rsquo;t do those</p></div></li>
+              <li><svg class="fit-x" viewBox="0 0 13 13" aria-hidden="true"><path d="M3.4 3.4 L9.6 9.6 M9.6 3.4 L3.4 9.6"/></svg><div><p>You want one place that handles everything</p><p>we&rsquo;re a layer on top, not a replacement</p></div></li>
           </ul>
         </div>
       </div>
