@@ -288,6 +288,14 @@
     margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--hair);
     display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;
   }
+  /* the price, at screen 0. It sits opposite the demo line the way "last 24h"
+     sits opposite "Live now" above it — the hero already establishes that a
+     fact belongs on the right of a strip. Deliberately in .hint's register:
+     this is a filter, not a pitch, and a reader under $2k/project should be
+     able to leave here rather than four screens down at §4. Only the number
+     is weighted, so the strip still reads as one line of fine print. */
+  .px{margin-left:auto}
+  .px b{font-weight:600;color:var(--ink)}
 
 
   /* ---------- Scanner: a stream, drawn left to right in one SVG ----------
@@ -522,10 +530,42 @@
   }
   .pr-l.act{color:var(--accent)}
 
-  /* demoted from the section headline: it frames the comparison, not §2 */
-  .cmpt-h{
-    margin:0 0 .9rem;font-size:1.02rem;font-weight:600;letter-spacing:-.01em;
-    max-width:34ch;
+  /* ---------- Ownership: the argument the section turns on -----------------
+     Not a comparison of features, a comparison of what you are left holding
+     when the work is done. The two lines share an opening so the divergence
+     lands on the last word: a rating, or twenty clients. */
+  /* three full-width rows: the claim, then the reasoning beside the caveat,
+     then the verdict. The middle row is two columns so the block fills the
+     frame the way .promise above and .fit below do — a half-width block
+     between two full-width ones reads as unfinished, not as whitespace.
+     The columns are deliberately uneven: at 1:1 the concession runs to a
+     single edge-to-edge line and reads as a pinned footnote. Narrow enough
+     to wrap it into a paragraph and it reads as a margin note beside the
+     argument, which is the relationship we want. */
+  .own{
+    display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);
+    column-gap:2.6rem;
+  }
+  .own-a,.own-b{
+    grid-column:1/-1;margin:0;font-size:1.2rem;line-height:1.3;
+    letter-spacing:-.015em;
+  }
+  .own-a{color:var(--ink-soft);font-weight:500}
+  .own-b{color:var(--ink);font-weight:600}
+  .own-p{
+    margin:1.1rem 0 0;font-size:.87rem;line-height:1.55;color:var(--ink-soft);
+  }
+  /* the concession sits level with the argument, not under it: the page
+     concedes in the same breath it claims in, and in a smaller voice */
+  .own-c{
+    margin:1.1rem 0 0;font-size:.8rem;font-style:italic;color:var(--ink-soft);
+    line-height:1.55;
+  }
+  /* the parting shot. No accent — the two accent lines in .promise open the
+     section, and a third would stop reading as emphasis. */
+  .own-k{
+    grid-column:1/-1;margin:1.5rem 0 0;font-size:1.02rem;font-weight:600;
+    letter-spacing:-.01em;
   }
 
   /* ---------- Fit: the still block. It sits between an animated hero and
@@ -535,34 +575,6 @@
   .fit-h{
     margin:0 0 1.2rem;font-size:1.34rem;font-weight:600;letter-spacing:-.02em;
     max-width:24ch;line-height:1.2;
-  }
-
-  /* the table. Row gaps are zero on purpose: the accent wash has to read as one
-     continuous field behind four rows, not as four separate tints. */
-  .cmpt{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr);gap:0}
-  .cmpt > *{position:relative}
-  /* the wash is painted on the four winning cells rather than spanned across the
-     column: with no row gap they abut into one field, and it is then structurally
-     impossible for it to reach the two rows the section concedes */
-  .cmpt-c.wash::before{
-    content:"";position:absolute;inset:0;background:var(--accent);opacity:.05;
-    pointer-events:none;
-  }
-  .cmpt-c.wash > *{position:relative}
-  .cmpt-hd{padding:0 .85rem .55rem;border-bottom:1px solid var(--line)}
-  .cmpt-hd b{display:block;font-size:.88rem;font-weight:600}
-  .cmpt-hd span{display:block;font-size:.74rem;color:var(--ink-soft);margin-top:.12rem}
-  .cmpt-hd.lbl{border-bottom-color:transparent}
-  .cmpt-l,.cmpt-c{padding:.6rem .85rem;border-bottom:1px solid var(--hair);font-size:.84rem;line-height:1.4}
-  .cmpt-l{color:var(--ink-soft)}
-  /* the only row label with weight — the strongest row in the table */
-  .cmpt-l.key{color:var(--ink);font-weight:500}
-  .cmpt-c.win{font-weight:500;display:flex;gap:.4rem;align-items:baseline}
-  .cmpt-c.lose{opacity:.55;font-weight:400}
-  .tick{flex:none;width:9px;height:9px;margin-top:.28rem}
-  .tick path{fill:none;stroke:var(--ok);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  .cmpt-note{
-    margin:.8rem 0 0;font-size:.8rem;font-style:italic;color:var(--ink-soft);
   }
 
   /* fit: two equal cards, equal weight. No red on the right — red would say
@@ -891,8 +903,10 @@
     .fit-h{font-size:1.16rem;max-width:100%}
     .promise{grid-template-columns:minmax(0,1fr);gap:1.1rem;margin-bottom:1.6rem}
     .pr-l{font-size:1.16rem}
-    .cmpt-h{font-size:.96rem;max-width:100%}
-    .cmpt-l,.cmpt-c,.cmpt-hd{padding-left:.5rem;padding-right:.5rem;font-size:.78rem}
+    .own{grid-template-columns:minmax(0,1fr)}
+    .own-a,.own-b{font-size:1.1rem}
+    .own-c{margin-top:.75rem}
+    .own-k{font-size:.98rem;margin-top:1.2rem}
     /* Unsolved by design — see the margin. Stacking five blocks loses the
        left-to-right reading in both diagrams, and with it the contrast between
        them, so for now the rows scroll instead. */
@@ -925,6 +939,7 @@
     .panel-act .btn{text-align:center}
     .panel-act .hint{text-align:center}
     .hero-foot{flex-direction:column;align-items:flex-start;gap:.4rem}
+    .px{margin-left:0}
 
 
     .faq-row > summary{padding:.85rem 0}
@@ -1024,6 +1039,7 @@
 
         <div class="hero-foot">
           <span class="hint">Reveal any posting. 7 free reveals when you sign up.</span>
+          <span class="hint px">From <b>$39/week</b>. No card to start.</span>
         </div>
       </div>
 
@@ -1033,7 +1049,7 @@
 
   <!-- ============ 2. FIT ============ -->
   <!-- ========================================================================
-       §2 — promise, then comparison, then fit. Each answers the question the
+       §2 — promise, then ownership, then fit. Each answers the question the
        previous one raises: what I get -> why not just the platform -> is this me.
 
        WHY THE PROMISE BLOCKS
@@ -1071,14 +1087,43 @@
          block 02.
        - Icons. Two were designed (a posting, and an agency fanning out to
          clients) and cut. The fan-out mark in particular does not survive 24px.
+       - The six-row platform comparison that stood here until now, under the
+         head "Stay on the platforms. Just stop being chained to them." It was
+         accurate and it conceded two rows honestly, but it argued
+         feature-by-feature against something nobody is choosing between:
+         agencies do not pick us INSTEAD of a platform, they use both. Rows like
+         "what you're paying for" invited a cost comparison we lose outright
+         (browsing a platform is free). And its one strong row — "if you left
+         tomorrow, your clients come with you" — was weighted the same as
+         "client attention", so the argument arrived diluted five ways. The
+         ownership block is that row on its own, with the concession kept.
+         Anyone who wants the table back wants a comparison page, not a landing
+         section.
+
+       WHY THE OWNERSHIP BLOCK
+       - It answers "why not just the platform" with the one thing the platform
+         cannot give back: after the work, who is left holding the client. That
+         is the only ground where we win outright, so it is the only ground the
+         section argues on.
+       - The couplet is the heading. A reader who reads those two lines and
+         nothing else has the whole argument, and a headline above them would
+         say it a third time.
+       - The prose names where the money is (repeat and referral) rather than
+         asserting a benefit. The reader already knows their own margin on a
+         repeat job; we only have to point at it.
+       - The concession is not decoration. It concedes exactly what the couplet
+         just dismissed — the rating, and the escrow behind it — which is the
+         objection a reader raises in the same breath. Conceding it here is
+         cheaper than letting them raise it in §5.
 
        BUILD
-       - "Stay on the platforms" is the comparison's framing, not the section's,
-         so it is an h3 above the table rather than the section headline.
-       - §2 runs ~810px and sits early. If it feels heavy before §3, the
-         compressible part is the table: "Client attention" and "What you're
-         paying for" overlap and could merge. Protect the promise blocks and the
-         fit columns at full size.
+       - The two couplet lines must each stay on one line at desktop, which is
+         why neither carries a max-width. If a copy edit pushes one to wrap and
+         the other not to, the parallel breaks — the same failure mode .pr-l
+         has, for the same reason.
+       - §2 runs ~700px and sits early. If it feels heavy before §3, the
+         compressible part is .own-p. Protect the promise blocks, the couplet
+         and the fit columns at full size.
        - Mobile: the blocks stack and the numerals stay aligned with the text
          rather than in a gutter that disappears at narrow widths.
   ========================================================================== -->
@@ -1097,32 +1142,13 @@
         </div>
       </div>
 
-      <h3 class="cmpt-h">Stay on the platforms. Just stop being chained to them.</h3>
-
-      <div class="cmpt">
-        <div class="cmpt-hd lbl"></div>
-        <div class="cmpt-hd"><b>Platforms only</b><span>how most agencies work today</span></div>
-        <div class="cmpt-hd"><b>With LeadHoundy</b><span>same work, one layer added</span></div>
-          <div class="cmpt-l">Client attention</div>
-          <div class="cmpt-c lose">you&rsquo;re one of fifty</div>
-          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>you&rsquo;re the only message</div>
-          <div class="cmpt-l">What you&rsquo;re paying for</div>
-          <div class="cmpt-c lose">a chance to be seen</div>
-          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>a lead that stays yours</div>
-          <div class="cmpt-l">What you spend on</div>
-          <div class="cmpt-c lose">fees, subs, connects, highlights, ads</div>
-          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>leads</div>
-          <div class="cmpt-l key">If you left tomorrow</div>
-          <div class="cmpt-c lose">everything stays behind</div>
-          <div class="cmpt-c win wash"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>your clients come with you</div>
-          <div class="cmpt-l">Payment protection</div>
-          <div class="cmpt-c win"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>escrow, mostly safe</div>
-          <div class="cmpt-c lose">your own contract</div>
-          <div class="cmpt-l">Credibility with new clients</div>
-          <div class="cmpt-c win"><svg class="tick" viewBox="0 0 9 9" aria-hidden="true"><path d="M1 4.8 L3.4 7.2 L8 1.8"/></svg>ratings and reviews, built in</div>
-          <div class="cmpt-c lose">your site, your case studies</div>
+      <div class="own">
+        <p class="own-a">After 20 platform projects, you have a rating.</p>
+        <p class="own-b">After 20 projects with the name, you have 20 clients.</p>
+        <p class="own-p">Repeat work and referrals are the only jobs you don&rsquo;t pay to win. Both need a relationship that outlives the project, and a relationship needs somewhere to live once the contract closes.</p>
+        <p class="own-c">The rating is real, and so is the escrow behind it. We&rsquo;re not asking you to give up either.</p>
+        <p class="own-k">Keep bidding. Just stop letting every relationship die with the invoice.</p>
       </div>
-      <p class="cmpt-note">Two rows go the platform&rsquo;s way. We&rsquo;re not pretending otherwise.</p>
 
       <div class="fit">
         <div class="fit-c">
@@ -1211,115 +1237,8 @@
 
   </section>
 
-  <!-- ============ 4. OBJECTIONS ============ -->
+  <!-- ============ 4. PRICING ============ -->
   <section class="blk" id="s4">
-    <div class="frame">
-      <h2 class="fit-h">FAQ</h2>
-      <div class="faq">
-        <details class="faq-row">
-          <summary>
-            <h3>What exactly do I get for a credit?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>The person or company behind the posting, plus matching LinkedIn profiles. Sometimes we can name the individual directly, sometimes the company and the people to talk to there.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>Where does this data come from?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>Public job boards — the places companies post paid project work. Everything we use is published openly: the posting itself, and the professional profiles we match it to. We don't buy lists, and we don't touch anything private.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>Can I get banned for contacting people directly?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>We can't speak for another platform's rules — if you're active on one, read its terms and use your judgment. What we give you is who published a posting and their public professional profile. Where you take it from there is your call, and it happens outside that platform.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>What if a reveal finds nothing?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>No result, no credit spent. The credit isn't taken — you only spend one when we return a result.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>What if I upgrade mid-week?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>You get the new plan straight away. Your week starts over from that day, and any names you haven&rsquo;t used are added on top.</p>
-          <p>If you downgrade, it takes effect when your current week ends.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>Can my team use this too?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Connect Slack and everyone sees the same leads in one place, so nobody has to forward anything.</p>
-          <p class="faq-tag">Seats are on the roadmap. Pricing will change when they ship, and accounts opened before then will be grandfathered.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>Does cold outreach actually work on these clients?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>Yes, but they're leads, not guaranteed clients. These are companies with a budget and stated intent, so reply rates are far better than untargeted cold email. Some buy, most don't — same as any pipeline.</p>
-          <p>What decides it is the pitch. Agencies getting the most out of this pick one thing they're excellent at and reach out only where they're clearly the best answer. A generic proposal sent to a well-targeted lead is still a generic proposal.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>How accurate is the match?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>We trace each posting back through public signals and show you what we found. Sometimes that&rsquo;s one named person. Sometimes it&rsquo;s the company plus the people there worth talking to &mdash; in which case we show you several, because we&rsquo;d rather hand you three real candidates than guess at one.</p>
-          <p>Think of it as the research done for you, not a guarantee. The last step is still a human glance: you check the profile, you decide it&rsquo;s them, you write. That takes seconds instead of an hour.</p>
-          <p>If we can&rsquo;t find anyone at all, the credit isn&rsquo;t spent.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>How fast is it?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>We check for new postings every minute and send within a minute of finding one. In practice you have the lead about two minutes after it goes live.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>What if the client already hired someone?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>That&rsquo;s often the better lead. A company that paid for this work once has budget, a habit of hiring out, and a project that&rsquo;s now live and needs maintaining, extending or redoing.</p>
-          <p>Filled jobs are also proof the client actually pays &mdash; an open posting is only a stated intention.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>Do I need an account on the job platforms?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>No. Nothing to connect, nothing to link. You log into LeadHoundy and that&rsquo;s it.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>Can I cancel anytime?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>Yes. You keep the plan until your current week ends, and nothing renews after that.</p>
-        </details>
-        <details class="faq-row">
-          <summary>
-            <h3>What if two people on my team reveal the same lead?</h3>
-            <span class="faq-sign" aria-hidden="true"></span>
-          </summary>
-          <p>It costs a name each time. We can&rsquo;t tell whether it&rsquo;s the same person checking twice or a colleague who hasn&rsquo;t seen it yet, and we&rsquo;d rather charge the credit than quietly show one of you stale data.</p>
-          <p>If you&rsquo;re working leads as a team, route different scanners to different channels so you&rsquo;re not covering the same ground.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 5. PRICING ============ -->
-  <section class="blk" id="s5">
     <div class="frame">
 
       <div class="free-band">
@@ -1467,6 +1386,113 @@
       </div>
 
       <p class="annual">One <b>$5k</b> project covers a year of LeadHoundy.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5. OBJECTIONS ============ -->
+  <section class="blk" id="s5">
+    <div class="frame">
+      <h2 class="fit-h">FAQ</h2>
+      <div class="faq">
+        <details class="faq-row">
+          <summary>
+            <h3>What exactly do I get for a credit?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>The person or company behind the posting, plus matching LinkedIn profiles. Sometimes we can name the individual directly, sometimes the company and the people to talk to there.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Where does this data come from?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>Public job boards — the places companies post paid project work. Everything we use is published openly: the posting itself, and the professional profiles we match it to. We don't buy lists, and we don't touch anything private.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Can I get banned for contacting people directly?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>We can't speak for another platform's rules — if you're active on one, read its terms and use your judgment. What we give you is who published a posting and their public professional profile. Where you take it from there is your call, and it happens outside that platform.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>What if a reveal finds nothing?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>No result, no credit spent. The credit isn't taken — you only spend one when we return a result.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>What if I upgrade mid-week?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>You get the new plan straight away. Your week starts over from that day, and any names you haven&rsquo;t used are added on top.</p>
+          <p>If you downgrade, it takes effect when your current week ends.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Can my team use this too?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>Yes. Every plan includes your whole team during beta — there's no per-seat pricing yet. Connect Slack and everyone sees the same leads in one place, so nobody has to forward anything.</p>
+          <p class="faq-tag">Seats are on the roadmap. Pricing will change when they ship, and accounts opened before then will be grandfathered.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Does cold outreach actually work on these clients?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>Yes, but they're leads, not guaranteed clients. These are companies with a budget and stated intent, so reply rates are far better than untargeted cold email. Some buy, most don't — same as any pipeline.</p>
+          <p>What decides it is the pitch. Agencies getting the most out of this pick one thing they're excellent at and reach out only where they're clearly the best answer. A generic proposal sent to a well-targeted lead is still a generic proposal.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>How accurate is the match?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>We trace each posting back through public signals and show you what we found. Sometimes that&rsquo;s one named person. Sometimes it&rsquo;s the company plus the people there worth talking to &mdash; in which case we show you several, because we&rsquo;d rather hand you three real candidates than guess at one.</p>
+          <p>Think of it as the research done for you, not a guarantee. The last step is still a human glance: you check the profile, you decide it&rsquo;s them, you write. That takes seconds instead of an hour.</p>
+          <p>If we can&rsquo;t find anyone at all, the credit isn&rsquo;t spent.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>How fast is it?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>We check for new postings every minute and send within a minute of finding one. In practice you have the lead about two minutes after it goes live.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>What if the client already hired someone?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>That&rsquo;s often the better lead. A company that paid for this work once has budget, a habit of hiring out, and a project that&rsquo;s now live and needs maintaining, extending or redoing.</p>
+          <p>Filled jobs are also proof the client actually pays &mdash; an open posting is only a stated intention.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Do I need an account on the job platforms?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>No. Nothing to connect, nothing to link. You log into LeadHoundy and that&rsquo;s it.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>Can I cancel anytime?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>Yes. You keep the plan until your current week ends, and nothing renews after that.</p>
+        </details>
+        <details class="faq-row">
+          <summary>
+            <h3>What if two people on my team reveal the same lead?</h3>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </summary>
+          <p>It costs a name each time. We can&rsquo;t tell whether it&rsquo;s the same person checking twice or a colleague who hasn&rsquo;t seen it yet, and we&rsquo;d rather charge the credit than quietly show one of you stale data.</p>
+          <p>If you&rsquo;re working leads as a team, route different scanners to different channels so you&rsquo;re not covering the same ground.</p>
+        </details>
+      </div>
     </div>
   </section>
 
