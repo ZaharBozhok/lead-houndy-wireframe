@@ -103,7 +103,7 @@
   .hint{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft)}
 
   /* the number reflows the sentence every 4s unless the digits are fixed-width */
-  #hlNum{font-variant-numeric:tabular-nums}
+  #hlNum,#clWas,#clNow{font-variant-numeric:tabular-nums}
   h2.hl{
     font-size:1.9rem;line-height:1.12;letter-spacing:-.025em;
     font-weight:600;margin:0 0 .6rem;max-width:16ch;
@@ -859,7 +859,24 @@
   /* ---------- closing ---------- */
   .close-cta{border:1px solid var(--line);background:var(--sheet);padding:1.6rem 1.5rem;text-align:center}
   .close-cta h2{margin:0 auto .5rem;max-width:20ch;font-size:1.5rem;letter-spacing:-.02em;font-weight:600}
-  .close-cta p{margin:0 auto 1.1rem;max-width:46ch;font-size:.9rem;color:var(--ink-soft)}
+  /* centred text with a short last line reads as a mistake. Balance splits
+     the explanation 207/252 instead of 334/125, and keeps mobile's fine
+     print off an orphaned "cancel.". No-op on the lines that fit. */
+  .close-cta p{
+    margin:0 auto 1.1rem;max-width:46ch;font-size:.9rem;color:var(--ink-soft);
+    text-wrap:balance;
+  }
+  /* the anchor. Same face and near enough the same size as the line under the
+     headline, so the two numbers read as one quantity at two moments rather
+     than as a caption over a headline. Hidden until the counter has actually
+     moved — see the reveal in the counter block — because "it was 3,412 when
+     you arrived / 3,412 and counting" reads as a broken script, and a reader
+     who hits End lands here inside the first tick. The space is held, so
+     nothing shifts when it appears. */
+  .close-cta .cl-was{
+    margin:0 auto .4rem;font-size:.95rem;letter-spacing:-.01em;
+    visibility:hidden;
+  }
   /* one button, and only one — the objection under it stays quiet, because two
      equal buttons at the close is a decision and decisions cost */
   .no-card{
@@ -1495,10 +1512,11 @@
   <section class="blk" id="s6">
     <div class="frame">
       <div class="close-cta">
-        <h2>Get 7 leads, right now.</h2>
-        <p>Try it with 7 free names. No card, nothing to cancel.</p>
+        <p class="cl-was">It was <span id="clWas">3,412</span> when you arrived.</p>
+        <h2><span id="clNow">3,412</span> and counting.</h2>
+        <p>Your scanner watches what gets posted next &mdash; so it starts when you do.</p>
         <span class="btn">Start free</span>
-        <p class="no-card">no card required</p>
+        <p class="no-card">Seven names. No card, nothing to cancel.</p>
       </div>
     </div>
   </section>
@@ -1974,11 +1992,27 @@
     }
   });
 
-  // live counter — the number now sits inside the headline, so the headline ticks
+  // live counter — the number sits inside the hero headline, so the headline
+  // ticks. §6 is bound to the same n: one number frozen at load, one live, and
+  // the gap between them is the whole argument for starting today.
   var n = 3412;
+  var clWasEl  = document.getElementById('clWas');
+  var clNowEl  = document.getElementById('clNow');
+  var clWasRow = document.querySelector('.cl-was');
+  var fmt = function(v){ return v.toLocaleString('en-US'); };
+
+  // seed both from n rather than trusting the markup, so the frozen number
+  // stays correct if the starting value ever moves
+  if(clWasEl) clWasEl.textContent = fmt(n);
+  if(clNowEl) clNowEl.textContent = fmt(n);
+
   setInterval(function(){
     n += Math.floor(Math.random() * 3) + 1;
-    if(hlNumEl) hlNumEl.textContent = n.toLocaleString('en-US');
+    var s = fmt(n);
+    if(hlNumEl) hlNumEl.textContent = s;
+    if(clNowEl) clNowEl.textContent = s;
+    // the anchor line only means anything once the two numbers differ
+    if(clWasRow) clWasRow.style.visibility = 'visible';
   }, 4000);
 
   // compare-all-plans toggle
