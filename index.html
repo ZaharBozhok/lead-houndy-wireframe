@@ -594,66 +594,19 @@
   .fit-x{flex:none;width:13px;height:13px;margin-top:.15rem}
   .fit-x path{stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
 
-  /* ---------- Competitor Research: folded, because it is powerful and niche.
-     Same card treatment as everything else, and the closed and open states are
-     one <details> with one icon — never two components that look alike. ------ */
-  .cmp{border:1px solid var(--line);background:var(--sheet);margin-top:.9rem}
-  .cmp > summary{
-    list-style:none;cursor:pointer;display:flex;align-items:center;gap:.55rem;
-    padding:.85rem 1.1rem;
+  /* ---------- Competitor Research: a block, same weight as Research above it.
+     It was a <details> — the fold, its rotating name reel and the chevron
+     nudge that invited the open are all gone with it. Card treatment and
+     .toolh heading now match Research exactly, which is the point: three
+     things the product does, presented three times the same way. ----------- */
+  .cmp{
+    border:1px solid var(--line);background:var(--sheet);
+    padding:1.1rem;margin-top:.9rem;
   }
-  .cmp > summary::-webkit-details-marker{display:none}
-  .cmp > summary::marker{content:""}
-  .cmp > summary:focus-visible{outline:2px solid var(--mark);outline-offset:-2px}
   .podium{flex:none;width:16px;height:14px}
   .podium .pb{fill:var(--line)}
   .podium .pb.mid{fill:var(--accent)}
   .podium .pbase{stroke:var(--ink-soft);stroke-width:1}
-  .cmp-closed,.cmp-open{font-size:.9rem;font-weight:600;display:flex;align-items:baseline;gap:.3rem}
-  .cmp-open{font-weight:600}
-  .cmp-open em{font-style:normal;font-weight:400;color:var(--ink-soft)}
-  .cmp:not([open]) .cmp-open{display:none}
-  .cmp[open] .cmp-closed{display:none}
-
-  /* fixed width and clipped: sized for the longest name the query can return,
-     so the row can never reflow mid-rotation */
-  .cmp-slot{
-    display:inline-block;width:11.5rem;height:1.35em;overflow:hidden;
-    vertical-align:bottom;position:relative;
-  }
-  .cmp-reel{display:block;animation:reel 16s cubic-bezier(.4,0,.2,1) infinite}
-  .cmp-reel b{
-    display:block;height:1.35em;line-height:1.35em;color:var(--accent);font-weight:600;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-  /* 26px per step. Four names, so the reel carries five and the fifth repeats
-     the first — that is what makes the wrap seamless instead of a rewind. */
-  @keyframes reel{
-    0%,20%   {transform:translateY(0)}
-    25%,45%  {transform:translateY(-26px)}
-    50%,70%  {transform:translateY(-52px)}
-    75%,95%  {transform:translateY(-78px)}
-    100%     {transform:translateY(-104px)}
-  }
-
-  .cmp-chev{
-    margin-left:auto;flex:none;width:9px;height:9px;
-    border-right:1.5px solid var(--ink-soft);border-bottom:1.5px solid var(--ink-soft);
-    transform:rotate(45deg);
-    animation:nudge 16s ease-in-out infinite;
-  }
-  .cmp[open] .cmp-chev{transform:rotate(-135deg);animation:none}
-  /* one soft nudge near the end of a cycle — once, never a loop, and never a
-     shake: shake means error in every UI a visitor has already used */
-  @keyframes nudge{
-    0%,86%   {transform:rotate(45deg) translate(0,0)}
-    91%      {transform:rotate(45deg) translate(2.1px,2.1px)}
-    96%,100% {transform:rotate(45deg) translate(0,0)}
-  }
-  /* stops once the row has scrolled past, and permanently after any open */
-  .cmp-still .cmp-reel,.cmp-still .cmp-chev{animation:none}
-
-  .cmp-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--hair)}
   .cmp-steps{
     display:grid;grid-template-columns:repeat(3,392px);gap:0 25px;
     width:1226px;margin-top:.7rem;
@@ -919,10 +872,7 @@
     .nav-r .hint{display:none}
 
     .hero{padding:1.1rem .8rem}
-    .plan,.plan.pop,.door{padding:.9rem .8rem}
-    /* the reserved row only exists to align three columns; stacked there are
-       no columns to align, so it is 31px of nothing on each unflagged card */
-    .plan:not(.pop) .plan-flag{display:none}
+    .plan,.plan.pop,.door,.cmp{padding:.9rem .8rem}
     /* five columns will not fit at 390px, so the row scrolls and the label
        column pins — same pattern the diagrams use */
     .pmx{min-width:33rem;font-size:.74rem}
@@ -1112,9 +1062,10 @@
        REJECTED, SO NOBODY RE-ADDS THEM
        - "Get more leads". "More" and "leads" are the two words every lead tool
          uses, and this page's edge is that everything else on it is checkable.
-       - A third block about market research or strategy. It contradicts folding
-         Competitor Research in §3 — something can be a headline promise or a
-         folded extra, not both. And "develop strategy" is a promise we cannot
+       - A third block about market research or strategy. §3 already gives
+         Competitor Research a block of its own, and a promise up here would
+         make the page announce the same capability twice before showing it
+         once. And "develop strategy" is a promise we cannot
          keep: we sell a client list, not a methodology. The idea survives inside
          block 02.
        - Icons. Two were designed (a posting, and an agency fanning out to
@@ -1246,14 +1197,11 @@
         </div>
       </div>
 
-        <details class="cmp" id="cmpBlock">
-        <summary>
+      <div class="cmp">
+        <div class="toolh">
         <svg class="podium" viewBox="0 0 16 14" aria-hidden="true"><rect x="0.6" y="6.5" width="4" height="6.9" class="pb"/><rect x="6" y="2.6" width="4" height="10.8" class="pb mid"/><rect x="11.4" y="8.4" width="4" height="5" class="pb"/><line x1="0" y1="13.4" x2="16" y2="13.4" class="pbase"/></svg>
-        <span class="cmp-closed">Look up any competitor &mdash; see who paid <span class="cmp-slot"><span class="cmp-reel"><b>Nordvale Studios</b><b>Halvard &amp; Co</b><b>Brightpath Digital</b><b>Meridian Type</b><b>Nordvale Studios</b></span></span></span>
-        <span class="cmp-open">Competitor Research <em>&mdash; see who, what, when, and how much they earned</em></span>
-        <span class="cmp-chev" aria-hidden="true"></span>
-        </summary>
-        <div class="cmp-body">
+          <h3>Competitor Research <em>&mdash; see who, what, when, and how much they earned</em></h3>
+        </div>
         <div class="scanwrap">
 <svg class="cmpsvg" viewBox="0 0 1226 220" width="1226" height="220" role="img" aria-label="Three steps: pick a competitor, see what they have done, then see the clients who paid them."><defs><clipPath id="cclip0"><rect x="0" y="0" width="392" height="220"/></clipPath><clipPath id="cclip1"><rect x="0" y="0" width="392" height="220"/></clipPath><clipPath id="cclip2"><rect x="0" y="0" width="392" height="220"/></clipPath></defs><g transform="translate(0 0)" clip-path="url(#cclip0)"><rect x="0.5" y="0.5" width="391" height="219" class="cpanel"/><rect x="20.5" y="22.5" width="351" height="131" class="cwin"/><clipPath id="cwinclip"><rect x="20" y="22" width="352" height="132"/></clipPath><g clip-path="url(#cwinclip)"><g class="creel"><circle cx="42" cy="48" r="9" class="cav"/><text x="60" y="46" class="cname">Halvard &amp; Co</text><text x="60" y="58" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="70" x2="360" y2="70" class="crule"/><circle cx="42" cy="92" r="9" class="cav"/><text x="60" y="90" class="cname">Meridian Type</text><text x="60" y="102" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="114" x2="360" y2="114" class="crule"/><circle cx="42" cy="136" r="9" class="cav"/><text x="60" y="134" class="cname">Lumen Field</text><text x="60" y="146" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="158" x2="360" y2="158" class="crule"/><circle cx="42" cy="180" r="9" class="cav"/><text x="60" y="178" class="cname">Brightpath Digital</text><text x="60" y="190" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="202" x2="360" y2="202" class="crule"/><circle cx="42" cy="224" r="9" class="cav"/><text x="60" y="222" class="cname">Nordvale Studios</text><text x="60" y="234" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="246" x2="360" y2="246" class="crule"/><circle cx="42" cy="268" r="9" class="cav"/><text x="60" y="266" class="cname">Kestrel Works</text><text x="60" y="278" class="cmeta">agency &middot; Webflow, React</text><line x1="32" y1="290" x2="360" y2="290" class="crule"/><circle cx="42" cy="312" r="9" class="cav"/><text x="60" y="310" class="cname">Oostveen Studio</text><text x="60" y="322" class="cmeta">agency &middot; Webflow, React</text></g></g><rect x="26" y="62" width="340" height="42" class="cring"/><line x1="20" y1="170" x2="372" y2="170" class="cdivl"/><g class="cdet"><circle cx="32" cy="192" r="10" class="cav on"/><text x="50" y="196" class="cdett">18 people &middot; Amsterdam</text></g></g><g transform="translate(417 0)" clip-path="url(#cclip1)"><rect x="0.5" y="0.5" width="391" height="219" class="cpanel"/><line x1="20" y1="44" x2="372" y2="44" class="cgrid"/><line x1="20" y1="84" x2="372" y2="84" class="cgrid"/><line x1="20" y1="124" x2="372" y2="124" class="cgrid"/><line x1="20" y1="164" x2="372" y2="164" class="cgrid"/><path d="M30 140 L90 124 L150 132 L210 96 L270 74 L330 58 L362 44" class="cspark"/><circle cx="90" cy="124" r="4" class="cmark"/><circle cx="210" cy="96" r="4" class="cmark"/><circle cx="330" cy="58" r="4" class="cmark"/><text x="34" y="182" class="cyear">2022</text><text x="140" y="182" class="cyear">2023</text><text x="246" y="182" class="cyear">2024</text><text x="352" y="182" class="cyear">2025</text><g class="cstats"><text x="20" y="205" class="cstat"><tspan class="cstatn">42</tspan> jobs delivered</text><text x="200" y="205" class="cstat"><tspan class="cstatn">$18k</tspan> average</text></g></g><g transform="translate(834 0)" clip-path="url(#cclip2)"><rect x="0.5" y="0.5" width="391" height="219" class="cpanel"/><g class="cblur"><rect x="20" y="26" width="352" height="52" class="ccard"/><circle cx="43" cy="52" r="9" class="cav on"/><text x="56" y="49" class="cclient">Ravel Studio</text><text x="56" y="62" class="cmeta">2023&#8211;25</text><text x="342" y="53" class="camt">$46,200</text><rect x="20" y="88" width="352" height="52" class="ccard"/><circle cx="43" cy="114" r="9" class="cav on"/><text x="56" y="111" class="cclient">Brightpath Commerce</text><text x="56" y="124" class="cmeta">2024&#8211;25</text><text x="342" y="115" class="camt">$31,800</text><rect x="20" y="150" width="352" height="52" class="ccard"/><rect x="34" y="166" width="120" height="9" class="clock"/><rect x="34" y="182" width="72" height="7" class="clock dim"/><rect x="286" y="166" width="56" height="9" class="clock"/></g></g></svg>
           <div class="cmp-steps">
@@ -1263,8 +1211,7 @@
           </div>
         </div>
         <p class="cmp-hand">From here it&rsquo;s the same as above &mdash; reveal, add to your list, pitch them.</p>
-        </div>
-      </details>
+      </div>
     </div>
 
   </section>
@@ -2035,34 +1982,6 @@
   }, 4000);
 
   // compare-all-plans toggle
-
-
-  // Competitor Research: the rotation is an invitation, not a nag. It stops
-  // once the row has been seen and scrolled past, and permanently after any
-  // open — persisted, so a returning visitor is never nagged twice.
-  var cmp = document.getElementById('cmpBlock');
-  if(cmp){
-    var CMP_KEY = 'lh-cmp-opened';
-    var stop = function(){ cmp.classList.add('cmp-still'); };
-    var stored = null;
-    try { stored = localStorage.getItem(CMP_KEY); } catch(e){}
-    if(stored) stop();
-    cmp.addEventListener('toggle', function(){
-      if(!cmp.open) return;
-      stop();
-      try { localStorage.setItem(CMP_KEY, '1'); } catch(e){}
-    });
-    if(!stored && 'IntersectionObserver' in window){
-      var wasSeen = false;
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          if(en.isIntersecting){ wasSeen = true; return; }
-          if(wasSeen){ stop(); io.disconnect(); }
-        });
-      }, { threshold: 0.01 });
-      io.observe(cmp);
-    }
-  }
 
   // the sparkline sets its own dash length, so editing the path can't break the draw
   var spark = document.querySelector('.cspark');
